@@ -8,6 +8,7 @@ class Gui < Observer
 
   MAX_WIDTH = 240
   MAX_HEIGHT = 600
+  CELL_SIZE = 20
 
   def initialize(game)
     @game = game
@@ -15,8 +16,13 @@ class Gui < Observer
   end
 
   def handle_event
-    # redraw gui according to updated game state
+    draw_game_state
     puts "gui redrawn"
+  end
+
+  def draw_game_state
+    draw_empty_grid(@canvas, CELL_SIZE)
+    # draw filled cells
   end
 
   private
@@ -27,12 +33,12 @@ class Gui < Observer
       minsize(MAX_WIDTH+10,MAX_HEIGHT+10)
     end
 
-    canvas = TkCanvas.new(root)
-    canvas.grid :sticky => 'nwes', :column => 0, :row => 0
+    @canvas = TkCanvas.new(root)
+    @canvas.grid :sticky => 'nwes', :column => 0, :row => 0
 
     TkGrid.columnconfigure(root, 0, :weight => 1)
     TkGrid.rowconfigure(root, 0, :weight => 1)
-    draw_empty_grid(canvas, 20)
+    draw_empty_grid(@canvas, CELL_SIZE)
 
     root.bind("Return") {hook}
     Tk.mainloop
@@ -41,7 +47,6 @@ class Gui < Observer
   # in order to fetch latest game state.
   def hook
     @game.perform_loop_step
-
   end
 
   # Draws a regular grid onto a given canvas with a width of :cell_width.
