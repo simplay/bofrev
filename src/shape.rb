@@ -5,8 +5,18 @@ class Shape
   attr_reader :local_points, :color # binary shape of figure, remains constant AND color
 
   def initialize(map, color)
-    @origin = Point2f.new(0,0)
-    @local_points = [Point2f.new(0,0), Point2f.new(1,0), Point2f.new(2,0)]
+    @origin = Point2f.new(5,0)
+
+    @position_states = [
+        [Point2f.new(-1,0), Point2f.new(0,0), Point2f.new(1,0)],
+        [Point2f.new(0,-1), Point2f.new(0,0), Point2f.new(0,1)],
+        [Point2f.new(-1,0), Point2f.new(0,0), Point2f.new(1,0)],
+        [Point2f.new(0,-1), Point2f.new(0,0), Point2f.new(0,1)]
+    ]
+
+
+    @rotation_modus = 0
+    @local_points = @position_states[@rotation_modus]
 
     @map = map
     @color = color
@@ -18,9 +28,23 @@ class Shape
 
   end
 
+  def rotate
+
+    map_positions.each do |p|
+      @map.set_field_at(p.x, p.y, 'white')
+    end
+
+    @rotation_modus = (@rotation_modus + 1) % 4
+    @local_points = @position_states[@rotation_modus]
+
+    map_positions.each do |p|
+      @map.set_field_at(p.x, p.y, @color)
+    end
+  end
+
   # TODO: make collision check
   # @param move_by [Point2f] relative movement in plane.
-  def move_shape(move_by)
+  def move_shape(move_by=Point2f.new(0,0))
     @mutex.synchronize do
 
       map_positions.each do |p|

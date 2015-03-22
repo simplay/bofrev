@@ -46,7 +46,7 @@ class Map
     elsif message == 's'
       @shape.move_shape(Point2f.new(0, 1))
     elsif message == 'w'
-
+      @shape.rotate
     end
   end
 
