@@ -6,9 +6,10 @@ class Game
 
   include Observable
 
-  attr_accessor :state
+  attr_accessor :map
   def initialize
     @turns_allowed = 2
+    @map = Map.new
     perform_loop_step("game started")
   end
 

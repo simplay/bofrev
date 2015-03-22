@@ -33,7 +33,20 @@ class Gui < Observer
 
   def draw_game_state
     draw_empty_grid(@canvas, CELL_SIZE)
-    # draw filled cells
+    draw_grid_cells
+  end
+
+  def draw_grid_cells
+    (MAX_WIDTH/CELL_SIZE).times do |row_idx|
+      (MAX_HEIGHT/CELL_SIZE).times do |column_id|
+        field = @game.map.field_at(row_idx, column_id)
+        if field.filled?
+          TkcRectangle.new(@canvas, row_idx*(CELL_SIZE), column_id*(CELL_SIZE),
+                           (row_idx+1)*(CELL_SIZE), (column_id+1)*(CELL_SIZE),
+                           'width' => 1, 'fill'  => field.color)
+        end
+      end
+    end
   end
 
   def perform_gui_close_steps
