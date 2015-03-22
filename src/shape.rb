@@ -2,11 +2,11 @@ require_relative 'point2f'
 require_relative 'collision_checker'
 require 'thread'
 class Shape
-  attr_accessor :origin # origin of local coordinate system, this changes during updates.
-  attr_reader :local_points, :color # binary shape of figure, remains constant AND color
+  attr_accessor :local_points, :origin # origin of local coordinate system, this changes during updates.
+  attr_reader :color # binary shape of figure, remains constant AND color
 
   def initialize(map, color)
-    @origin = Point2f.new(5,0)
+    @origin = Point2f.new(5, 0)
 
     @position_states = [
         [Point2f.new(-1,0), Point2f.new(0,0), Point2f.new(1,0)],
@@ -28,11 +28,16 @@ class Shape
 
   end
 
-  def rotate
-    unless CollisionChecker.new(self, @map, :rotate).blocked?
-      @mutex.synchronize do
+  #
+  def shallow_copy
+    shape = Shape.new(@map, @color)
+    shape.origin = @origin
+    shape.local_points = @local_points
+  end
 
-        puts map_positions.to_s
+  def rotate
+    unless CollisionChecker.new(self, :rotate).blocked?
+      @mutex.synchronize do
 
         map_positions.each do |p|
           @map.set_field_at(p.x, p.y, 'white')
@@ -51,7 +56,7 @@ class Shape
   # TODO: make collision check
   # @param move_by [Point2f] relative movement in plane.
   def move_shape(move_by=Point2f.new(0,0))
-    unless CollisionChecker.new(self, @map, :move, move_by).blocked?
+    unless CollisionChecker.new(self, :move, move_by).blocked?
       @mutex.synchronize do
 
         map_positions.each do |p|
@@ -71,6 +76,13 @@ class Shape
     (@local_points.map &:to_s).join(" ")
   end
 
+  def points_in_grid_coords
+    @position_states.map do |point|
+      Point2f.new(point.x + @origin.x + 1, point.y + @origin.y + 1)
+    end
+  end
+
+
   private
 
   # position of this shape in map coordinate system
@@ -85,7 +97,7 @@ class Shape
 
   def shifted_position(base, shift_by=Point2f.new(0,0))
     @local_points.map do |cell|
-      Point2f.new(base.x + cell.x + shift_by.x, base.y + cell.y + shift_by.x)
+      Point2f.new(base.x + cell.x + shift_by.x + 1, base.y + cell.y + shift_by.x + 1)
     end
   end
 

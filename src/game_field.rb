@@ -15,7 +15,13 @@ class GameField
   end
 
   def to_i
-    filled? ? 1 : 0
+    if color == 'black'
+      2
+    elsif filled?
+      1
+    else
+      0
+    end
   end
 
 end

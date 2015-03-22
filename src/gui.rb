@@ -107,9 +107,8 @@ class Gui < Observer
   # @param step_size [Integer] pixel distance between two lines.
   def draw_horizontal_lines_with(canvas, step_size)
     # rounded down numbers of lines.
-    number_of_lines = MAX_HEIGHT / step_size
-    number_of_lines.times do |idx|
-      draw_line(canvas, Point2f.new(0, idx*step_size), Point2f.new(MAX_WIDTH, idx*step_size))
+    (y_pixels-1).times do |idx|
+      draw_line(canvas, Point2f.new(0, (idx)*step_size), Point2f.new(MAX_WIDTH, (idx)*step_size))
     end
   end
 
@@ -119,9 +118,8 @@ class Gui < Observer
   # @param step_size [Integer] pixel distance between two lines.
   def draw_vertical_lines_with(canvas, step_size)
     # rounded down numbers of lines.
-    number_of_lines = MAX_WIDTH / step_size
-    number_of_lines.times do |idx|
-      draw_line(canvas, Point2f.new(idx*step_size, 0), Point2f.new(idx*step_size, MAX_HEIGHT))
+    (x_pixels-1).times do |idx|
+      draw_line(canvas, Point2f.new((idx)*step_size, 0), Point2f.new((idx)*step_size, MAX_HEIGHT))
     end
   end
 
@@ -139,12 +137,12 @@ class Gui < Observer
   # note that x-coord corresponds to the column idx
   # note that y-coord corresponds to the row idx
   def draw_grid_cells
-    x_pixels.times do |column_id|
-      y_pixels.times do |row_idx|
+    x_iter.each do |column_id|
+      y_iter.each do |row_idx|
         field = @game.map.field_at(column_id, row_idx)
         if field.filled?
-          x0 = column_id*(CELL_SIZE); x1 = (column_id+1)*(CELL_SIZE)
-          y0 = row_idx*(CELL_SIZE); y1 = (row_idx+1)*(CELL_SIZE)
+          x0 = (column_id-1)*(CELL_SIZE); x1 = (column_id)*(CELL_SIZE)
+          y0 = (row_idx-1)*(CELL_SIZE); y1 = (row_idx)*(CELL_SIZE)
           TkcRectangle.new(@canvas, x0, y0, x1, y1,
                            'width' => 1, 'fill'  => field.color)
         end

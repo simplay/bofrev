@@ -11,11 +11,27 @@ module Settings
   end
 
   def x_pixels
-    MAX_WIDTH / CELL_SIZE
+    inner_x_pixels + 2
   end
 
   def y_pixels
-    MAX_HEIGHT / CELL_SIZE
+    inner_y_pixels + 2
+  end
+
+  def inner_x_pixels
+    (MAX_WIDTH / CELL_SIZE)
+  end
+
+  def inner_y_pixels
+    (MAX_HEIGHT / CELL_SIZE)
+  end
+
+  def x_iter
+    (1..x_pixels-2)
+  end
+
+  def y_iter
+    (1..y_pixels-2)
   end
 
 end
