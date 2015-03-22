@@ -4,7 +4,7 @@ require 'thread'
 class Shape
   attr_accessor :local_points, :origin # origin of local coordinate system, this changes during updates.
   attr_reader :color # binary shape of figure, remains constant AND color
-
+  attr_accessor :grid_map
   def initialize(map, color)
     @origin = Point2f.new(5, 0)
 
@@ -18,21 +18,18 @@ class Shape
     @rotation_modus = 0
     @local_points = @position_states[@rotation_modus]
 
-    @map = map
+    @grid_map = map
     @color = color
     @mutex = Mutex.new
 
     map_positions.each do |p|
-      @map.set_field_at(p.x, p.y, color)
+      @grid_map.set_field_at(p.x, p.y, color)
     end
 
   end
 
-  #
-  def shallow_copy
-    shape = Shape.new(@map, @color)
-    shape.origin = @origin
-    shape.local_points = @local_points
+  def next_rotation_position
+    @position_states[(@rotation_modus+1)%4]
   end
 
   def rotate
@@ -40,14 +37,14 @@ class Shape
       @mutex.synchronize do
 
         map_positions.each do |p|
-          @map.set_field_at(p.x, p.y, 'white')
+          @grid_map.set_field_at(p.x, p.y, 'white')
         end
 
         @rotation_modus = (@rotation_modus + 1) % 4
         @local_points = @position_states[@rotation_modus]
 
         map_positions.each do |p|
-          @map.set_field_at(p.x, p.y, @color)
+          @grid_map.set_field_at(p.x, p.y, @color)
         end
       end
     end
@@ -60,13 +57,13 @@ class Shape
       @mutex.synchronize do
 
         map_positions.each do |p|
-          @map.set_field_at(p.x, p.y, 'white')
+          @grid_map.set_field_at(p.x, p.y, 'white')
         end
 
         update_position_by(move_by)
 
         map_positions.each do |p|
-          @map.set_field_at(p.x, p.y, @color)
+          @grid_map.set_field_at(p.x, p.y, @color)
         end
       end
     end

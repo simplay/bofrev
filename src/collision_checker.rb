@@ -20,7 +20,22 @@ class CollisionChecker
     @state = :moveable
     #sc_shape = shape.shallow_copy
     if opertaion == :rotate
-      #rotated_positions = sc_shape.rotate.points_in_grid_coords
+      next_rot_hit_points = shape.next_rotation_position.map do |point|
+        Point2f.new(point.x + shape.origin.x + 1, point.y + shape.origin.y + 1)
+      end
+
+      puts next_rot_hit_points
+
+
+      has_collision = next_rot_hit_points.any? do |pos|
+        shape.grid_map.field_at(pos.x, pos.y).border? == true
+      end
+
+      if has_collision
+        puts("rotation collision detected")
+        @state = :bounded
+      end
+
 
     elsif opertaion == :move
 

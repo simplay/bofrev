@@ -17,14 +17,14 @@ class Map
 
     # setup x border
     x_pixels.times do |idx|
-      @grid[0][idx] = GameField.new('black')
-      @grid[y_pixels-1][idx] = GameField.new('black')
+      @grid[0][idx] = GameField.new('black', :border)
+      @grid[y_pixels-1][idx] = GameField.new('black', :border)
     end
 
     # setup y border
     y_pixels.times do |idy|
-      @grid[idy][0] = GameField.new('black')
-      @grid[idy][x_pixels-1] = GameField.new('black')
+      @grid[idy][0] = GameField.new('black', :border)
+      @grid[idy][x_pixels-1] = GameField.new('black', :border)
     end
 
     @shape = Shape.new(self, random_color)
