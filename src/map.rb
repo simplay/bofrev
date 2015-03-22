@@ -26,4 +26,9 @@ class Map
     @grid[row][column]
   end
 
+  def set_field_at(row, column, color)
+    field = field_at(row, column)
+    field.color = color
+  end
+
 end

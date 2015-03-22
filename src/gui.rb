@@ -36,18 +36,7 @@ class Gui < Observer
     draw_grid_cells
   end
 
-  def draw_grid_cells
-    (MAX_WIDTH/CELL_SIZE).times do |row_idx|
-      (MAX_HEIGHT/CELL_SIZE).times do |column_id|
-        field = @game.map.field_at(row_idx, column_id)
-        if field.filled?
-          TkcRectangle.new(@canvas, row_idx*(CELL_SIZE), column_id*(CELL_SIZE),
-                           (row_idx+1)*(CELL_SIZE), (column_id+1)*(CELL_SIZE),
-                           'width' => 1, 'fill'  => field.color)
-        end
-      end
-    end
-  end
+
 
   def perform_gui_close_steps
     detach_all_listeners
@@ -140,6 +129,19 @@ class Gui < Observer
   #        line color, filled, width, etc.
   def draw_line(canvas, p_s, p_e, options = {})
     TkcLine.new(canvas, p_s.x, p_s.y, p_e.x, p_e.y, options)
+  end
+
+  def draw_grid_cells
+    (MAX_WIDTH/CELL_SIZE).times do |row_idx|
+      (MAX_HEIGHT/CELL_SIZE).times do |column_id|
+        field = @game.map.field_at(row_idx, column_id)
+        if true #field.filled?
+          TkcRectangle.new(@canvas, row_idx*(CELL_SIZE), column_id*(CELL_SIZE),
+                           (row_idx+1)*(CELL_SIZE), (column_id+1)*(CELL_SIZE),
+                           'width' => 1, 'fill'  => field.color)
+        end
+      end
+    end
   end
 
 end

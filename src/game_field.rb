@@ -1,16 +1,13 @@
 class GameField
-  attr_accessor :state, :color
+  attr_accessor :color
 
-  EMPTY = :empty
-  FILLED = :filled
 
-  def initialize(color = 'red')
-    @state = EMPTY
+  def initialize(color = 'white')
     @color = color
   end
 
   def filled?
-    @state == FILLED
+    @color != 'white'
   end
 
 end
