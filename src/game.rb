@@ -5,7 +5,7 @@ require_relative 'shape'
 require_relative 'point2f'
 
 class Game
-  RUN_GAME_THREAD = false
+  RUN_GAME_THREAD = true
   include Observable
 
   TICKS_PER_SECOND = 1 # determines the game speed.

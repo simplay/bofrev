@@ -57,7 +57,10 @@ class Shape
   # TODO: make collision check
   # @param move_by [Point2f] relative movement in plane.
   def move_shape(move_by=Point2f.new(0,0))
-    unless CollisionChecker.new(self, :move, move_by).blocked?
+
+    collision_state = CollisionChecker.new(self, :move, move_by)
+
+    if !collision_state.blocked?
       @mutex.synchronize do
 
         map_positions.each do |p|
@@ -70,6 +73,9 @@ class Shape
           @grid_map.set_field_at(p.x, p.y, @color)
         end
       end
+    elsif collision_state.state == :grounded
+      puts "new shape created"
+      @grid_map.spawn_new_shape
     end
   end
 

@@ -15,10 +15,14 @@ class Map
       @grid << row
     end
 
+
+
+
+
     # setup x border
     x_pixels.times do |idx|
       @grid[0][idx] = GameField.new('black', :border)
-      @grid[y_pixels-1][idx] = GameField.new('black', :border)
+      @grid[y_pixels-1][idx] = GameField.new('black', :ground_border)
     end
 
     # setup y border
@@ -27,6 +31,10 @@ class Map
       @grid[idy][x_pixels-1] = GameField.new('black', :border)
     end
 
+    spawn_new_shape
+  end
+
+  def spawn_new_shape
     @shape = Shape.new(self, random_color)
   end
 

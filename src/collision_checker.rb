@@ -32,7 +32,6 @@ class CollisionChecker
       end
 
       if has_collision
-        puts("rotation collision detected")
         @state = :bounded
       end
 
@@ -47,12 +46,14 @@ class CollisionChecker
         shape.grid_map.field_at(pos.x, pos.y).border? == true
       end
 
-      if has_collision
+      @state = :bounded if has_collision
+
+      unless has_collision
         hit_ground = (next_move_hit_points.any? do |pos|
-           shape.grid_map.field_at(pos.x, pos.y).filled? == true
+           field = shape.grid_map.field_at(pos.x, pos.y)
+            (field.floor?) == true
         end)
-        @state = (hit_ground)? :grounded : :bounded
-        puts("move collision detected")
+        @state = :grounded if(hit_ground)
       end
 
 
@@ -60,7 +61,7 @@ class CollisionChecker
       raise "unknown shape operation"
     end
 
-
+    puts("#{@state} collision detected")
   end
 
   def blocked?
