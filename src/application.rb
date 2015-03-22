@@ -8,10 +8,11 @@ require_relative 'observer'
 class Application < Observer
   def initialize
     game = Game.new
+    game.subscribe(self)
     Gui.new(game)
   end
 
-  def handle_event(message)
+  def handle_event
     puts "GAME OVER"
   end
 

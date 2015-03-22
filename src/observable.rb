@@ -19,16 +19,35 @@ module Observable
   end
 
   # Inform all selected observers that they should handle an occurred event.
+  #
   # @param type_name [Symbol] class name as down-cased symbol.
   def notify_all_targets_of_type(type_name)
-    selected_observers = @observers.select do |observer| observer.class.to_s.downcase == type_name.to_s end
-    selected_observers.each &:handle_event
+    observers_of_type(type_name).each &:handle_event
   end
 
   # Append a new observer to the observers list.
+  #
   # @param observer [Observer] listener of events thrown by this Observable.
   def subscribe(observer)
     @observers << observer
+  end
+
+  def unsubscribe(type_name)
+    observers_of_type(type_name).each do |observer|
+      observer.perform_gui_close_steps
+      @observers.delete(observer)
+    end
+  end
+
+  # Select all observers of a specified type.
+  #
+  # @hint: type_name is down-cased symbol representation of observer's class.
+  #
+  # @param type_name [Symbol] class name as down-cased symbol.
+  def observers_of_type(type_name)
+    @observers.select do |observer|
+      observer.class.to_s.downcase == type_name.to_s
+    end
   end
 
 end

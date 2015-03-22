@@ -36,6 +36,11 @@ class Gui < Observer
     # draw filled cells
   end
 
+  def perform_gui_close_steps
+    detach_all_listeners
+    # close actual window
+  end
+
   private
 
   def build_gui_components
@@ -71,6 +76,14 @@ class Gui < Observer
     @root.bind(W_KEY, proc { handle_pressed_key(W_KEY) })
     @root.bind(D_KEY, proc { handle_pressed_key(D_KEY) })
     @root.bind(S_KEY, proc { handle_pressed_key(S_KEY) })
+  end
+
+  # Unbind all root event listeners
+  def detach_all_listeners
+    @root.bind(A_KEY, proc {})
+    @root.bind(W_KEY, proc {})
+    @root.bind(D_KEY, proc {})
+    @root.bind(S_KEY, proc {})
   end
 
   # Draws a regular grid onto a given canvas with a width of :cell_width.
