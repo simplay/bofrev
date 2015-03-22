@@ -1,4 +1,5 @@
 require_relative 'settings'
+require_relative 'point2f'
 
 # states:
 #   bounded: cannot move any further sidewards (left, right)
@@ -6,6 +7,8 @@ require_relative 'settings'
 #   moveable: next update does not result in a collision
 
 class CollisionChecker
+
+  include Settings
 
   attr_reader :state
 
@@ -24,9 +27,6 @@ class CollisionChecker
         Point2f.new(point.x + shape.origin.x + 1, point.y + shape.origin.y + 1)
       end
 
-      puts next_rot_hit_points
-
-
       has_collision = next_rot_hit_points.any? do |pos|
         shape.grid_map.field_at(pos.x, pos.y).border? == true
       end
@@ -36,8 +36,25 @@ class CollisionChecker
         @state = :bounded
       end
 
-
     elsif opertaion == :move
+      next_origin = shape.next_moved_origin(shift)
+      puts next_origin
+      next_move_hit_points = shape.local_points.map do |point|
+        Point2f.new(point.x + next_origin.x, point.y + next_origin.y)
+      end
+
+      has_collision = next_move_hit_points.any? do |pos|
+        shape.grid_map.field_at(pos.x, pos.y).border? == true
+      end
+
+      if has_collision
+        hit_ground = (next_move_hit_points.any? do |pos|
+           shape.grid_map.field_at(pos.x, pos.y).filled? == true
+        end)
+        @state = (hit_ground)? :grounded : :bounded
+        puts("move collision detected")
+      end
+
 
     else
       raise "unknown shape operation"

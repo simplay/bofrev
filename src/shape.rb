@@ -32,6 +32,10 @@ class Shape
     @position_states[(@rotation_modus+1)%4]
   end
 
+  def next_moved_origin(shift)
+    Point2f.new(1,1).add(@origin).add(shift)
+  end
+
   def rotate
     unless CollisionChecker.new(self, :rotate).blocked?
       @mutex.synchronize do
