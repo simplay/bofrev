@@ -19,7 +19,7 @@ class Game
   # spawn game thread.
   # handle map state here- care about race-condition with provided user input
   def run
-    spawn_ticker
+    #spawn_ticker
     perform_loop_step("game started")
   end
 
@@ -46,7 +46,7 @@ class Game
   def spawn_ticker
     @game_thread = Thread.new do
       loop do
-        @map.move_shape(Point2f.new(0,1))
+        @map.move_shape_one_down
         notify_all_targets_of_type(:gui)
         sleep(1.0 / TICKS_PER_SECOND) # sleep time in [s]
         break if finished?
