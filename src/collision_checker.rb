@@ -10,7 +10,7 @@ class CollisionChecker
   # Check whether current movement was legal.
   # @param grid [Array] game map grid before update
   # @param delta [Shape] shape state after translation/rotation
-  def initialize(grid, delta, opertaion)
+  def initialize(grid, delta, opertaion, amount = nil)
     @state = :moveable
   end
 

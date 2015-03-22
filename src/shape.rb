@@ -49,7 +49,7 @@ class Shape
   # TODO: make collision check
   # @param move_by [Point2f] relative movement in plane.
   def move_shape(move_by=Point2f.new(0,0))
-    unless CollisionChecker.new(self, @map, :rotate).blocked?
+    unless CollisionChecker.new(self, @map, :move, move_by).blocked?
       @mutex.synchronize do
 
         map_positions.each do |p|
