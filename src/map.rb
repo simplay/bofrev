@@ -14,7 +14,7 @@ class Map
       end
       @grid << row
     end
-    @shape = Shape.new(self, 'blue')
+    @shape = Shape.new(self, random_color)
   end
 
   # Retrieve a map field at a provided position.
@@ -58,6 +58,6 @@ class Map
     end
     grid_as_string
   end
-  
+
 
 end
