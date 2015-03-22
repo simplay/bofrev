@@ -1,4 +1,5 @@
 require_relative 'game_field'
+require 'thread'
 
 class Map
 
@@ -7,7 +8,7 @@ class Map
 
   def initialize
 
-
+    @mutex = Mutex.new
     @grid = []
     MAX_HEIGHT.times do
       row = []
@@ -41,20 +42,33 @@ class Map
     field.color = color
   end
 
+
+  def process_event(message)
+    if message == 'd'
+      move_shape(Point2f.new(1,0))
+    elsif message == 'a'
+      move_shape(Point2f.new(-1,0))
+    elsif message == 'd'
+      move_shape(Point2f.new(0, 1))
+    end
+  end
+
+
   # @param move_by [Point2f] relative movement in plane.
   def move_shape(move_by)
+    @mutex.synchronize do
+      # TODO: make collision check, let shap handle itself
+      @shape.map_positions.each do |p|
+        set_field_at(p.x, p.y, 'white')
+      end
 
-    # TODO: make collision check, let shap handle itself
-    @shape.map_positions.each do |p|
-      set_field_at(p.x, p.y, 'white')
+      @shape.update_position_by(move_by)
+
+      @shape.map_positions.each do |p|
+        set_field_at(p.x, p.y, 'red')
+      end
     end
-
-    @shape.update_position_by(move_by)
-
-    @shape.map_positions.each do |p|
-      set_field_at(p.x, p.y, 'red')
-    end
-
+    
   end
 
 end

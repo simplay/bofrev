@@ -29,6 +29,9 @@ class Game
       notify_all_targets_of_type(:application)
     else
       puts "message received: #{message}"
+
+      @map.process_event(message)
+
       notify_all_targets_of_type(:gui)
     end
   end
