@@ -1,6 +1,7 @@
 require_relative 'point2f'
 require_relative 'observer'
 require 'tk'
+require 'tkextlib/tile'
 
 # Game grid graphical user interface.
 # follow mvc pattern: gui knows game
@@ -10,11 +11,21 @@ class Gui < Observer
   MAX_HEIGHT = 600
   CELL_SIZE = 20
 
+  A_KEY = 'a'
+  W_KEY = 'w'
+  D_KEY = 'd'
+  S_KEY = 's'
+
   def initialize(game)
+    game.subscribe(self)
     @game = game
     build_gui_components
+    attach_gui_listeners # forms controller in MVC
+    Tk.mainloop
   end
 
+  # when we got notified by game (has new data for gui)
+  # then we are supposed to redraw the gui.
   def handle_event
     draw_game_state
     puts "gui redrawn"
@@ -28,20 +39,37 @@ class Gui < Observer
   private
 
   def build_gui_components
-    root = TkRoot.new do
+    @root = TkRoot.new do
       title "GAME"
       minsize(MAX_WIDTH+10,MAX_HEIGHT+10)
     end
 
-    @canvas = TkCanvas.new(root)
+    @canvas = TkCanvas.new(@root)
     @canvas.grid :sticky => 'nwes', :column => 0, :row => 0
 
-    TkGrid.columnconfigure(root, 0, :weight => 1)
-    TkGrid.rowconfigure(root, 0, :weight => 1)
+    TkGrid.columnconfigure(@root, 0, :weight => 1)
+    TkGrid.rowconfigure(@root, 0, :weight => 1)
     draw_empty_grid(@canvas, CELL_SIZE)
 
-    root.bind("Return") {hook}
-    Tk.mainloop
+  end
+
+  #
+  # @hint: key meanings
+  #   a - move left
+  #   d - move right
+  #   s - faster down
+  #   w - rotate shape clock-wise
+  # @param type [String] key identifier that was pressed.
+  def handle_pressed_key(type)
+    puts "#{type} was pressed."
+  end
+
+  def attach_gui_listeners
+    # TODO set focus on root
+    @root.bind(A_KEY, proc { handle_pressed_key(A_KEY) })
+    @root.bind(W_KEY, proc { handle_pressed_key(W_KEY) })
+    @root.bind(D_KEY, proc { handle_pressed_key(D_KEY) })
+    @root.bind(S_KEY, proc { handle_pressed_key(S_KEY) })
   end
 
   # in order to fetch latest game state.
