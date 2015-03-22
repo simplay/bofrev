@@ -38,7 +38,8 @@ class Gui < Observer
 
   def perform_gui_close_steps
     detach_all_listeners
-    # close actual window
+    @canvas.destroy
+    # TODO show score and then ask user for playing another game.
   end
 
   private
