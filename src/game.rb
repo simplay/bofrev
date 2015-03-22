@@ -1,6 +1,8 @@
 require_relative 'map'
 require_relative 'gui'
 require_relative 'observable'
+require_relative 'shape'
+require_relative 'point2f'
 
 class Game
 
@@ -10,7 +12,7 @@ class Game
 
   attr_accessor :map
   def initialize
-    @turns_allowed = 6
+    @turns_allowed = 1000
     initialize_map
   end
 
@@ -41,7 +43,8 @@ class Game
   def spawn_ticker
     @game_thread = Thread.new do
       loop do
-        puts "TICK: update map state"
+        @map.move_shape(Point2f.new(0,1))
+        notify_all_targets_of_type(:gui)
         sleep(1.0 / TICKS_PER_SECOND) # sleep time in [s]
         break if finished?
       end
@@ -50,9 +53,6 @@ class Game
 
   def initialize_map
     @map = Map.new
-    @map.set_field_at(0,0,'red')
-    @map.set_field_at(1,0,'red')
-    @map.set_field_at(2,0,'red')
   end
 
 end

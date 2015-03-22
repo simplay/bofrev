@@ -6,6 +6,8 @@ class Map
   MAX_WIDTH = 240 # corresponds to number of columns
 
   def initialize
+
+
     @grid = []
     MAX_HEIGHT.times do
       row = []
@@ -14,6 +16,14 @@ class Map
       end
       @grid << row
     end
+
+    @shape = Shape.new
+
+    @shape.map_positions.each do |p|
+      set_field_at(p.x, p.y, 'red')
+    end
+
+    puts @grid[0][0]
 
   end
 
@@ -29,6 +39,22 @@ class Map
   def set_field_at(row, column, color)
     field = field_at(row, column)
     field.color = color
+  end
+
+  # @param move_by [Point2f] relative movement in plane.
+  def move_shape(move_by)
+
+    # TODO: make collision check, let shap handle itself
+    @shape.map_positions.each do |p|
+      set_field_at(p.x, p.y, 'white')
+    end
+
+    @shape.update_position_by(move_by)
+
+    @shape.map_positions.each do |p|
+      set_field_at(p.x, p.y, 'red')
+    end
+
   end
 
 end
