@@ -21,7 +21,7 @@ module Observable
   # Inform all selected observers that they should handle an occurred event.
   # @param type_name [Symbol] class name as down-cased symbol.
   def notify_all_targets_of_type(type_name)
-    selected_observers = @observers.select do |observer| observer.class.to_s == type_name.to_s end
+    selected_observers = @observers.select do |observer| observer.class.to_s.downcase == type_name.to_s end
     selected_observers.each &:handle_event
   end
 
