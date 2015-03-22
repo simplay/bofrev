@@ -21,6 +21,7 @@ class Gui < Observer
     @game = game
     build_gui_components
     attach_gui_listeners # forms controller in MVC
+    clicked_onto_start
     Tk.mainloop
   end
 
@@ -34,6 +35,10 @@ class Gui < Observer
   def draw_game_state
     draw_empty_grid(@canvas, CELL_SIZE)
     draw_grid_cells
+  end
+
+  def clicked_onto_start
+    @game.run
   end
 
 

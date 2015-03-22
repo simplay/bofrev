@@ -6,10 +6,18 @@ class Game
 
   include Observable
 
+  TICKS_PER_SECOND = 1 # determines the game speed.
+
   attr_accessor :map
   def initialize
-    @turns_allowed = 2
+    @turns_allowed = 6
     initialize_map
+  end
+
+  # spawn game thread.
+  # handle map state here- care about race-condition with provided user input
+  def run
+    spawn_ticker
     perform_loop_step("game started")
   end
 
@@ -29,6 +37,16 @@ class Game
   end
 
   private
+
+  def spawn_ticker
+    @game_thread = Thread.new do
+      loop do
+        puts "TICK: update map state"
+        sleep(1.0 / TICKS_PER_SECOND) # sleep time in [s]
+        break if finished?
+      end
+    end
+  end
 
   def initialize_map
     @map = Map.new
