@@ -62,6 +62,7 @@ class Gui < Observer
   # @param type [String] key identifier that was pressed.
   def handle_pressed_key(type)
     puts "#{type} was pressed."
+    @game.perform_loop_step(type)
   end
 
   def attach_gui_listeners
@@ -70,11 +71,6 @@ class Gui < Observer
     @root.bind(W_KEY, proc { handle_pressed_key(W_KEY) })
     @root.bind(D_KEY, proc { handle_pressed_key(D_KEY) })
     @root.bind(S_KEY, proc { handle_pressed_key(S_KEY) })
-  end
-
-  # in order to fetch latest game state.
-  def hook
-    @game.perform_loop_step
   end
 
   # Draws a regular grid onto a given canvas with a width of :cell_width.
