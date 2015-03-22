@@ -1,4 +1,5 @@
 require_relative 'point2f'
+require_relative 'collision_checker'
 require 'thread'
 class Shape
   attr_accessor :origin # origin of local coordinate system, this changes during updates.
@@ -29,37 +30,40 @@ class Shape
   end
 
   def rotate
+    unless CollisionChecker.new(self, @map, :rotate).blocked?
+      @mutex.synchronize do
+        map_positions.each do |p|
+          @map.set_field_at(p.x, p.y, 'white')
+        end
 
-    map_positions.each do |p|
-      @map.set_field_at(p.x, p.y, 'white')
-    end
+        @rotation_modus = (@rotation_modus + 1) % 4
+        @local_points = @position_states[@rotation_modus]
 
-    @rotation_modus = (@rotation_modus + 1) % 4
-    @local_points = @position_states[@rotation_modus]
-
-    map_positions.each do |p|
-      @map.set_field_at(p.x, p.y, @color)
+        map_positions.each do |p|
+          @map.set_field_at(p.x, p.y, @color)
+        end
+      end
     end
   end
 
   # TODO: make collision check
   # @param move_by [Point2f] relative movement in plane.
   def move_shape(move_by=Point2f.new(0,0))
-    @mutex.synchronize do
+    unless CollisionChecker.new(self, @map, :rotate).blocked?
+      @mutex.synchronize do
 
-      map_positions.each do |p|
-        @map.set_field_at(p.x, p.y, 'white')
-      end
+        map_positions.each do |p|
+          @map.set_field_at(p.x, p.y, 'white')
+        end
 
-      update_position_by(move_by)
+        update_position_by(move_by)
 
-      map_positions.each do |p|
-        @map.set_field_at(p.x, p.y, @color)
+        map_positions.each do |p|
+          @map.set_field_at(p.x, p.y, @color)
+        end
       end
     end
-
   end
-
 
   def to_s
     (@local_points.map &:to_s).join(" ")
@@ -74,9 +78,7 @@ class Shape
 
   # updates local postions of this shape
   def update_position_by(shift)
-    puts "before #{@origin} class: #{@origin.class.to_s}"
     @origin = @origin.add(shift)
-    puts "after #{@origin} class: #{@origin.class.to_s}"
   end
 
   def shifted_position(base, shift_by=Point2f.new(0,0))
