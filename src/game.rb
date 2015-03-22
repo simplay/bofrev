@@ -5,7 +5,7 @@ require_relative 'shape'
 require_relative 'point2f'
 
 class Game
-
+  RUN_GAME_THREAD = true
   include Observable
 
   TICKS_PER_SECOND = 1 # determines the game speed.
@@ -19,7 +19,7 @@ class Game
   # spawn game thread.
   # handle map state here- care about race-condition with provided user input
   def run
-    #spawn_ticker
+    spawn_ticker if RUN_GAME_THREAD
     perform_loop_step("game started")
   end
 
