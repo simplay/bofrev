@@ -1,35 +1,33 @@
 require_relative 'game_field'
-
+require_relative 'settings'
 
 class Map
 
-  MAX_HEIGHT = 600 # corresponds to number of rows
-  MAX_WIDTH = 240 # corresponds to number of columns
+  include Settings
 
   def initialize
     @grid = []
-    MAX_HEIGHT.times do
+    y_pixels.times do
       row = []
-      MAX_WIDTH.times do
+      x_pixels.times do
         row << GameField.new
       end
       @grid << row
     end
-
     @shape = Shape.new(self, 'blue')
   end
 
   # Retrieve a map field at a provided position.
   #
-  # @param row [Integer] row index in grid using matrix convention
-  # @param column [Integer] column index in grid using matrix convention
+  # @param idx [Integer] column index in grid using matrix convention
+  # @param idy [Integer] row index in grid using matrix convention
   # @return [GameField] field at given grid position encoding a certain state.
-  def field_at(row, column)
-    @grid[row][column]
+  def field_at(idx, idy)
+    @grid[idy][idx]
   end
 
-  def set_field_at(row, column, color)
-    field = field_at(row, column)
+  def set_field_at(idx, idy, color)
+    field = field_at(idx, idy)
     field.color = color
   end
 
@@ -50,7 +48,16 @@ class Map
     end
   end
 
-
-
+  def to_s
+    grid_as_string = ''
+    @grid.each do |row|
+      row.each do |field|
+        grid_as_string += "#{field.to_i} "
+      end
+      grid_as_string += "\n"
+    end
+    grid_as_string
+  end
+  
 
 end

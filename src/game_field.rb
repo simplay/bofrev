@@ -10,4 +10,12 @@ class GameField
     @color != 'white'
   end
 
+  def to_s
+    "#{color}"
+  end
+
+  def to_i
+    filled? ? 1 : 0
+  end
+
 end

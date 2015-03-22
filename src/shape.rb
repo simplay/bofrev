@@ -15,7 +15,6 @@ class Shape
         [Point2f.new(0,-1), Point2f.new(0,0), Point2f.new(0,1)]
     ]
 
-
     @rotation_modus = 0
     @local_points = @position_states[@rotation_modus]
 
@@ -32,6 +31,9 @@ class Shape
   def rotate
     unless CollisionChecker.new(self, @map, :rotate).blocked?
       @mutex.synchronize do
+
+        puts map_positions.to_s
+
         map_positions.each do |p|
           @map.set_field_at(p.x, p.y, 'white')
         end

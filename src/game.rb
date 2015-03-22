@@ -5,7 +5,7 @@ require_relative 'shape'
 require_relative 'point2f'
 
 class Game
-  RUN_GAME_THREAD = true
+  RUN_GAME_THREAD = false
   include Observable
 
   TICKS_PER_SECOND = 1 # determines the game speed.
@@ -14,6 +14,7 @@ class Game
   def initialize
     @turns_allowed = 1000
     initialize_map
+    puts @map.to_s
   end
 
   # spawn game thread.
@@ -31,6 +32,8 @@ class Game
       puts "message received: #{message}"
 
       @map.process_event(message)
+
+      puts @map.to_s
 
       notify_all_targets_of_type(:gui)
     end

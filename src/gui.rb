@@ -1,5 +1,6 @@
 require_relative 'point2f'
 require_relative 'observer'
+require_relative 'settings'
 require 'tk'
 require 'tkextlib/tile'
 
@@ -7,9 +8,7 @@ require 'tkextlib/tile'
 # follow mvc pattern: gui knows game
 class Gui < Observer
 
-  MAX_WIDTH = 240
-  MAX_HEIGHT = 600
-  CELL_SIZE = 20
+  include Settings
 
   A_KEY = 'a'
   W_KEY = 'w'
@@ -33,6 +32,7 @@ class Gui < Observer
   end
 
   def draw_game_state
+    @canvas.delete('all')
     draw_empty_grid(@canvas, CELL_SIZE)
     draw_grid_cells
   end
@@ -136,13 +136,16 @@ class Gui < Observer
     TkcLine.new(canvas, p_s.x, p_s.y, p_e.x, p_e.y, options)
   end
 
+  # note that x-coord corresponds to the column idx
+  # note that y-coord corresponds to the row idx
   def draw_grid_cells
-    (MAX_WIDTH/CELL_SIZE).times do |row_idx|
-      (MAX_HEIGHT/CELL_SIZE).times do |column_id|
-        field = @game.map.field_at(row_idx, column_id)
-        if true #field.filled?
-          TkcRectangle.new(@canvas, row_idx*(CELL_SIZE), column_id*(CELL_SIZE),
-                           (row_idx+1)*(CELL_SIZE), (column_id+1)*(CELL_SIZE),
+    x_pixels.times do |column_id|
+      y_pixels.times do |row_idx|
+        field = @game.map.field_at(column_id, row_idx)
+        if field.filled?
+          x0 = column_id*(CELL_SIZE); x1 = (column_id+1)*(CELL_SIZE)
+          y0 = row_idx*(CELL_SIZE); y1 = (row_idx+1)*(CELL_SIZE)
+          TkcRectangle.new(@canvas, x0, y0, x1, y1,
                            'width' => 1, 'fill'  => field.color)
         end
       end
