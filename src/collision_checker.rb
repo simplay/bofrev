@@ -21,7 +21,7 @@ class CollisionChecker
   # @param shift [Point2f] relative shift amount. Only defined for :move operations.
   def initialize(shape, opertaion, shift = nil)
     @state = :moveable
-    #sc_shape = shape.shallow_copy
+
     if opertaion == :rotate
       next_rot_hit_points = shape.next_rotation_position.map do |point|
         Point2f.new(point.x + shape.origin.x + 1, point.y + shape.origin.y + 1)
@@ -37,7 +37,6 @@ class CollisionChecker
 
     elsif opertaion == :move
       next_origin = shape.next_moved_origin(shift)
-      puts next_origin
       next_move_hit_points = shape.local_points.map do |point|
         Point2f.new(point.x + next_origin.x, point.y + next_origin.y)
       end
@@ -49,7 +48,6 @@ class CollisionChecker
       @state = :bounded if has_collision
 
       unless has_collision
-        puts "checking for shape hit"
         hit_ground = (next_move_hit_points.any? do |pos|
            field = shape.grid_map.field_at(pos.x, pos.y)
             (field.floor? || field.placed?) == true
@@ -58,11 +56,10 @@ class CollisionChecker
         if(hit_ground)
           @state = :grounded
           shape.mark_fields_placed
+          # TODO check if combo occurred
+          #   In case there was a combo, apply deletion and increase player score.
         end
-
-
       end
-
 
     else
       raise "unknown shape operation"
