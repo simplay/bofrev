@@ -27,6 +27,11 @@ class GameField
     "#{color}"
   end
 
+  def wipe_out
+    @type = :field
+    @color = 'white'
+  end
+
   def to_i
     if @type == :border
       2

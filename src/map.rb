@@ -15,10 +15,6 @@ class Map
       @grid << row
     end
 
-
-
-
-
     # setup x border
     x_pixels.times do |idx|
       @grid[0][idx] = GameField.new('black', :border)
@@ -54,6 +50,27 @@ class Map
 
   def move_shape_one_down
     @shape.move_shape(Point2f.new(0, 1))
+  end
+
+  # iterate row-wise though grid and look for '4'-rows (w/e border).
+  # Each such row should be deleted and a players score should be incremented accordingly.
+  def check_for_combo
+    @grid.each do |row|
+      row_deletable = true
+      (1..12).each do |idx|
+        row_deletable &&= row[idx].placed?
+      end
+      clear(row) if row_deletable
+    end
+
+    # TODO apply gravity
+
+  end
+
+  def clear(row)
+    (1..12).each do |idx|
+      row[idx].wipe_out
+    end
   end
 
 

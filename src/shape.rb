@@ -90,10 +90,12 @@ class Shape
   end
 
   def mark_fields_placed
-    puts "foobar #{points_in_grid_coords}"
     points_in_grid_coords.each do |p|
       @grid_map.field_at(p.x, p.y).type = :placed
     end
+
+    @grid_map.check_for_combo
+
   end
 
 

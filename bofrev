@@ -1,37 +1,6 @@
 #!/usr/bin/ruby
-require "rubygems"
+require 'rubygems'
 require_relative "src/application"
 Version = "0.0.1"
 
 Application.new
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
