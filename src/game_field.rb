@@ -8,7 +8,11 @@ class GameField
   end
 
   def filled?
-    @color != 'white' || border? || floor?
+    @color != 'white' && @color != 'black'
+  end
+
+  def placed?
+    @type == :placed
   end
 
   def border?
@@ -28,6 +32,8 @@ class GameField
       2
     elsif @type == :ground_border
       3
+    elsif @type == :placed
+      4
     elsif filled?
       1
     else

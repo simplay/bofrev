@@ -49,11 +49,18 @@ class CollisionChecker
       @state = :bounded if has_collision
 
       unless has_collision
+        puts "checking for shape hit"
         hit_ground = (next_move_hit_points.any? do |pos|
            field = shape.grid_map.field_at(pos.x, pos.y)
-            (field.floor?) == true
+            (field.floor? || field.placed?) == true
         end)
-        @state = :grounded if(hit_ground)
+
+        if(hit_ground)
+          @state = :grounded
+          shape.mark_fields_placed
+        end
+
+
       end
 
 

@@ -84,8 +84,15 @@ class Shape
   end
 
   def points_in_grid_coords
-    @position_states.map do |point|
+    @local_points.map do |point|
       Point2f.new(point.x + @origin.x + 1, point.y + @origin.y + 1)
+    end
+  end
+
+  def mark_fields_placed
+    puts "foobar #{points_in_grid_coords}"
+    points_in_grid_coords.each do |p|
+      @grid_map.field_at(p.x, p.y).type = :placed
     end
   end
 
