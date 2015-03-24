@@ -82,6 +82,8 @@ class Grid
     @data[idx]
   end
 
+  # Get row at given index excluding its border cells.
+  #   # @param idx [Integer] row index
   def inner_row_at(idx)
     row_at(idx)[1..-2]
   end
