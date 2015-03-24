@@ -108,7 +108,7 @@ class Gui < Observer
   def draw_horizontal_lines_with(canvas, step_size)
     # rounded down numbers of lines.
     (y_pixels-1).times do |idx|
-      draw_line(canvas, Point2f.new(0, (idx)*step_size), Point2f.new(MAX_WIDTH, (idx)*step_size))
+      draw_line(canvas, Point2f.new(0, (idx)*step_size), Point2f.new(WIDTH_PIXELS*step_size, (idx)*step_size))
     end
   end
 
@@ -119,7 +119,7 @@ class Gui < Observer
   def draw_vertical_lines_with(canvas, step_size)
     # rounded down numbers of lines.
     (x_pixels-1).times do |idx|
-      draw_line(canvas, Point2f.new((idx)*step_size, 0), Point2f.new((idx)*step_size, MAX_HEIGHT))
+      draw_line(canvas, Point2f.new((idx)*step_size, 0), Point2f.new((idx)*step_size, HEIGHT_PIXELS*step_size))
     end
   end
 

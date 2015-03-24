@@ -1,8 +1,11 @@
 module Settings
   MAX_WIDTH = 240
   MAX_HEIGHT = 600
-  CELL_SIZE = 20
 
+  CELL_SIZE = 20
+  WIDTH_PIXELS = 10
+
+  HEIGHT_PIXELS = 20
   COLORS = %w(green blue red yellow orange)
 
   def random_color
@@ -11,11 +14,11 @@ module Settings
   end
 
   def x_pixels
-    inner_x_pixels + 2
+    WIDTH_PIXELS + 2
   end
 
   def y_pixels
-    inner_y_pixels + 2
+    HEIGHT_PIXELS + 2
   end
 
   def inner_x_pixels
@@ -27,11 +30,11 @@ module Settings
   end
 
   def x_iter
-    (1..x_pixels-2)
+    (1..WIDTH_PIXELS)
   end
 
   def y_iter
-    (1..y_pixels-2)
+    (1..HEIGHT_PIXELS)
   end
 
 end

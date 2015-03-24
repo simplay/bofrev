@@ -74,7 +74,6 @@ class Shape
         end
       end
     elsif collision_state.state == :grounded
-      puts "new shape created"
       @grid_map.spawn_new_shape
     end
   end

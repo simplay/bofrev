@@ -2,6 +2,8 @@ require_relative 'game'
 require_relative 'gui'
 require_relative 'observer'
 
+require_relative 'grid'
+
 # init game
 # init gui with game
 # init db for scores

@@ -82,6 +82,10 @@ class Grid
     @data[idx]
   end
 
+  def inner_row_at(idx)
+    row_at(idx)[1..-2]
+  end
+
   # Get game field at position (x,y) in MxN grid.
   #
   # @param x [Integer] row index
@@ -100,6 +104,15 @@ class Grid
   # @param field [GameField] game field used for update
   def set_field_at(x, y, field)
     @data[y][x] = field
+  end
+
+  # Assign a new game color at a given field location (x,y) in the grid.
+  #
+  # @param x [Integer] row index
+  # @param y [Integer] column index
+  # @param color [String] game field color
+  def set_field_color_at(x, y, color)
+    @data[y][x].color = color
   end
 
   # @return [String] Matrix form of grid encoded as string.
