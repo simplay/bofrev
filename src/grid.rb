@@ -1,5 +1,4 @@
 require_relative 'game_field'
-require 'pry'
 
 # Grid is the Data Structure for an arbitrary 2d-(M x N) pixel game.
 # A grid has actually (M+2)x(N+2) pixels. There is an border around the grid.
@@ -65,11 +64,16 @@ class Grid
     @inner_height + 2
   end
 
-
+  # Height cell Range of grid's inner cells
+  # (i.e. grid without border cells).
+  # @return [Range] of inner height indices in grid.
   def inner_height_iter
     (1..@inner_height)
   end
 
+  # Width cell Range of grid's inner cells
+  # (i.e. grid without border cells).
+  # @return [Range] of inner width indices in grid.
   def inner_width_iter
     (1..@inner_width)
   end
