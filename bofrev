@@ -1,6 +1,10 @@
-#!/usr/bin/ruby
+#!/usr/bin/env ruby
+
 require 'rubygems'
 require_relative "src/application"
+
 Version = "0.0.1"
 
 Application.new
+
+
