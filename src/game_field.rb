@@ -31,15 +31,9 @@ class GameField
   #   :left => [GameField]
   #   :right => [GameField]
   def assign_neighborhood(neighbors = {})
-
-    @right = neighbors[:right]
-    @left = neighbors[:left]
-    @bottom = neighbors[:bottom]
-    @top = neighbors[:top]
-
-    # neighbors.each do |key, value|
-    #   send("#{key}=#{value}")
-    # end
+    neighbors.each do |key, value|
+      send("#{key}=","#{value}")
+    end
   end
 
   def empty?
@@ -52,6 +46,18 @@ class GameField
       return !@bottom.border?
     end
     false
+  end
+
+  # get whole 4-neighborhood ring of this pixel
+  # @hint: clockwise fetched neighbors, starting at right neighbor.
+  # @return [Array] of [GameField] neighbor instances.
+  def neighbors
+    [right, bottom, left, top]
+  end
+
+  # does this field have neighbors
+  def neighbors?
+    neighbors.any? {|neighbor| !neighbor.nil?}
   end
 
   def filled?

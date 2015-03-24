@@ -65,6 +65,15 @@ class Grid
     @inner_height + 2
   end
 
+
+  def inner_height_iter
+    (1..@inner_height)
+  end
+
+  def inner_width_iter
+    (1..@inner_width)
+  end
+
   # Get row at given index.
   # @param idx [Integer] row index
   # @hint: Note that Index enumeration starts at 0
@@ -136,8 +145,8 @@ class Grid
   def encode_grid_neighborhood
 
     # only iterate over kernel: we do not care about border cells
-    (1..total_height-2).each do |idy|
-      (1..total_width-2).each do |idx|
+    inner_height_iter.each do |idy|
+      inner_width_iter.each do |idx|
         cell = field_at(idx, idy)
         neighbors = {
             :right => field_at(idx+1, idy), :left => field_at(idx-1, idy),
