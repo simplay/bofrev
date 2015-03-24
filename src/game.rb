@@ -20,12 +20,17 @@ class Game
   # spawn game thread.
   # handle map state here- care about race-condition with provided user input
   def run
-    spawn_ticker if RUN_GAME_THREAD
+    if RUN_GAME_THREAD
+      spawn_ticker
+      start_music_player
+    end
+
     perform_loop_step("game started")
   end
 
   def perform_loop_step(message)
     if finished?
+      @music_thread.shut_down
       unsubscribe(:gui)
       notify_all_targets_of_type(:application)
     else
@@ -45,6 +50,10 @@ class Game
   end
 
   private
+
+  def start_music_player
+    @music_thread = MusicPlayer.new("audio/tetris_tone_loop.mp3").play
+  end
 
   def spawn_ticker
     @game_thread = Thread.new do

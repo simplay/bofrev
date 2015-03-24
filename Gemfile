@@ -1,5 +1,6 @@
 source "http://rubygems.org"
 
+# audio management
 group :development do
   gem 'pry'
   gem 'pry-byebug'
@@ -8,4 +9,4 @@ group :development do
 end
 
 # tests
-gem "rspec"
+gem 'rspec'
