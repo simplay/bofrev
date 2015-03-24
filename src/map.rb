@@ -42,12 +42,10 @@ class Map
   end
 
   # down all inner cells from row 1 (not zero) till :till_row_idx
-  def down_by_one(till_row_idx)
-    if till_row_idx != 0
-      (1..till_row_idx).each do |row_idx|
-        @grid.inner_width_iter.each do |idx|
-          @grid.field_at(idx, row_idx+1).copy_state_from(@grid.field_at(idx, row_idx))
-        end
+  def down_by_one(from_row_idx)
+    (1..from_row_idx).to_a.reverse.each do |row_idx|
+      @grid.inner_width_iter.each do |idx|
+        @grid.field_at(idx, row_idx+1).copy_state_from(@grid.field_at(idx, row_idx))
       end
     end
   end
