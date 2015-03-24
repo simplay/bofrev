@@ -1,3 +1,4 @@
+require_relative 'nil_game_field'
 class GameField
   attr_accessor :color, :type,
                 :top, :bottom, :left, :right,
@@ -15,6 +16,13 @@ class GameField
     @color = color
     @type = type
     @is_sentinel = false
+
+    # sentinel = NilGameField.new(color, type)
+    # assign_neighborhood({
+    #     :right => sentinel, :left => sentinel,
+    #     :bottom => sentinel, :top => sentinel
+    # })
+
   end
 
   # @param neighbors [Hash] containing the 4-ring neighborhood of a cell
@@ -35,7 +43,7 @@ class GameField
   end
 
   def empty?
-    @color == 'white'
+    !filled?
   end
 
   def bottom_successor?

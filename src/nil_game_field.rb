@@ -1,9 +1,8 @@
-require_relative 'game_field'
-
-class NilGameField < GameField
+class NilGameField
 
   def initialize(color = 'white', type = :field)
-    super(color, type)
+    @color = color; @type = type
     @is_sentinel = true
   end
+
 end

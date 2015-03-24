@@ -30,8 +30,7 @@ class Map
     end
 
     # only iterate over kernel: we do not care about border cells
-
-
+    
     x_iter.each do |idx|
       y_iter.each do |idy|
         cell = field_at(idx, idy)
@@ -71,6 +70,7 @@ class Map
   # iterate row-wise though grid and look for '4'-rows (w/e border).
   # Each such row should be deleted and a players score should be incremented accordingly.
   def check_for_combo
+    row_idx = 0
     @grid.each do |row|
       row_deletable = true
       (1..12).each do |idx|
@@ -79,16 +79,25 @@ class Map
 
       if row_deletable
         clear(row)
-        apply_gravity
-        # TODO: this is currently super buggy: apply_gravity
+        down_by_one(row_idx-1)
       end
-
+      row_idx += 1
     end
-
-    # TODO apply gravity
 
   end
 
+  # down all inner cells from row 1 (not zero) till :till_row_idx
+  def down_by_one(till_row_idx)
+    if till_row_idx != 0
+      (1..till_row_idx).each do |row_idx|
+        (1..12).each do |idx|
+          field_at(idx, row_idx+1).copy_state_from(field_at(idx, row_idx))
+        end
+      end
+    end
+  end
+
+  # clears a whole row
   def clear(row)
     (1..12).each do |idx|
       row[idx].wipe_out
@@ -98,22 +107,28 @@ class Map
   # applied gravity to floating blocks
   # foreach cell (starting from bottom row going
   # upwards find their floor and let them sink)
+  # TODO: fix - this is super buggy but moves block to the deepest.
   def apply_gravity
 
     # and not on floor row (these cells cannot sink any deeper)
-    @grid[1..-1].reverse.each do |row|
+    @grid[2..-2].each do |row|
       (1..12).each do |idx|
         cell = row[idx]
 
         # only trz to sink filled cells
         if cell.filled?
           is_falling = false
+          do_search = true
           cell_below = cell.bottom
-          while cell_below.empty?
+          while cell_below.empty? && do_search
             puts "#{cell_below}"
             is_falling = true
-            break unless cell_below.bottom_successor?
-            cell_below = cell_below.bottom
+            do_search = false unless cell_below.bottom_successor?
+            cell_below = cell_below.bottom if do_search
+          end
+
+          if cell_below.filled? && is_falling
+            cell_below = cell_below.top
           end
 
           if is_falling
