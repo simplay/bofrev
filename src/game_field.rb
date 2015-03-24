@@ -32,6 +32,11 @@ class GameField
     @color = 'white'
   end
 
+  def copy_state_from(other)
+    @type = other.type
+    @color = other.color
+  end
+
   def to_i
     if @type == :border
       2

@@ -60,7 +60,12 @@ class Map
       (1..12).each do |idx|
         row_deletable &&= row[idx].placed?
       end
-      clear(row) if row_deletable
+
+      if row_deletable
+        clear(row)
+        # TODO: this is currently super buggy: apply_gravity
+      end
+
     end
 
     # TODO apply gravity
@@ -72,6 +77,54 @@ class Map
       row[idx].wipe_out
     end
   end
+
+  # applied gravity to floating blocks
+  # foreach cell (starting from bottom row going
+  # upwards find their floor and let them sink)
+  def apply_gravity
+    current_depth = @grid.length - 3 # initial depth level
+    max_depth = @grid.length - 2 # initial depth level
+
+    puts "inital depth #{current_depth}"
+
+    # and not on floor row (these cells cannot sink any deeper)
+    @grid[1..-1].reverse.each do |row|
+      (1..12).each do |idx|
+        cell = row[idx]
+
+
+
+
+        # only trz to sink filled cells
+        if cell.filled?
+          #cell = row[idx]
+          # this cell can fall
+
+          puts "#{cell} at current_depth"
+
+          initial_lookup_depth = current_depth
+          is_falling = false
+
+
+          while !field_at(idx, initial_lookup_depth+1).filled?
+            break if (max_depth < initial_lookup_depth)
+            is_falling = true
+            initial_lookup_depth += 1
+          end
+
+          if is_falling
+            field_at(idx, initial_lookup_depth-1).copy_state_from(cell)
+            cell.wipe_out
+          end
+
+        end
+        current_depth -= 1
+
+      end
+    end
+  end
+
+
 
 
   def process_event(message)
