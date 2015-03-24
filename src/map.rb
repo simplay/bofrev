@@ -55,44 +55,6 @@ class Map
     @grid.inner_row_at(idx).each &:wipe_out
   end
 
-  # applied gravity to floating blocks
-  # foreach cell (starting from bottom row going
-  # upwards find their floor and let them sink)
-  # TODO: fix - this is super buggy but moves block to the deepest.
-  def apply_gravity
-
-    # and not on floor row (these cells cannot sink any deeper)
-    @grid[2..-2].each do |row|
-      (1..12).each do |idx|
-        cell = row[idx]
-
-        # only trz to sink filled cells
-        if cell.filled?
-          is_falling = false
-          do_search = true
-          cell_below = cell.bottom
-          while cell_below.empty? && do_search
-            puts "#{cell_below}"
-            is_falling = true
-            do_search = false unless cell_below.bottom_successor?
-            cell_below = cell_below.bottom if do_search
-          end
-
-          if cell_below.filled? && is_falling
-            cell_below = cell_below.top
-          end
-
-          if is_falling
-            cell_below.copy_state_from(cell)
-            cell.wipe_out
-          end
-
-        end
-
-      end
-    end
-  end
-
   def process_event(message)
     if message == 'd'
       @shape.move_shape(Point2f.new(1,0))
