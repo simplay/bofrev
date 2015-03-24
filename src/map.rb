@@ -7,6 +7,8 @@ class Map
 
   def initialize
     @grid = []
+
+    # make kernel fields: grid without border
     y_pixels.times do
       row = []
       x_pixels.times do
@@ -25,6 +27,20 @@ class Map
     y_pixels.times do |idy|
       @grid[idy][0] = GameField.new('black', :border)
       @grid[idy][x_pixels-1] = GameField.new('black', :border)
+    end
+
+    # only iterate over kernel: we do not care about border cells
+
+
+    x_iter.each do |idx|
+      y_iter.each do |idy|
+        cell = field_at(idx, idy)
+        neighbors = {
+            :right => field_at(idx+1, idy), :left => field_at(idx-1, idy),
+            :bottom => field_at(idx, idy+1), :top => field_at(idx, idy-1)
+        }
+        cell.assign_neighborhood(neighbors)
+      end
     end
 
     spawn_new_shape
@@ -63,6 +79,7 @@ class Map
 
       if row_deletable
         clear(row)
+        apply_gravity
         # TODO: this is currently super buggy: apply_gravity
       end
 
@@ -82,43 +99,29 @@ class Map
   # foreach cell (starting from bottom row going
   # upwards find their floor and let them sink)
   def apply_gravity
-    current_depth = @grid.length - 3 # initial depth level
-    max_depth = @grid.length - 2 # initial depth level
-
-    puts "inital depth #{current_depth}"
 
     # and not on floor row (these cells cannot sink any deeper)
     @grid[1..-1].reverse.each do |row|
       (1..12).each do |idx|
         cell = row[idx]
 
-
-
-
         # only trz to sink filled cells
         if cell.filled?
-          #cell = row[idx]
-          # this cell can fall
-
-          puts "#{cell} at current_depth"
-
-          initial_lookup_depth = current_depth
           is_falling = false
-
-
-          while !field_at(idx, initial_lookup_depth+1).filled?
-            break if (max_depth < initial_lookup_depth)
+          cell_below = cell.bottom
+          while cell_below.empty?
+            puts "#{cell_below}"
             is_falling = true
-            initial_lookup_depth += 1
+            break unless cell_below.bottom_successor?
+            cell_below = cell_below.bottom
           end
 
           if is_falling
-            field_at(idx, initial_lookup_depth-1).copy_state_from(cell)
+            cell_below.copy_state_from(cell)
             cell.wipe_out
           end
 
         end
-        current_depth -= 1
 
       end
     end
