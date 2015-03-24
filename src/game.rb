@@ -3,6 +3,7 @@ require_relative 'gui'
 require_relative 'observable'
 require_relative 'shape'
 require_relative 'point2f'
+require_relative 'score'
 
 class Game
   RUN_GAME_THREAD = true
@@ -12,7 +13,8 @@ class Game
 
   attr_accessor :map
   def initialize
-    @turns_allowed = 1000
+    @turns_allowed = 10_000 # TODO: define a more meaningful ending/condition.
+    @score = Score.new
     initialize_map
     puts @map.to_s
   end
@@ -28,11 +30,16 @@ class Game
     perform_loop_step("game started")
   end
 
+  def update_score_by(value)
+    @score.increment_by(value)
+  end
+
   def perform_loop_step(message)
     if finished?
-      @music_thread.shut_down
+      @music_thread.shut_down if RUN_GAME_THREAD
       unsubscribe(:gui)
       notify_all_targets_of_type(:application)
+      puts "You scored #{@score.final_points} point!"
     else
       puts "message received: #{message}"
 
@@ -67,7 +74,7 @@ class Game
   end
 
   def initialize_map
-    @map = Map.new
+    @map = Map.new(self)
   end
 
 end

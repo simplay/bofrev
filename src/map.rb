@@ -7,7 +7,8 @@ class Map
 
   include Settings
 
-  def initialize
+  def initialize(game)
+    @game = game
     @grid = Grid.new(WIDTH_PIXELS, HEIGHT_PIXELS)
     spawn_new_shape
   end
@@ -36,6 +37,7 @@ class Map
       if row_deletable
         clear(idy)
         down_by_one(idy-1)
+        @game.update_score_by(10)
       end
     end
 
