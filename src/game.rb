@@ -52,6 +52,10 @@ class Game
     @turns_allowed < 0 || @brute_fore_kill
   end
 
+  def current_player_score
+    @score.final_points
+  end
+
   private
 
   def shut_down_threads

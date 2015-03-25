@@ -16,6 +16,7 @@ class Gui < Observer
   S_KEY = 's'
 
   def initialize(game)
+    @pewpew = "pew"
     game.subscribe(self)
     @game = game
     build_gui_components
@@ -28,20 +29,24 @@ class Gui < Observer
   # then we are supposed to redraw the gui.
   def handle_event
     draw_game_state
-    puts "gui redrawn"
+    update_score_tile
   end
 
   def draw_game_state
     @canvas.delete('all')
     draw_empty_grid(@canvas, CELL_SIZE)
     draw_grid_cells
+    update_score_tile
   end
 
   def clicked_onto_start
     @game.run
+    update_score_tile
   end
 
-
+  def update_score_tile
+    @score_tile.text = "Current Score: #{@game.current_player_score}"
+  end
 
   def perform_gui_close_steps
     detach_all_listeners
@@ -57,11 +62,26 @@ class Gui < Observer
       minsize(MAX_WIDTH+10,MAX_HEIGHT+10)
     end
 
+
+
+
     @canvas = TkCanvas.new(@root)
     @canvas.grid :sticky => 'nwes', :column => 0, :row => 0
 
-    TkGrid.columnconfigure(@root, 0, :weight => 1)
-    TkGrid.rowconfigure(@root, 0, :weight => 1)
+
+    content = Tk::Tile::Frame.new(@root) {padding "3 3 12 12"}.grid( :sticky => 'swes')
+    TkGrid.columnconfigure @root, 0, :weight => 1; TkGrid.rowconfigure @root, 0, :weight => 1
+    @score_tile = Tk::Tile::Label.new(content) {text "00"}.grid( :column => 3, :row => 1, :sticky => 'w')
+
+    #TkGrid.columnconfigure(@root, 0, :weight => 1)
+    #TkGrid.rowconfigure(@root, 0, :weight => 1)
+
+
+
+    TkWinfo.children(content).each {|w| TkGrid.configure w, :padx => 5, :pady => 5}
+    #@canvas.focus
+
+
     draw_empty_grid(@canvas, CELL_SIZE)
 
   end

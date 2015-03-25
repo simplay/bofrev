@@ -56,8 +56,6 @@ class CollisionChecker
         if(hit_ground)
           @state = :grounded
           shape.mark_fields_placed
-          # TODO check if combo occurred
-          #   In case there was a combo, apply deletion and increase player score.
         end
       end
 
