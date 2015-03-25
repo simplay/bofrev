@@ -9,6 +9,7 @@ module Observable
     end
   end
 
+  # hook including class' initializer in an pre-pending order.
   def self.included(klass)
     klass.send(:prepend, Initializer)
   end

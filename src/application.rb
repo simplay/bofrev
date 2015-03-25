@@ -9,6 +9,7 @@ require 'pry'
 # init game
 # init gui with game
 # init db for scores
+# Follows the
 class Application < Observer
   def initialize(args)
     Settings.set_mode(args)
