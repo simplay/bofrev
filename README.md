@@ -3,9 +3,15 @@
 
 This project is licensed under the [MIT License](https://github.com/simplay/bofrev/blob/master/LICENSE).
 
+## Prerequisites
+
+Ruby 2.2.0 and bundle
+
 ## Installation:
 
-+ Have sounds when running the game: `brew install mplayer`
++ Have sounds when running the game: `brew install mplayer`.
++ `chmod +x bofrev` to run `./bofrev`.
++ run `bundle`
 
 ## Usage
 `./bofrev -d <D>` to run the game in running mode **D**. This parameter is _optional_.
