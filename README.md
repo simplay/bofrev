@@ -3,6 +3,11 @@
 
 This project is licensed under the [MIT License](https://github.com/simplay/bofrev/blob/master/LICENSE).
 
+## Features
+
++ 2D Grid Game with Collision Detection
++ Tetris Music
+
 ## Prerequisites
 
 Ruby 2.2.0 and bundle
