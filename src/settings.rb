@@ -10,6 +10,8 @@ module Settings
   HEIGHT_PIXELS = 20
   COLORS = %w(green blue red yellow orange)
 
+  TICKS_PER_SECOND = 1 # determines the game speed.
+
   def self.set_mode(flag)
     unless flag[:debug].nil?
       @mode = flag[:debug]
