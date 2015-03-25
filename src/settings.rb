@@ -1,4 +1,6 @@
 module Settings
+  @mode = 0
+
   MAX_WIDTH = 240
   MAX_HEIGHT = 600
 
@@ -7,6 +9,20 @@ module Settings
 
   HEIGHT_PIXELS = 20
   COLORS = %w(green blue red yellow orange)
+
+  def self.set_mode(flag)
+    unless flag[:debug].nil?
+      @mode = flag[:debug]
+    end
+  end
+
+  def self.run_music?
+    @mode < 1
+  end
+
+  def self.run_game_thread?
+    @mode < 2
+  end
 
   def random_color
     idx = Random.rand(COLORS.length)

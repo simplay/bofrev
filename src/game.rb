@@ -6,7 +6,7 @@ require_relative 'point2f'
 require_relative 'score'
 
 class Game
-  RUN_GAME_THREAD = true
+  RUN_GAME_THREAD = false
   include Observable
 
   TICKS_PER_SECOND = 1 # determines the game speed.
@@ -22,11 +22,8 @@ class Game
   # spawn game thread.
   # handle map state here- care about race-condition with provided user input
   def run
-    if RUN_GAME_THREAD
-      spawn_ticker
-      start_music_player
-    end
-
+    spawn_ticker if Settings.run_game_thread?
+    start_music_player if Settings.run_music?
     perform_loop_step("game started")
   end
 
@@ -36,7 +33,7 @@ class Game
 
   def perform_loop_step(message)
     if finished?
-      @music_thread.shut_down if RUN_GAME_THREAD
+      @music_thread.shut_down if Settings.run_music?
       unsubscribe(:gui)
       notify_all_targets_of_type(:application)
       puts "You scored #{@score.final_points} point!"
