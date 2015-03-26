@@ -7,6 +7,7 @@ require_relative 'score'
 require_relative 'ticker'
 require_relative 'music_player'
 require_relative 'settings'
+require_relative 'pacer'
 
 class Game
   include Observable
@@ -70,7 +71,7 @@ class Game
 
   def create_threads
     @music_thread = MusicPlayer.new("audio/tetris_tone_loop.mp3")
-    @ticker_thread = Ticker.new(self, @map, TICKS_PER_SECOND)
+    @ticker_thread = Ticker.new(self, @map, Pacer.new(@score))
   end
 
   def initialize_map

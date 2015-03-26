@@ -18,10 +18,7 @@ class Map
   end
 
   def spawn_new_shape
-    #@shape = Shape.new(self, random_color)
     @shape = ShapeSpawner.new(self).next
-
-
   end
 
   def move_shape_one_down
@@ -51,7 +48,7 @@ class Map
 
   end
 
-  # down all inner cells from row 1 (not zero) till :till_row_idx
+  # sink all inner cells from row 1 (not zero) till :till_row_idx
   def down_by_one(from_row_idx)
     (1..from_row_idx).to_a.reverse.each do |row_idx|
       @grid.inner_width_iter.each do |idx|
@@ -60,12 +57,13 @@ class Map
     end
   end
 
-  # clears a whole row
+  # clears the whole inner row at index :idx
   def clear(idx)
     @sound_effect.play(:explosion)
     @grid.inner_row_at(idx).each &:wipe_out
   end
 
+  # handle user input and update game state accordingly.
   def process_event(message)
     if message == 'd'
       @shape.move_shape(Point2f.new(1,0))
@@ -74,7 +72,6 @@ class Map
     elsif message == 's'
       @shape.move_shape(Point2f.new(0, 1))
     elsif message == 'w'
-
       was_rotated = @shape.rotate
       @sound_effect.play(:jump) if was_rotated
     end
