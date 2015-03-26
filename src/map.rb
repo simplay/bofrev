@@ -3,6 +3,8 @@ require_relative 'settings'
 require_relative 'shape'
 require_relative 'point2f'
 require_relative 'sound_effect'
+require_relative 'shapes/square'
+require_relative 'shape_spawner'
 
 class Map
 
@@ -16,7 +18,10 @@ class Map
   end
 
   def spawn_new_shape
-    @shape = Shape.new(self, random_color)
+    #@shape = Shape.new(self, random_color)
+    @shape = ShapeSpawner.new(self).next
+
+
   end
 
   def move_shape_one_down

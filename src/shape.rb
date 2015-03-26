@@ -8,12 +8,7 @@ class Shape
   def initialize(map, color)
     @origin = Point2f.new(5, 0)
 
-    @position_states = [
-        [Point2f.new(-1,0), Point2f.new(0,0), Point2f.new(1,0)],
-        [Point2f.new(0,-1), Point2f.new(0,0), Point2f.new(0,1)],
-        [Point2f.new(-1,0), Point2f.new(0,0), Point2f.new(1,0)],
-        [Point2f.new(0,-1), Point2f.new(0,0), Point2f.new(0,1)]
-    ]
+    @position_states = position_states
 
     @rotation_modus = 0
     @local_points = @position_states[@rotation_modus]
@@ -26,6 +21,11 @@ class Shape
       @grid_map.set_field_at(p.x, p.y, color)
     end
 
+  end
+
+  # Shape orientations
+  def position_states
+    raise "not implemented yet."
   end
 
   def next_rotation_position
