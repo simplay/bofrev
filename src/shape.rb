@@ -33,6 +33,7 @@ class Shape
     @grid_map = map
     @color = color
     @mutex = Mutex.new
+    @play_sound_effect = false
 
     map_positions.each do |p|
       @grid_map.set_field_at(p.x, p.y, color)
@@ -56,9 +57,13 @@ class Shape
     Point2f.new(1,1).add(@origin).add(shift)
   end
 
+  # @param [Boolean] was shape not blocked?
   def rotate
+    @play_sound_effect = false
     unless CollisionChecker.new(self, :rotate).blocked?
       @mutex.synchronize do
+
+        @play_sound_effect = true
 
         map_positions.each do |p|
           @grid_map.set_field_at(p.x, p.y, 'white')
@@ -72,11 +77,11 @@ class Shape
         end
       end
     end
+    @play_sound_effect
   end
 
   # @param move_by [Point2f] relative movement in plane.
   def move_shape(move_by=Point2f.new(0,0))
-
     collision_state = CollisionChecker.new(self, :move, move_by)
 
     if !collision_state.blocked?

@@ -74,8 +74,9 @@ class Map
     elsif message == 's'
       @shape.move_shape(Point2f.new(0, 1))
     elsif message == 'w'
-      @sound_effect.play(:jump)
-      @shape.rotate
+
+      was_rotated = @shape.rotate
+      @sound_effect.play(:jump) if was_rotated
     end
   end
 
