@@ -1,6 +1,23 @@
 require_relative 'point2f'
 require_relative 'collision_checker'
 require 'thread'
+
+# Shape encodes a collection of dependent cells that have to be placed in the game grid,
+# using provided user inputs and game state updates.
+#
+# We can think of Shape#position_states as a # 4x4 Local coordinate system.
+#   E.g. a 3x3 system would look like this:
+#
+#     ============================
+#     | (-1,1)  | (0,1)  | (1,1) |
+#     ============================
+#     | (-1,0)  | (0,0)  | (1,0) |
+#     ============================
+#     | (-1,-1) | (0,-1) | (1,-1)|
+#     ============================
+#
+# each cell in this matrix is a Point2f instance
+# If a specific coordinate is encoded in :position_states, then use this cell.
 class Shape
   attr_accessor :local_points, :origin # origin of local coordinate system, this changes during updates.
   attr_reader :color # binary shape of figure, remains constant AND color
@@ -23,7 +40,10 @@ class Shape
 
   end
 
-  # Shape orientations
+  # A collection of orientations of a given shape.
+  # Each sub.array represents an shape orientation state
+  # Each shape has 4 states, i.e. 4 sub-arrays.
+  # @return [Array] of Arrays that contain Point2f elements
   def position_states
     raise "not implemented yet."
   end
@@ -54,7 +74,6 @@ class Shape
     end
   end
 
-  # TODO: make collision check
   # @param move_by [Point2f] relative movement in plane.
   def move_shape(move_by=Point2f.new(0,0))
 

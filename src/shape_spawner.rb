@@ -7,7 +7,7 @@ require_relative 'shapes/reverse_l_piece'
 require_relative 'shapes/reverse_squiggly'
 require_relative 'shapes/squiggly'
 require_relative 'shapes/t_block'
-
+require_relative 'shapes/line_piece'
 
 class ShapeSpawner
   include Settings
@@ -20,7 +20,8 @@ class ShapeSpawner
         ReverseLPiece,
         ReverseSquiggly,
         Squiggly,
-        TBlock
+        TBlock,
+        LinePiece
     ]
     @map = map
   end
