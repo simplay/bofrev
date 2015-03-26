@@ -2,12 +2,14 @@ require_relative 'game_field'
 require_relative 'settings'
 require_relative 'shape'
 require_relative 'point2f'
+require_relative 'sound_effect'
 
 class Map
 
   include Settings
 
   def initialize(game)
+    @sound_effect = SoundEffect.new
     @game = game
     @grid = Grid.new(WIDTH_PIXELS, HEIGHT_PIXELS)
     spawn_new_shape
@@ -32,6 +34,7 @@ class Map
   # iterate row-wise though grid and look for '4'-rows (w/e border).
   # Each such row should be deleted and a players score should be incremented accordingly.
   def check_for_combo
+    @sound_effect.play(:kick)
     @grid.inner_height_iter.each do |idy|
       row_deletable = @grid.inner_row_at(idy).all? &:placed?
       if row_deletable
@@ -54,6 +57,7 @@ class Map
 
   # clears a whole row
   def clear(idx)
+    @sound_effect.play(:explosion)
     @grid.inner_row_at(idx).each &:wipe_out
   end
 
@@ -65,6 +69,7 @@ class Map
     elsif message == 's'
       @shape.move_shape(Point2f.new(0, 1))
     elsif message == 'w'
+      @sound_effect.play(:jump)
       @shape.rotate
     end
   end

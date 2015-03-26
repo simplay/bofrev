@@ -3,7 +3,7 @@ require_relative 'gui'
 require_relative 'observer'
 require_relative 'grid'
 require_relative 'settings'
-
+require_relative 'sound_effect'
 require 'pry'
 
 # init game

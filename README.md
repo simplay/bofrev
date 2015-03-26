@@ -3,6 +3,8 @@
 
 This project is licensed under the [MIT License](https://github.com/simplay/bofrev/blob/master/LICENSE).
 
+All sound files are from [freesound.org](www.freesound.org).
+
 ## Features
 
 + 2D Grid Game with Collision Detection
