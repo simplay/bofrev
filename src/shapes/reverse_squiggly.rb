@@ -1,5 +1,5 @@
 require_relative '../shape'
-class LinePiece < Shape
+class ReverseSquiggly < Shape
   def initialize(map, color)
     super(map, color)
   end
@@ -12,4 +12,5 @@ class LinePiece < Shape
         [Point2f.new(0,-1), Point2f.new(0,0), Point2f.new(0,1)]
     ]
   end
+
 end

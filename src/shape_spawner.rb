@@ -1,12 +1,27 @@
-require_relative 'shapes/square'
-require_relative 'shapes/line_piece'
 require_relative 'settings'
+
+require_relative 'shapes/square'
+require_relative 'shapes/short_line_piece'
+require_relative 'shapes/l_piece'
+require_relative 'shapes/reverse_l_piece'
+require_relative 'shapes/reverse_squiggly'
+require_relative 'shapes/squiggly'
+require_relative 'shapes/t_block'
+
 
 class ShapeSpawner
   include Settings
 
   def initialize(map)
-    @shape_types = [Square, LinePiece]
+    @shape_types = [
+        Square,
+        ShortLinePiece,
+        LPiece,
+        ReverseLPiece,
+        ReverseSquiggly,
+        Squiggly,
+        TBlock
+    ]
     @map = map
   end
 
