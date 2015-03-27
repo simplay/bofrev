@@ -118,20 +118,34 @@ class Shape
   def mark_fields_placed
     points_in_grid_coords.each do |p|
       target_cell = @grid_map.field_at(p.x, p.y)
-
       if p.y == 1 && target_cell.type == :placed
         return @grid_map.initiate_game_over
       end
-
       target_cell.type = :placed
     end
+
+    return @grid_map.initiate_game_over if was_game_over_movement?
 
     @grid_map.check_for_combo
 
   end
 
-
   private
+
+  # Check for Game over movement if we want to place a block onto a
+  # cell is placed an top inner row.
+  #
+  # @return [Boolean] :true if we got killed by current placement
+  #         otherwise :false
+  def was_game_over_movement?
+    points_in_grid_coords.each do |p|
+      target_cell = @grid_map.field_at(p.x, p.y)
+      if p.y == 1 && target_cell.type == :placed
+        return true
+      end
+    end
+    false
+  end
 
   # position of this shape in map coordinate system
   def map_positions
