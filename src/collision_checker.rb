@@ -35,8 +35,9 @@ class CollisionChecker
         @state = :bounded
       end
 
-    elsif opertaion == :move
+    elsif opertaion == :move || opertaion == :move_sidewards
       next_origin = shape.next_moved_origin(shift)
+
       next_move_hit_points = shape.local_points.map do |point|
         Point2f.new(point.x + next_origin.x, point.y + next_origin.y)
       end
@@ -55,7 +56,8 @@ class CollisionChecker
 
         if(hit_ground)
           @state = :grounded
-          shape.mark_fields_placed
+          shape.mark_fields_placed unless opertaion == :move_sidewards
+          shape.apply_combo_check
         end
       end
 

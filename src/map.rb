@@ -65,9 +65,9 @@ class Map
   # handle user input and update game state accordingly.
   def process_event(message)
     if message == 'd'
-      @shape.move_shape(Point2f.new(1,0))
+      @shape.move_shape(Point2f.new(1,0), :move_sidewards)
     elsif message == 'a'
-      @shape.move_shape(Point2f.new(-1,0))
+      @shape.move_shape(Point2f.new(-1,0), :move_sidewards)
     elsif message == 's'
       @shape.move_shape(Point2f.new(0, 1))
     elsif message == 'w'

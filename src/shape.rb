@@ -84,8 +84,8 @@ class Shape
   end
 
   # @param move_by [Point2f] relative movement in plane.
-  def move_shape(move_by=Point2f.new(0,0))
-    collision_state = CollisionChecker.new(self, :move, move_by)
+  def move_shape(move_by=Point2f.new(0,0), movement_type = :move)
+    collision_state = CollisionChecker.new(self, movement_type, move_by)
 
     if !collision_state.blocked?
       @mutex.synchronize do
@@ -125,6 +125,10 @@ class Shape
 
     @grid_map.check_for_combo
 
+  end
+
+  def apply_combo_check
+    @grid_map.check_for_combo
   end
 
   private
