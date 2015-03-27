@@ -48,10 +48,18 @@ class Gui < Observer
   def perform_gui_close_steps
     detach_all_listeners
     @canvas.destroy
+    show_final_score
     # TODO show score and then ask user for playing another game.
   end
 
   private
+
+  def show_final_score
+    content = Tk::Tile::Frame.new(@root) {padding "3 3 12 12"}.grid( :sticky => 'swes')
+    TkGrid.columnconfigure @root, 0, :weight => 1; TkGrid.rowconfigure @root, 0, :weight => 1
+    @score_tile = Tk::Tile::Label.new(content) {text "00"}.grid( :column => 3, :row => 1, :sticky => 'w')
+    @score_tile.text = "Game OVER!"
+  end
 
   def build_gui_components
     @root = TkRoot.new do
