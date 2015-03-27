@@ -1,6 +1,6 @@
 # bofrev
 
-**bogrev** - Boring Friday Evening - is a typical Friday late night ego-coding-session outcome that can be considered as some kind of Sandbox project.
+**bofrev** - Boring Friday Evening - is a typical Friday late night ego-coding-session outcome that can be considered as some kind of Sandbox project.
 
 This project is licensed under the [MIT License](https://github.com/simplay/bofrev/blob/master/LICENSE).
 
