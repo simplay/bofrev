@@ -22,6 +22,9 @@ class Shape
   attr_accessor :local_points, :origin # origin of local coordinate system, this changes during updates.
   attr_reader :color # binary shape of figure, remains constant AND color
   attr_accessor :grid_map
+
+  # @param map [Map] game map
+  # @param color [String] color identifier known by Tk
   def initialize(map, color)
     @origin = Point2f.new(5, 0)
 
@@ -114,7 +117,13 @@ class Shape
 
   def mark_fields_placed
     points_in_grid_coords.each do |p|
-      @grid_map.field_at(p.x, p.y).type = :placed
+      target_cell = @grid_map.field_at(p.x, p.y)
+
+      if p.y == 1 && target_cell.type == :placed
+        return @grid_map.initiate_game_over
+      end
+
+      target_cell.type = :placed
     end
 
     @grid_map.check_for_combo

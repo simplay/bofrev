@@ -45,7 +45,6 @@ class Map
         @game.update_score_by(10)
       end
     end
-
   end
 
   # sink all inner cells from row 1 (not zero) till :till_row_idx
@@ -75,6 +74,14 @@ class Map
       was_rotated = @shape.rotate
       @sound_effect.play(:jump) if was_rotated
     end
+  end
+
+  def top_inner_grid_row
+    @grid.inner_row_at(1)
+  end
+
+  def initiate_game_over
+    @game.initiate_game_over
   end
 
 end

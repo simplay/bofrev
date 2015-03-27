@@ -57,6 +57,12 @@ class Game
     @score.final_points
   end
 
+  def initiate_game_over
+    @brute_fore_kill = true
+    @turns_allowed = -1
+  end
+
+
   private
 
   def shut_down_threads
