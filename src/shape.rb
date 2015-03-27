@@ -118,9 +118,6 @@ class Shape
   def mark_fields_placed
     points_in_grid_coords.each do |p|
       target_cell = @grid_map.field_at(p.x, p.y)
-      if p.y == 1 && target_cell.type == :placed
-        return @grid_map.initiate_game_over
-      end
       target_cell.type = :placed
     end
 
