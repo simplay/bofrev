@@ -1,13 +1,13 @@
-#require_relative 'map'
-require_relative 'tetris/tetris_map'
+require_relative 'settings'
 require_relative 'gui'
 require_relative 'observable'
-require_relative 'point2f'
 require_relative 'score'
+
 require_relative 'ticker'
 require_relative 'music_player'
-require_relative 'settings'
 require_relative 'pacer'
+
+require_relative 'tetris/tetris_map'
 
 class Game
   include Observable
@@ -62,7 +62,6 @@ class Game
     @turns_allowed = -1
   end
 
-
   private
 
   def shut_down_threads
@@ -76,7 +75,7 @@ class Game
   end
 
   def create_threads
-    @music_thread = MusicPlayer.new("audio/tetris_tone_loop.mp3")
+    @music_thread = MusicPlayer.new(Settings.sound_theme)
     @ticker_thread = Ticker.new(self, @map, Pacer.new(@score))
   end
 

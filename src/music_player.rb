@@ -1,11 +1,11 @@
 # MusicPlayer runs given list of music files as a background process that can be synchronized during runtime.
 class MusicPlayer
 
-  # @param path_file_name [String] path and filename
-  # (with extension) to desired audio file
+  # @param path_file_name_list [Array] of Strings of song path- and filenames
+  # @hint: (with extension) to desired audio file.
   # @return [Thread] reference to sound thread
-  def initialize(path_file_name)
-    @path_file_name = path_file_name
+  def initialize(path_file_name_list)
+    @song_list = path_file_name_list
     @keep_running = true
   end
 
@@ -22,7 +22,8 @@ class MusicPlayer
   def play
     @thread = Thread.new do
       loop do
-        run = "mplayer #{@path_file_name} -vo x11 -framedrop -cache 16384 -cache-min 20/100"
+        idx = rand(@song_list.length)
+        run = "mplayer #{@song_list[idx]} -vo x11 -framedrop -cache 16384 -cache-min 20/100"
         system(run)
         break unless @keep_running
       end

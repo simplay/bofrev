@@ -12,10 +12,26 @@ module Settings
 
   TICKS_PER_SECOND = 1 # determines the game speed.
 
-  def self.set_mode(flag)
-    unless flag[:debug].nil?
-      @mode = flag[:debug]
+
+  # retrieve theme song list for selected game during startup.
+  #
+  # @hint: selected_game number indicating selected game
+  #   1: tetris
+  #   default none
+  def self.sound_theme
+    case @selected_game
+    when 1
+      ['audio/tetris_tone_loop.mp3']
+    else
+      []
     end
+  end
+
+  def self.set_mode(flag)
+    @selected_game = 1
+
+    @mode = flag[:debug] unless flag[:debug].nil?
+    @selected_game = flag[:game] unless flag[:game].nil?
   end
 
   def self.run_music?

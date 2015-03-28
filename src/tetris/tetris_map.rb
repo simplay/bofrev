@@ -6,7 +6,7 @@ require_relative 'shape_spawner'
 
 
 class TetrisMap < Map
-  
+
   def initialize(game)
     super(game)
     spawn_new_shape
