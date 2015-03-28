@@ -1,4 +1,8 @@
+require_relative 'settings'
+
 class SoundEffect
+
+  include Settings
 
   # Sounds
   SOUND_EFFECTS = {
@@ -21,9 +25,11 @@ class SoundEffect
   # @hint: In case mplayer is not installed, this thread runs silently.
   # @param effect_sound [Symbol] a hash key in SOUND_EFFECTS.
   def play(effect_sound)
-    @thread = Thread.new do
-      run = "mplayer #{SOUND_EFFECTS[effect_sound]} -vo x11 -framedrop -cache 16384 -cache-min 20/100"
-      system(run)
+    if Settings.run_music?
+      @thread = Thread.new do
+        run = "mplayer #{SOUND_EFFECTS[effect_sound]} -vo x11 -framedrop -cache 16384 -cache-min 20/100"
+        system(run)
+      end
     end
     nil
   end
