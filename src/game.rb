@@ -1,7 +1,7 @@
-require_relative 'map'
+#require_relative 'map'
+require_relative 'tetris/tetris_map'
 require_relative 'gui'
 require_relative 'observable'
-require_relative 'shape'
 require_relative 'point2f'
 require_relative 'score'
 require_relative 'ticker'
@@ -81,7 +81,7 @@ class Game
   end
 
   def initialize_map
-    @map = Map.new(self)
+    @map = TetrisMap.new(self)
   end
 
   def set_up_exit_handle

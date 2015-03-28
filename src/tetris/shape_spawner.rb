@@ -1,4 +1,4 @@
-require_relative 'settings'
+require_relative '../settings'
 
 require_relative 'shapes/square'
 require_relative 'shapes/short_line_piece'

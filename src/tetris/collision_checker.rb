@@ -1,5 +1,5 @@
-require_relative 'settings'
-require_relative 'point2f'
+require_relative '../settings'
+require_relative '../point2f'
 
 # states:
 #   bounded: cannot move any further sidewards (left, right)
