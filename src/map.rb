@@ -27,8 +27,13 @@ class Map
     @grid.inner_row_at(idx).each &:wipe_out
   end
 
-  # handle user input and update game state accordingly.
+  # defines how user input should be handled to update the game state.
   def process_event(message)
+    raise "not implemented yet"
+  end
+
+  # defines how thicker should update this map.
+  def process_ticker
     raise "not implemented yet"
   end
 

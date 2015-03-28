@@ -9,7 +9,7 @@ class Ticker
   def start
     @thread = Thread.new do
       loop do
-        @map.move_shape_one_down
+        @map.process_ticker
         @game.notify_all_targets_of_type(:gui)
         sleep(1.0 / @pacer.ticks_per_second) # sleep time in [s]
         break if finished?
