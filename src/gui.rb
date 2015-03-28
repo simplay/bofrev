@@ -49,7 +49,7 @@ class Gui < Observer
     detach_all_listeners
     @canvas.destroy
     show_final_score
-    # TODO show score and then ask user for playing another game.
+    # TODO ask user for playing another game.
   end
 
   private

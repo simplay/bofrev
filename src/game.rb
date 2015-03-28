@@ -36,6 +36,7 @@ class Game
   end
 
   def perform_loop_step(message)
+    puts "message: #{message}"
     if finished?
       shut_down_threads
       unsubscribe(:gui)
@@ -60,6 +61,8 @@ class Game
   def initiate_game_over
     @brute_fore_kill = true
     @turns_allowed = -1
+    perform_loop_step('killed')
+
   end
 
   private
