@@ -17,7 +17,7 @@ opt_parser = OptionParser.new do |opt|
     user_args[:debug] = debug
   end
 
-  opt.on("-d", "--game g", Integer, "Desired Game to Play: nil normal, 1 Tetris") do |game|
+  opt.on("-g", "--game g", Integer, "Desired Game to Play: nil normal, 1 Tetris") do |game|
     user_args[:game] = game
   end
 
