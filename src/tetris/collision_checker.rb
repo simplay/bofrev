@@ -28,7 +28,8 @@ class CollisionChecker
       end
 
       has_collision = next_rot_hit_points.any? do |pos|
-        shape.grid_map.field_at(pos.x, pos.y).border? == true
+        field = shape.grid_map.field_at(pos.x, pos.y)
+        (field.floor? || field.placed? || field.border?) == true
       end
 
       if has_collision
