@@ -89,7 +89,6 @@ class CollisionChecker
         if(hit_ground)
           @state = :bounded
           unless @next_sidewards_below_placed
-            @state = :grounded
             shape.mark_fields_placed
             shape.apply_combo_check
           end
