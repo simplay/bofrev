@@ -153,7 +153,7 @@ class Gui < Observer
     x_iter.each do |column_id|
       y_iter.each do |row_idx|
         field = @game.map.field_at(column_id, row_idx)
-        if field.filled?
+        if field.drawable?
           x0 = (column_id-1)*(CELL_SIZE); x1 = (column_id)*(CELL_SIZE)
           y0 = (row_idx-1)*(CELL_SIZE); y1 = (row_idx)*(CELL_SIZE)
           TkcRectangle.new(@canvas, x0, y0, x1, y1,
