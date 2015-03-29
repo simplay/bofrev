@@ -89,14 +89,14 @@ class Grid
 
   # Get row at given index.
   # @param idx [Integer] row index
-  # @hint: Note that Index enumeration starts at 0
-  #        border rows - Index 0 & @grid.size are
+  # @hint starts counting at 0 and ends at @grid.size-1
   def row_at(idx)
     @data[idx]
   end
 
-  # Get row at given index excluding its border cells.
-  #   # @param idx [Integer] row index
+  # Get row :idx at given index excluding its border cells.
+  #   @param idx [Integer] row index
+  #   @hint starts counting at 1 and ends at @grid.size-2
   def inner_row_at(idx)
     row_at(idx)[1..-2]
   end
@@ -121,6 +121,19 @@ class Grid
     @data[y][x] = field
   end
 
+  # Update a whole inner row bz an array of game fields.
+  # Assumption: Dimensionality of given field array matches inner row length
+  # and the order of the elements in the array corresponds to the row.
+  #
+  # @param row_idx inner row index
+  # @param fields [Array] of GameField instances we use
+  # for updating the target row.
+  def set_inner_row_at(row_idx, fields)
+    fields.each_with_index do |field, col_idx|
+      set_field_at(col_idx+1, row_idx,field)
+    end
+  end
+
   # Assign a new game color at a given field location (x,y) in the grid.
   #
   # @param x [Integer] row index
@@ -142,7 +155,7 @@ class Grid
     grid_as_string
   end
 
-  private
+  protected
 
   # Create an empty game grid cells
   #
