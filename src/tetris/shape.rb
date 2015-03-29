@@ -72,7 +72,7 @@ class Shape
     @play_sound_effect = false
 
     map_positions.each do |p|
-      @grid_map.set_field_at(p.x, p.y, color)
+      @grid_map.set_field_color_at(p.x, p.y, color)
     end
 
   end
@@ -113,14 +113,14 @@ class Shape
         @play_sound_effect = true
 
         map_positions.each do |p|
-          @grid_map.set_field_at(p.x, p.y, 'white')
+          @grid_map.set_field_color_at(p.x, p.y, 'white')
         end
 
         @rotation_modus = (@rotation_modus + 1) % 4
         @local_points = @position_states[@rotation_modus]
 
         map_positions.each do |p|
-          @grid_map.set_field_at(p.x, p.y, @color)
+          @grid_map.set_field_color_at(p.x, p.y, @color)
         end
       end
     end
@@ -143,13 +143,13 @@ class Shape
       @mutex.synchronize do
 
         map_positions.each do |p|
-          @grid_map.set_field_at(p.x, p.y, 'white')
+          @grid_map.set_field_color_at(p.x, p.y, 'white')
         end
 
         update_position_by(move_by)
 
         map_positions.each do |p|
-          @grid_map.set_field_at(p.x, p.y, @color)
+          @grid_map.set_field_color_at(p.x, p.y, @color)
         end
       end
     elsif collision_state.state == :grounded

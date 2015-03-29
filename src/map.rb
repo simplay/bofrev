@@ -13,7 +13,7 @@ class Map
     @grid = Grid.new(WIDTH_PIXELS, HEIGHT_PIXELS)
   end
 
-  def set_field_at(x, y, color)
+  def set_field_color_at(x, y, color)
     @grid.set_field_color_at(x, y, color)
   end
 
@@ -35,10 +35,6 @@ class Map
   # defines how thicker should update this map.
   def process_ticker
     raise "not implemented yet"
-  end
-
-  def top_inner_grid_row
-    @grid.inner_row_at(1)
   end
 
   def initiate_game_over
