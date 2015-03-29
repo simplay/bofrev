@@ -78,7 +78,9 @@ class CollisionChecker
         hit_ground = next_move_hit_points.any? do |pos|
           field = shape.grid_map.field_at(pos.x, pos.y)
           field_below = shape.grid_map.field_at(pos.x, pos.y+1)
-          @next_sidewards_below_placed = field_below.placed? unless @next_sidewards_below_placed
+
+          @next_sidewards_below_placed = field_below.placed? unless (@next_sidewards_below_placed == true)
+
           t = (field.floor? || (field.placed?)) == true
           t
         end
