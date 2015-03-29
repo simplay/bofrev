@@ -130,7 +130,7 @@ class Grid
   # for updating the target row.
   def set_inner_row_at(row_idx, fields)
     fields.each_with_index do |field, col_idx|
-      set_field_at(col_idx+1, row_idx,field)
+      set_field_at(col_idx+1, row_idx, field)
     end
   end
 
@@ -141,6 +141,10 @@ class Grid
   # @param color [String] game field color
   def set_field_color_at(x, y, color)
     @data[y][x].color = color
+  end
+
+  def flush_field_at(x, y)
+    field_at(x,y).wipe_out
   end
 
   # @return [String] Matrix form of grid encoded as string.

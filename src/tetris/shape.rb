@@ -113,7 +113,7 @@ class Shape
         @play_sound_effect = true
 
         map_positions.each do |p|
-          @grid_map.set_field_color_at(p.x, p.y, 'white')
+          @grid_map.clear_field_at(p.x, p.y)
         end
 
         @rotation_modus = (@rotation_modus + 1) % 4
@@ -143,7 +143,7 @@ class Shape
       @mutex.synchronize do
 
         map_positions.each do |p|
-          @grid_map.set_field_color_at(p.x, p.y, 'white')
+          @grid_map.clear_field_at(p.x, p.y)
         end
 
         update_position_by(move_by)
