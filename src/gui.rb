@@ -1,6 +1,8 @@
 require_relative 'point2f'
 require_relative 'observer'
 require_relative 'settings'
+require_relative 'achievement_system'
+
 require 'tk'
 require 'tkextlib/tile'
 
@@ -42,7 +44,8 @@ class Gui < Observer
   end
 
   def update_score_tile
-    @score_tile.text = "Score: #{@game.current_player_score}"
+
+    @score_tile.text = "Score: #{@game.current_player_score} \n achievements: #{AchievementSystem.unlocked.join(' ')}"
   end
 
   def perform_gui_close_steps

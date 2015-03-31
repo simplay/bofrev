@@ -19,11 +19,32 @@ module Observable
     @observers.each &:handle_event
   end
 
+  # notify all observer with a certain message they are supposed to handle.
+  # @param message [Event] any type of instance.
+  #        The receiver is supposed to be able to handle this message
+  def notify_all_with_message(message)
+    @observers.each do |observer|
+      observer.handle_event_with(message)
+    end
+  end
+
   # Inform all selected observers that they should handle an occurred event.
   #
   # @param type_name [Symbol] class name as down-cased symbol.
   def notify_all_targets_of_type(type_name)
     observers_of_type(type_name).each &:handle_event
+  end
+
+  # Inform all selected observers that they should handle an occurred
+  # event with a certain message.
+  #
+  # @param type_name [Symbol] class name as down-cased symbol.
+  # @param message [Event] any type of instance.
+  #        The receiver is supposed to be able to handle this message
+  def notify_all_targets_of_type_with_message(type_name, message)
+    observers_of_type(type_name).each do |observer|
+      observer.handle_event_with(message)
+    end
   end
 
   # Append a new observer to the observers list.
@@ -57,8 +78,23 @@ module Observable
   # @param type_name [Symbol] class name as down-cased symbol.
   def observers_of_type(type_name)
     @observers.select do |observer|
-      observer.class.to_s.downcase == type_name.to_s
+      underscore(observer.class.to_s).downcase == type_name.to_s
     end
   end
+
+  protected
+
+  # preserve and handle all potential underscore class name cases.
+  # method has been taken from Rail's String core extension.
+  def underscore(word)
+    word = word.dup
+    word.gsub!(/::/, '/')
+    word.gsub!(/([A-Z]+)([A-Z][a-z])/,'\1_\2')
+    word.gsub!(/([a-z\d])([A-Z])/,'\1_\2')
+    word.tr!("-", "_")
+    word.downcase!
+    word
+  end
+
 
 end
