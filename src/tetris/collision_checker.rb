@@ -23,8 +23,8 @@ class CollisionChecker
       next_rot_hit_points = shape.next_rotated_shape
 
       has_collision = next_rot_hit_points.any? do |pos|
-        field = shape.grid_map.field_at(pos.x, pos.y)
-        (field.floor? || field.placed? || field.border?)
+        conditions = [:floor?, :placed?, :border?]
+        shape.grid_map.field_at(pos.x, pos.y).fulfills_any?(conditions)
       end
       @state = :bounded if has_collision
 
@@ -32,11 +32,11 @@ class CollisionChecker
       next_move_hit_points = shape.next_translated_shape(shift)
 
       hit_ground = next_move_hit_points.any? do |pos|
-         field = shape.grid_map.field_at(pos.x, pos.y)
-          (field.floor? || field.placed?)
+        conditions = [:floor?, :placed?]
+        shape.grid_map.field_at(pos.x, pos.y).fulfills_any?(conditions)
       end
 
-      if(hit_ground)
+      if hit_ground
         @state = :grounded
         shape.mark_fields_placed
         shape.apply_combo_check
@@ -46,8 +46,8 @@ class CollisionChecker
       next_shape_state_positions = shape.next_translated_shape(shift)
 
       has_collision = next_shape_state_positions.any? do |pos|
-        field = shape.grid_map.field_at(pos.x, pos.y)
-        (field.border? || field.placed?)
+        conditions = [:border?, :placed?]
+        shape.grid_map.field_at(pos.x, pos.y).fulfills_any?(conditions)
       end
       @state = :bounded if has_collision
 
