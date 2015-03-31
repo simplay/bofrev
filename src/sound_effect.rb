@@ -11,7 +11,8 @@ class SoundEffect
       :kick => "audio/kick.wav"
   }
 
-  def initialize
+  def initialize(sound_effects = SOUND_EFFECTS)
+    @sound_effects = sound_effects
   end
 
   # terminate music thread:
@@ -27,7 +28,7 @@ class SoundEffect
   def play(effect_sound)
     if Settings.run_music?
       @thread = Thread.new do
-        run = "mplayer #{SOUND_EFFECTS[effect_sound]} -vo x11 -framedrop -cache 16384 -cache-min 20/100"
+        run = "mplayer #{@sound_effects[effect_sound]} -vo x11 -framedrop -cache 16384 -cache-min 20/100"
         system(run)
       end
     end

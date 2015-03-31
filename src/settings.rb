@@ -37,6 +37,10 @@ module Settings
     :tetris_achievement_system if @selected_game == 1
   end
 
+  def self.selected_game
+    @selected_game
+  end
+
 
   def self.set_mode(flag)
     @selected_game = 1

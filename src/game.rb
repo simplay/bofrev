@@ -8,6 +8,7 @@ require_relative 'music_player'
 require_relative 'pacer'
 
 require_relative 'tetris/tetris_map'
+require_relative 'game_settings'
 
 class Game
   include Observable
@@ -15,7 +16,7 @@ class Game
 
   attr_accessor :map
   def initialize
-    @turns_allowed = 10_000 # TODO: define a more meaningful ending/condition.
+    @turns_allowed = 10_000_000 # TODO: define a more meaningful ending/condition.
     @score = Score.new
     initialize_map
 
@@ -78,7 +79,7 @@ class Game
   end
 
   def create_threads
-    @music_thread = MusicPlayer.new(Settings.sound_theme)
+    @music_thread = MusicPlayer.new(GameSettings.theme_list)
     @ticker_thread = Ticker.new(self, @map, Pacer.new(@score))
   end
 

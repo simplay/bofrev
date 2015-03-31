@@ -2,13 +2,14 @@ require_relative 'game_field'
 require_relative 'settings'
 require_relative 'point2f'
 require_relative 'sound_effect'
+require_relative 'game_settings'
 
 class Map
 
   include Settings
 
   def initialize(game)
-    @sound_effect = SoundEffect.new
+    @sound_effect = SoundEffect.new(GameSettings.sound_effect_list)
     @game = game
     @grid = Grid.new(WIDTH_PIXELS, HEIGHT_PIXELS)
   end
