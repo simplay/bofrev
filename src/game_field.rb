@@ -1,7 +1,6 @@
 class GameField
   attr_accessor :color, :type,
-                :top, :bottom, :left, :right,
-                :is_sentinel
+                :top, :bottom, :left, :right
 
   # @param color [String] color name supported by [Tk]
   # @param type [Symbol] incoding state of field
@@ -14,7 +13,6 @@ class GameField
   def initialize(color = 'white', type = :field)
     @color = color
     @type = type
-    @is_sentinel = false
   end
 
   # @param neighbors [Hash] containing the 4-ring neighborhood of a cell
@@ -34,15 +32,11 @@ class GameField
 
   end
 
-  def sentinel?
-    @is_sentinel
-  end
-
   # get whole 4-neighborhood ring of this pixel
   # @hint: clockwise fetched neighbors, starting at right neighbor.
   # @return [Array] of [GameField] neighbor instances.
   def neighbors
-    [right, bottom, left, top].compact
+    [@right, @bottom, @left, @top].compact
   end
 
   # does this field have neighbors
@@ -72,7 +66,7 @@ class GameField
   end
 
   def to_s
-    "#{color.to_s}"
+    "#{color}"
   end
 
   def wipe_out
