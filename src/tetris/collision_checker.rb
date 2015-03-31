@@ -63,39 +63,19 @@ class CollisionChecker
       end
 
     elsif opertaion == :move_sidewards
-      next_origin = shape.next_moved_origin(shift)
 
-      next_move_hit_points = shape.local_points.map do |point|
+      # compute sidewards moved shape
+      next_origin = shape.next_moved_origin(shift)
+      next_shape_state_positions = shape.local_points.map do |point|
         Point2f.new(point.x + next_origin.x, point.y + next_origin.y)
       end
 
-      has_collision = next_move_hit_points.any? do |pos|
-        shape.grid_map.field_at(pos.x, pos.y).border? == true
+      # check whether one cell of the new shape location produces a collision.
+      has_collision = next_shape_state_positions.any? do |pos|
+        field = shape.grid_map.field_at(pos.x, pos.y)
+        (field.border? || field.placed?)
       end
-
       @state = :bounded if has_collision
-
-      unless has_collision
-        hit_ground = next_move_hit_points.any? do |pos|
-          field = shape.grid_map.field_at(pos.x, pos.y)
-          field_below = shape.grid_map.field_at(pos.x, pos.y+1)
-
-          @next_sidewards_below_placed = field_below.placed? unless (@next_sidewards_below_placed == true)
-
-          t = (field.floor? || (field.placed?)) == true
-          t
-        end
-
-
-        if(hit_ground)
-          @state = :bounded
-          unless @next_sidewards_below_placed
-            shape.mark_fields_placed
-            shape.apply_combo_check
-          end
-
-        end
-      end
 
     else
       raise "unknown shape operation"
