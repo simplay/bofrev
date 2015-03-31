@@ -86,10 +86,10 @@ class Shape
   end
 
   # Retrieve next rotational configuration (clock-wise 90 degree) of this shape.
-  #
-  # @return [Array] of Point2f instances defining the rotated gestalt of this shape.
-  def next_rotation_position
-    @position_states[(@rotation_modus+1)%4]
+  def next_rotated_shape
+    next_rotation_position.map do |point|
+      Point2f.new(point.x + origin.x + 1, point.y + origin.y + 1)
+    end
   end
 
   # @param shift [Point2f] translation vector.
@@ -105,6 +105,7 @@ class Shape
   # updating :local_points using the configurations in :position_states.
   # In case the current rotation attempt causes a collision, then do nothing.
   # when successfully performing a rotation, play the corresponding sound effect.
+  # @return [Boolean] should sound effect be played? It is :true if yes otherwise :false.
   def rotate
     @play_sound_effect = false
     unless CollisionChecker.new(self, :rotate).blocked?
@@ -191,7 +192,14 @@ class Shape
     @grid_map.check_for_combo
   end
 
-  private
+  protected
+
+  # Retrieve next rotational configuration (clock-wise 90 degree) of this shape.
+  #
+  # @return [Array] of Point2f instances defining the rotated gestalt of this shape.
+  def next_rotation_position
+    @position_states[(@rotation_modus+1)%4]
+  end
 
   # Get a copy translated origin.
   # In grid coordinates.

@@ -20,9 +20,7 @@ class CollisionChecker
     @state = :moveable
 
     if operation == :rotate
-      next_rot_hit_points = shape.next_rotation_position.map do |point|
-        Point2f.new(point.x + shape.origin.x + 1, point.y + shape.origin.y + 1)
-      end
+      next_rot_hit_points = shape.next_rotated_shape
 
       has_collision = next_rot_hit_points.any? do |pos|
         field = shape.grid_map.field_at(pos.x, pos.y)
@@ -35,7 +33,7 @@ class CollisionChecker
 
       hit_ground = next_move_hit_points.any? do |pos|
          field = shape.grid_map.field_at(pos.x, pos.y)
-          (field.floor? || field.placed?) == true
+          (field.floor? || field.placed?)
       end
 
       if(hit_ground)
@@ -47,7 +45,6 @@ class CollisionChecker
     elsif operation == :move_sidewards
       next_shape_state_positions = shape.next_translated_shape(shift)
 
-      # check whether one cell of the new shape location produces a collision.
       has_collision = next_shape_state_positions.any? do |pos|
         field = shape.grid_map.field_at(pos.x, pos.y)
         (field.border? || field.placed?)
