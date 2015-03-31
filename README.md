@@ -37,6 +37,8 @@ Ruby 2.2.0 and bundle
 
 `./bofrev -h` To list the show the help man.
 
+`rspec tests/some_tests.rb` to run grid tests
+
 ## Contributing
 
 1. Fork this repository

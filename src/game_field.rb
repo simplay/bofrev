@@ -24,8 +24,14 @@ class GameField
   #   :right => [GameField]
   def assign_neighborhood(neighbors = {})
     neighbors.each do |key, value|
-      send("#{key}=","#{value}")
+      send("#{key}=", value)
     end
+
+    left.right = self
+    right.left = self
+    top.bottom = self
+    bottom.top = self
+
   end
 
   def sentinel?
@@ -36,7 +42,7 @@ class GameField
   # @hint: clockwise fetched neighbors, starting at right neighbor.
   # @return [Array] of [GameField] neighbor instances.
   def neighbors
-    [right, bottom, left, top]
+    [right, bottom, left, top].compact
   end
 
   # does this field have neighbors
@@ -66,7 +72,7 @@ class GameField
   end
 
   def to_s
-    "#{color}"
+    "#{color.to_s}"
   end
 
   def wipe_out
@@ -86,7 +92,7 @@ class GameField
       3
     elsif @type == :placed
       4
-    elsif filled?
+    elsif drawable?
       1
     else
       0

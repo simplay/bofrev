@@ -66,11 +66,18 @@ class Grid
 
   # Grid height without border (top and bottom border).
   #
-  # @hint: corresponds to
-  #   Grid#total_height - 2
+  # @hint: corresponds to Grid#total_height - 2
   # @return [Integer] inner height of grid.
   def inner_height
     @inner_height
+  end
+
+  # Grid width without border (left and right border).
+  #
+  # @hint: corresponds to Grid#total_width - 2
+  # @return [Integer] inner width of grid.
+  def inner_width
+    @inner_width
   end
 
   # Height cell Range of grid's inner cells
