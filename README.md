@@ -23,17 +23,25 @@ Ruby 2.2.0 and bundle
 
 ## Usage
 
-`./bofrev -d <D> -g <G>` to run the game **<G>** in running mode **<D>**.
+`./bofrev -d <D> -g <G> -m <M>` to run the game **<G>** in running mode **<D>**.
 
 + Game Mode <D> is an _optional_ parameter:
+
   + <D> is **0**: run in normal mode.
   + <D> is **1**: run w/e music.
   + <D> is **2**: further run only based on user interaction.
   + default value is 0.
 
 + Game to Select <G> is an _optional_ parameter:
+
   + <D> is **1**: run Tetris game.
   + default value is 1
+
++ <M> indicates whether we want to play in single-or Multiplayer-Mode or want to host a server. This parameter is optional.
+
+  + <M> is **0**: run in single player mode. (default)
+  + <M> is **1**: run in multiplayer client mode.
+  + <M> is **2**: run in multiplayer server mode.
 
 `./bofrev -h` To list the show the help man.
 

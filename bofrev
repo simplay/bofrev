@@ -21,6 +21,10 @@ opt_parser = OptionParser.new do |opt|
     user_args[:game] = game
   end
 
+  opt.on("-m", "--multiplayer g", Integer, "Desired Game to Play: 0 Single-player, 1 Multiplayer Client, 2 Multiplayer Server") do |multiplayer|
+    user_args[:multiplayer] = multiplayer
+  end
+
   opt.on_tail("-h", "--help", "Show this message") do
     puts opt
     exit
