@@ -44,7 +44,7 @@ class Gui < Observer
   end
 
   def update_score_tile
-    @score_tile.text = "Score: #{@game.current_player_score} last unlock #{AchievementSystem.last_unlock}"
+    @score_tile.text = "Score: #{@game.current_player_score} last unlock #{Settings.achievement_system.last_unlock}"
   end
 
   def perform_gui_close_steps
@@ -60,7 +60,7 @@ class Gui < Observer
     content = Tk::Tile::Frame.new(@root) {padding "3 3 12 12"}.grid( :sticky => 'swes')
     TkGrid.columnconfigure @root, 0, :weight => 1; TkGrid.rowconfigure @root, 0, :weight => 1
     @score_tile = Tk::Tile::Label.new(content) {text ''}.grid( :column => 3, :row => 1, :sticky => 'w')
-    @score_tile.text = "Game OVER! achievements: #{AchievementSystem.all_unlocks.join(' ')}"
+    @score_tile.text = "Game OVER! achievements: #{Settings.achievement_system.all_unlocks.join(' ')}"
   end
 
   def build_gui_components

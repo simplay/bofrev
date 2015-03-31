@@ -2,10 +2,11 @@ require_relative 'observer'
 
 class AchievementSystem < Observer
 
+  attr_accessor :achievement_list
 
   def self.instance
     if @instance.nil?
-      @instance = AchievementSystem.new
+      @instance = itself.new
     end
     @instance
   end
@@ -15,6 +16,11 @@ class AchievementSystem < Observer
         :more_than_100p => false,
         :more_than_200p => false
     }
+  end
+
+  # should return Achievement class
+  def self.itself
+    raise 'not implemented yet'
   end
 
   def achievement_list
@@ -32,7 +38,7 @@ class AchievementSystem < Observer
   end
 
   def self.last_unlock
-    @instance.last_unlock
+    instance.last_unlock
   end
 
   def last_unlock
@@ -44,9 +50,7 @@ class AchievementSystem < Observer
   end
 
   def handle_event_with(message)
-    if message.type == :score
-      handle_score_event(message.content)
-    end
+    raise 'not implemented yet'
   end
 
   protected
@@ -54,14 +58,6 @@ class AchievementSystem < Observer
   def update_list_for(key)
     @achievement_list[key] = true
     @last_unlock = key
-  end
-
-  def handle_score_event(value)
-    if value > 200
-      update_list_for(:more_than_200p)
-    elsif value > 100
-      update_list_for(:more_than_100p)
-    end
   end
 
 end

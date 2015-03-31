@@ -1,3 +1,5 @@
+require_relative 'tetris/tetris_achievement_system'
+
 module Settings
   @mode = 0
 
@@ -26,6 +28,15 @@ module Settings
       []
     end
   end
+
+  def self.achievement_system
+    TetrisAchievementSystem.instance if @selected_game == 1
+  end
+
+  def self.achievement_system_sym
+    :tetris_achievement_system if @selected_game == 1
+  end
+
 
   def self.set_mode(flag)
     @selected_game = 1
