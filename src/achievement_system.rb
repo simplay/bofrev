@@ -22,7 +22,7 @@ class AchievementSystem < Observer
   end
 
   # retrieve all currently unlocked achievements as a list of string of their identifier.
-  def self.unlocked
+  def self.all_unlocks
     unlocked_achievements = @instance.achievement_list.select do |_, value|
       value
     end
@@ -31,12 +31,19 @@ class AchievementSystem < Observer
     end
   end
 
-  def register_achievements
-    raise "not implemented yet"
+  def self.last_unlock
+    @instance.last_unlock
+  end
+
+  def last_unlock
+    @last_unlock.nil? ? '' : @last_unlock.to_s
+  end
+
+  def register_achievement(identifier)
+    @achievement_list[identifier] = false
   end
 
   def handle_event_with(message)
-    puts "AAA event received with #{message}"
     if message.type == :score
       handle_score_event(message.content)
     end
@@ -44,11 +51,17 @@ class AchievementSystem < Observer
 
   protected
 
-  def handle_score_event(value)
-    @achievement_list[:more_than_100p] = true if value > 100
-    @achievement_list[:more_than_200p] = true if value > 200
+  def update_list_for(key)
+    @achievement_list[key] = true
+    @last_unlock = key
   end
 
-
+  def handle_score_event(value)
+    if value > 200
+      update_list_for(:more_than_200p)
+    elsif value > 100
+      update_list_for(:more_than_100p)
+    end
+  end
 
 end
