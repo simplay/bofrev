@@ -28,8 +28,8 @@ class AchievementSystem < Observer
   end
 
   # retrieve all currently unlocked achievements as a list of string of their identifier.
-  def self.all_unlocks
-    unlocked_achievements = @instance.achievement_list.select do |_, value|
+  def all_unlocks
+    unlocked_achievements = achievement_list.select do |_, value|
       value
     end
     unlocked_achievements.map do |key, _|
