@@ -92,12 +92,12 @@ class Shape
     @position_states[(@rotation_modus+1)%4]
   end
 
-  # Get a copy translated origin.
-  #
   # @param shift [Point2f] translation vector.
-  # @return [Point2f] translated copy of origin.
-  def next_moved_origin(shift)
-    Point2f.new(1,1).add(@origin).add(shift)
+  def next_translated_shape(shift)
+    translated_origin = next_moved_origin(shift)
+    local_points.map do |point|
+      Point2f.new(point.x + translated_origin.x, point.y + translated_origin.y)
+    end
   end
 
   # Rotate this shape by 90 degree clock-wise.
@@ -192,6 +192,15 @@ class Shape
   end
 
   private
+
+  # Get a copy translated origin.
+  # In grid coordinates.
+  #
+  # @param shift [Point2f] translation vector.
+  # @return [Point2f] translated copy of origin.
+  def next_moved_origin(shift)
+    Point2f.new(1,1).add(@origin).add(shift)
+  end
 
   # Check for Game over movement if we want to place a block onto a
   # cell is placed an top inner row.
