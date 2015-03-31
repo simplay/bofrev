@@ -12,10 +12,7 @@ class AchievementSystem < Observer
   end
 
   def initialize
-    @achievement_list = {
-        :more_than_100p => false,
-        :more_than_200p => false
-    }
+    @achievement_list = {}
   end
 
   # should return Achievement class

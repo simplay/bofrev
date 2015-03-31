@@ -23,5 +23,13 @@ class GameSettings
     build.sound_effect_list
   end
 
+  def self.achievement_system
+    build.achievement_system
+  end
+
+  def self.achievement_system_sym
+    build.achievement_system_sym
+  end
+
 
 end

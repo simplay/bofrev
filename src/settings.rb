@@ -1,5 +1,3 @@
-require_relative 'tetris/tetris_achievement_system'
-
 module Settings
   @mode = 0
 
@@ -14,20 +12,6 @@ module Settings
 
   TICKS_PER_SECOND = 1 # determines the game speed.
 
-
-  # retrieve theme song list for selected game during startup.
-  #
-  # @hint: selected_game number indicating selected game
-  #   1: tetris
-  #   default none
-  def self.sound_theme
-    case @selected_game
-    when 1
-      ['audio/tetris_tone_loop.mp3']
-    else
-      []
-    end
-  end
 
   def self.achievement_system
     TetrisAchievementSystem.instance if @selected_game == 1

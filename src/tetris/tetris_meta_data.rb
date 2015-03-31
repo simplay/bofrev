@@ -1,4 +1,6 @@
 require_relative '../game_meta_data'
+require_relative 'tetris_achievement_system'
+
 class TetrisMetaData
   include GameMetaData
 
@@ -12,6 +14,14 @@ class TetrisMetaData
         :explosion => "audio/explosion.aiff",
         :kick => "audio/kick.wav"
     }
+  end
+
+  def self.achievement_system
+    TetrisAchievementSystem.instance
+  end
+
+  def self.achievement_system_sym
+    :tetris_achievement_system
   end
 
 end

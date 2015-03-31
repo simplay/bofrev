@@ -2,9 +2,17 @@ require_relative '../../src/achievement_system'
 
 class TetrisAchievementSystem < AchievementSystem
 
+  AchievementLIST = [
+      :more_than_100p,
+      :more_than_200p
+  ]
+
+
   def initialize
     super
-
+    AchievementLIST.each do |achievement|
+      register_achievement(achievement)
+    end
   end
 
   def handle_event_with(message)
