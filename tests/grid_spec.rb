@@ -12,7 +12,7 @@ describe Grid do
     expect(grid.total_height).to eq(n+2)
   end
 
-  it 'should have correct neighborhood' do
+  it 'should have correct 4-neighborhood' do
     grid = Grid.new(1, 1)
 
     # center field
@@ -41,6 +41,49 @@ describe Grid do
     expect(grid.field_at(1,0).neighbors.count).to eq(1)
     expect(grid.field_at(1,1).object_id).to eq(grid.field_at(1,0).bottom.object_id)
 
+  end
+
+  it 'should have correct 8-neighborhood' do
+    grid = Grid.new(1, 1)
+
+    # center field
+    expect(grid.field_at(1,1).neighbors_8.count).to eq(8)
+    expect(grid.field_at(0,1).object_id).to eq(grid.field_at(1,1).left.object_id)
+    expect(grid.field_at(2,1).object_id).to eq(grid.field_at(1,1).right.object_id)
+    expect(grid.field_at(1,2).object_id).to eq(grid.field_at(1,1).bottom.object_id)
+    expect(grid.field_at(1,0).object_id).to eq(grid.field_at(1,1).top.object_id)
+
+    expect(grid.field_at(0,0).object_id).to eq(grid.field_at(1,1).top_left.object_id)
+    expect(grid.field_at(2,0).object_id).to eq(grid.field_at(1,1).top_right.object_id)
+    expect(grid.field_at(0,2).object_id).to eq(grid.field_at(1,1).bottom_left.object_id)
+    expect(grid.field_at(2,2).object_id).to eq(grid.field_at(1,1).bottom_right.object_id)
+
+
+    # corners
+    expect(grid.field_at(0,0).neighbors_8.count).to eq(1)
+    expect(grid.field_at(1,1).object_id).to eq(grid.field_at(0,0).bottom_right.object_id)
+
+    expect(grid.field_at(2,2).neighbors_8.count).to eq(1)
+    expect(grid.field_at(1,1).object_id).to eq(grid.field_at(2,2).top_left.object_id)
+
+    expect(grid.field_at(2,0).neighbors_8.count).to eq(1)
+    expect(grid.field_at(1,1).object_id).to eq(grid.field_at(2,0).bottom_left.object_id)
+
+    expect(grid.field_at(0,2).neighbors_8.count).to eq(1)
+    expect(grid.field_at(1,1).object_id).to eq(grid.field_at(0,2).top_right.object_id)
+
+    # side edges
+    expect(grid.field_at(0,1).neighbors_8.count).to eq(1)
+    expect(grid.field_at(1,1).object_id).to eq(grid.field_at(0,1).right.object_id)
+
+    expect(grid.field_at(2,1).neighbors_8.count).to eq(1)
+    expect(grid.field_at(1,1).object_id).to eq(grid.field_at(2,1).left.object_id)
+
+    expect(grid.field_at(1,2).neighbors_8.count).to eq(1)
+    expect(grid.field_at(1,1).object_id).to eq(grid.field_at(1,2).top.object_id)
+
+    expect(grid.field_at(1,0).neighbors_8.count).to eq(1)
+    expect(grid.field_at(1,1).object_id).to eq(grid.field_at(1,0).bottom.object_id)
   end
 
 end

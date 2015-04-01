@@ -1,6 +1,7 @@
 class GameField
   attr_accessor :color, :type,
-                :top, :bottom, :left, :right
+                :top, :bottom, :left, :right,
+                :top_left, :top_right, :bottom_left, :bottom_right
 
   # @param color [String] color name supported by [Tk]
   # @param type [Symbol] incoding state of field
@@ -15,11 +16,18 @@ class GameField
     @type = type
   end
 
-  # @param neighbors [Hash] containing the 4-ring neighborhood of a cell
+  # Assigns 8-ring neighborhood to this game field.
+  # Note that only inner grid fields are inter-connected explicitly.
+  #
+  # @param neighbors [Hash] containing the 8-ring neighborhood of a cell
   #   :top => [GameField]
   #   :bottom => [GameField]
   #   :left => [GameField]
   #   :right => [GameField]
+  #   :top_left => [GameField]
+  #   :bottom_left => [GameField]
+  #   :bottom_right => [GameField]
+  #   :top_right => [GameField]
   def assign_neighborhood(neighbors = {})
     neighbors.each do |key, value|
       send("#{key}=", value)
@@ -30,6 +38,11 @@ class GameField
     top.bottom = self
     bottom.top = self
 
+    top_left.bottom_right = self
+    top_right.bottom_left = self
+    bottom_left.top_right = self
+    bottom_right.top_left = self
+
   end
 
   # get whole 4-neighborhood ring of this pixel
@@ -37,6 +50,12 @@ class GameField
   # @return [Array] of [GameField] neighbor instances.
   def neighbors
     [@right, @bottom, @left, @top].compact
+  end
+
+  # get whole 8-neighborhood ring of this pixel
+  # @return [Array] of [GameField] neighbor instances.
+  def neighbors_8
+    [@top_left, @top, @top_right, @left, @right, @bottom_left, @bottom, @bottom_right].compact
   end
 
   # does this field have neighbors

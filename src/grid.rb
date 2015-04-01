@@ -202,7 +202,9 @@ class Grid
         cell = field_at(idx, idy)
         neighbors = {
             :right => field_at(idx+1, idy), :left => field_at(idx-1, idy),
-            :bottom => field_at(idx, idy+1), :top => field_at(idx, idy-1)
+            :bottom => field_at(idx, idy+1), :top => field_at(idx, idy-1),
+            :top_left => field_at(idx-1, idy-1), :top_right => field_at(idx+1, idy-1),
+            :bottom_left => field_at(idx-1, idy+1), :bottom_right => field_at(idx+1, idy+1)
         }
         cell.assign_neighborhood(neighbors)
       end
