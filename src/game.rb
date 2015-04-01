@@ -84,7 +84,7 @@ class Game
   end
 
   def initialize_map
-    @map = TetrisMap.new(self)
+    @map = GameSettings.game_map.new(self)
   end
 
   def set_up_exit_handle

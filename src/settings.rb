@@ -15,10 +15,12 @@ module Settings
 
   def self.achievement_system
     TetrisAchievementSystem.instance if @selected_game == 1
+    TetrisAchievementSystem.instance if @selected_game == 2
   end
 
   def self.achievement_system_sym
     :tetris_achievement_system if @selected_game == 1
+    :tetris_achievement_system if @selected_game == 2
   end
 
   def self.selected_game

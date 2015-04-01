@@ -1,5 +1,6 @@
 require_relative '../game_meta_data'
 require_relative 'tetris_achievement_system'
+require_relative 'tetris_map'
 
 class TetrisMetaData
   include GameMetaData
@@ -22,6 +23,10 @@ class TetrisMetaData
 
   def self.achievement_system_sym
     :tetris_achievement_system
+  end
+
+  def self.game_map
+    TetrisMap
   end
 
 end

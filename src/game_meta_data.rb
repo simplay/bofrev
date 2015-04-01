@@ -16,4 +16,8 @@ module GameMetaData
     raise "not implemented yet"
   end
 
+  def self.game_map
+    raise "not implemented yet"
+  end
+
 end
