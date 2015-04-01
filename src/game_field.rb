@@ -1,5 +1,5 @@
 class GameField
-  attr_accessor :color, :type,
+  attr_accessor :color, :type, :value,
                 :top, :bottom, :left, :right,
                 :top_left, :top_right, :bottom_left, :bottom_right
 
@@ -11,9 +11,14 @@ class GameField
   #   :ground_border - the floor border pixel. to check whether we can fall any deeper.
   #     checking for border types would result in index checks
   #     in order to determine whether we are considering a ground border cell
-  def initialize(color = 'white', type = :field)
+  def initialize(color = 'white', type = :field, value = 0)
     @color = color
     @type = type
+    @value = value
+  end
+
+  def update_by_neighborhood
+
   end
 
   # Assigns 8-ring neighborhood to this game field.
