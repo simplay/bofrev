@@ -1,6 +1,10 @@
 # bofrev
 
-**bofrev** - Boring Friday Evening - is a typical Friday late night ego-coding-session outcome that can be considered as some kind of Sandbox project.
+**bofrev** - Boring Friday Evening - is a typical Friday late-night ego-coding-session.
+
+The idea behind this project was and still IS to implement some kind of basic _Framework_ in order to
+speeding up the implementation of 2d grid based applications.
+Examples for such applications are old nintendo-like games, numerical simulations, and graphical editors.
 
 This project is licensed under the [MIT License](https://github.com/simplay/bofrev/blob/master/LICENSE).
 
@@ -8,12 +12,19 @@ All sound files are from [freesound.org](www.freesound.org).
 
 ## Features
 
-+ 2D Grid Game with Collision Detection.
++ 2D Grid Games with Collision Detection.
 + Tetris Music with fancy effect sounds.
++ Pseudo Framework to create custom 2d grid based games.
++ Tetris, Game of Life, and many upcoming events
+
+## Plans
+
++ Support advanced numerical grid computation to solve graph problems, PDEs.
++ Support advanced networking modes.
 
 ## Prerequisites
 
-Ruby 2.2.0 and bundle
+Ruby **2.2.0** and bundle
 
 ## Installation:
 
@@ -34,7 +45,8 @@ Ruby 2.2.0 and bundle
 
 + Game to Select <G> is an _optional_ parameter:
 
-  + <D> is **1**: run Tetris game.
+  + <D> is **1**: run Tetris.
+  + <D> is **2**: run Game of Life.
   + default value is 1
 
 + <M> indicates whether we want to play in single-or Multiplayer-Mode or want to host a server. This parameter is optional.
