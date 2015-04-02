@@ -17,6 +17,10 @@ class GameField
     @value = value
   end
 
+  def clone
+    GameField.new(@color, @type, @value)
+  end
+
   def update_by_neighborhood
 
   end

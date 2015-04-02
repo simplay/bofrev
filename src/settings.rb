@@ -10,7 +10,7 @@ module Settings
   HEIGHT_PIXELS = 20
   COLORS = %w(green blue red yellow orange)
 
-  TICKS_PER_SECOND = 10 # determines the game speed.
+  TICKS_PER_SECOND = 1 # determines the game speed.
 
   def self.achievement_system
     TetrisAchievementSystem.instance if @selected_game == 1

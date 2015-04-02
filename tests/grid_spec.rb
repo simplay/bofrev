@@ -86,4 +86,34 @@ describe Grid do
     expect(grid.field_at(1,1).object_id).to eq(grid.field_at(1,0).bottom.object_id)
   end
 
+  it 'should be possible to write a GameField in a Grid' do
+    grid = Grid.new(1, 1)
+    grid.set_field_value_at(1,1, 1337)
+    grid.set_field_color_at(1,1, 'green')
+    expect(grid.field_at(1,1).value).to eq(1337)
+    expect(grid.field_at(1,1).color).to eq('green')
+  end
+
+  it 'should be possible to successfully copy the state from one grid into another' do
+    grid = Grid.new(1, 1)
+    other_grid = Grid.new(1, 1)
+
+    grid.set_field_value_at(1,1, 1337)
+    grid.set_field_color_at(1,1, 'green')
+
+    expect(grid.field_at(1,1).value).to eq(1337)
+    expect(grid.field_at(1,1).color).to eq('green')
+
+    expect(other_grid.field_at(1,1).value).to eq(0)
+    expect(other_grid.field_at(1,1).color).to eq('white')
+
+    other_grid.overwrite_us_with(grid)
+    expect(other_grid.field_at(1,1).value).to eq(1337)
+    expect(other_grid.field_at(1,1).color).to eq('green')
+  end
+
+  it 'correct neighborhood sum' do
+
+  end
+
 end

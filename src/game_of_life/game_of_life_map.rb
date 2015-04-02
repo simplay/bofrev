@@ -7,7 +7,6 @@ class GameOfLifeMap < Map
     super(game)
     @prev_iter_grid = Grid.new(WIDTH_PIXELS, HEIGHT_PIXELS)
     @allow_updates = false
-    update_grid
   end
 
   # defines how user input should be handled to update the game state.
@@ -25,7 +24,7 @@ class GameOfLifeMap < Map
     elsif message.type == :left_drag
       p = transform_coordinates(message.content)
       set_field_color_at(p.x, p.y, 'green')
-      set_field_value_at(p.x, p.y, 1)
+      set_field_value_at(p.x, p.y, 1.0)
     elsif message.type == 'a'
       @allow_updates = !@allow_updates
     end
@@ -40,26 +39,54 @@ class GameOfLifeMap < Map
 
   def update_grid
 
-
-
-    # set_field_color_at(rand(0..9), rand(0..9), 'green')
     if @allow_updates
-      @prev_iter_grid.inner_height_iter.each do |row_idx|
-        @prev_iter_grid.inner_row_at(row_idx).each_with_index do |_, idx|
 
-          summed_value = @grid.field_at(idx, row_idx).sum_8_neighbor_values
-          if summed_value > 2 && summed_value < 4
-            color = 'green'
-            value = 1
+      @prev_iter_grid.inner_height_iter.each do |row_idx|
+        @prev_iter_grid.inner_width_iter.each do |idx|
+
+
+          current_cell = @grid.field_at(idx, row_idx)
+          summed_value = current_cell.sum_8_neighbor_values
+
+          perform_update = false
+          if current_cell.color == 'green'
+
+            if summed_value < 2.0
+              color = 'white'
+              value = 0.0
+              perform_update = true
+
+            elsif summed_value > 3.0
+              color = 'white'
+              value = 0.0
+              perform_update = true
+
+            else
+              color = 'green'
+              value = 1.0
+              perform_update = true
+            end
+
           else
-            color = 'white'
-            value = 0
+
+            if summed_value == 3.0
+              color = 'green'
+              value = 1.0
+              perform_update = true
+            end
+
           end
-          @grid.set_field_value_at(idx, row_idx, value)
-          @grid.set_field_color_at(idx, row_idx, color)
+
+          if perform_update == true
+            @prev_iter_grid.set_field_value_at(idx, row_idx, value)
+            @prev_iter_grid.set_field_color_at(idx, row_idx, color)
+          end
+
         end
       end
-      @prev_iter_grid.overwrite_us_with(@grid)
+
+      @grid.overwrite_us_with(@prev_iter_grid)
+
     end
 
 

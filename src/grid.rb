@@ -54,7 +54,8 @@ class Grid
   def overwrite_us_with(other_grid)
     inner_height_iter.each do |row_idx|
       other_grid.inner_row_at(row_idx).each_with_index do |other_field, idx|
-        set_field_at(idx, row_idx, other_field)
+        set_field_value_at(idx+1, row_idx, other_field.value)
+        set_field_color_at(idx+1, row_idx, other_field.color)
       end
     end
     nil
