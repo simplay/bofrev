@@ -50,4 +50,39 @@ class Map
     @game.initiate_game_over
   end
 
+  # Transforms coordinates in canvas coordinate system
+  # to coordinates in grid (index) coordinates.
+  #
+  # @param canvas_coord [Point2f] canvas coordinates
+  # @return [Point2f] (inner) grid coordinates
+  def to_grid_coord(canvas_coord)
+    transform_coordinates(canvas_coord)
+  end
+
+  protected
+
+  # from canvas coordinates (clicked at position) to grid coordinates
+  # (determine which grid cell has been clicked)
+  # @param point [Point2f] canvas coordinates
+  # @return [Point2f] (inner) grid coordinates
+  def transform_coordinates(point)
+
+    x_frac = (CELL_SIZE.to_f/WIDTH_PIXELS)
+    y_frac = (CELL_SIZE.to_f/HEIGHT_PIXELS)
+
+    x_grid = (point.x / (x_frac*WIDTH_PIXELS.to_f)).to_i
+    y_grid = (point.y / (y_frac*HEIGHT_PIXELS.to_f)).to_i
+
+    # truncated: TODO report this
+    x_grid = WIDTH_PIXELS if x_grid > WIDTH_PIXELS
+    y_grid = HEIGHT_PIXELS if y_grid > HEIGHT_PIXELS
+
+
+    # since there is a border around the grid we have to shift the zero
+    grid_p = Point2f.new(x_grid, y_grid).add(Point2f.new(1,1))
+
+    puts "(#{grid_p})"
+    grid_p
+  end
+
 end
