@@ -7,6 +7,7 @@ class GameOfLifeMap < Map
     super(game)
     @prev_iter_grid = Grid.new(WIDTH_PIXELS, HEIGHT_PIXELS)
     @allow_updates = false
+    @mutex = Mutex.new
   end
 
   # defines how user input should be handled to update the game state.
@@ -32,13 +33,14 @@ class GameOfLifeMap < Map
 
   # defines how thicker should update this map.
   def process_ticker
-    update_grid
+    @mutex.synchronize do
+      update_grid
+    end
   end
 
   private
 
   def update_grid
-
     if @allow_updates
 
       @prev_iter_grid.inner_height_iter.each do |row_idx|
