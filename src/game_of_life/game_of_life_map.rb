@@ -11,8 +11,12 @@ class GameOfLifeMap < Map
   # defines how user input should be handled to update the game state.
   def process_event(message)
     if message.type == :left_click
-      transform_coordinates(message.content)
+      p = transform_coordinates(message.content)
 
+      field = field_at(p.x,p.y)
+
+      color = (field.color == 'white')? 'green' : 'white'
+      set_field_color_at(p.x, p.y, color)
     end
     #raise "not implemented yet"
   end
