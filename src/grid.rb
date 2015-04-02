@@ -48,6 +48,18 @@ class Grid
     encode_grid_neighborhood
   end
 
+  # Overwrites our game fields with those from other grid.
+  #
+  # @param other_grid [Grid] other grid we want to use for copying.
+  def overwrite_us_with(other_grid)
+    inner_height_iter.each do |row_idx|
+      other_grid.inner_row_at(row_idx).each_with_index do |other_field, idx|
+        set_field_at(idx, row_idx, other_field)
+      end
+    end
+    nil
+  end
+
   # Get total width of grid that is the 2 Border pixels
   # plus M from the grid kernel (sides).
   #
@@ -148,6 +160,15 @@ class Grid
   # @param color [String] game field color
   def set_field_color_at(x, y, color)
     @data[y][x].color = color
+  end
+
+  # Assign a new game color at a given field location (x,y) in the grid.
+  #
+  # @param x [Integer] row index
+  # @param y [Integer] column index
+  # @param value [Integer] game field value
+  def set_field_value_at(x, y, value)
+    @data[y][x].value = value
   end
 
   def flush_field_at(x, y)

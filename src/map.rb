@@ -18,6 +18,10 @@ class Map
     @grid.set_field_color_at(x, y, color)
   end
 
+  def set_field_value_at(x, y, value)
+    @grid.set_field_value_at(x, y, value)
+  end
+
   def clear_field_at(x, y)
     @grid.flush_field_at(x, y)
   end

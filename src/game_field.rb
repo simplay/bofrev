@@ -63,6 +63,10 @@ class GameField
     [@top_left, @top, @top_right, @left, @right, @bottom_left, @bottom, @bottom_right].compact
   end
 
+  def sum_8_neighbor_values
+    neighbors_8.inject(0.0) do |sum, field| sum + field.value end
+  end
+
   # does this field have neighbors
   def neighbors?
     neighbors.any? {|neighbor| !neighbor.nil?}

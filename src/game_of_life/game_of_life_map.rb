@@ -5,6 +5,8 @@ class GameOfLifeMap < Map
 
   def initialize(game)
     super(game)
+    @prev_iter_grid = Grid.new(WIDTH_PIXELS, HEIGHT_PIXELS)
+    @allow_updates = false
     update_grid
   end
 
@@ -16,23 +18,52 @@ class GameOfLifeMap < Map
       field = field_at(p.x,p.y)
 
       color = (field.color == 'white')? 'green' : 'white'
+
       set_field_color_at(p.x, p.y, color)
+      set_field_value_at(p.x, p.y, 1.0 - field.value)
+
     elsif message.type == :left_drag
       p = transform_coordinates(message.content)
       set_field_color_at(p.x, p.y, 'green')
+      set_field_value_at(p.x, p.y, 1)
+    elsif message.type == 'a'
+      @allow_updates = !@allow_updates
     end
-    #raise "not implemented yet"
   end
 
   # defines how thicker should update this map.
   def process_ticker
-    #raise "not implemented yet"
+    update_grid
   end
 
   private
 
   def update_grid
-    @prev_iter_grid = @grid
+
+
+
+    # set_field_color_at(rand(0..9), rand(0..9), 'green')
+    if @allow_updates
+      @prev_iter_grid.inner_height_iter.each do |row_idx|
+        @prev_iter_grid.inner_row_at(row_idx).each_with_index do |_, idx|
+
+          summed_value = @grid.field_at(idx, row_idx).sum_8_neighbor_values
+          if summed_value > 2 && summed_value < 4
+            color = 'green'
+            value = 1
+          else
+            color = 'white'
+            value = 0
+          end
+          @grid.set_field_value_at(idx, row_idx, value)
+          @grid.set_field_color_at(idx, row_idx, color)
+        end
+      end
+      @prev_iter_grid.overwrite_us_with(@grid)
+    end
+
+
+    puts "updates on: #{@allow_updates}"
   end
 
   # TODO: think about porting this method to Map
