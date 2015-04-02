@@ -2,6 +2,7 @@ require_relative 'point2f'
 require_relative 'observer'
 require_relative 'settings'
 require_relative 'game_settings'
+require_relative 'event'
 
 require 'tk'
 require 'tkextlib/tile'
@@ -16,6 +17,7 @@ class Gui < Observer
   W_KEY = 'w'
   D_KEY = 'd'
   S_KEY = 's'
+  LEFT_MOUSE_BUTTON_PRESSED =  'ButtonPress-1'
 
   def initialize(game)
     game.subscribe(self)
@@ -78,7 +80,20 @@ class Gui < Observer
 
     TkWinfo.children(content).each {|w| TkGrid.configure w, :padx => 5, :pady => 5}
 
+
+
+
     draw_empty_grid(@canvas, CELL_SIZE)
+  end
+
+  def do_press(x, y)
+    puts "clicked at (#{x} #{y})"
+  end
+
+  def handle_mouse_events(x,y)
+    puts "clicked at (#{x} #{y})"
+    type = Event.new(:left_click, Point2f.new(x,y))
+    @game.perform_loop_step(type)
   end
 
   #
@@ -90,7 +105,7 @@ class Gui < Observer
   # @param type [String] key identifier that was pressed.
   def handle_pressed_key(type)
     puts "#{type} was pressed."
-    @game.perform_loop_step(type)
+    @game.perform_loop_step(Event.new(type, nil))
   end
 
   def attach_gui_listeners
@@ -99,6 +114,9 @@ class Gui < Observer
     @root.bind(W_KEY, proc { handle_pressed_key(W_KEY) })
     @root.bind(D_KEY, proc { handle_pressed_key(D_KEY) })
     @root.bind(S_KEY, proc { handle_pressed_key(S_KEY) })
+
+
+    @canvas.bind(LEFT_MOUSE_BUTTON_PRESSED, proc{|x, y| do_press(x, y)}, "%x %y")
   end
 
   # Unbind all root event listeners

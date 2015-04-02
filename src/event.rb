@@ -7,4 +7,7 @@ class Event
     @content = content
   end
 
+  def to_s
+    "t:#{type} c:#{content}"
+  end
 end

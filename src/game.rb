@@ -10,6 +10,8 @@ require_relative 'pacer'
 require_relative 'tetris/tetris_map'
 require_relative 'game_settings'
 
+require_relative 'event'
+
 class Game
   include Observable
   include Settings
@@ -28,7 +30,7 @@ class Game
   # handle map state here- care about race-condition with provided user input
   def run
     start_threads
-    perform_loop_step("game started")
+    perform_loop_step(Event.new('game started', nil))
   end
 
   # TODO: subscribe score to game and let it update itself
@@ -36,6 +38,7 @@ class Game
     @score.increment_by(value)
   end
 
+  # @param message [Event]
   def perform_loop_step(message)
     puts "message: #{message}"
     if finished?

@@ -4,6 +4,8 @@ require_relative '../point2f'
 require_relative 'shape'
 require_relative 'shape_spawner'
 
+require_relative '../event'
+
 
 class TetrisMap < Map
 
@@ -31,21 +33,22 @@ class TetrisMap < Map
   end
 
   # handle tetris user input and update game state accordingly.
+  # @param message [Event] has only a type
   def process_event(message)
-    if message == 'd'
+    if message.type == 'd'
       @shape.move_shape(Point2f.new(1,0), :move_sidewards)
-    elsif message == 'a'
+    elsif message.type == 'a'
       @shape.move_shape(Point2f.new(-1,0), :move_sidewards)
-    elsif message == 's'
+    elsif message.type == 's'
       @shape.move_shape(Point2f.new(0, 1))
-    elsif message == 'w'
+    elsif message.type == 'w'
       was_rotated = @shape.rotate
       @sound_effect.play(:jump) if was_rotated
     end
   end
 
   def process_ticker
-    process_event('s')
+    process_event(Event.new('s',nil))
   end
 
   private
