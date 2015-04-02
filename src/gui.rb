@@ -90,10 +90,10 @@ class Gui < Observer
     puts "clicked at (#{x} #{y})"
   end
 
-  def handle_mouse_events(x,y)
+  def handle_mouse_events(x,y, type)
     puts "clicked at (#{x} #{y})"
-    type = Event.new(:left_click, Point2f.new(x,y))
-    @game.perform_loop_step(type)
+    message = Event.new(type, Point2f.new(x,y))
+    @game.perform_loop_step(message)
   end
 
   #
@@ -116,7 +116,7 @@ class Gui < Observer
     @root.bind(S_KEY, proc { handle_pressed_key(S_KEY) })
 
 
-    @canvas.bind(LEFT_MOUSE_BUTTON_PRESSED, proc{|x, y| do_press(x, y)}, "%x %y")
+    @canvas.bind(LEFT_MOUSE_BUTTON_PRESSED, proc{|x, y| handle_mouse_events(x, y, :left_click)}, "%x %y")
   end
 
   # Unbind all root event listeners
