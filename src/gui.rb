@@ -18,6 +18,9 @@ class Gui < Observer
   D_KEY = 'd'
   S_KEY = 's'
   LEFT_MOUSE_BUTTON_PRESSED =  'ButtonPress-1'
+  LEFT_MOUSE_BUTTON_DRAGGED =  'B1-Motion'
+
+
 
   def initialize(game)
     game.subscribe(self)
@@ -117,6 +120,7 @@ class Gui < Observer
 
 
     @canvas.bind(LEFT_MOUSE_BUTTON_PRESSED, proc{|x, y| handle_mouse_events(x, y, :left_click)}, "%x %y")
+    @canvas.bind(LEFT_MOUSE_BUTTON_DRAGGED, proc{|x, y| handle_mouse_events(x, y, :left_drag)}, "%x %y")
   end
 
   # Unbind all root event listeners

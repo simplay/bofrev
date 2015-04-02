@@ -17,6 +17,9 @@ class GameOfLifeMap < Map
 
       color = (field.color == 'white')? 'green' : 'white'
       set_field_color_at(p.x, p.y, color)
+    elsif message.type == :left_drag
+      p = transform_coordinates(message.content)
+      set_field_color_at(p.x, p.y, 'green')
     end
     #raise "not implemented yet"
   end
