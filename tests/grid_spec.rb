@@ -113,7 +113,17 @@ describe Grid do
   end
 
   it 'correct neighborhood sum' do
+    grid = Grid.new(3, 3)
+    grid.set_field_value_at(2,1,1)
+    grid.set_field_value_at(1,2,1)
+    grid.set_field_value_at(2,3,1)
+    grid.set_field_value_at(3,2,1)
+    grid.set_field_value_at(3,3,1)
+    grid.set_field_value_at(1,1,1)
+    grid.set_field_value_at(3,1,1)
+    grid.set_field_value_at(1,3,1)
 
+    expect(grid.field_at(2,2).sum_8_neighbor_values).to eq(8)
   end
 
 end
