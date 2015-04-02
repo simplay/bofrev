@@ -15,4 +15,8 @@ class Point2f
   def to_s
     "p=(#{@x} #{@y})"
   end
+
+  def ==(other)
+    other.x  == @x && other.y == @y
+  end
 end
