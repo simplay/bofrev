@@ -24,4 +24,15 @@ class SokobanMetaData
   def self.game_map
     SokobanMap
   end
+
+  def self.render_attributes
+    {
+        :cell_size => 25,
+        :width_pixels => 15,
+        :height_pixels => 15,
+        :max_width => 240,
+        :max_height => 600
+    }
+  end
+
 end

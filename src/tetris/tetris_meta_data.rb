@@ -29,4 +29,14 @@ class TetrisMetaData
     TetrisMap
   end
 
+  def self.render_attributes
+    {
+        :cell_size => 20,
+        :width_pixels => 10,
+        :height_pixels => 20,
+        :max_width => 240,
+        :max_height => 600
+    }
+  end
+
 end

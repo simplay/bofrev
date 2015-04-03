@@ -20,4 +20,8 @@ module GameMetaData
     raise "not implemented yet"
   end
 
+  def self.render_attributes
+    raise "not implemented yet"
+  end
+
 end

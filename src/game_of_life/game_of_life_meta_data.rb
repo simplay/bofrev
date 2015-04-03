@@ -23,4 +23,15 @@ class GameOfLifeMetaData
   def self.game_map
     GameOfLifeMap
   end
+
+  def self.render_attributes
+    {
+        :cell_size => 5,
+        :width_pixels => 40,
+        :height_pixels => 80,
+        :max_width => 240,
+        :max_height => 600
+    }
+  end
+
 end
