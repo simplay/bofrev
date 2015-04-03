@@ -28,6 +28,10 @@ class GameOfLifeMap < Map
       set_field_value_at(p.x, p.y, 1.0)
     elsif message.type == 'a'
       @allow_updates = !@allow_updates
+    elsif message.type == 'w'
+      @game.ticker_thread.inc_speed
+    elsif message.type == 's'
+      @game.ticker_thread.dec_speed
     end
   end
 

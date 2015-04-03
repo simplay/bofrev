@@ -16,10 +16,18 @@ class Pacer
   # @return [Integer] ticks per second.
   def ticks_per_second
     if (@score.final_points-@previous_points > 50)
-      @current_speed += 1
+      inc_speed
       @previous_points = @score.final_points
     end
     @current_speed
+  end
+
+  def inc_speed
+    @current_speed += 1
+  end
+
+  def dec_speed
+    @current_speed -= 1 if @current_speed > 1
   end
 
 end

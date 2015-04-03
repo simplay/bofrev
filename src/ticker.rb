@@ -18,6 +18,14 @@ class Ticker
     nil
   end
 
+  def inc_speed
+    @pacer.inc_speed
+  end
+
+  def dec_speed
+    @pacer.dec_speed
+  end
+
   def finished?
     @finished
   end

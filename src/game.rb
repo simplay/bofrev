@@ -17,6 +17,8 @@ class Game
   include Settings
 
   attr_accessor :map
+  attr_reader :ticker_thread
+
   def initialize
     @turns_allowed = 10_000_000 # TODO: define a more meaningful ending/condition.
     @score = Score.new
