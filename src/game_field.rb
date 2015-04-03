@@ -1,4 +1,7 @@
 class GameField
+
+  include Enumerable
+
   attr_accessor :color, :type, :value,
                 :top, :bottom, :left, :right,
                 :top_left, :top_right, :bottom_left, :bottom_right
@@ -21,9 +24,16 @@ class GameField
     GameField.new(@color, @type, @value)
   end
 
-  def update_by_neighborhood
-
+  def each(dataset=:neighbors_8, &block)
+    send(dataset).each do |neighbor|
+      if block_given?
+        block.call neighbor
+      else
+        yield neighbor
+      end
+    end
   end
+  alias_method :each_neighbor, :each
 
   # Assigns 8-ring neighborhood to this game field.
   # Note that only inner grid fields are inter-connected explicitly.

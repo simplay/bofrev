@@ -21,6 +21,8 @@ require_relative 'game_field'
 # where B depicts a border cell,
 class Grid
 
+  include Enumerable
+
   # Build a new Grid of Dimension (width x height)
   #
   # @example: Grid.new(8,5).to_s
@@ -59,6 +61,19 @@ class Grid
       end
     end
     nil
+  end
+
+  def each(&block)
+    inner_height_iter.each do |row_idx|
+      inner_row_at(row_idx).each_with_index do |other_field, idx|
+        field = field_at(idx+1, row_idx)
+        if block_given?
+          block.call field
+        else
+          yield field
+        end
+      end
+    end
   end
 
   # Get total width of grid that is the 2 Border pixels
