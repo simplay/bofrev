@@ -1,15 +1,13 @@
-require_relative 'settings'
+require_relative 'game_settings'
 
 # Defines an adaptive tick rate of the game
 # increasing with a player's points.
 class Pacer
 
-  include Settings
-
   # @param score [Score] game score used for updating the tick rate.
   def initialize(score)
     @score = score
-    @current_speed = TICKS_PER_SECOND
+    @current_speed = GameSettings.tics_per_second
     @previous_points = 0
   end
 

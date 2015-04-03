@@ -30,7 +30,8 @@ class GameOfLifeMetaData
         :width_pixels => 40,
         :height_pixels => 80,
         :max_width => 240,
-        :max_height => 600
+        :max_height => 600,
+        :tics_per_second => 15
     }
   end
 

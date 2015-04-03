@@ -85,6 +85,17 @@ module GameSettings
     GameSettings.render_attributes[:max_width]
   end
 
+  def self.tics_per_second
+    GameSettings.render_attributes[:tics_per_second]
+  end
+
+  def tics_per_second
+    GameSettings.render_attributes[:tics_per_second]
+  end
+
+  ###################################################
+  # HELPER METHODS - EXPORT THEM LATER
+  ###################################################
 
   def x_pixels
     width_pixels + 2
