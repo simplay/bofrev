@@ -5,7 +5,7 @@ class GameOfLifeMap < Map
 
   def initialize(game)
     super(game)
-    @prev_iter_grid = Grid.new(WIDTH_PIXELS, HEIGHT_PIXELS)
+    @prev_iter_grid = Grid.new(GameSettings.width_pixels, GameSettings.height_pixels)
     @allow_updates = false
     @mutex = Mutex.new
   end

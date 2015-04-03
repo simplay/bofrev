@@ -5,7 +5,7 @@ class SokobanMap < Map
 
   def initialize(game)
     super(game)
-    @prev_iter_grid = Grid.new(WIDTH_PIXELS, HEIGHT_PIXELS)
+    @prev_iter_grid = Grid.new(GameSettings.width_pixels, GameSettings.height_pixels)
     @mutex = Mutex.new
 
     initialize_map

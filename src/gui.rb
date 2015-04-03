@@ -11,7 +11,7 @@ require 'tkextlib/tile'
 # follow mvc pattern: gui knows game
 class Gui < Observer
 
-  include Settings
+  include GameSettings
 
   A_KEY = 'a'
   W_KEY = 'w'
@@ -39,7 +39,7 @@ class Gui < Observer
 
   def draw_game_state
     @canvas.delete('all')
-    draw_empty_grid(@canvas, CELL_SIZE)
+    draw_empty_grid(@canvas, cell_size)
     draw_grid_cells
     update_score_tile
   end
@@ -71,7 +71,7 @@ class Gui < Observer
   def build_gui_components
     @root = TkRoot.new do
       title "GAME"
-      minsize(MAX_WIDTH+10,MAX_HEIGHT+10)
+      minsize(GameSettings.max_width+10, GameSettings.max_height+10)
     end
 
     @canvas = TkCanvas.new(@root)
@@ -86,7 +86,7 @@ class Gui < Observer
 
 
 
-    draw_empty_grid(@canvas, CELL_SIZE)
+    draw_empty_grid(@canvas, cell_size)
   end
 
   def do_press(x, y)
@@ -145,7 +145,7 @@ class Gui < Observer
   def draw_horizontal_lines_with(canvas, step_size)
     # rounded down numbers of lines.
     (y_pixels-1).times do |idx|
-      draw_line(canvas, Point2f.new(0, (idx)*step_size), Point2f.new(WIDTH_PIXELS*step_size, (idx)*step_size))
+      draw_line(canvas, Point2f.new(0, (idx)*step_size), Point2f.new(width_pixels*step_size, (idx)*step_size))
     end
   end
 
@@ -156,7 +156,7 @@ class Gui < Observer
   def draw_vertical_lines_with(canvas, step_size)
     # rounded down numbers of lines.
     (x_pixels-1).times do |idx|
-      draw_line(canvas, Point2f.new((idx)*step_size, 0), Point2f.new((idx)*step_size, HEIGHT_PIXELS*step_size))
+      draw_line(canvas, Point2f.new((idx)*step_size, 0), Point2f.new((idx)*step_size, height_pixels*step_size))
     end
   end
 
@@ -178,8 +178,8 @@ class Gui < Observer
       y_iter.each do |row_idx|
         field = @game.map.field_at(column_id, row_idx)
         if field.drawable?
-          x0 = (column_id-1)*(CELL_SIZE); x1 = (column_id)*(CELL_SIZE)
-          y0 = (row_idx-1)*(CELL_SIZE); y1 = (row_idx)*(CELL_SIZE)
+          x0 = (column_id-1)*(cell_size); x1 = (column_id)*(cell_size)
+          y0 = (row_idx-1)*(cell_size); y1 = (row_idx)*(cell_size)
           TkcRectangle.new(@canvas, x0, y0, x1, y1,
                            'width' => 1, 'fill'  => field.color)
         end

@@ -4,7 +4,7 @@ require_relative 'tetris/tetris_meta_data'
 require_relative 'game_of_life/game_of_life_meta_data'
 require_relative 'sokoban/sokoban_meta_data'
 
-class GameSettings
+module GameSettings
   include Settings
   include GameMetaData
 
@@ -39,6 +39,81 @@ class GameSettings
 
   def self.achievement_system_sym
     build.achievement_system_sym
+  end
+
+  def self.render_attributes
+    {
+        :cell_size => 20,
+        :width_pixels => 10,
+        :height_pixels => 20,
+        :max_width => 240,
+        :max_height => 600
+    }
+  end
+
+  def cell_size
+    GameSettings.render_attributes[:cell_size]
+  end
+
+  def self.cell_size
+    GameSettings.render_attributes[:cell_size]
+  end
+
+  def width_pixels
+    GameSettings.render_attributes[:width_pixels]
+  end
+
+  def self.width_pixels
+    GameSettings.render_attributes[:width_pixels]
+  end
+
+  def height_pixels
+    GameSettings.render_attributes[:height_pixels]
+  end
+
+  def self.height_pixels
+    GameSettings.render_attributes[:height_pixels]
+  end
+
+  def max_height
+    GameSettings.render_attributes[:max_height]
+  end
+
+  def self.max_height
+    GameSettings.render_attributes[:max_height]
+  end
+
+  def max_width
+    GameSettings.render_attributes[:max_width]
+  end
+
+  def self.max_width
+    GameSettings.render_attributes[:max_width]
+  end
+
+
+  def x_pixels
+    width_pixels + 2
+  end
+
+  def y_pixels
+    height_pixels + 2
+  end
+
+  def inner_x_pixels
+    (max_width / cell_size)
+  end
+
+  def inner_y_pixels
+    (max_height / cell_size)
+  end
+
+  def x_iter
+    (1..width_pixels)
+  end
+
+  def y_iter
+    (1..height_pixels)
   end
 
 

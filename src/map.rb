@@ -2,7 +2,7 @@ require_relative 'game_field'
 require_relative 'settings'
 require_relative 'point2f'
 require_relative 'sound_effect'
-require_relative 'game_settings'
+require_relative '../src/game_settings'
 
 class Map
 
@@ -11,7 +11,7 @@ class Map
   def initialize(game)
     @sound_effect = SoundEffect.new(GameSettings.sound_effect_list)
     @game = game
-    @grid = Grid.new(WIDTH_PIXELS, HEIGHT_PIXELS)
+    @grid = Grid.new(GameSettings.width_pixels, GameSettings.height_pixels)
   end
 
   def set_field_color_at(x, y, color)
@@ -59,7 +59,6 @@ class Map
     transform_coordinates(canvas_coord)
   end
 
-  protected
 
   # from canvas coordinates (clicked at position) to grid coordinates
   # (determine which grid cell has been clicked)
@@ -67,15 +66,15 @@ class Map
   # @return [Point2f] (inner) grid coordinates
   def transform_coordinates(point)
 
-    x_frac = (CELL_SIZE.to_f/WIDTH_PIXELS)
-    y_frac = (CELL_SIZE.to_f/HEIGHT_PIXELS)
+    x_frac = (GameSettings.cell_size.to_f/GameSettings.width_pixels)
+    y_frac = (GameSettings.cell_size.to_f/GameSettings.height_pixels)
 
-    x_grid = (point.x / (x_frac*WIDTH_PIXELS.to_f)).to_i
-    y_grid = (point.y / (y_frac*HEIGHT_PIXELS.to_f)).to_i
+    x_grid = (point.x / (x_frac*GameSettings.width_pixels.to_f)).to_i
+    y_grid = (point.y / (y_frac*GameSettings.height_pixels.to_f)).to_i
 
     # truncated: TODO report this
-    x_grid = WIDTH_PIXELS if x_grid > WIDTH_PIXELS
-    y_grid = HEIGHT_PIXELS if y_grid > HEIGHT_PIXELS
+    x_grid = GameSettings.width_pixels if x_grid > GameSettings.width_pixels
+    y_grid = GameSettings.height_pixels if y_grid > GameSettings.height_pixels
 
 
     # since there is a border around the grid we have to shift the zero
