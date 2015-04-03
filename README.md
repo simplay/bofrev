@@ -47,6 +47,7 @@ Ruby **2.2.0** and bundle
 
   + <D> is **1**: run Tetris.
   + <D> is **2**: run Game of Life.
+  + <D> is **3**: run Sokoban.
   + default value is 1
 
 + <M> indicates whether we want to play in single-or Multiplayer-Mode or want to host a server. This parameter is optional.
