@@ -6,7 +6,6 @@ require_relative 'settings'
 require_relative 'sound_effect'
 require_relative 'server'
 require_relative 'client'
-require 'pry'
 
 # init game
 # init gui with game
