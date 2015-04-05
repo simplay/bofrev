@@ -24,29 +24,24 @@ class SokobanMap < Map
   # defines how user input should be handled to update the game state.
   def process_event(message)
 
-
+    pp = @player.value
     if message.type == 'd'
-      pp = @player.value
       new_pp = Point2f.new(pp.x+1, pp.y)
       handle_update(new_pp, pp, Point2f.new(1,0))
 
     elsif message.type == 'a'
-      pp = @player.value
       new_pp = Point2f.new(pp.x-1, pp.y)
       handle_update(new_pp, pp,Point2f.new(-1,0))
 
     elsif message.type == 's'
-      pp = @player.value
       new_pp = Point2f.new(pp.x, pp.y+1)
-      handle_update(new_pp, pp, Point2f.new(0,+1))
-
+      handle_update(new_pp, pp, Point2f.new(0,1))
 
     elsif message.type == 'w'
-      pp = @player.value
       new_pp = Point2f.new(pp.x, pp.y-1)
       handle_update(new_pp, pp, Point2f.new(0,-1))
-
     end
+
   end
 
   # does nothing
@@ -112,20 +107,6 @@ class SokobanMap < Map
 
   def hit_target?(point)
     point.x == @target.value.x && point.y == @target.value.y
-  end
-
-  # def initialize_map
-  #   @player = @grid.field_at(5,5)
-  #   @player.color = 'red'
-  #   @player.value = Point2f.new(5,5)
-  #
-  #   set_entities
-  #
-  # end
-
-  def update_grid
-
-    puts "updates on: #{@allow_updates}"
   end
 
 end
