@@ -70,6 +70,7 @@ with the following key-steps:
   + `<G>`is **1**: run Tetris.
   + `<G>`is **2**: run Game of Life.
   + `<G>`is **3**: run Sokoban.
+  + `<G>`is **4**: run Snake.
   + default value is 1
 
 + `<M>` indicates whether we want to play in single-or Multiplayer-Mode or want to host a server. This parameter is optional.
@@ -113,8 +114,17 @@ Depending on the marking, the grid will be updated according to the rules of [Ga
 
 ### Sokoban
 
-_Is in a highly WIP state._
 The player (red block) has to push the chest (blue block) onto a target (green block).
+
++ Controls:
+ + **a key** left
+ + **d key** right
+ + **s key** down
+ + **w key** up
+
+### Snake
+
+_WIP state game_
 
 + Controls:
  + **a key** left
