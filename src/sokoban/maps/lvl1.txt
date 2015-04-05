@@ -1,5 +1,13 @@
-# # # # # # # # # #
-# x t x x x x x x #
-# x x x c x x x x #
-# x x x x x x x p #
-# # # # # # # # # #
+# # # # # # # # # # # # # # # # # # # #
+# x x x x x x x x x x x x x x x x x x #
+# x # # # x x x x x x x x x x x x x x #
+# x # t # x x x x x x x x x x x x x x #
+# x # x # x x x x x x x x x x x x x x #
+# x # x # x x x x x x x # c x x x x x #
+# x # x # x x x x x x x # x x x x x x #
+# x # x # x x x x x x x # x x x x x x #
+# x # x # x # x # # # # # x x x x x x #
+# x # x # # # x x x x x x x x x x x x #
+# x # x x x x x x x x x x p x x x x x #
+# x x x # x x x x x x x x x x x x x x #
+# # # # # # # # # # # # # # # # # # # #

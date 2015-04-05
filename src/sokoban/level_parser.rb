@@ -30,25 +30,27 @@ class LevelParser
 
   private
 
-  def parse_at(row_idx, row)
+  def parse_at(column_idx, row)
     row_elements = row.chomp.split
-    row_elements.each_with_index do |label, column_idx|
-      process_row_element(label, row_idx, column_idx+1)
+    row_elements.each_with_index do |label, row_idx|
+      process_row_element(label, row_idx+1, column_idx)
     end
   end
 
   def process_row_element(label, row_idx, column_idx)
-
     if label == '#'
       @grid.set_field_at(row_idx, column_idx, GameField.new('yellow', :border, nil))
+
     elsif label == 'p'
       @player = @grid.field_at(row_idx, column_idx)
       @player.color = 'red'
       @player.value = Point2f.new(row_idx, column_idx)
+
     elsif label == 't'
       @target = @grid.field_at(row_idx, column_idx)
       @target.color = 'green'
       @target.value = Point2f.new(row_idx, column_idx)
+
     elsif label == 'c'
       @chest = @grid.field_at(row_idx, column_idx)
       @chest.color = 'blue'

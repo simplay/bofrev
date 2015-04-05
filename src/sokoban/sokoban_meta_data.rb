@@ -28,10 +28,10 @@ class SokobanMetaData
   def self.render_attributes
     {
         :cell_size => 25,
-        :width_pixels => 15,
-        :height_pixels => 15,
-        :max_width => 240,
-        :max_height => 600,
+        :width_pixels => 20,
+        :height_pixels => 13,
+        :max_width => 540,
+        :max_height => 486,
         :tics_per_second => 1
     }
   end
