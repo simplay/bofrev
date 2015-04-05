@@ -56,27 +56,27 @@ with the following key-steps:
 
 ## Usage
 
-`./bofrev -d <D> -g <G> -m <M>` to run the game **<G>** in running mode **<D>**.
+`./bofrev -d <D> -g <G> -m <M>` to run the game `<G>` in running mode `<D>`.
 
-+ Game Mode <D> is an _optional_ parameter:
++ Game Mode `<D>` is an _optional_ parameter:
 
-  + <D> is **0**: run in normal mode.
-  + <D> is **1**: run w/e music.
-  + <D> is **2**: further run only based on user interaction.
+  + `<D>` is **0**: run in normal mode.
+  + `<D>` is **1**: run w/e music.
+  + `<D>` is **2**: further run only based on user interaction.
   + default value is 0.
 
-+ Game to Select <G> is an _optional_ parameter:
++ Game to Select `<G>` is an _optional_ parameter:
 
-  + <D> is **1**: run Tetris.
-  + <D> is **2**: run Game of Life.
-  + <D> is **3**: run Sokoban.
+  + `<G>`is **1**: run Tetris.
+  + `<G>`is **2**: run Game of Life.
+  + `<G>`is **3**: run Sokoban.
   + default value is 1
 
-+ <M> indicates whether we want to play in single-or Multiplayer-Mode or want to host a server. This parameter is optional.
++ `<M>` indicates whether we want to play in single-or Multiplayer-Mode or want to host a server. This parameter is optional.
 
-  + <M> is **0**: run in single player mode. (default)
-  + <M> is **1**: run in multiplayer client mode.
-  + <M> is **2**: run in multiplayer server mode.
+  + `<M>` is **0**: run in single player mode. (default)
+  + `<M>` is **1**: run in multiplayer client mode.
+  + `<M>` is **2**: run in multiplayer server mode.
 
 `./bofrev -h` To list the show the help man.
 
@@ -85,6 +85,42 @@ with the following key-steps:
 On windows, please run the application the following way:
 `ruby bofrev -g <G> -d 1`
 without the parameter `-d 1`, the application will start to lag eventually (pretty soon).
+
+## Applications
+### Tetris
+
+A standard Tetris game implementation with known rules.
+Try to fill whole rows by placing blocks to increase your score.
+The higher your score gets the faster the game becomes.
+There are also some achievements to unlock. :sheep:
+You lose the game when your grid gets over-crowded (i.e. the latest block reached top row).
+
++ Controls:
+ + **a key** left
+ + **d key** right
+ + **s key** down
+ + **w key** rotate shape clock-wise
+
+### Game of Life
+
+Click (left click) and drag you mouse over the game grid to mark the grid's state.
+Depending on the marking, the grid will be updated according to the rules of [Game of Life](http://en.wikipedia.org/wiki/Conway%27s_Game_of_Life).
+
++ Controls:
+ + **a key** start update
+ + **s key** decrease update rate
+ + **w key** increase update rate
+
+### Sokoban
+
+_Is in a highly WIP state._
+The player (red block) has to push the chest (blue block) onto a target (green block).
+
++ Controls:
+ + **a key** left
+ + **d key** right
+ + **s key** down
+ + **w key** up
 
 ## Contributing
 
