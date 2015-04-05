@@ -1,5 +1,5 @@
-##########
-#xtxxxxxx#
-#xxxbxxxp#
-#xxxxxxxp#
-##########
+# # # # # # # # # #
+# x t x x x x x x #
+# x x x c x x x x #
+# x x x x x x x p #
+# # # # # # # # # #

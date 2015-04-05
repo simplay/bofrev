@@ -1,5 +1,7 @@
 require_relative '../map'
 require_relative '../game_settings'
+require_relative 'level_parser'
+require 'pry'
 
 class SokobanMap < Map
 
@@ -8,7 +10,14 @@ class SokobanMap < Map
     @prev_iter_grid = Grid.new(GameSettings.width_pixels, GameSettings.height_pixels)
     @mutex = Mutex.new
 
-    initialize_map
+    lp = LevelParser.new(@grid, 'lvl1')
+
+    @player = lp.player
+    @chest = lp.chest
+    @target = lp.target
+
+    @chest_init_pos = @chest.value
+    @target_init_pos = @target.value
 
   end
 
@@ -49,15 +58,16 @@ class SokobanMap < Map
   def handle_update(new_pp, pp, del)
 
     if hist_chest?(new_pp)
-      set_entities(@chest.value.x+del.x, @chest.value.y+del.y)
-      @player = @grid.field_at(new_pp.x, new_pp.y)
-      @player.color = 'red'
-      @player.value = Point2f.new(new_pp.x, new_pp.y)
-      reset_player_pos_at(pp)
+      unless hit_wall?(Point2f.new(@chest.value.x+del.x, @chest.value.y+del.y))
+        set_entities(@chest.value.x+del.x, @chest.value.y+del.y)
+        @player = @grid.field_at(new_pp.x, new_pp.y)
+        @player.color = 'red'
+        @player.value = Point2f.new(new_pp.x, new_pp.y)
+        reset_player_pos_at(pp)
+      end
     elsif hit_target?(new_pp)
 
-    else
-
+    elsif !hit_wall?(new_pp)
       @player = @grid.field_at(new_pp.x, new_pp.y)
       @player.color = 'red'
       @player.value = Point2f.new(new_pp.x, new_pp.y)
@@ -73,14 +83,12 @@ class SokobanMap < Map
     old_p.value = nil
   end
 
-  def set_entities(x=8, y=8)
+  def set_entities(x, y)
     @chest = @grid.field_at(x, y)
     @chest.color = 'blue'
     @chest.value = Point2f.new(x,y)
 
-    @target = @grid.field_at(6, 7)
-    @target.color = 'green'
-    @target.value = Point2f.new(6,7)
+    reset_target
 
     if hit_target?(@chest.value)
       initiate_game_over
@@ -88,23 +96,32 @@ class SokobanMap < Map
     
   end
 
+  def reset_target
+    @target = @grid.field_at(@target_init_pos.x, @target_init_pos.y)
+    @target.color = 'green'
+    @target.value = Point2f.new(@target_init_pos.x,@target_init_pos.y)
+  end
 
   def hist_chest?(point)
     point == @chest.value
+  end
+
+  def hit_wall?(point)
+    @grid.field_at(point.x, point.y).border?
   end
 
   def hit_target?(point)
     point.x == @target.value.x && point.y == @target.value.y
   end
 
-  def initialize_map
-    @player = @grid.field_at(5,5)
-    @player.color = 'red'
-    @player.value = Point2f.new(5,5)
-
-    set_entities
-
-  end
+  # def initialize_map
+  #   @player = @grid.field_at(5,5)
+  #   @player.color = 'red'
+  #   @player.value = Point2f.new(5,5)
+  #
+  #   set_entities
+  #
+  # end
 
   def update_grid
 
