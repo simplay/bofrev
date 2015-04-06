@@ -3,12 +3,14 @@ class Ticker
     @game = game
     @map = map
     @pacer = pacer
+    @total_ticks = 0
     @finished = false
   end
 
   def start
     @thread = Thread.new do
       loop do
+        @total_ticks += 1
         @map.process_ticker
         @game.notify_all_targets_of_type(:gui)
         sleep(1.0 / @pacer.ticks_per_second) # sleep time in [s]
@@ -20,6 +22,10 @@ class Ticker
 
   def inc_speed
     @pacer.inc_speed
+  end
+
+  def total_elapsed_ticks
+    @total_ticks
   end
 
   def dec_speed

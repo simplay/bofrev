@@ -5,10 +5,19 @@ class Point2f
     @x = x; @y = y
   end
 
+  def copy
+    Point2f.new(@x, @y)
+  end
+
   # @param other [Point2f]
   def add(other)
     @x = @x + other.x
     @y = @y + other.y
+    self
+  end
+
+  def scale_by(factor)
+    @x *= factor; @y *= factor
     self
   end
 

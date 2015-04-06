@@ -31,7 +31,7 @@ class SnakeMetaData
         :height_pixels => 13,
         :max_width => 540,
         :max_height => 486,
-        :tics_per_second => 1
+        :tics_per_second => 3
     }
   end
 
