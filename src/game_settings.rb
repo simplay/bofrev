@@ -4,6 +4,7 @@ require_relative 'tetris/tetris_meta_data'
 require_relative 'game_of_life/game_of_life_meta_data'
 require_relative 'sokoban/sokoban_meta_data'
 require_relative 'snake/snake_meta_data'
+require_relative 'pingpong/ping_pong_meta_data'
 
 module GameSettings
   include Settings
@@ -19,6 +20,8 @@ module GameSettings
         @game = SokobanMetaData
       elsif Settings.selected_game == 4
         @game = SnakeMetaData
+      elsif Settings.selected_game == 5
+        @game = PingPongMetaData
       end
     end
     @game

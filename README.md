@@ -71,6 +71,7 @@ with the following key-steps:
   + `<G>`is **2**: run Game of Life.
   + `<G>`is **3**: run Sokoban.
   + `<G>`is **4**: run Snake.
+  + `<G>`is **5**: run Ping Pong.
   + default value is 1
 
 + `<M>` indicates whether we want to play in single-or Multiplayer-Mode or want to host a server. This parameter is optional.
@@ -131,6 +132,14 @@ _WIP state game_
  + **d key** right
  + **s key** down
  + **w key** up
+
+### Ping Pong
+
+_WIP state game_
+
++ Controls:
+ + **a key** left
+ + **d key** right
 
 ## Contributing
 
