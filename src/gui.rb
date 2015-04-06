@@ -71,19 +71,20 @@ class Gui < Observer
   def build_gui_components
     @root = TkRoot.new do
       title "GAME"
-      minsize(GameSettings.max_width+10, GameSettings.max_height+10)
+      offset = 10
+      minsize(GameSettings.max_width+offset, GameSettings.max_height+offset)
+      maxsize(GameSettings.max_width+offset, GameSettings.max_height+offset)
     end
 
     @canvas = TkCanvas.new(@root)
     @canvas.grid :sticky => 'nwes', :column => 0, :row => 0
 
-    content = Tk::Tile::Frame.new(@root) {padding "3 3 12 12"}.grid( :sticky => 'swes')
-    TkGrid.columnconfigure @root, 0, :weight => 1; TkGrid.rowconfigure @root, 0, :weight => 1
-    @score_tile = Tk::Tile::Label.new(content) {text "00"}.grid( :column => 3, :row => 1, :sticky => 'w')
+    content = Tk::Tile::Frame.new(@root) {padding "3 3 12 12"}.grid( :sticky => 'nwes')
+    TkGrid.columnconfigure @root, 0, :weight => 1
+    TkGrid.rowconfigure @root, 0, :weight => 1
+    @score_tile = Tk::Tile::Label.new(content) {text "00"}.grid( :column => 3, :row => 1, :sticky => 's')
 
     TkWinfo.children(content).each {|w| TkGrid.configure w, :padx => 5, :pady => 5}
-
-
 
 
     draw_empty_grid(@canvas, cell_size)

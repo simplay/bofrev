@@ -29,8 +29,8 @@ class GameOfLifeMetaData
         :cell_size => 5,
         :width_pixels => 40,
         :height_pixels => 80,
-        :max_width => 240,
-        :max_height => 600,
+        :max_width => 194,
+        :max_height => 450,
         :tics_per_second => 15
     }
   end

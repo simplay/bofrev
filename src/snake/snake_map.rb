@@ -44,8 +44,6 @@ class SnakeMap < Map
   private
 
   def place_snake
-    #field = @grid.field_at(@snake_pos.x, @snake_pos.y)
-
     @mutex.synchronize do
       @snake.positions.each do |snake_pos|
         field = @grid.field_at(snake_pos.x, snake_pos.y)
