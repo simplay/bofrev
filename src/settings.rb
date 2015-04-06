@@ -15,6 +15,22 @@ module Settings
     @selected_game = flag[:game] unless flag[:game].nil?
   end
 
+  def self.selected_gui
+    if @mode == 1
+      :tetris_gui
+    else
+      :gui
+    end
+  end
+
+  def self.gui_to_build
+    if @mode == 1
+      TetrisGui
+    else
+      Gui
+    end
+  end
+
   def self.run_music?
     @mode < 1
   end

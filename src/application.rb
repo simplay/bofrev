@@ -6,6 +6,7 @@ require_relative 'settings'
 require_relative 'sound_effect'
 require_relative 'server'
 require_relative 'client'
+require_relative 'views/tetris_gui'
 
 # init game
 # init gui with game
@@ -22,7 +23,7 @@ class Application < Observer
     else
       game = Game.new
       game.subscribe(self)
-      Gui.new(game)
+      Settings.gui_to_build.new(game)
     end
   end
 

@@ -1,34 +1,20 @@
-require_relative 'point2f'
-require_relative 'observer'
-require_relative 'settings'
-require_relative 'game_settings'
-require_relative 'event'
+require_relative '../point2f'
+require_relative '../observer'
+require_relative '../settings'
+require_relative '../game_settings'
+require_relative '../event'
+require_relative '../gui'
 
 require 'tk'
 require 'tkextlib/tile'
 
 # Game grid graphical user interface.
 # follow mvc pattern: gui knows game
-class Gui < Observer
-
-  include GameSettings
-
-  A_KEY = 'a'
-  W_KEY = 'w'
-  D_KEY = 'd'
-  S_KEY = 's'
-  LEFT_MOUSE_BUTTON_PRESSED =  'ButtonPress-1'
-  LEFT_MOUSE_BUTTON_DRAGGED =  'B1-Motion'
-
+class TetrisGui < Gui
 
 
   def initialize(game)
-    game.subscribe(self)
-    @game = game
-    build_gui_components
-    attach_gui_listeners # forms controller in MVC
-    clicked_onto_start
-    Tk.mainloop
+    super(game)
   end
 
   # when we got notified by game (has new data for gui)
@@ -59,7 +45,7 @@ class Gui < Observer
     # TODO ask user for playing another game.
   end
 
-  protected
+  private
 
   def show_final_score
     content = Tk::Tile::Frame.new(@root) {padding "3 3 12 12"}.grid( :sticky => 'swes')

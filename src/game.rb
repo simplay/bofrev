@@ -1,5 +1,4 @@
 require_relative 'settings'
-require_relative 'gui'
 require_relative 'observable'
 require_relative 'score'
 
@@ -45,13 +44,13 @@ class Game
     puts "message: #{message}"
     if finished?
       shut_down_threads
-      unsubscribe(:gui)
+      unsubscribe(Settings.selected_gui)
       notify_all_targets_of_type(:application)
       puts "You scored #{@score.final_points} point!"
     else
       puts "message received: #{message}"
       @map.process_event(message)
-      notify_all_targets_of_type(:gui)
+      notify_all_targets_of_type(Settings.selected_gui)
     end
   end
 
@@ -85,7 +84,7 @@ class Game
 
   def create_threads
     @music_thread = MusicPlayer.new(GameSettings.theme_list)
-    @ticker_thread = Ticker.new(self, @map, Pacer.new(@score))
+    @ticker_thread = Ticker.new(self, @map, Pacer.new(@score), Settings.selected_gui)
   end
 
   def initialize_map

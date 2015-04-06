@@ -1,10 +1,11 @@
 class Ticker
-  def initialize(game, map, pacer)
+  def initialize(game, map, pacer, target)
     @game = game
     @map = map
     @pacer = pacer
     @total_ticks = 0
     @finished = false
+    @target = target
   end
 
   def start
@@ -12,7 +13,7 @@ class Ticker
       loop do
         @total_ticks += 1
         @map.process_ticker
-        @game.notify_all_targets_of_type(:gui)
+        @game.notify_all_targets_of_type(@target)
         sleep(1.0 / @pacer.ticks_per_second) # sleep time in [s]
         break if finished?
       end
