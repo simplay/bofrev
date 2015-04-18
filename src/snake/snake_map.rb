@@ -63,19 +63,17 @@ class SnakeMap < Map
 
   def place_omnomnom
     @total_omnomnoms += 1
-    field = @grid.field_at(rand(4..7), rand(4..7))
+    rand_x = rand(1..GameSettings.width_pixels) 
+    rand_y = rand(1..GameSettings.height_pixels)
+    field = @grid.field_at(rand_x, rand_y)
     field.color = 'green'
   end
 
   def unmark_snake
-
     @snake.positions.each do |snake_pos|
       field = @grid.field_at(snake_pos.x, snake_pos.y)
       field.color = 'white'
     end
-
-
-
   end
 
   def update_snake_pos
