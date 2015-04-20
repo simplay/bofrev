@@ -5,17 +5,22 @@ class FractalView
   MUTE = true
   LAST_X_PIXEL = 800.0
   LAST_Y_PIXEL = 800.0
-  MAX_ITER = 100
+  MAX_ITER = 255
   def initialize
     build_gui_components
+    draw_initial_background
     x_pixels = LAST_X_PIXEL.to_i+1
     y_pixels = LAST_Y_PIXEL.to_i+1
     x_pixels.times do |x|
       y_pixels.times do |y|
-        draw_fractal_pixel_at(x, y, 2.5)
+        draw_fractal_pixel_at(x, y, 4.3)
       end
     end
     Tk.mainloop
+  end
+  def draw_initial_background
+    TkcRectangle.new(@canvas, 0, 0, LAST_X_PIXEL.to_i, LAST_X_PIXEL.to_i,
+                     'width' => 0, 'fill'  => 'black')
   end
 
   def build_gui_components
@@ -65,36 +70,40 @@ class FractalView
     end
 
     if iter < max_iter
-      #olor = compute_color_value(iter, max_iter) 
-      #olor = to_12bit_color(color)
-      dig = 3**2
-      color = compute_color_string(dig - iter%dig, iter%dig, dig*((iter < max_iter)? 0 : 1))
+      bits = 8
+      dig = 2**bits
+      r = (dig-1) - iter%dig
+      g = iter%dig
+      b = ((dig-1)*((iter < max_iter)? 1 : 0)+(dig/2))%dig
+
+      depth = (sq_zoom_lvl*iter).to_i % dig
+
+      r = (r+depth)%dig
+      g = (g+depth)%dig
+      b = (b+depth)%dig
+
+      color = compute_color_string(r,g,b, bits)
+
       TkcRectangle.new(@canvas, p_x, p_y, p_x, p_y,
                        'width' => 0, :fill  => color)
     end
 
   end
 
-  def compute_color_value(iter, max_iter)
-    #enc_color = to_hsv(iter, iter%7, 7*((iter<max_iter)? 0 : 1))
-    dig = 3**2
-    compute_color_string(dig - iter%dig, iter%dig, dig*((iter < max_iter)? 0 : 1))
-    color = (iter) % max_iter
-    
-  end
-  
-  def compute_color_string(r,g,b)
-    bits = 3
+  def compute_color_string(r,g,b, bits)
     r_s = prefix_zeros(bits, r)+r.to_s(2) 
-    g_s = prefix_zeros(bits, g)+r.to_s(2) 
-    b_s = prefix_zeros(bits, b)+g.to_s(2) 
+    g_s = prefix_zeros(bits, g)+g.to_s(2) 
+    b_s = prefix_zeros(bits, b)+b.to_s(2) 
     color = "#{r_s}#{g_s}#{b_s}" 
     color =  (color.split("").map do |char| (char == '0')? '0' : 'f' end).join 
     "#"+color 
   end
-  
+
   def prefix_zeros(bits, c)
-    ((0..((bits-1-c.to_s(2).length))).map do "0" end).join
+    add_count = bits-c.to_s(2).length
+    range = 0..add_count
+    seq = range.to_a[1..range.size-1].map do |a| "0" end
+    seq.join
   end
 
 
