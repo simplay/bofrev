@@ -15,7 +15,7 @@ require_relative 'views/fractal_view'
 class Application < Observer
   def initialize(args)
     Settings.set_mode(args)
-    if args[:game] == 5
+    if args[:game] == 6
       FractalView.new
     else
 

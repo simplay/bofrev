@@ -16,6 +16,7 @@ All sound files are from [freesound.org](www.freesound.org).
 + Tetris Music with fancy effect sounds.
 + Pseudo Framework to create custom 2d grid based games.
 + Tetris, Game of Life, and many upcoming events
++ Fractal Image Renderer
 
 ## Plans
 
@@ -72,6 +73,7 @@ with the following key-steps:
   + `<G>`is **3**: run Sokoban.
   + `<G>`is **4**: run Snake.
   + `<G>`is **5**: run Ping Pong.
+  + `<G>`is **6**: run 2d Fractal Renderer 
   + default value is 1
 
 + `<M>` indicates whether we want to play in single-or Multiplayer-Mode or want to host a server. This parameter is optional.
