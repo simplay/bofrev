@@ -7,7 +7,7 @@ require_relative 'sound_effect'
 require_relative 'server'
 require_relative 'client'
 require_relative 'views/tetris_gui'
-
+require_relative 'views/fractal_view'
 # init game
 # init gui with game
 # init db for scores
@@ -15,15 +15,19 @@ require_relative 'views/tetris_gui'
 class Application < Observer
   def initialize(args)
     Settings.set_mode(args)
-
-    if args[:multiplayer].to_i == 1
-      Client.new
-    elsif args[:multiplayer].to_i == 2
-      Server.new
+    if args[:game] == 5
+      FractalView.new
     else
-      game = Game.new
-      game.subscribe(self)
-      Settings.gui_to_build.new(game)
+
+      if args[:multiplayer].to_i == 1
+        Client.new
+      elsif args[:multiplayer].to_i == 2
+        Server.new
+      else
+        game = Game.new
+        game.subscribe(self)
+        Settings.gui_to_build.new(game)
+      end
     end
   end
 
