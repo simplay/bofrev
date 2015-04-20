@@ -49,9 +49,13 @@ class FractalView
       iter = iter + 1
     end
     if iter < 2000
-      color = (iter*20+250) % 2000
-      prefix = ((1..((15-color.to_s(2).length))).map do "0" end).join
-      color = "##{prefix}#{color.to_s(2)}"
+      color = (iter) % 2000
+      prefix = ((0..((8-color.to_s(2).length))).map do "0" end).join
+      color = "#{prefix}#{color.to_s(2)}"
+      color =  (color.split("").map do |char| (char == '0')? '0' : 'f' end).join 
+      color = "##{color}"
+      color = color[0..9] if color.length > 10
+      puts color
       TkcRectangle.new(@canvas, p_x, p_y, p_x, p_y,
                        'width' => 0, :fill  => color)
     end
