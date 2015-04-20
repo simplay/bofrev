@@ -3,8 +3,8 @@ require 'tkextlib/tile'
 
 class FractalView
   MUTE = true
-  LAST_X_PIXEL = 300.0
-  LAST_Y_PIXEL = 300.0
+  LAST_X_PIXEL = 800.0
+  LAST_Y_PIXEL = 800.0
   MAX_ITER = 100
   def initialize
     build_gui_components
@@ -17,7 +17,7 @@ class FractalView
     end
     Tk.mainloop
   end
-  
+
   def build_gui_components
     @root = TkRoot.new do
       title "Fractal Renderer"
@@ -31,7 +31,7 @@ class FractalView
     TkGrid.columnconfigure( @root, 0, :weight => 1 )
     TkGrid.rowconfigure( @root, 0, :weight => 1 )
   end
-  
+
   def transform_pixel_to_range(min_a, max_a, min_e, max_e, x)
     s = (max_e - min_e) / (max_a - min_a)
     min_e + s*(x-min_a)
@@ -65,23 +65,69 @@ class FractalView
     end
 
     if iter < max_iter
-      color = (iter) % max_iter
-      color = to_12bit_color(color)
+      #olor = compute_color_value(iter, max_iter) 
+      #olor = to_12bit_color(color)
+      dig = 3**2
+      color = compute_color_string(dig - iter%dig, iter%dig, dig*((iter < max_iter)? 0 : 1))
       TkcRectangle.new(@canvas, p_x, p_y, p_x, p_y,
                        'width' => 0, :fill  => color)
     end
 
   end
 
+  def compute_color_value(iter, max_iter)
+    #enc_color = to_hsv(iter, iter%7, 7*((iter<max_iter)? 0 : 1))
+    dig = 3**2
+    compute_color_string(dig - iter%dig, iter%dig, dig*((iter < max_iter)? 0 : 1))
+    color = (iter) % max_iter
+    
+  end
+  
+  def compute_color_string(r,g,b)
+    bits = 3
+    r_s = prefix_zeros(bits, r)+r.to_s(2) 
+    g_s = prefix_zeros(bits, g)+r.to_s(2) 
+    b_s = prefix_zeros(bits, b)+g.to_s(2) 
+    color = "#{r_s}#{g_s}#{b_s}" 
+    color =  (color.split("").map do |char| (char == '0')? '0' : 'f' end).join 
+    "#"+color 
+  end
+  
+  def prefix_zeros(bits, c)
+    ((0..((bits-1-c.to_s(2).length))).map do "0" end).join
+  end
+
+
+  def to_hsv(r, g, b)
+    max = [r,g,b].max
+    min = [r,g,b].min
+    delta = max - min
+    if max == min
+      h = 0.0
+    elsif max == r
+      h = 60.0*(0 + (g-b)/delta)
+    elsif max == g
+      h = 60.0*(2 + (b-r)/delta)
+    elsif max == b
+      h = 60.0*(4 + (r-g)/delta)
+    end
+    h = h + 360.0 if (h < 0.0)
+
+    s = (max == 0)? 0.0 : delta/max
+    v = max
+    [h,s,v]
+  end
+
+
   # @param color [Integer] computed color value
   # @return [String] TKTinter color 12 bit format. 
-  def to_12bit_color(color)
-      prefix = ((0..((8-color.to_s(2).length))).map do "0" end).join
-      color = "#{prefix}#{color.to_s(2)}"
-      color =  (color.split("").map do |char| (char == '0')? '0' : 'f' end).join 
-      color = "##{color}"
-      color = color[0..9] if color.length > 10
-      puts color unless MUTE
-      color
+  def to_12bit_color(color, bits)
+    prefix = ((0..((bits-color.to_s(2).length))).map do "0" end).join
+    color = "#{prefix}#{color.to_s(2)}"
+    color =  (color.split("").map do |char| (char == '0')? '0' : 'f' end).join 
+    color = "##{color}"
+    color = color[0..9] if color.length > 10
+    puts color unless MUTE
+    color
   end
 end
