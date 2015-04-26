@@ -22,17 +22,15 @@ class SnakeMap < Map
 
   # defines how user input should be handled to update the game state.
   def process_event(message)
-    @mutex.synchronize do
 
-      if message.type == 'd'
-        @movement_direction = Point2f.new(1,0)
-      elsif message.type == 'a'
-        @movement_direction = Point2f.new(-1,0)
-      elsif message.type == 's'
-        @movement_direction = Point2f.new(0,1)
-      elsif message.type == 'w'
-        @movement_direction = Point2f.new(0,-1)
-      end
+    if message.type == 'd'
+      @movement_direction = Point2f.new(1,0)
+    elsif message.type == 'a'
+      @movement_direction = Point2f.new(-1,0)
+    elsif message.type == 's'
+      @movement_direction = Point2f.new(0,1)
+    elsif message.type == 'w'
+      @movement_direction = Point2f.new(0,-1)
     end
 
   end
