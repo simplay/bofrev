@@ -1,9 +1,9 @@
 # bofrev
 
-**bofrev** - Boring Friday Evening - is a typical Friday late-night ego-coding-session.
+**bofrev** - Boring Friday Evening - is a typical Friday late-night ego-coding-session outcome.
 
-The idea behind this project was and still IS to implement some kind of basic _Framework_ in order to
-speeding up the implementation of 2d grid based applications.
+The idea behind this project was and still _is_ to implement some kind of basic _Framework_ in order to
+implement 2D grid-based applications.
 Examples for such applications are old nintendo-like games, numerical simulations, and graphical editors.
 
 This project is licensed under the [MIT License](https://github.com/simplay/bofrev/blob/master/LICENSE).
