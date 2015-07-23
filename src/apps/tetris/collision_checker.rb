@@ -1,4 +1,4 @@
-require_relative '../point2f'
+require_relative '../../point2f'
 
 # CollisionChecker Checks whether current shape movement was legal.
 # If issue was present, determines what kind of issue was present.

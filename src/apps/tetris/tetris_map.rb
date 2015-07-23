@@ -1,10 +1,10 @@
-require_relative '../map'
-require_relative '../point2f'
+require_relative '../../map'
+require_relative '../../point2f'
 
 require_relative 'shape'
 require_relative 'shape_spawner'
 
-require_relative '../event'
+require_relative '../../event'
 
 
 class TetrisMap < Map

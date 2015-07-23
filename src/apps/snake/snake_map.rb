@@ -1,7 +1,6 @@
-require_relative '../map'
-require_relative '../game_settings'
+require_relative '../../map'
+require_relative '../../game_settings'
 require_relative 'snake'
-require 'pry'
 
 class SnakeMap < Map
 

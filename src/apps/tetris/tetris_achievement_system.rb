@@ -1,4 +1,4 @@
-require_relative '../../src/achievement_system'
+require_relative '../../achievement_system'
 
 class TetrisAchievementSystem < AchievementSystem
 

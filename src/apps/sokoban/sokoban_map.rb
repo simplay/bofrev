@@ -1,5 +1,5 @@
-require_relative '../map'
-require_relative '../game_settings'
+require_relative '../../map'
+require_relative '../../game_settings'
 require_relative 'level_parser'
 require 'pry'
 

@@ -6,7 +6,6 @@ require_relative 'ticker'
 require_relative 'music_player'
 require_relative 'pacer'
 
-require_relative 'tetris/tetris_map'
 require_relative 'game_settings'
 
 require_relative 'event'

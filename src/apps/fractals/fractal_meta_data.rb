@@ -1,7 +1,8 @@
-require_relative '../game_meta_data'
-require_relative 'ping_pong_map'
 
-class PingPongMetaData
+require_relative '../../game_meta_data'
+require_relative 'game_of_life_map'
+
+class FractalMetaData
   include GameMetaData
 
   def self.theme_list
@@ -21,17 +22,17 @@ class PingPongMetaData
   end
 
   def self.game_map
-    PingPongMap
+    FractalMap
   end
 
   def self.render_attributes
     {
-        :cell_size => 15,
-        :width_pixels => 40,
-        :height_pixels => 20,
-        :max_width => 600,
-        :max_height => 340,
-        :tics_per_second => 15
+      :cell_size => 1,
+      :width_pixels => 400,
+      :height_pixels => 400,
+      :max_width => 400,
+      :max_height => 400,
+      :tics_per_second => 15
     }
   end
 

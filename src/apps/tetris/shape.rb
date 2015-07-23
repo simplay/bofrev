@@ -1,4 +1,4 @@
-require_relative '../point2f'
+require_relative '../../point2f'
 require_relative 'collision_checker'
 
 # Shape encodes a collection of dependent cells that have to be placed in the game grid,

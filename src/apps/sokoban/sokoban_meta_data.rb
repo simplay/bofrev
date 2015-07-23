@@ -1,4 +1,4 @@
-require_relative '../game_meta_data'
+require_relative '../../game_meta_data'
 require_relative 'sokoban_map'
 require_relative '../tetris/tetris_achievement_system'
 

@@ -1,14 +1,16 @@
-require_relative '../game_field'
-require_relative '../point2f'
+require_relative '../../game_field'
+require_relative '../../point2f'
 
 class LevelParser
+
+  BASE_PATH = "src/apps/sokoban"
 
   # @param grid [Grid] game grid a player is playing
   # @param lvl_name [String] indicating a file in 'maps'
   def initialize(grid, lvl_name)
     @grid = grid
     idx = 1
-    file = File.new("src/sokoban/maps/#{lvl_name}.txt", "r")
+    file = File.new("#{BASE_PATH}/maps/#{lvl_name}.txt", "r")
     while (line = file.gets)
       parse_at(idx, line)
       idx += 1
