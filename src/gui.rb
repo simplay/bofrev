@@ -3,6 +3,7 @@ require_relative 'observer'
 require_relative 'settings'
 require_relative 'game_settings'
 require_relative 'event'
+require_relative 'control_constants'
 
 require 'tk'
 require 'tkextlib/tile'
@@ -12,16 +13,9 @@ require 'tkextlib/tile'
 class Gui < Observer
 
   include GameSettings
+  include ControlConstants
 
-  A_KEY = 'a'
-  W_KEY = 'w'
-  D_KEY = 'd'
-  S_KEY = 's'
-  LEFT_MOUSE_BUTTON_PRESSED =  'ButtonPress-1'
-  LEFT_MOUSE_BUTTON_DRAGGED =  'B1-Motion'
-
-
-
+  # @param game [Game]
   def initialize(game)
     game.subscribe(self)
     @game = game
