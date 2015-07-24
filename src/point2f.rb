@@ -26,6 +26,6 @@ class Point2f
   end
 
   def ==(other)
-    other.x  == @x && other.y == @y
+    other.x == @x && other.y == @y
   end
 end

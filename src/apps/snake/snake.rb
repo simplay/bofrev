@@ -1,55 +1,39 @@
+require_relative 'segment'
+
+# A snake is a doubly linked list of segment instances
+# with to special segments: the head and the tail.
 class Snake
-  attr_accessor :positions
-  attr_reader :segments
 
-  def initialize(position, delta)
-    @positions = [position]
-    @movements = [delta]
-    @saved_new_pos = []
-  end
-
-  def move
-    @movements.each_with_index do |segment, idx|
-      @positions[idx].add(segment)
-    end
-  end
-
-  def append_movement(delta)
-    @movements << delta
-  end
-
-  def update_movement(delta)
-    @movements.reverse!
-    @movements.pop
-    @movements.reverse!
-    @movements << delta
-  end
-
-  def append_position(position)
-    @saved_new_pos << position
-  end
-
-  def cleanup_positions
-    @positions.reverse!
-    @saved_new_pos.each do |pos|
-      @positions << pos
-    end
-    @positions.reverse!
-    @saved_new_pos = []
+  def initialize(pos)
+   @head = Segment.new(pos)
+   @tail = @head
+   @cursor = @head
+   @segments = [@head]
   end
 
   def head
-    @positions.last
+    @head
   end
 
   def tail
-    @positions.first
+    @tail
   end
 
-  def to_s
-    "p: #{@positions.map &:to_s}\ns: #{@movements.map &:to_s}"
+  def move_by(delta)
+    new_pos = @head.position.copy.add(delta)
+    @head.update_and_propagate_by(new_pos)
   end
 
+  def append_segment
+    segment = Segment.new
+    @segments << segment
+    @tail.child = segment
+    segment.parent = @tail
+    @tail = segment
+  end
 
+  def positions
+    @segments.map &:position
+  end
 
 end

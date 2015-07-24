@@ -11,12 +11,12 @@ class SnakeMap < Map
 
     @movement_direction = Point2f.new(1.0, 0.0)
     @snake_pos = Point2f.new(1.0, 1.0)
-    @snake = Snake.new(@snake_pos, @movement_direction)
+    @snake = Snake.new(@snake_pos)
 
     @total_omnomnoms = 0
 
     place_omnomnom
-    place_snake
+    place_snake(@movement_direction)
   end
 
   # defines how user input should be handled to update the game state.
@@ -35,34 +35,30 @@ class SnakeMap < Map
   end
 
   def process_ticker
-    puts @snake.to_s
-    update_snake_pos
+    update_snake_pos(@movement_direction)
     place_omnomnom if (@game.ticker_thread.total_elapsed_ticks%10 == 0 && @total_omnomnoms < 2)
   end
 
   private
 
-  def place_snake
+  def place_snake(movement_direction)
     @mutex.synchronize do
       @snake.positions.each do |snake_pos|
         field = @grid.field_at(snake_pos.x, snake_pos.y)
         if field.color == 'green'
           # increase snake length
-          move_dir = @movement_direction.copy.scale_by(-1.0)
-          copied_head = @snake.tail.copy
-          @snake.append_position(copied_head.add(move_dir))
-          @snake.append_movement(@movement_direction)
-
+          move_dir = movement_direction.copy.scale_by(-1.0)
+          @snake.append_segment
+          @snake.move_by(move_dir)
           @total_omnomnoms -= 1
         end
       end
-      @snake.cleanup_positions
     end
   end
 
   def place_omnomnom
     @total_omnomnoms += 1
-    rand_x = rand(1..GameSettings.width_pixels) 
+    rand_x = rand(1..GameSettings.width_pixels)
     rand_y = rand(1..GameSettings.height_pixels)
     field = @grid.field_at(rand_x, rand_y)
     field.color = 'green'
@@ -75,11 +71,10 @@ class SnakeMap < Map
     end
   end
 
-  def update_snake_pos
+  def update_snake_pos(movement_dir)
     unmark_snake
-    @snake.update_movement(@movement_direction)
-    @snake.move
-    place_snake
+    @snake.move_by(movement_dir)
+    place_snake(movement_dir)
     @snake.positions.each do |snake_pos|
       field = @grid.field_at(snake_pos.x, snake_pos.y)
       field.color = 'red'
