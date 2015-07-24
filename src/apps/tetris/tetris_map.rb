@@ -15,7 +15,7 @@ class TetrisMap < Map
   end
 
   def spawn_new_shape
-    @shape = ShapeSpawner.new(self).next
+    @shape = Tetris::ShapeSpawner.new(self).next
   end
 
   # iterate row-wise though grid and look for '4'-rows (w/e border).

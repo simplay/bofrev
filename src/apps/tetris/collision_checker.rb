@@ -1,4 +1,5 @@
 require_relative '../../point2f'
+require_relative 'tetris'
 
 # CollisionChecker Checks whether current shape movement was legal.
 # If issue was present, determines what kind of issue was present.
@@ -8,7 +9,7 @@ require_relative '../../point2f'
 #   + bounded: cannot move any further sidewards (left, right).
 #   + grounded: either floor hit or another already placed shape.
 #   + moveable: next update does not result in a collision.
-class CollisionChecker
+class Tetris::CollisionChecker
 
   attr_reader :state
 

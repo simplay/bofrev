@@ -1,5 +1,7 @@
 require_relative '../shape'
-class TBlock < Shape
+require_relative '../tetris'
+
+class Tetris::TBlock < Tetris::Shape
   def initialize(map, color)
     super(map, color)
   end

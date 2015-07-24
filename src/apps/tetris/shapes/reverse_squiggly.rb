@@ -1,5 +1,7 @@
 require_relative '../shape'
-class ReverseSquiggly < Shape
+require_relative '../tetris'
+
+class Tetris::ReverseSquiggly < Tetris::Shape
   def initialize(map, color)
     super(map, color)
   end

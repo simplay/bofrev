@@ -1,5 +1,6 @@
 require_relative '../../point2f'
 require_relative 'collision_checker'
+require_relative 'tetris'
 
 # Shape encodes a collection of dependent cells that have to be placed in the game grid,
 # using provided user inputs and game state updates.
@@ -40,7 +41,7 @@ require_relative 'collision_checker'
 # If a specific coordinate is encoded in configuration stores in :position_states, then use that cell.
 #
 # Each shape has a color assigned.
-class Shape
+class Tetris::Shape
 
   # Position in game grid (coordinates) that defines the zero (origin) of this shape's locale coordinate system.
   # NB: update when performing a move operation (translation).
@@ -108,7 +109,7 @@ class Shape
   # @return [Boolean] should sound effect be played? It is :true if yes otherwise :false.
   def rotate
     @play_sound_effect = false
-    unless CollisionChecker.new(self, :rotate).blocked?
+    unless Tetris::CollisionChecker.new(self, :rotate).blocked?
       @mutex.synchronize do
 
         @play_sound_effect = true
@@ -138,7 +139,7 @@ class Shape
   #        is either (default) :move - move shape downwards movement
   #        or :move_sidewards - move shape to the left or right
   def move_shape(move_by=Point2f.new(0,0), movement_type = :move)
-    collision_state = CollisionChecker.new(self, movement_type, move_by)
+    collision_state = Tetris::CollisionChecker.new(self, movement_type, move_by)
 
     if !collision_state.blocked?
       @mutex.synchronize do

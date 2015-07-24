@@ -7,19 +7,19 @@ require_relative 'shapes/reverse_squiggly'
 require_relative 'shapes/squiggly'
 require_relative 'shapes/t_block'
 require_relative 'shapes/line_piece'
+require_relative 'tetris'
 
-class ShapeSpawner
+class Tetris::ShapeSpawner
   include Settings
-
   def initialize(map)
     @shape_types = [
-        Square,
-        LPiece,
-        ReverseLPiece,
-        ReverseSquiggly,
-        Squiggly,
-        TBlock,
-        LinePiece
+        Tetris::Square,
+        Tetris::LPiece,
+        Tetris::ReverseLPiece,
+        Tetris::ReverseSquiggly,
+        Tetris::Squiggly,
+        Tetris::TBlock,
+        Tetris::LinePiece
     ]
     @map = map
   end
