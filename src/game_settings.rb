@@ -5,6 +5,7 @@ require_relative 'apps/game_of_life/game_of_life_meta_data'
 require_relative 'apps/sokoban/sokoban_meta_data'
 require_relative 'apps/snake/snake_meta_data'
 require_relative 'apps/pingpong/ping_pong_meta_data'
+require_relative 'apps/demo_sprites/demo_sprites_meta_data'
 
 module GameSettings
   include Settings
@@ -22,6 +23,8 @@ module GameSettings
         @game = SnakeMetaData
       elsif Settings.selected_game == 5
         @game = PingPongMetaData
+      elsif Settings.selected_game == 7
+        @game = DemoSpritesMetaData
       end
     end
     @game

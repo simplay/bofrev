@@ -19,6 +19,7 @@ class Gui < Observer
   def initialize(game)
     game.subscribe(self)
     @game = game
+    @may_draw = true
     build_gui_components
     attach_gui_listeners # forms controller in MVC
     clicked_onto_start
@@ -32,10 +33,13 @@ class Gui < Observer
   end
 
   def draw_game_state
+    return unless @may_draw
+    @may_draw = false
     @canvas.delete('all')
     draw_empty_grid(@canvas, cell_size)
     draw_grid_cells
     update_score_tile
+    @may_draw = true
   end
 
   def clicked_onto_start
@@ -82,10 +86,6 @@ class Gui < Observer
 
 
     draw_empty_grid(@canvas, cell_size)
-  end
-
-  def do_press(x, y)
-    puts "clicked at (#{x} #{y})"
   end
 
   def handle_mouse_events(x,y, type)

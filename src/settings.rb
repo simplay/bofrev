@@ -3,7 +3,7 @@ module Settings
   @mode = 0
   @selected_game = 1
 
-
+  # replace by Color class
   COLORS = %w(green blue red yellow orange)
 
   def self.selected_game
@@ -15,7 +15,9 @@ module Settings
     @selected_game = flag[:game] unless flag[:game].nil?
   end
 
+  # TODO: refactor me: Make factory...
   def self.selected_gui
+    return :freeform_gui if @selected_game == 7
     if @mode == 1
       :tetris_gui
     else
@@ -23,7 +25,9 @@ module Settings
     end
   end
 
+  # TODO: Refactor me: Build a factory.
   def self.gui_to_build
+    return FreeformGui if @selected_game == 7
     if @mode == 1
       TetrisGui
     else

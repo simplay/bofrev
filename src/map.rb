@@ -2,7 +2,8 @@ require_relative 'game_field'
 require_relative 'settings'
 require_relative 'point2f'
 require_relative 'sound_effect'
-require_relative '../src/game_settings'
+require_relative 'game_settings'
+require_relative 'shape_manager'
 
 class Map
 
@@ -12,6 +13,23 @@ class Map
     @sound_effect = SoundEffect.new(GameSettings.sound_effect_list)
     @game = game
     @grid = Grid.new(GameSettings.width_pixels, GameSettings.height_pixels)
+    @shape_manager = ShapeManager.new
+  end
+
+  def shapes
+    @shape_manager.shapes
+  end
+
+  # Appends a a Shape instance to @shape_manager.
+  # @param shape [Shape]
+  def append_shape(shape)
+    @shape_manager.append(shape)
+  end
+
+  # Removes a a Shape instance from @shape_manager.
+  # @param shape [Shape]
+  def remove_shape(shape)
+    @shape_manager.remove(shape)
   end
 
   def set_field_color_at(x, y, color)

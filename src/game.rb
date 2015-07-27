@@ -1,13 +1,10 @@
 require_relative 'settings'
 require_relative 'observable'
 require_relative 'score'
-
 require_relative 'ticker'
 require_relative 'music_player'
 require_relative 'pacer'
-
 require_relative 'game_settings'
-
 require_relative 'event'
 
 class Game
