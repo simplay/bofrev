@@ -17,6 +17,7 @@ All sound files are from [freesound.org](www.freesound.org).
 + Pseudo Framework to create custom 2d grid based games.
 + Tetris, Game of Life, and many upcoming events
 + Fractal Image Renderer
++ Freeform image renderer with animations.
 
 ## Plans
 
@@ -74,6 +75,7 @@ with the following key-steps:
   + `<G>`is **4**: run Snake.
   + `<G>`is **5**: run Ping Pong.
   + `<G>`is **6**: run 2d Fractal Renderer 
+  + `<G>`is **7**: run sprites demo 
   + default value is 1
 
 + `<M>` indicates whether we want to play in single-or Multiplayer-Mode or want to host a server. This parameter is optional.
@@ -136,6 +138,15 @@ _WIP state game_
  + **w key** up
 
 ### Ping Pong
+
+_WIP state game_
+
++ Controls:
+ + **a key** left
+ + **d key** right
+ 
+
+### Sprites demo
 
 _WIP state game_
 
