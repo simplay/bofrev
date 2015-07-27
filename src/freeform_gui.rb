@@ -131,7 +131,7 @@ class FreeformGui
       if shape.image?
         image = shape.image
 
-        TkcImage.new(@canvas, shape.position.x, shape.position.y,
+        TkcImage.new(@canvas, shape.position.x+image.height/2, shape.position.y+image.width / 2,
                      'image' => image)
 
 

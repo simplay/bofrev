@@ -1,6 +1,7 @@
 require_relative 'point2f'
 require_relative 'shape_factory'
-require 'tk'
+require_relative 'sprites'
+
 # Shape represents a drawable objects used by a freefrom_gui renderer.
 # TODO: Make use of instancing
 class Shape
@@ -12,15 +13,18 @@ class Shape
 
   # @param type [Symbol] what prefactored shape should be used.
   # @param position
-  def initialize(type = :default, position = Point2f.new, drawable=true)
+  def initialize(type = :default, position = Point2f.new, drawable=true, update_rate=20)
     @type = type
     @points = ShapeFactory.new(type).build
     @position = position
     @drawable = drawable
 
-    @image2 = TkPhotoImage.new(:file => "sprites/ani1.gif")
-    @image1 = TkPhotoImage.new(:file => "sprites/ani2.gif")
-    @flag = false
+    # @image2 = TkPhotoImage.new(:file => "sprites/ani1.gif")
+    #@image1 = TkPhotoImage.new(:file => "sprites/ani2.gif")
+    @sprites = Sprites.new("dummy/")
+    @current_img = @sprites.images.first
+    @switch_counter = 0
+    @swith_rate = update_rate
   end
 
   def shift_by(value)
@@ -32,8 +36,17 @@ class Shape
   end
 
   def image
-    @flag = !@flag
-    (@flag==true)? @image1 : @image2
+    default_animation
+  end
+
+  def default_animation
+    @switch_counter = (@switch_counter + 1) % @swith_rate
+    @current_img = @sprites.next_image if (@switch_counter == @swith_rate / 2)
+    @current_img
+  end
+
+  def walking_animation
+    raise "not implemented yet"
   end
 
   def color
