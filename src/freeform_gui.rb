@@ -20,6 +20,8 @@ class FreeformGui
     game.subscribe(self)
     @game = game
     @may_render = true
+    @background = TkPhotoImage.new(:file => "backgrounds/city.gif")
+    @ticks = 0
     build_gui_components
     attach_gui_listeners # forms controller in MVC
     clicked_onto_start
@@ -36,6 +38,9 @@ class FreeformGui
   def draw_game_state
     return unless @may_render
     @may_render = false
+    @ticks = @ticks + 2
+    @canvas.delete('all')
+    draw_background
     draw_grid_cells
     @may_render = true
   end
@@ -81,7 +86,11 @@ class FreeformGui
     @score_tile = Tk::Tile::Label.new(content) {text "00"}.grid( :column => 3, :row => 1, :sticky => 's')
 
     TkWinfo.children(content).each {|w| TkGrid.configure w, :padx => 5, :pady => 5}
+  end
 
+  def draw_background
+    offset = @ticks % 200
+    TkcImage.new(@canvas, offset, 200, 'image' => @background)
   end
 
   def handle_mouse_events(x,y, type)
@@ -126,14 +135,12 @@ class FreeformGui
   # note that x-coord corresponds to the column idx
   # note that y-coord corresponds to the row idx
   def draw_grid_cells
-    @canvas.delete('all')
     @game.map.shapes.each do |shape|
       if shape.image?
         image = shape.image
         x = shape.position.x + image.height/2
         y = shape.position.y + image.width/2
         TkcImage.new(@canvas, x, y, 'image' => image)
-
       end
     end
 
