@@ -31,7 +31,7 @@ class DemoSpritesMap < Map
   end
 
   def move_by(shft)
-    @player_shape.shift_by(Point2f.new(3*shft, 0))
+    @player_shape.translate_by(Point2f.new(3*shft, 0))
   end
 
 

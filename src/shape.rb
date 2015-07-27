@@ -13,26 +13,24 @@ class Shape
 
   # @param type [Symbol] what prefactored shape should be used.
   # @param position
-  def initialize(type = :default, position = Point2f.new, drawable=true, update_rate=20)
+  def initialize(type = :default, position = Point2f.new, drawable=true, update_rate=20, sprite_folder_name = 'dummy/')
     @type = type
     @points = ShapeFactory.new(type).build
     @position = position
     @drawable = drawable
 
-    # @image2 = TkPhotoImage.new(:file => "sprites/ani1.gif")
-    #@image1 = TkPhotoImage.new(:file => "sprites/ani2.gif")
-    @sprites = Sprites.new("dummy/")
+    @sprites = Sprites.new(sprite_folder_name)
     @current_img = @sprites.images.first
     @switch_counter = 0
     @swith_rate = update_rate
   end
 
-  def shift_by(value)
+  def translate_by(value)
     @position.add(value)
   end
 
   def image?
-    true
+    @sprites.count > 0
   end
 
   def image

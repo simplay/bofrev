@@ -130,10 +130,9 @@ class FreeformGui
     @game.map.shapes.each do |shape|
       if shape.image?
         image = shape.image
-
-        TkcImage.new(@canvas, shape.position.x+image.height/2, shape.position.y+image.width / 2,
-                     'image' => image)
-
+        x = shape.position.x + image.height/2
+        y = shape.position.y + image.width/2
+        TkcImage.new(@canvas, x, y, 'image' => image)
 
       end
     end
