@@ -173,13 +173,58 @@ class Gui < Observer
       y_iter.each do |row_idx|
         field = @game.map.field_at(column_id, row_idx)
         if field.drawable?
-          x0 = (column_id-1)*(cell_size); x1 = (column_id)*(cell_size)
-          y0 = (row_idx-1)*(cell_size); y1 = (row_idx)*(cell_size)
-          TkcRectangle.new(@canvas, x0, y0, x1, y1,
-                           'width' => 1, 'fill'  => field.color)
+          x0 = (column_id - 1)*cell_size
+          y0 = (row_idx - 1)*cell_size
+
+          x1 = column_id*cell_size
+          y1 = row_idx*cell_size
+
+          draw_rectangle_at(x0, y0, x1, y1, field.color, 1)
         end
       end
     end
+  end
+
+  # Draw a colored pixel with having a certain border width onto @canvas.
+  #
+  # @hint Its top left position is given by a point (x,y)
+  #
+  # @param x [Integer] or [Float] upper left corner x-component
+  # @param y [Integer] or [Float] upper left corner y-component
+  # @param color [String] color identifier.
+  # @param width [Integer] border pixel thickness.
+  def draw_pixel_at(x, y, color)
+    draw_rectangle_at(x, y, color, 0)
+  end
+
+  # Draw a colored square with having a certain border width onto @canvas.
+  #
+  # @hint Its top left position is given by a point (x,y)
+  # and its width by a :width value (by default zero valued).
+  #
+  # @param x [Integer] or [Float] upper left corner x-component
+  # @param y [Integer] or [Float] upper left corner y-component
+  # @param color [String] color identifier.
+  # @param border_width [Integer] border pixel thickness.
+  # @param width [Integer] pixel valued bottom-right span (by default 0).
+  def draw_square_at(x, y, color, border_width, width=0)
+    draw_rectangle_at(x, y, x+width, y+width, color, border_width)
+  end
+
+  # Draw a colored rectangle with having a certain border width onto @canvas.
+  #
+  # @hint Its top left position is given by a point (x0,y0) and
+  # its size by the span between the first and a 2nd point (x1, y1).
+  #
+  # @param x0 [Integer] or [Float] upper left corner x-component
+  # @param y0 [Integer] or [Float] upper left corner y-component
+  # @param x1 [Integer] or [Float] lower right corner x-component
+  # @param y1 [Integer] or [Float] lower right corner y-component
+  # @param color [String] color identifier.
+  # @param border_width [Integer] border pixel thickness.
+  def draw_rectangle_at(x0, y0, x1, y1, color, border_width)
+    TkcRectangle.new(@canvas, x0, y0, x1, y1,
+                     'width' => border_width, 'fill'  => color)
   end
 
 end
