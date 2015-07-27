@@ -45,7 +45,7 @@ class Shape
     @current_img
   end
 
-  def walking_animation
+  def movement_animation
     raise "not implemented yet"
   end
 
