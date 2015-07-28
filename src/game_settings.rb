@@ -102,33 +102,4 @@ module GameSettings
     GameSettings.render_attributes[:tics_per_second]
   end
 
-  ###################################################
-  # HELPER METHODS - EXPORT THEM LATER
-  ###################################################
-
-  def x_pixels
-    width_pixels + 2
-  end
-
-  def y_pixels
-    height_pixels + 2
-  end
-
-  def inner_x_pixels
-    (max_width / cell_size)
-  end
-
-  def inner_y_pixels
-    (max_height / cell_size)
-  end
-
-  def x_iter
-    (1..width_pixels)
-  end
-
-  def y_iter
-    (1..height_pixels)
-  end
-
-
 end

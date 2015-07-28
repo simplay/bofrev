@@ -7,6 +7,7 @@ class FractalView
   LAST_Y_PIXEL = 800.0
   BITS_PER_COLOR_CHANNEL = 8
   MAX_ITER = 255
+
   def initialize
     build_gui_components
     draw_initial_background
@@ -63,7 +64,7 @@ class FractalView
     x = 0.0; y = 0.0;
     max_iter = MAX_ITER
     iter = 0
-    max_iter.times do 
+    max_iter.times do
       # if convergence radius is greater than r^2
       break if (x**2 - y**2 > 4.0)
       x_tmp = x*x - y*y + x0
@@ -94,12 +95,12 @@ class FractalView
 
   # Compute a 3*bits TK fromatted color string.
   def compute_color_string(r,g,b, bits)
-    r_s = prefix_zeros(bits, r)+r.to_s(2) 
-    g_s = prefix_zeros(bits, g)+g.to_s(2) 
-    b_s = prefix_zeros(bits, b)+b.to_s(2) 
-    color = "#{r_s}#{g_s}#{b_s}" 
-    color =  (color.split("").map do |char| (char == '0')? '0' : 'f' end).join 
-    "#"+color 
+    r_s = prefix_zeros(bits, r)+r.to_s(2)
+    g_s = prefix_zeros(bits, g)+g.to_s(2)
+    b_s = prefix_zeros(bits, b)+b.to_s(2)
+    color = "#{r_s}#{g_s}#{b_s}"
+    color =  (color.split("").map do |char| (char == '0')? '0' : 'f' end).join
+    "#"+color
   end
 
   def prefix_zeros(bits, c)

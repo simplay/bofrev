@@ -4,6 +4,7 @@ require_relative 'settings'
 require_relative 'game_settings'
 require_relative 'event'
 require_relative 'control_constants'
+require_relative 'render_helpers'
 
 require 'tk'
 require 'tkextlib/tile'
@@ -14,6 +15,7 @@ class Gui < Observer
 
   include GameSettings
   include ControlConstants
+  include RenderHelpers
 
   # @param game [Game]
   def initialize(game)
