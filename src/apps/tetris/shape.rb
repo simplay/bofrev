@@ -58,7 +58,7 @@ class Tetris::Shape
   attr_accessor :grid_map
 
   # @param map [Map] game map
-  # @param color [String] color identifier known by Tk
+  # @param color [Color] color identifier known by Tk
   def initialize(map, color)
     @origin = Point2f.new(5, 0)
 

@@ -1,4 +1,4 @@
-require_relative '../../settings'
+require_relative '../../color'
 
 require_relative 'shapes/square'
 require_relative 'shapes/l_piece'
@@ -10,7 +10,7 @@ require_relative 'shapes/line_piece'
 require_relative 'tetris'
 
 class Tetris::ShapeSpawner
-  include Settings
+
   def initialize(map)
     @shape_types = [
         Tetris::Square,
@@ -27,6 +27,7 @@ class Tetris::ShapeSpawner
   # @return
   def next
     idx = Random.rand(0..@shape_types.length-1) % @shape_types.length
+    random_color = Color.next_random
     @shape_types[idx].new(@map, random_color)
   end
 

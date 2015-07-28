@@ -1,3 +1,5 @@
+require_relative 'color'
+
 class GameField
 
   include Enumerable
@@ -6,7 +8,7 @@ class GameField
                 :top, :bottom, :left, :right,
                 :top_left, :top_right, :bottom_left, :bottom_right
 
-  # @param color [String] color name supported by [Tk]
+  # @param color [Color] 32bit rgb colour.
   # @param type [Symbol] incoding state of field
   #   :field - any non-fixed Field: empty or moving block.
   #   :placed - non-border field that are placed (hit the floor).
@@ -14,10 +16,18 @@ class GameField
   #   :ground_border - the floor border pixel. to check whether we can fall any deeper.
   #     checking for border types would result in index checks
   #     in order to determine whether we are considering a ground border cell
-  def initialize(color = 'white', type = :field, value = 0)
+  def initialize(color = Color.white, type = :field, value = 0)
     @color = color
     @type = type
     @value = value
+  end
+
+  def color
+    @color
+  end
+
+  def color_value
+    @color.to_rgb
   end
 
   def clone
@@ -99,7 +109,7 @@ class GameField
 
   # can data of this cell be used when redrawing the canvas?
   def drawable?
-    @color != 'white' && @color != 'black'
+    @color != Color.white && @color != Color.black
   end
 
   # is this field a free field,
@@ -124,14 +134,14 @@ class GameField
   end
 
   def to_s
-    "#{color}"
+    "#{color.to_rgb}"
   end
 
   # flush current state of this field to default state
   # that is :field (empty) and white
   def wipe_out
     @type = :field
-    @color = 'white'
+    @color = Color.white
   end
 
   def copy_state_from(other)

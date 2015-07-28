@@ -181,7 +181,7 @@ class Gui < Observer
           x1 = column_id*cell_size
           y1 = row_idx*cell_size
 
-          draw_rectangle_at(x0, y0, x1, y1, field.color, 1)
+          draw_rectangle_at(x0, y0, x1, y1, field.color_value, 1)
         end
       end
     end

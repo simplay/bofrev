@@ -1,7 +1,7 @@
 require_relative '../../map'
 require_relative '../../game_settings'
+require_relative '../../color'
 require_relative 'level_parser'
-require 'pry'
 
 class SokobanMap < Map
 
@@ -56,7 +56,7 @@ class SokobanMap < Map
       unless hit_wall?(Point2f.new(@chest.value.x+del.x, @chest.value.y+del.y))
         set_entities(@chest.value.x+del.x, @chest.value.y+del.y)
         @player = @grid.field_at(new_pp.x, new_pp.y)
-        @player.color = 'red'
+        @player.color = Color.red
         @player.value = Point2f.new(new_pp.x, new_pp.y)
         reset_player_pos_at(pp)
       end
@@ -64,7 +64,7 @@ class SokobanMap < Map
 
     elsif !hit_wall?(new_pp)
       @player = @grid.field_at(new_pp.x, new_pp.y)
-      @player.color = 'red'
+      @player.color = Color.red
       @player.value = Point2f.new(new_pp.x, new_pp.y)
       reset_player_pos_at(pp)
       set_entities(@chest.value.x, @chest.value.y)
@@ -74,13 +74,13 @@ class SokobanMap < Map
 
   def reset_player_pos_at(pp)
     old_p = @grid.field_at(pp.x, pp.y)
-    old_p.color = 'white'
+    old_p.color = Color.white
     old_p.value = nil
   end
 
   def set_entities(x, y)
     @chest = @grid.field_at(x, y)
-    @chest.color = 'blue'
+    @chest.color = Color.blue
     @chest.value = Point2f.new(x,y)
 
     reset_target
@@ -88,12 +88,12 @@ class SokobanMap < Map
     if hit_target?(@chest.value)
       initiate_game_over
     end
-    
+
   end
 
   def reset_target
     @target = @grid.field_at(@target_init_pos.x, @target_init_pos.y)
-    @target.color = 'green'
+    @target.color = Color.green
     @target.value = Point2f.new(@target_init_pos.x,@target_init_pos.y)
   end
 

@@ -1,5 +1,6 @@
 require_relative '../../map'
 require_relative '../../game_settings'
+require_relative '../../color'
 require_relative 'snake'
 
 class SnakeMap < Map
@@ -45,7 +46,7 @@ class SnakeMap < Map
     @mutex.synchronize do
       @snake.positions.each do |snake_pos|
         field = @grid.field_at(snake_pos.x, snake_pos.y)
-        if field.color == 'green'
+        if field.color == Color.green
           # increase snake length
           move_dir = movement_direction.copy.scale_by(-1.0)
           @snake.append_segment
@@ -61,13 +62,13 @@ class SnakeMap < Map
     rand_x = rand(1..GameSettings.width_pixels)
     rand_y = rand(1..GameSettings.height_pixels)
     field = @grid.field_at(rand_x, rand_y)
-    field.color = 'green'
+    field.color = Color.green
   end
 
   def unmark_snake
     @snake.positions.each do |snake_pos|
       field = @grid.field_at(snake_pos.x, snake_pos.y)
-      field.color = 'white'
+      field.color = Color.white
     end
   end
 
@@ -77,7 +78,7 @@ class SnakeMap < Map
     place_snake(movement_dir)
     @snake.positions.each do |snake_pos|
       field = @grid.field_at(snake_pos.x, snake_pos.y)
-      field.color = 'red'
+      field.color = Color.red
     end
   end
 

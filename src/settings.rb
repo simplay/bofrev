@@ -3,9 +3,6 @@ module Settings
   @mode = 0
   @selected_game = 1
 
-  # replace by Color class
-  COLORS = %w(green blue red yellow orange)
-
   def self.selected_game
     @selected_game
   end
@@ -41,11 +38,6 @@ module Settings
 
   def self.run_game_thread?
     @mode < 2
-  end
-
-  def random_color
-    idx = Random.rand(COLORS.length)
-    COLORS[idx]
   end
 
 end

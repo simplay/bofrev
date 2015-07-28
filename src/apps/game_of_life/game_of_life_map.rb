@@ -1,5 +1,6 @@
 require_relative '../../map'
 require_relative '../../game_settings'
+require_relative '../../color'
 
 class GameOfLifeMap < Map
 
@@ -17,14 +18,14 @@ class GameOfLifeMap < Map
 
       field = field_at(p.x,p.y)
 
-      color = (field.color == 'white')? 'green' : 'white'
+      color = (field.color == Color.white)? Color.green : Color.white
 
       set_field_color_at(p.x, p.y, color)
       set_field_value_at(p.x, p.y, 1.0 - field.value)
 
     elsif message.type == :left_drag
       p = transform_coordinates(message.content)
-      set_field_color_at(p.x, p.y, 'green')
+      set_field_color_at(p.x, p.y, Color.green)
       set_field_value_at(p.x, p.y, 1.0)
     elsif message.type == 'a'
       @allow_updates = !@allow_updates
@@ -50,25 +51,24 @@ class GameOfLifeMap < Map
       @prev_iter_grid.inner_height_iter.each do |row_idx|
         @prev_iter_grid.inner_width_iter.each do |idx|
 
-
           current_cell = @grid.field_at(idx, row_idx)
           summed_value = current_cell.sum_8_neighbor_values
 
           perform_update = false
-          if current_cell.color == 'green'
+          if current_cell.color == Color.green
 
             if summed_value < 2.0
-              color = 'white'
+              color = Color.white
               value = 0.0
               perform_update = true
 
             elsif summed_value > 3.0
-              color = 'white'
+              color = Color.white
               value = 0.0
               perform_update = true
 
             else
-              color = 'green'
+              color = Color.green
               value = 1.0
               perform_update = true
             end
@@ -76,7 +76,7 @@ class GameOfLifeMap < Map
           else
 
             if summed_value == 3.0
-              color = 'green'
+              color = Color.green
               value = 1.0
               perform_update = true
             end

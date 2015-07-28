@@ -1,5 +1,6 @@
 require_relative '../../map'
 require_relative '../../game_settings'
+require_relative '../../color'
 
 class PingPongMap < Map
 
@@ -48,12 +49,12 @@ class PingPongMap < Map
 
   def init_pos
     @current_position.each do |pos|
-      @grid.set_field_at(pos,20,GameField.new('blue'))
+      @grid.set_field_at(pos,20,GameField.new(Color.blue))
     end
   end
 
   def wipe_out_at(idx)
-    @grid.set_field_at(idx,20,GameField.new('white'))
+    @grid.set_field_at(idx,20,GameField.new(Color.white))
   end
 
 end

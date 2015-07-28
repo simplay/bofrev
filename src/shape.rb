@@ -1,6 +1,7 @@
 require_relative 'point2f'
 require_relative 'shape_factory'
 require_relative 'sprites'
+require_relative 'color'
 
 # Shape represents a drawable objects used by a freefrom_gui renderer.
 # TODO: Make use of instancing
@@ -48,7 +49,7 @@ class Shape
   end
 
   def color
-    'red'
+    Color.red
   end
 
   # @return [Boolean] true if it should be drawn onto the freefrom_gui canvas.

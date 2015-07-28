@@ -1,6 +1,12 @@
 require_relative '../../game_field'
 require_relative '../../point2f'
+require_relative '../../color'
 
+# known identifiers
+# '#' wall (yellow)
+# 'p' player (red)
+# 't' target (green)
+# 'c' chest (blue)
 class LevelParser
 
   BASE_PATH = "src/apps/sokoban"
@@ -41,24 +47,23 @@ class LevelParser
 
   def process_row_element(label, row_idx, column_idx)
     if label == '#'
-      @grid.set_field_at(row_idx, column_idx, GameField.new('yellow', :border, nil))
+      @grid.set_field_at(row_idx, column_idx, GameField.new(Color.yellow, :border, nil))
 
     elsif label == 'p'
       @player = @grid.field_at(row_idx, column_idx)
-      @player.color = 'red'
+      @player.color = Color.red
       @player.value = Point2f.new(row_idx, column_idx)
 
     elsif label == 't'
       @target = @grid.field_at(row_idx, column_idx)
-      @target.color = 'green'
+      @target.color = Color.green
       @target.value = Point2f.new(row_idx, column_idx)
 
     elsif label == 'c'
       @chest = @grid.field_at(row_idx, column_idx)
-      @chest.color = 'blue'
+      @chest.color = Color.blue
       @chest.value = Point2f.new(row_idx, column_idx)
     end
   end
-
 
 end

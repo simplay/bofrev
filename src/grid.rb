@@ -1,4 +1,5 @@
 require_relative 'game_field'
+require_relative 'color'
 
 # Grid is the Data Structure for an arbitrary 2d-(M x N) pixel game.
 # A grid has actually (M+2)x(N+2) pixels. There is an border around the grid.
@@ -219,14 +220,14 @@ class Grid
   def specify_borders
     # setup y border
     total_width.times do |idy|
-      set_field_at(idy, 0, GameField.new('black', :border))
-      set_field_at(idy, total_height-1, GameField.new('black', :ground_border))
+      set_field_at(idy, 0, GameField.new(Color.black, :border))
+      set_field_at(idy, total_height-1, GameField.new(Color.black, :ground_border))
     end
 
     # setup x border
     total_height.times do |idx|
-      set_field_at(0, idx, GameField.new('black', :border))
-      set_field_at(total_width-1, idx, GameField.new('black', :border))
+      set_field_at(0, idx, GameField.new(Color.black, :border))
+      set_field_at(total_width-1, idx, GameField.new(Color.black, :border))
     end
   end
 

@@ -160,7 +160,7 @@ class TetrisGui < Gui
           x0 = (column_id-1)*(cell_size); x1 = (column_id)*(cell_size)
           y0 = (row_idx-1)*(cell_size); y1 = (row_idx)*(cell_size)
           TkcRectangle.new(@canvas, x0, y0, x1, y1,
-                           'width' => 1, 'fill'  => field.color)
+                           'width' => 1, 'fill'  => field.color_value)
         end
       end
     end

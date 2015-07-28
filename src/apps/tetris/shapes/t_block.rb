@@ -2,6 +2,7 @@ require_relative '../shape'
 require_relative '../tetris'
 
 class Tetris::TBlock < Tetris::Shape
+
   def initialize(map, color)
     super(map, color)
   end
