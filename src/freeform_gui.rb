@@ -134,6 +134,7 @@ class FreeformGui
 
   # note that x-coord corresponds to the column idx
   # note that y-coord corresponds to the row idx
+  # TODO make use of layer renderings, export to shape
   def draw_grid_cells
     @game.map.shapes.each do |shape|
       if shape.image?
