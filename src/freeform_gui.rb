@@ -114,11 +114,12 @@ class FreeformGui
 
   def attach_gui_listeners
     # TODO set focus on root
+    @root.bind(W_D_KEYS, proc { handle_pressed_key(W_D_KEYS) })
+    @root.bind(W_A_KEYS, proc { handle_pressed_key(W_A_KEYS) })
     @root.bind(A_KEY, proc { handle_pressed_key(A_KEY) })
     @root.bind(W_KEY, proc { handle_pressed_key(W_KEY) })
     @root.bind(D_KEY, proc { handle_pressed_key(D_KEY) })
     @root.bind(S_KEY, proc { handle_pressed_key(S_KEY) })
-
 
     @canvas.bind(LEFT_MOUSE_BUTTON_PRESSED, proc{|x, y| handle_mouse_events(x, y, :left_click)}, "%x %y")
     @canvas.bind(LEFT_MOUSE_BUTTON_DRAGGED, proc{|x, y| handle_mouse_events(x, y, :left_drag)}, "%x %y")

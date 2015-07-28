@@ -5,4 +5,6 @@ module ControlConstants
   S_KEY = 's'
   LEFT_MOUSE_BUTTON_PRESSED =  'ButtonPress-1'
   LEFT_MOUSE_BUTTON_DRAGGED =  'B1-Motion'
+  W_D_KEYS = 'w,d'
+  W_A_KEYS = 'w,a'
 end
