@@ -16,7 +16,7 @@ class FreeformGui < Gui
   end
 
   # invoked drawing methods performed in the defined ascending order.
-  def draw_methods
+  def apply_draw_methods
     draw_background
     draw_grid_cells
   end

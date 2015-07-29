@@ -15,21 +15,13 @@ module Settings
   # TODO: refactor me: Make factory...
   def self.selected_gui
     return :freeform_gui if @selected_game == 7
-    if @mode == 1
-      :tetris_gui
-    else
-      :gui
-    end
+    :tetris_gui
   end
 
   # TODO: Refactor me: Build a factory.
   def self.gui_to_build
     return FreeformGui if @selected_game == 7
-    if @mode == 1
-      TetrisGui
-    else
-      Gui
-    end
+    TetrisGui
   end
 
   def self.run_music?
