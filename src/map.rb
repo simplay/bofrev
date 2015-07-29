@@ -3,7 +3,7 @@ require_relative 'settings'
 require_relative 'point2f'
 require_relative 'sound_effect'
 require_relative 'game_settings'
-require_relative 'shape_manager'
+require_relative 'drawables/shape_manager'
 
 class Map
 

@@ -1,6 +1,6 @@
 require_relative '../../map'
 require_relative '../../game_settings'
-require_relative '../../shape'
+require_relative '../../drawables/shape'
 
 class DemoSpritesMap < Map
 
