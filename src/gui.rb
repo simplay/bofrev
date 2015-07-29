@@ -22,10 +22,17 @@ class Gui < Observer
     game.subscribe(self)
     @game = game
     @may_draw = true
+
+    prepended_initialization_steps
     build_gui_components
-    attach_gui_listeners # forms controller in MVC
+    post_build_gui_steps
+    attach_gui_listeners
     clicked_onto_start
+
     Tk.mainloop
+  end
+
+  def prepended_initialization_steps
   end
 
   # when we got notified by game (has new data for gui)
@@ -38,10 +45,14 @@ class Gui < Observer
     return unless @may_draw
     @may_draw = false
     @canvas.delete('all')
-    draw_empty_grid(@canvas, cell_size)
-    draw_grid_cells
+    draw_methods
     update_score_tile
     @may_draw = true
+  end
+
+  def draw_methods
+    draw_empty_grid(@canvas, cell_size)
+    draw_grid_cells
   end
 
   def clicked_onto_start
@@ -87,6 +98,9 @@ class Gui < Observer
     TkWinfo.children(content).each {|w| TkGrid.configure w, :padx => 5, :pady => 5}
 
 
+  end
+
+  def post_build_gui_steps
     draw_empty_grid(@canvas, cell_size)
   end
 
@@ -105,16 +119,18 @@ class Gui < Observer
   # @param type [String] key identifier that was pressed.
   def handle_pressed_key(type)
     puts "#{type} was pressed."
+    @may_draw = true
     @game.perform_loop_step(Event.new(type, nil))
   end
 
   def attach_gui_listeners
     # TODO set focus on root
+    @root.bind(W_D_KEYS, proc { handle_pressed_key(W_D_KEYS) })
+    @root.bind(W_A_KEYS, proc { handle_pressed_key(W_A_KEYS) })
     @root.bind(A_KEY, proc { handle_pressed_key(A_KEY) })
     @root.bind(W_KEY, proc { handle_pressed_key(W_KEY) })
     @root.bind(D_KEY, proc { handle_pressed_key(D_KEY) })
     @root.bind(S_KEY, proc { handle_pressed_key(S_KEY) })
-
 
     @canvas.bind(LEFT_MOUSE_BUTTON_PRESSED, proc{|x, y| handle_mouse_events(x, y, :left_click)}, "%x %y")
     @canvas.bind(LEFT_MOUSE_BUTTON_DRAGGED, proc{|x, y| handle_mouse_events(x, y, :left_drag)}, "%x %y")
