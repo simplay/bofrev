@@ -1,6 +1,8 @@
 require_relative 'gui'
 require 'tk'
 
+# TODO: Move to src/views/
+#
 # Game grid graphical user interface.
 # follow mvc pattern: gui knows game
 class FreeformGui < Gui

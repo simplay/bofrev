@@ -1,6 +1,8 @@
 require 'tk'
 require 'tkextlib/tile'
 
+# TODO refactor to conform Gui (inherit from gui)
+# allows to remove additional logic in application.rb
 class FractalView
   MUTE = true
   LAST_X_PIXEL = 800.0

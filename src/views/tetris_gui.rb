@@ -1,15 +1,12 @@
 require_relative '../point2f'
-require_relative '../observer'
-require_relative '../settings'
-require_relative '../game_settings'
-require_relative '../event'
 require_relative '../gui'
 
 require 'tk'
 require 'tkextlib/tile'
 
-# Game grid graphical user interface.
-# follow mvc pattern: gui knows game
+# TODO: RENAME to GridGui
+#
+# Grid based drawing of game objects.
 class TetrisGui < Gui
 
   def initialize(game)

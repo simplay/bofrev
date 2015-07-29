@@ -9,8 +9,11 @@ require_relative 'render_helpers'
 require 'tk'
 require 'tkextlib/tile'
 
-# Game grid graphical user interface.
-# follow mvc pattern: gui knows game
+# Abstract definition of a general bofrev gui.
+# A gui has a canvas, offers some trival drawing methods and
+# has key and mouse listeners attached to. A gui canvas gets redrawn
+# (according to the definition of Gui#apply_draw_methods after
+# it received a notification of its provided game instance.
 class Gui < Observer
 
   include GameSettings
@@ -32,17 +35,25 @@ class Gui < Observer
     Tk.mainloop
   end
 
+  # Hook method
+  # Additional steps that should be applied before the gui components
+  # and listeners are build. All logic invoked within this method
+  # is run before the Tk.mainloop has been started.
   def prepended_initialization_steps
     raise "not implemented yet"
   end
 
-  # TODO rename to apply draw methods
-  def apply_draw_methods
+  # Hook method
+  # Run additional logic after the complete gui has been build
+  # and all listeners were attached.
+  def post_build_gui_steps
     raise "not implemented yet"
   end
 
-  # let raise error
-  def post_build_gui_steps
+  # Hook method
+  # Define how and what should be drawn onto the @canvas
+  # after each game notification.
+  def apply_draw_methods
     raise "not implemented yet"
   end
 
