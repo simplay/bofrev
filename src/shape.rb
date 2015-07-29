@@ -2,6 +2,7 @@ require_relative 'point2f'
 require_relative 'shape_factory'
 require_relative 'sprites'
 require_relative 'color'
+require 'tk'
 
 # Shape represents a drawable objects used by a freefrom_gui renderer.
 # TODO: Make use of instancing
@@ -24,6 +25,17 @@ class Shape
     @current_img = @sprites.images.first
     @switch_counter = 0
     @swith_rate = update_rate
+  end
+
+  # Draw this shape onto a given canvas.
+  #
+  # @param canvas [TkCanvas]
+  def draw_onto(canvas)
+    if image?
+      x = position.x + image.height/2
+      y = position.y + image.width/2
+      TkcImage.new(canvas, x, y, 'image' => image)
+    end
   end
 
   def translate_by(value)

@@ -138,12 +138,7 @@ class FreeformGui
   # TODO make use of layer renderings, export to shape
   def draw_grid_cells
     @game.map.shapes.each do |shape|
-      if shape.image?
-        image = shape.image
-        x = shape.position.x + image.height/2
-        y = shape.position.y + image.width/2
-        TkcImage.new(@canvas, x, y, 'image' => image)
-      end
+      shape.draw_onto(@canvas)
     end
 
   end
