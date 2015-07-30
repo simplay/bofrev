@@ -1,3 +1,4 @@
+require_relative 'grid'
 require_relative 'game_field'
 require_relative 'settings'
 require_relative 'point2f'

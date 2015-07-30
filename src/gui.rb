@@ -16,7 +16,6 @@ require 'tkextlib/tile'
 # it received a notification of its provided game instance.
 class Gui < Observer
 
-  include GameSettings
   include ControlConstants
   include RenderHelpers
 

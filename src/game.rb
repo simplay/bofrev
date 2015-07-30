@@ -1,4 +1,3 @@
-require_relative 'settings'
 require_relative 'observable'
 require_relative 'score'
 require_relative 'ticker'
@@ -9,7 +8,6 @@ require_relative 'event'
 
 class Game
   include Observable
-  include Settings
 
   attr_accessor :map
   attr_reader :ticker_thread
@@ -40,13 +38,13 @@ class Game
     puts "message: #{message}"
     if finished?
       shut_down_threads
-      unsubscribe(Settings.selected_gui)
+      unsubscribe(GameSettings.selected_gui)
       notify_all_targets_of_type(:application)
       puts "You scored #{@score.final_points} point!"
     else
       puts "message received: #{message}"
       @map.process_event(message)
-      notify_all_targets_of_type(Settings.selected_gui)
+      notify_all_targets_of_type(GameSettings.selected_gui)
     end
   end
 
@@ -69,18 +67,18 @@ class Game
   private
 
   def shut_down_threads
-    @music_thread.shut_down if Settings.run_music?
-    @ticker_thread.shut_down if Settings.run_game_thread?
+    @music_thread.shut_down if GameSettings.run_music?
+    @ticker_thread.shut_down if GameSettings.run_game_thread?
   end
 
   def start_threads
-    @music_thread.play if Settings.run_music?
-    @ticker_thread.start if Settings.run_game_thread?
+    @music_thread.play if GameSettings.run_music?
+    @ticker_thread.start if GameSettings.run_game_thread?
   end
 
   def create_threads
     @music_thread = MusicPlayer.new(GameSettings.theme_list)
-    @ticker_thread = Ticker.new(self, @map, Pacer.new(@score), Settings.selected_gui)
+    @ticker_thread = Ticker.new(self, @map, Pacer.new(@score), GameSettings.selected_gui)
   end
 
   def initialize_map

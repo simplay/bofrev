@@ -24,4 +24,8 @@ module GameMetaData
     raise "not implemented yet"
   end
 
+  def self.gui_type
+    raise "not implemented yet"
+  end
+
 end
