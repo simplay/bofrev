@@ -6,7 +6,7 @@ require_relative 'apps/snake/snake_meta_data'
 require_relative 'apps/pingpong/ping_pong_meta_data'
 require_relative 'apps/demo_sprites/demo_sprites_meta_data'
 require_relative 'views/grid_gui'
-require_relative 'freeform_gui'
+require_relative 'views/freeform_gui'
 
 # Singleton class
 class GameSettings
