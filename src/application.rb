@@ -1,14 +1,9 @@
 require_relative 'game'
-require_relative 'gui'
-require_relative 'freeform_gui'
 require_relative 'observer'
-require_relative 'grid'
-require_relative 'settings'
-require_relative 'sound_effect'
+require_relative 'game_settings'
 require_relative 'server'
 require_relative 'client'
-require_relative 'views/tetris_gui'
-require_relative 'views/fractal_view'
+require 'pry'
 
 # init game
 # init gui with game
@@ -22,7 +17,10 @@ class Application < Observer
   # will be exectued (since the Tk mainloop is being executed)
   # TODO: have a logger/status thread present.
   def initialize(args)
-    Settings.set_mode(args)
+    GameSettings.build_from(args)
+
+    # TODO define metadata for :game => 6
+    # to remove this logic handling
     if args[:game] == 6
       FractalView.new
     else
@@ -33,7 +31,7 @@ class Application < Observer
       else
         game = Game.new
         game.subscribe(self)
-        Settings.gui_to_build.new(game)
+        GameSettings.gui_to_build.new(game)
       end
     end
   end

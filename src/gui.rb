@@ -1,6 +1,5 @@
 require_relative 'point2f'
 require_relative 'observer'
-require_relative 'settings'
 require_relative 'game_settings'
 require_relative 'event'
 require_relative 'control_constants'
@@ -16,7 +15,6 @@ require 'tkextlib/tile'
 # it received a notification of its provided game instance.
 class Gui < Observer
 
-  include GameSettings
   include ControlConstants
   include RenderHelpers
 

@@ -1,13 +1,11 @@
+require_relative 'grid'
 require_relative 'game_field'
-require_relative 'settings'
 require_relative 'point2f'
 require_relative 'sound_effect'
 require_relative 'game_settings'
 require_relative 'drawables/shape_manager'
 
 class Map
-
-  include Settings
 
   def initialize(game)
     @sound_effect = SoundEffect.new(GameSettings.sound_effect_list)

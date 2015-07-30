@@ -4,7 +4,6 @@ require_relative 'game_settings'
 
 class Score
  include Observable
- include Settings
 
   def initialize
     @score = 0
