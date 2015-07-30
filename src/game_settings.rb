@@ -11,7 +11,6 @@ require_relative 'freeform_gui'
 
 # Singleton class
 class GameSettings
-  include Settings
   include GameMetaData
 
   # @param arguments [Hash] of relevant data to derive game settings
@@ -24,8 +23,8 @@ class GameSettings
   #     1: without running the music thread
   #     2: without running the ticker thread
   def initialize(arguments={})
-    @selected_game = arguments[:game]
-    @selected_mode = arguments[:debug]
+    @selected_game = arguments[:game] || 1
+    @selected_mode = arguments[:debug] || 0
     @game_meta_data = derive_game_model
   end
 

@@ -8,8 +8,6 @@ require_relative 'drawables/shape_manager'
 
 class Map
 
-  include Settings
-
   def initialize(game)
     @sound_effect = SoundEffect.new(GameSettings.sound_effect_list)
     @game = game
