@@ -39,7 +39,7 @@ class Ticker
 
   def shut_down
     @finished = true
-    @thread.exit
+    @thread.exit unless @thread.nil?
   end
 
 end

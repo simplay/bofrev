@@ -24,12 +24,5 @@ module Settings
     TetrisGui
   end
 
-  def self.run_music?
-    @mode < 1
-  end
-
-  def self.run_game_thread?
-    @mode < 2
-  end
 
 end
