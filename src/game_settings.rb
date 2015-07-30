@@ -67,13 +67,10 @@ class GameSettings
     build_from.game_meta_data
   end
 
-  # TODO: refactor me: encode in meta data
   def self.selected_gui
-    binding.pry
     game_meta_data.gui_type_as_sym
   end
 
-  # TODO: refactor me: derive from selected gui (apply constantize)
   def self.gui_to_build
     game_meta_data.gui_type
   end
