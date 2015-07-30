@@ -5,7 +5,7 @@ require_relative 'apps/sokoban/sokoban_meta_data'
 require_relative 'apps/snake/snake_meta_data'
 require_relative 'apps/pingpong/ping_pong_meta_data'
 require_relative 'apps/demo_sprites/demo_sprites_meta_data'
-require_relative 'views/tetris_gui'
+require_relative 'views/grid_gui'
 require_relative 'freeform_gui'
 
 # Singleton class
@@ -70,13 +70,13 @@ class GameSettings
   # TODO: refactor me: encode in meta data
   def self.selected_gui
     selected_game = build_from.selected_game
-    (selected_game == 7) ? :freeform_gui : :tetris_gui
+    (selected_game == 7) ? :freeform_gui : :grid_gui
   end
 
   # TODO: refactor me: derive from selected gui (apply constantize)
   def self.gui_to_build
     selected_game = build_from.selected_game
-    (selected_game == 7) ? FreeformGui : TetrisGui
+    (selected_game == 7) ? FreeformGui : GridGui
   end
 
   def self.run_music?

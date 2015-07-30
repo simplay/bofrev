@@ -7,7 +7,7 @@ require 'tkextlib/tile'
 # TODO: RENAME to GridGui
 #
 # Grid based drawing of game objects.
-class TetrisGui < Gui
+class GridGui < Gui
 
   def initialize(game)
     super(game)
