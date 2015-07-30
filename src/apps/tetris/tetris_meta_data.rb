@@ -40,4 +40,8 @@ class TetrisMetaData
     }
   end
 
+  def self.gui_type
+    GridGui
+  end
+
 end

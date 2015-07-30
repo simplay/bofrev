@@ -35,4 +35,8 @@ class DemoSpritesMetaData
     }
   end
 
+  def self.gui_type
+    FreeformGui
+  end
+
 end

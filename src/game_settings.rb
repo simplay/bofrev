@@ -69,14 +69,13 @@ class GameSettings
 
   # TODO: refactor me: encode in meta data
   def self.selected_gui
-    selected_game = build_from.selected_game
-    (selected_game == 7) ? :freeform_gui : :grid_gui
+    binding.pry
+    game_meta_data.gui_type_as_sym
   end
 
   # TODO: refactor me: derive from selected gui (apply constantize)
   def self.gui_to_build
-    selected_game = build_from.selected_game
-    (selected_game == 7) ? FreeformGui : GridGui
+    game_meta_data.gui_type
   end
 
   def self.run_music?
@@ -157,14 +156,6 @@ class GameSettings
 
   def tics_per_second
     GameSettings.render_attributes[:tics_per_second]
-  end
-
-  def self.gui_type
-    GameSettings.render_attributes[:gui_type]
-  end
-
-  def gui_type
-    GameSettings.render_attributes[:gui_type]
   end
 
 end
