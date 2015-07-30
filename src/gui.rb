@@ -1,6 +1,5 @@
 require_relative 'point2f'
 require_relative 'observer'
-require_relative 'settings'
 require_relative 'game_settings'
 require_relative 'event'
 require_relative 'control_constants'

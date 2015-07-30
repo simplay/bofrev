@@ -1,4 +1,3 @@
-require_relative 'settings'
 require_relative 'game_meta_data'
 require_relative 'apps/tetris/tetris_meta_data'
 require_relative 'apps/game_of_life/game_of_life_meta_data'
@@ -88,47 +87,28 @@ class GameSettings
     build_from.selected_mode < 2
   end
 
-  def self.build
-    if @game.nil?
-      if Settings.selected_game == 1
-        @game = TetrisMetaData
-      elsif Settings.selected_game == 2
-        @game = GameOfLifeMetaData
-      elsif Settings.selected_game == 3
-        @game = SokobanMetaData
-      elsif Settings.selected_game == 4
-        @game = SnakeMetaData
-      elsif Settings.selected_game == 5
-        @game = PingPongMetaData
-      elsif Settings.selected_game == 7
-        @game = DemoSpritesMetaData
-      end
-    end
-    @game
-  end
-
   def self.game_map
-    build.game_map
+    game_meta_data.game_map
   end
 
   def self.theme_list
-    build.theme_list
+    game_meta_data.theme_list
   end
 
   def self.sound_effect_list
-    build.sound_effect_list
+    game_meta_data.sound_effect_list
   end
 
   def self.achievement_system
-    build.achievement_system
+    game_meta_data.achievement_system
   end
 
   def self.achievement_system_sym
-    build.achievement_system_sym
+    game_meta_data.achievement_system_sym
   end
 
   def self.render_attributes
-    build.render_attributes
+    game_meta_data.render_attributes
   end
 
   def cell_size
