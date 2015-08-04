@@ -1,7 +1,13 @@
 require_relative '../src/grid'
+require_relative '../src/color'
 require 'pry'
 
 describe Grid do
+
+  before(:each) do
+    @green = Color.green
+    @white = Color.white
+  end
 
   it 'should have total width of M+2 and total height of N+2' do
     m = 13; n = 22;
@@ -89,9 +95,9 @@ describe Grid do
   it 'should be possible to write a GameField in a Grid' do
     grid = Grid.new(1, 1)
     grid.set_field_value_at(1,1, 1337)
-    grid.set_field_color_at(1,1, 'green')
+    grid.set_field_color_at(1,1, @green)
     expect(grid.field_at(1,1).value).to eq(1337)
-    expect(grid.field_at(1,1).color).to eq('green')
+    expect(grid.field_at(1,1).color).to eq(@green)
   end
 
   it 'should be possible to successfully copy the state from one grid into another' do
@@ -99,17 +105,17 @@ describe Grid do
     other_grid = Grid.new(1, 1)
 
     grid.set_field_value_at(1,1, 1337)
-    grid.set_field_color_at(1,1, 'green')
+    grid.set_field_color_at(1,1,@green)
 
     expect(grid.field_at(1,1).value).to eq(1337)
-    expect(grid.field_at(1,1).color).to eq('green')
+    expect(grid.field_at(1,1).color).to eq(@green)
 
     expect(other_grid.field_at(1,1).value).to eq(0)
-    expect(other_grid.field_at(1,1).color).to eq('white')
+    expect(other_grid.field_at(1,1).color).to eq(@white)
 
     other_grid.overwrite_us_with(grid)
     expect(other_grid.field_at(1,1).value).to eq(1337)
-    expect(other_grid.field_at(1,1).color).to eq('green')
+    expect(other_grid.field_at(1,1).color).to eq(@green)
   end
 
   it 'correct neighborhood sum' do
