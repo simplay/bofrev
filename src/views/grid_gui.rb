@@ -1,6 +1,5 @@
-require_relative '../point2f'
-require_relative '../gui'
-
+require 'point2f'
+require 'gui'
 require 'tk'
 require 'tkextlib/tile'
 

@@ -1,9 +1,10 @@
 #!/usr/bin/env ruby
 
+$LOAD_PATH.unshift File.expand_path("src")
+
 require 'rubygems'
 require 'optparse'
-
-require_relative "src/application"
+require "application"
 
 Version = "0.0.1"
 

@@ -1,4 +1,4 @@
-require_relative 'point2f'
+require 'point2f'
 
 # Will build prespecified shaped (stored in files)
 class ShapeFactory

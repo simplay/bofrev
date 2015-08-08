@@ -1,4 +1,4 @@
-require_relative '../../point2f'
+require 'point2f'
 require_relative 'tetris'
 
 # CollisionChecker Checks whether current shape movement was legal.

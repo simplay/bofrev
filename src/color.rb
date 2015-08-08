@@ -1,4 +1,4 @@
-require_relative 'color_constants'
+require 'color_constants'
 class Color
   extend ColorConstants
 

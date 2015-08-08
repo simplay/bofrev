@@ -1,9 +1,9 @@
-require_relative 'game'
-require_relative 'observer'
-require_relative 'game_settings'
-require_relative 'server'
-require_relative 'client'
-require 'pry'
+require 'game'
+require 'observer'
+require 'game_settings'
+require 'server'
+require 'client'
+require_relative 'views/fractal_view'
 
 # init game
 # init gui with game

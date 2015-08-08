@@ -1,4 +1,4 @@
-require_relative 'game_meta_data'
+require 'game_meta_data'
 require_relative 'apps/tetris/tetris_meta_data'
 require_relative 'apps/game_of_life/game_of_life_meta_data'
 require_relative 'apps/sokoban/sokoban_meta_data'

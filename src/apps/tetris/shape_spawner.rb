@@ -1,4 +1,4 @@
-require_relative '../../color'
+require 'color'
 
 require_relative 'shapes/square'
 require_relative 'shapes/l_piece'

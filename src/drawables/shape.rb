@@ -1,5 +1,5 @@
-require_relative '../point2f'
-require_relative '../sprites'
+require 'point2f'
+require 'sprites'
 require_relative 'drawable'
 require 'tk'
 

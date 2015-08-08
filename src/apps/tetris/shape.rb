@@ -1,4 +1,4 @@
-require_relative '../../point2f'
+require 'point2f'
 require_relative 'collision_checker'
 require_relative 'tetris'
 

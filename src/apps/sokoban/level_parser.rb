@@ -1,6 +1,6 @@
-require_relative '../../game_field'
-require_relative '../../point2f'
-require_relative '../../color'
+require 'game_field'
+require 'point2f'
+require 'color'
 
 # known identifiers
 # '#' wall (yellow)

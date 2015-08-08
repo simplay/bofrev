@@ -1,5 +1,5 @@
-require_relative 'layer'
-require_relative 'game_settings'
+require 'layer'
+require 'game_settings'
 
 # Layer Manager merges a set of layers to one grid that can be rendered.
 class LayerManager

@@ -1,8 +1,8 @@
-require_relative 'grid'
-require_relative 'game_field'
-require_relative 'point2f'
-require_relative 'sound_effect'
-require_relative 'game_settings'
+require 'grid'
+require 'game_field'
+require 'point2f'
+require 'sound_effect'
+require 'game_settings'
 require_relative 'drawables/shape_manager'
 
 class Map

@@ -1,4 +1,4 @@
-require_relative '../../game_meta_data'
+require 'game_meta_data'
 require_relative 'ping_pong_map'
 
 class PingPongMetaData

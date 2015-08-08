@@ -1,6 +1,6 @@
-require_relative 'observable'
-require_relative 'event'
-require_relative 'game_settings'
+require 'observable'
+require 'event'
+require 'game_settings'
 
 class Score
  include Observable

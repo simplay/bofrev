@@ -1,4 +1,4 @@
-require_relative 'game_settings'
+require 'game_settings'
 
 # Defines an adaptive tick rate of the game
 # increasing with a player's points.

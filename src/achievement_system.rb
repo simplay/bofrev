@@ -1,4 +1,4 @@
-require_relative 'observer'
+require 'observer'
 
 class AchievementSystem < Observer
 

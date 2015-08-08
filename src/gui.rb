@@ -1,10 +1,9 @@
-require_relative 'point2f'
-require_relative 'observer'
-require_relative 'game_settings'
-require_relative 'event'
-require_relative 'control_constants'
-require_relative 'render_helpers'
-
+require 'point2f'
+require 'observer'
+require 'game_settings'
+require 'event'
+require 'control_constants'
+require 'render_helpers'
 require 'tk'
 require 'tkextlib/tile'
 

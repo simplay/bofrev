@@ -1,7 +1,6 @@
-require_relative '../color'
-require_relative 'drawable'
-require_relative 'shape_factory'
-require_relative 'drawable'
+require 'color'
+require 'drawable'
+require 'shape_factory'
 require 'tk'
 
 class PolygonShape < Drawable

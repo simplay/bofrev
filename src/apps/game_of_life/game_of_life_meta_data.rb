@@ -1,4 +1,4 @@
-require_relative '../../game_meta_data'
+require 'game_meta_data'
 require_relative 'game_of_life_map'
 
 class GameOfLifeMetaData

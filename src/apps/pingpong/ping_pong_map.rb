@@ -1,6 +1,6 @@
-require_relative '../../map'
-require_relative '../../game_settings'
-require_relative '../../color'
+require 'map'
+require 'game_settings'
+require 'color'
 
 class PingPongMap < Map
 

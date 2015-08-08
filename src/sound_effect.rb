@@ -1,4 +1,4 @@
-require_relative 'game_settings'
+require 'game_settings'
 
 class SoundEffect
 

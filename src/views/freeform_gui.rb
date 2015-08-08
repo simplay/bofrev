@@ -1,4 +1,4 @@
-require_relative '../gui'
+require 'gui'
 require 'tk'
 
 # TODO: Move to src/views/

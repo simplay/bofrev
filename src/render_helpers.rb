@@ -1,4 +1,4 @@
-require_relative 'game_settings'
+require 'game_settings'
 
 # This module offers a gui/view some neat helper methods to simplify the indexing used by all the canvas drawing methods (for grid based rendering approaches).
 module RenderHelpers

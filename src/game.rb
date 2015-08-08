@@ -1,10 +1,10 @@
-require_relative 'observable'
-require_relative 'score'
-require_relative 'ticker'
-require_relative 'music_player'
-require_relative 'pacer'
-require_relative 'game_settings'
-require_relative 'event'
+require 'observable'
+require 'score'
+require 'ticker'
+require 'music_player'
+require 'pacer'
+require 'game_settings'
+require 'event'
 
 class Game
   include Observable
