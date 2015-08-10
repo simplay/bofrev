@@ -12,7 +12,7 @@ class Player
     @is_jumping = false
     @is_walking = false
     @is_falling = false
-    @walking = 0
+    @steps_to_walk = 0
     @top_reached = false
     @mutex = Mutex.new
   end
@@ -48,6 +48,7 @@ class Player
 
   def stop_walking
     @is_walking = false
+    @steps_to_walk = 0
   end
 
   def walk(direction)
@@ -58,8 +59,8 @@ class Player
     elsif direction == :right
       dir = 1
     end
-    @walking = 3*dir
-    @gestalt.translate_by(Point2f.new(@walking, 0))
+    @steps_to_walk = 3*dir
+    @gestalt.translate_by(Point2f.new(@steps_to_walk, 0))
   end
 
   def to_s
@@ -72,12 +73,12 @@ class Player
     @mutex.synchronize do
       if (@current_height_lvl <= JUMP_STEP_HEIGHT) && !@top_reached
         @current_height_lvl = @current_height_lvl + 1
-        @gestalt.translate_by(Point2f.new(@walking, -JUMP_STEP_HEIGHT))
+        @gestalt.translate_by(Point2f.new(@steps_to_walk, -JUMP_STEP_HEIGHT))
         true
       else
         @top_reached = true
         @current_height_lvl = @current_height_lvl - 1
-        @gestalt.translate_by(Point2f.new(@walking, JUMP_STEP_HEIGHT))
+        @gestalt.translate_by(Point2f.new(@steps_to_walk, JUMP_STEP_HEIGHT))
         @top_reached = false if @current_height_lvl == 0
         @current_height_lvl != 0
       end
