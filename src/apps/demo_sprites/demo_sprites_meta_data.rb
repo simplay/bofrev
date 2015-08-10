@@ -39,4 +39,8 @@ class DemoSpritesMetaData
     FreeformGui
   end
 
+  def self.allowed_controls
+   [W_KEY, D_RELEASED, A_RELEASED, A_PRESSED, D_PRESSED]
+  end
+
 end

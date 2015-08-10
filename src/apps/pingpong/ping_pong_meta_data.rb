@@ -39,4 +39,8 @@ class PingPongMetaData
     GridGui
   end
 
+  def self.allowed_controls
+    [D_KEY, A_KEY]
+  end
+
 end

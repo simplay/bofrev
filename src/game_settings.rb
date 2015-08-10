@@ -107,6 +107,10 @@ class GameSettings
     game_meta_data.render_attributes
   end
 
+  def self.allowed_controls
+    game_meta_data.allowed_controls
+  end
+
   def cell_size
     GameSettings.render_attributes[:cell_size]
   end

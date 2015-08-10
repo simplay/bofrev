@@ -39,4 +39,8 @@ class GameOfLifeMetaData
     GridGui
   end
 
+  def self.allowed_controls
+    [A_KEY, S_KEY, W_KEY]
+  end
+
 end

@@ -40,4 +40,8 @@ class SokobanMetaData
     GridGui
   end
 
+  def self.allowed_controls
+    [D_KEY, A_KEY, S_KEY, W_KEY]
+  end
+
 end

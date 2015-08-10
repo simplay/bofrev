@@ -44,4 +44,8 @@ class TetrisMetaData
     GridGui
   end
 
+  def self.allowed_controls
+    [A_KEY, W_KEY, D_KEY, S_KEY]
+  end
+
 end

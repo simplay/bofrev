@@ -1,10 +1,11 @@
 require_relative 'views/grid_gui'
 require_relative 'views/freeform_gui'
+require 'control_constants'
 
 # GameMetaData models (game) application specific properties that either determine
 # its behaviour or/and its outlook.
 module GameMetaData
-
+  include ControlConstants
   module ClassMethods
 
     def gui_type_as_sym
@@ -83,6 +84,12 @@ module GameMetaData
   # This representation corresponds to the object type of the target gui.
   def self.gui_type
     raise "not implemented yet"
+  end
+
+  # Returns a List of keys that are supported for by a target game.
+  # @return [Array] of Strings defining known key constants.
+  def self.allowed_controls
+    raise "not impleymented yet"
   end
 
 end
