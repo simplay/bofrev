@@ -16,15 +16,16 @@ class DemoSpritesMap < Map
 
   # defines how user input should be handled to update the game state.
   def process_event(message)
-    if message.type == 'w'
+    case message.type
+    when W_KEY
       @player.jump unless @player.jumping?
-    elsif message.type == 'KeyRelease-d'
+    when D_RELEASED
       @player.stop_walking
-    elsif message.type == 'KeyRelease-a'
+    when A_RELEASED
       @player.stop_walking
-    elsif message.type == 'KeyPress-d'
+    when D_PRESSED
       @player.walk(:right)
-    elsif message.type == 'KeyPress-a'
+    when A_PRESSED
       @player.walk(:left)
     end
     puts @player.to_s

@@ -3,9 +3,12 @@ require 'game_field'
 require 'point2f'
 require 'sound_effect'
 require 'game_settings'
+require 'control_constants'
 require_relative 'drawables/shape_manager'
 
 class Map
+
+  include ControlConstants
 
   def initialize(game)
     @sound_effect = SoundEffect.new(GameSettings.sound_effect_list)

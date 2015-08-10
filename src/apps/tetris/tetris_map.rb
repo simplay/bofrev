@@ -11,6 +11,7 @@ class TetrisMap < Map
 
   def initialize(game)
     super(game)
+    @go_one_down = Event.new(S_KEY)
     spawn_new_shape
   end
 
@@ -35,20 +36,21 @@ class TetrisMap < Map
   # handle tetris user input and update game state accordingly.
   # @param message [Event] has only a type
   def process_event(message)
-    if message.type == 'd'
+    case message.type
+    when D_KEY
       @shape.move_shape(Point2f.new(1,0), :move_sidewards)
-    elsif message.type == 'a'
+    when A_KEY
       @shape.move_shape(Point2f.new(-1,0), :move_sidewards)
-    elsif message.type == 's'
+    when S_KEY
       @shape.move_shape(Point2f.new(0, 1))
-    elsif message.type == 'w'
+    when W_KEY
       was_rotated = @shape.rotate
       @sound_effect.play(:jump) if was_rotated
     end
   end
 
   def process_ticker
-    process_event(Event.new('s',nil))
+    process_event(@go_one_down)
   end
 
   private

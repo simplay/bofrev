@@ -13,25 +13,23 @@ class GameOfLifeMap < Map
 
   # defines how user input should be handled to update the game state.
   def process_event(message)
-    if message.type == :left_click
+
+    case message.type
+    when :left_click
       p = to_grid_coord(message.content)
-
       field = field_at(p.x,p.y)
-
       color = (field.color == Color.white)? Color.green : Color.white
-
       set_field_color_at(p.x, p.y, color)
       set_field_value_at(p.x, p.y, 1.0 - field.value)
-
-    elsif message.type == :left_drag
+    when :left_drag
       p = transform_coordinates(message.content)
       set_field_color_at(p.x, p.y, Color.green)
       set_field_value_at(p.x, p.y, 1.0)
-    elsif message.type == 'a'
+    when A_KEY
       @allow_updates = !@allow_updates
-    elsif message.type == 'w'
+    when W_KEY
       @game.ticker_thread.inc_speed
-    elsif message.type == 's'
+    when S_KEY
       @game.ticker_thread.dec_speed
     end
   end
@@ -92,13 +90,9 @@ class GameOfLifeMap < Map
       end
 
       @grid.overwrite_us_with(@prev_iter_grid)
-
     end
-
 
     puts "updates on: #{@allow_updates}"
   end
-
-
 
 end

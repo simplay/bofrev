@@ -22,17 +22,16 @@ class SnakeMap < Map
 
   # defines how user input should be handled to update the game state.
   def process_event(message)
-
-    if message.type == 'd'
+    case message.type
+    when D_KEY
       @movement_direction = Point2f.new(1,0)
-    elsif message.type == 'a'
+    when A_KEY
       @movement_direction = Point2f.new(-1,0)
-    elsif message.type == 's'
+    when S_KEY
       @movement_direction = Point2f.new(0,1)
-    elsif message.type == 'w'
+    when W_KEY
       @movement_direction = Point2f.new(0,-1)
     end
-
   end
 
   def process_ticker

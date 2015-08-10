@@ -23,25 +23,21 @@ class SokobanMap < Map
 
   # defines how user input should be handled to update the game state.
   def process_event(message)
-
     pp = @player.value
-    if message.type == 'd'
+    case message.type
+    when D_KEY
       new_pp = Point2f.new(pp.x+1, pp.y)
       handle_update(new_pp, pp, Point2f.new(1,0))
-
-    elsif message.type == 'a'
+    when A_KEY
       new_pp = Point2f.new(pp.x-1, pp.y)
       handle_update(new_pp, pp,Point2f.new(-1,0))
-
-    elsif message.type == 's'
+    when S_KEY
       new_pp = Point2f.new(pp.x, pp.y+1)
       handle_update(new_pp, pp, Point2f.new(0,1))
-
-    elsif message.type == 'w'
+    when W_KEY
       new_pp = Point2f.new(pp.x, pp.y-1)
       handle_update(new_pp, pp, Point2f.new(0,-1))
     end
-
   end
 
   # does nothing

@@ -17,9 +17,10 @@ class PingPongMap < Map
 
   # defines how user input should be handled to update the game state.
   def process_event(message)
-    if message.type == 'd'
+    case message.type
+    when D_KEY
       move_by(1)
-    elsif message.type == 'a'
+    when A_KEY
       move_by(-1)
     end
   end
