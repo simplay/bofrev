@@ -1,21 +1,29 @@
-require_relative '../../drawables/shape'
-require_relative '../../point2f'
+require 'drawables/shape'
+require 'point2f'
+require 'pry'
 
 class Player
 
-  JUMP_STEP_HEIGHT = 5
-  HEIGHT_STEP = 2
+  JUMP_STEP_HEIGHT = 8
 
   def initialize
     @gestalt = Shape.new
     @current_height_lvl = 0
     @is_jumping = false
     @is_walking = false
+    @is_falling = false
     @walking = 0
+    @top_reached = false
+    @mutex = Mutex.new
+  end
+
+  def gestalt
+    @gestalt
   end
 
   def update_position
-    jump if jumping?
+    jump if jumping? && not_falling?
+    walk(@direction) if walking?
   end
 
   def jump
@@ -26,27 +34,54 @@ class Player
     @is_jumping
   end
 
-  def walk(direction)
+  def falling?
+    @is_falling
+  end
 
+  def walking?
+    @is_walking
+  end
+
+  def not_falling?
+    !falling?
+  end
+
+  def stop_walking
+    @is_walking = false
+  end
+
+  def walk(direction)
+    @is_walking = true
+    @direction = direction
+    if direction == :left
+      dir = -1
+    elsif direction == :right
+      dir = 1
+    end
+    @walking = 3*dir
+    @gestalt.translate_by(Point2f.new(@walking, 0))
+  end
+
+  def to_s
+    "walking:#{@is_walking} jumping:#{@is_jumping} falling:#{@is_falling}"
   end
 
   protected
 
   def update_height_lvl
-    if @current_height_lvl <= JUMP_STEP_HEIGHT
-      @current_height_lvl = @current_height_lvl + 1
-      @gestalt.translate_by(Point2f.new(@walking, JUMP_STEP_HEIGHT))
-      true
-    else
-      @current_height_lvl = @current_height_lvl - 1
-      @gestalt.translate_by(Point2f.new(@walking, JUMP_STEP_HEIGHT))
-      @current_height_lvl != 0
+    @mutex.synchronize do
+      if (@current_height_lvl <= JUMP_STEP_HEIGHT) && !@top_reached
+        @current_height_lvl = @current_height_lvl + 1
+        @gestalt.translate_by(Point2f.new(@walking, -JUMP_STEP_HEIGHT))
+        true
+      else
+        @top_reached = true
+        @current_height_lvl = @current_height_lvl - 1
+        @gestalt.translate_by(Point2f.new(@walking, JUMP_STEP_HEIGHT))
+        @top_reached = false if @current_height_lvl == 0
+        @current_height_lvl != 0
+      end
     end
-  end
-
-  # @param shift [Point2f] relative movement along x,y axis.
-  def move_by(shift, scale=3, y=0)
-    @gestalt.translate_by(Point2f.new(scale*shft, y))
   end
 
 end
