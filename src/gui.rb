@@ -138,7 +138,12 @@ class Gui < Observer
     @root.bind(A_KEY, proc { handle_pressed_key(A_KEY) })
     @root.bind(W_KEY, proc { handle_pressed_key(W_KEY) })
     @root.bind(D_KEY, proc { handle_pressed_key(D_KEY) })
-    @root.bind(S_KEY, proc { handle_pressed_key(S_KEY) })
+    @root.bind(S_KEY, proc {handle_pressed_key(S_KEY) })
+    @root.bind(A_PRESSED, proc { handle_pressed_key(A_PRESSED) })
+    @root.bind(D_PRESSED, proc { handle_pressed_key(D_PRESSED) })
+    @root.bind(D_RELEASED, proc { handle_pressed_key(D_RELEASED) })
+    @root.bind(S_RELEASED, proc { attach_gui_listeners; handle_pressed_key(S_RELEASED) })
+    @root.bind(A_RELEASED, proc { attach_gui_listeners; handle_pressed_key(A_RELEASED) })
 
     @canvas.bind(LEFT_MOUSE_BUTTON_PRESSED, proc{|x, y| handle_mouse_events(x, y, :left_click)}, "%x %y")
     @canvas.bind(LEFT_MOUSE_BUTTON_DRAGGED, proc{|x, y| handle_mouse_events(x, y, :left_drag)}, "%x %y")

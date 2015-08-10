@@ -1,16 +1,17 @@
 require 'drawables/shape'
 require 'point2f'
+require 'pry'
 
 class Player
 
   JUMP_STEP_HEIGHT = 8
-  HEIGHT_STEP = 2
 
   def initialize
     @gestalt = Shape.new
     @current_height_lvl = 0
     @is_jumping = false
     @is_walking = false
+    @is_falling = false
     @walking = 0
     @top_reached = false
     @mutex = Mutex.new
@@ -21,7 +22,8 @@ class Player
   end
 
   def update_position
-    jump if jumping?
+    jump if jumping? && not_falling?
+    walk(@direction) if walking?
   end
 
   def jump
@@ -32,14 +34,36 @@ class Player
     @is_jumping
   end
 
+  def falling?
+    @is_falling
+  end
+
+  def walking?
+    @is_walking
+  end
+
+  def not_falling?
+    !falling?
+  end
+
+  def stop_walking
+    @is_walking = false
+  end
+
   def walk(direction)
+    @is_walking = true
+    @direction = direction
     if direction == :left
       dir = -1
     elsif direction == :right
       dir = 1
     end
-    @walking = dir if @current_height_lvl > 0
-    @gestalt.translate_by(Point2f.new(3*dir, 0))
+    @walking = 3*dir
+    @gestalt.translate_by(Point2f.new(@walking, 0))
+  end
+
+  def to_s
+    "walking:#{@is_walking} jumping:#{@is_jumping} falling:#{@is_falling}"
   end
 
   protected
