@@ -1,6 +1,13 @@
 require 'tk'
+require 'observable'
+require 'event'
 
 class Drawable
+
+  # Every drawable instance, such as shapes, is supposed to be
+  # observable. For example a ShapeManager observes shape instances in order
+  # to detect collisions.
+  include Observable
 
   # [Point2f] position in 2d world coordinates and
   # this drawable's barycenter.
@@ -37,6 +44,8 @@ class Drawable
   # @param value [Point2f] movement in x-and-y position.
   def translate_by(value)
     @position.add(value)
+    event = Event.new(:shape_movement, {:shift => value, :target => self})
+    notify_all_with_message(event)
   end
 
 end

@@ -1,11 +1,12 @@
+require 'pry'
 # Each Observer is supposed to implement #handle_event
 module Observable
 
   # Define a new list of Observers
   module Initializer
-    def initialize
+    def initialize(*params)
       @observers = []
-      super
+      super(*params)
     end
   end
 
