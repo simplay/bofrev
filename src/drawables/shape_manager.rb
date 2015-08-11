@@ -1,3 +1,4 @@
+require 'pry'
 require 'observer'
 
 # Acts as a hierarchical freeform drawable datastructure.
@@ -15,6 +16,7 @@ class ShapeManager < Observer
   end
 
   def append(shape)
+    shape.subscribe(self)
     @container << shape
   end
 
@@ -23,21 +25,34 @@ class ShapeManager < Observer
   end
 
   def empty?
-    @container.blank?
+    @container.empty?
   end
 
   def storage_count
     @container.count
   end
 
-  # handle an event thrown by observed Observable.
-  def handle_event
-    raise "not implemented yet"
-  end
-
   # @param message [Symbol] type of message.
   def handle_event_with(message)
-    raise "not implemented yet"
+    target_shape = message.content[:target]
+    shifted_position = message.content[:shift]
+
+    shapes_without(target_shape).map do |shape|
+      target_shape.collide_with(shape, shifted_position)
+    end
+
+    # perform collision detection where and what type
+  end
+
+  protected
+
+  def shapes_without(that_shape)
+    non_hull_shapes = shapes.reject do |shape|
+      shape.is_a?(QuadraticHullShape)
+    end
+    non_hull_shapes.reject do |shape|
+      shape == that_shape
+    end
   end
 
 end

@@ -23,6 +23,7 @@ class Drawable
   def initialize(position, drawable)
     @position = position
     @drawable = drawable
+    @is_colliding = false
   end
 
   # Draw this shape onto a given canvas.
@@ -39,6 +40,10 @@ class Drawable
     @drawable
   end
 
+  def colliding?
+    @is_colliding
+  end
+
   # Translate this Drawable's (barycenter) position by a given value.
   #
   # @param value [Point2f] movement in x-and-y position.
@@ -46,6 +51,12 @@ class Drawable
     @position.add(value)
     event = Event.new(:shape_movement, {:shift => value, :target => self})
     notify_all_with_message(event)
+    # TODO: if collision, then @position.sub(value)
+  end
+
+  # @param other_drawable [Drawable] other drawable we test for a collision.
+  def collide_with(other_drawable, at_position)
+    raise "not implemented yet"
   end
 
 end

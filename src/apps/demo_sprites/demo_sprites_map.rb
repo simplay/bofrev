@@ -1,6 +1,7 @@
 require 'map'
 require 'game_settings'
 require 'player'
+require 'point2f'
 
 class DemoSpritesMap < Map
 
@@ -11,8 +12,10 @@ class DemoSpritesMap < Map
     @allow_updates = true
     @mutex = Mutex.new
     @player = Player.new
+    @other = Shape.new(Point2f.new(350,0))
     self.append_shape(@player.gestalt)
     self.append_shape(@player.hull_gestalt)
+    self.append_shape(@other)
   end
 
   # defines how user input should be handled to update the game state.

@@ -24,4 +24,5 @@ class QuadraticHullShape < Drawable
     TkcRectangle.new(canvas, x0, y0, x1, y1,
                      'width' => 2)
   end
+
 end

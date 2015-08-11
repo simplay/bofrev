@@ -1,11 +1,16 @@
 require 'point2f'
 require 'sprites'
 require_relative 'drawable'
+require 'hull'
 require 'tk'
+
+require 'pry'
 
 # Shape represents a drawable objects used by a freefrom_gui renderer.
 # TODO: Make use of instancing
 class Shape < Drawable
+
+  IS_DEBUG_MODE = true
 
   # @param position [Point2f] barycenter and world position of this Shape.
   # @param update_rate [Integer] update every 20th tick.
@@ -13,11 +18,15 @@ class Shape < Drawable
   # animating this shape.
   def initialize(position = Point2f.new, update_rate=20, sprite_folder_name = 'dummy/')
     super(position, true)
-
     @sprites = Sprites.new(sprite_folder_name)
     @current_img = @sprites.images.first
     @switch_counter = 0
     @swith_rate = update_rate
+    @hull = Hull.new(self, IS_DEBUG_MODE)
+  end
+
+  def hull
+    @hull
   end
 
   # Draw this shape onto a given canvas.
@@ -49,6 +58,15 @@ class Shape < Drawable
   # @return [TkPhotoImage] image used to create a TkcImage.
   def image
     default_animation
+  end
+
+  def collide_with(other_drawable, at_position)
+    tl = hull.top_left
+    br = hull.bottom_right
+
+    otl = other_drawable.hull.top_left
+    obr = other_drawable.hull.bottom_right
+    # perform collision detection by checking if there occured a line intersection.
   end
 
   protected
