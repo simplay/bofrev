@@ -12,6 +12,7 @@ class DemoSpritesMap < Map
     @mutex = Mutex.new
     @player = Player.new
     self.append_shape(@player.gestalt)
+    self.append_shape(@player.hull_gestalt)
   end
 
   # defines how user input should be handled to update the game state.

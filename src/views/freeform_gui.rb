@@ -37,7 +37,7 @@ class FreeformGui < Gui
 
   def draw_grid_cells
     @game.map.shapes.each do |shape|
-      shape.draw_onto(@canvas)
+      shape.draw_onto(@canvas) if shape.drawable?
     end
 
   end

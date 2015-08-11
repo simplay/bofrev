@@ -25,10 +25,17 @@ class Shape < Drawable
   # @param canvas [TkCanvas]
   def draw_onto(canvas)
     if image?
-      x = position.x + image.height/2
-      y = position.y + image.width/2
+      x = position.x + image.height/2.0
+      y = position.y + image.width/2.0
       TkcImage.new(canvas, x, y, 'image' => image)
     end
+  end
+
+  # @return [Point2f] barycenter of this shape's image.
+  def center
+    x = position.x + image.height/2.0
+    y = position.y + image.width/2.0
+    Point2f.new(x,y)
   end
 
   # Does this shape have some sprite images associated with.

@@ -1,8 +1,10 @@
 require 'drawables/shape'
 require 'point2f'
+require 'hull'
 
 class Player
 
+  IS_DEBUG_MODE = true
   JUMP_STEP_HEIGHT = 8
 
   def initialize
@@ -14,10 +16,15 @@ class Player
     @steps_to_walk = 0
     @top_reached = false
     @mutex = Mutex.new
+    @hull = Hull.new(@gestalt, IS_DEBUG_MODE)
   end
 
   def gestalt
     @gestalt
+  end
+
+  def hull_gestalt
+    @hull.gestalt
   end
 
   def update_position
