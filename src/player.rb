@@ -1,6 +1,5 @@
 require 'drawables/shape'
 require 'point2f'
-require 'pry'
 
 class Player
 

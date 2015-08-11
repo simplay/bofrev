@@ -1,6 +1,6 @@
 require 'map'
 require 'game_settings'
-require_relative 'player'
+require 'player'
 
 class DemoSpritesMap < Map
 
