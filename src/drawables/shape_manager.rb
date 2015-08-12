@@ -45,7 +45,7 @@ class ShapeManager < Observer
 
     target_shape.undo_last_step unless collided_with.empty?
     # reset position for selected collided_with shapes (in case they are moveable)
-    # handle different kinds of collisions, such as killed by player, walls, ... 
+    # handle different kinds of collisions, such as killed by player, walls, ...
   end
 
   protected

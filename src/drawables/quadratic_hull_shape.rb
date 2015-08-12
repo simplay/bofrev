@@ -4,19 +4,16 @@ require 'point2f'
 require 'tk'
 
 class QuadraticHullShape < Drawable
-  def initialize(enclosing_shape, drawable)
+
+  def initialize(enclosing_shape, drawable, hull)
     super(enclosing_shape.position, drawable)
-    image = enclosing_shape.image
-    @enclosing_shape = enclosing_shape
-    width = image.width
-    height = image.height
-    @p = Point2f.new(width/2.0, height/2.0)
+    @hull = hull
   end
 
   def draw_onto(canvas)
-    barycenter = @enclosing_shape.center
-    upper_left_pos = barycenter.copy.sub(@p)
-    lower_right_pos = barycenter.copy.add(@p)
+    barycenter = @hull.center
+    upper_left_pos = barycenter.copy.sub(@hull.center_shift)
+    lower_right_pos = barycenter.copy.add(@hull.center_shift)
     x0 = upper_left_pos.x
     y0 = upper_left_pos.y
     x1 = lower_right_pos.x
