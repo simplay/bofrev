@@ -1,6 +1,7 @@
 require 'tk'
 require 'observable'
 require 'event'
+require 'point2f'
 
 class Drawable
 
@@ -23,6 +24,7 @@ class Drawable
   def initialize(position, drawable)
     @position = position
     @drawable = drawable
+    @prev_value = Point2f.new
     @is_colliding = false
   end
 
@@ -44,14 +46,24 @@ class Drawable
     @is_colliding
   end
 
+  def colliding!
+    @is_colliding = true
+  end
+
   # Translate this Drawable's (barycenter) position by a given value.
   #
   # @param value [Point2f] movement in x-and-y position.
   def translate_by(value)
+    @is_colliding = false
+    @prev_value = value
     @position.add(value)
     event = Event.new(:shape_movement, {:shift => value, :target => self})
     notify_all_with_message(event)
     # TODO: if collision, then @position.sub(value)
+  end
+
+  def undo_last_step
+    @position.sub(@prev_value)
   end
 
   # @param other_drawable [Drawable] other drawable we test for a collision.

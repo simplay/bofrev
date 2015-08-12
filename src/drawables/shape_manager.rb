@@ -37,11 +37,15 @@ class ShapeManager < Observer
     target_shape = message.content[:target]
     shifted_position = message.content[:shift]
 
-    shapes_without(target_shape).map do |shape|
+    collided_with = shapes_without(target_shape).select do |shape|
       target_shape.collide_with(shape, shifted_position)
     end
+    target_shape.colliding!
+    collided_with.each &:colliding!
 
-    # perform collision detection where and what type
+    target_shape.undo_last_step unless collided_with.empty?
+    # reset position for selected collided_with shapes (in case they are moveable)
+    # handle different kinds of collisions, such as killed by player, walls, ... 
   end
 
   protected

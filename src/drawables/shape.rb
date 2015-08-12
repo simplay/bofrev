@@ -79,6 +79,7 @@ class Shape < Drawable
     intersection_happened = ((l1-d1 < 0) || (l2-d1 < 0))
     puts "intersection happened: #{intersection_happened}"
     # perform collision detection by checking if there occured a line intersection.
+    intersection_happened
   end
 
   protected
