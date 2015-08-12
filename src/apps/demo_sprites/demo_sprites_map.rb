@@ -12,10 +12,11 @@ class DemoSpritesMap < Map
     @allow_updates = true
     @mutex = Mutex.new
     @player = Player.new
-    @other = Shape.new(Point2f.new(350,0))
+    @other = Shape.new(Point2f.new(260,0))
     self.append_shape(@player.gestalt)
     self.append_shape(@player.hull_gestalt)
     self.append_shape(@other)
+    self.append_shape(@other.hull.gestalt)
   end
 
   # defines how user input should be handled to update the game state.

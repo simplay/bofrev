@@ -56,6 +56,29 @@ class Point2f
     "p=(#{@x} #{@y})"
   end
 
+  # Get a 2d vector pointing from other to this
+  #
+  # @param other [Point2f] 2d point we want to compare with.
+  # @return [Point2f] vector pointing from given other point to this point.
+  def direction_to(other)
+    copy.sub(other)
+  end
+
+  # Get distance between this and #other vector.
+  #
+  # @param other [Point2f] 2d point we want to compare with.
+  # @return [Float] l2 distance between this and another vector.
+  def distance_to(other)
+    direction_to(other).length
+  end
+
+  # Euclidian length of this vector.
+  #
+  # @return [Float] l2 norm
+  def length
+    Math.sqrt(@x**2 + @y**2)
+  end
+
   # Checks whether components of other Point2f have the same value as this Point2f instance.
   #
   # @param other [Point2f]

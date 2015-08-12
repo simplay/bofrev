@@ -66,6 +66,18 @@ class Shape < Drawable
 
     otl = other_drawable.hull.top_left
     obr = other_drawable.hull.bottom_right
+
+    l1 = tl.distance_to(otl)
+    l2 = br.distance_to(obr)
+
+    d1_xy = tl.direction_to(br)
+    d2_xy = otl.direction_to(obr)
+
+    d1 = [d1_xy.x, d2_xy.x].map(&:abs).max
+    d2 = [d1_xy.y, d2_xy.y].map(&:abs).max
+
+    intersection_happened = ((l1-d1 < 0) || (l2-d1 < 0))
+    puts "intersection happened: #{intersection_happened}"
     # perform collision detection by checking if there occured a line intersection.
   end
 
