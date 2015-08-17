@@ -1,4 +1,4 @@
-require 'tk'
+require 'tk' if (RUBY_PLATFORM != "java")
 
 class Sprites
 

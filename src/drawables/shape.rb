@@ -2,9 +2,10 @@ require 'point2f'
 require 'sprites'
 require_relative 'drawable'
 require 'hull'
-require 'tk'
-
-require 'pry'
+if (RUBY_PLATFORM != "java")
+  require 'tk'
+  require 'pry'
+end
 
 # Shape represents a drawable objects used by a freefrom_gui renderer.
 # TODO: Make use of instancing

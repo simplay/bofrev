@@ -4,8 +4,10 @@ require 'game_settings'
 require 'event'
 require 'control_constants'
 require 'render_helpers'
-require 'tk'
-require 'tkextlib/tile'
+if (RUBY_PLATFORM != "java")
+  require 'tk'
+  require 'tkextlib/tile'
+end
 
 # Abstract definition of a general bofrev gui.
 # A gui has a canvas, offers some trival drawing methods and

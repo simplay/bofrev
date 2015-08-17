@@ -1,7 +1,9 @@
 require 'point2f'
 require 'gui'
-require 'tk'
-require 'tkextlib/tile'
+if (RUBY_PLATFORM != "java")
+  require 'tk'
+  require 'tkextlib/tile'
+end
 
 # TODO: RENAME to GridGui
 #

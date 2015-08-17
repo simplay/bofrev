@@ -41,7 +41,11 @@ class TetrisMetaData
   end
 
   def self.gui_type
-    GridGui
+    if (RUBY_PLATFORM != "java")
+      View
+    else
+      GridGui
+    end
   end
 
   def self.allowed_controls

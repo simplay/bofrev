@@ -1,4 +1,3 @@
-require 'pry'
 require 'observer'
 
 # Acts as a hierarchical freeform drawable datastructure.

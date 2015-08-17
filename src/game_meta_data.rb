@@ -1,5 +1,9 @@
-require_relative 'views/grid_gui'
-require_relative 'views/freeform_gui'
+if (RUBY_PLATFORM != "java")
+  require_relative 'views/grid_gui'
+  require_relative 'views/freeform_gui'
+else
+  require_relative 'view'
+end
 require 'control_constants'
 
 # GameMetaData models (game) application specific properties that either determine

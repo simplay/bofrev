@@ -1,7 +1,9 @@
 require_relative 'drawable'
-require 'color'
 require 'point2f'
-require 'tk'
+if (RUBY_PLATFORM != "java")
+  require 'tk'
+  require 'color'
+end
 
 class QuadraticHullShape < Drawable
 

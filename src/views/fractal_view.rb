@@ -1,5 +1,7 @@
-require 'tk'
-require 'tkextlib/tile'
+if (RUBY_PLATFORM != "java")
+  require 'tk'
+  require 'tkextlib/tile'
+end
 
 # TODO refactor to conform Gui (inherit from gui)
 # allows to remove additional logic in application.rb

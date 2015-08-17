@@ -1,5 +1,5 @@
 require 'gui'
-require 'tk'
+require 'tk' if (RUBY_PLATFORM != "java")
 
 # TODO: Move to src/views/
 #
