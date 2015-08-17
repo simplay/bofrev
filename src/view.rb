@@ -3,9 +3,8 @@ require 'observer'
 require 'game_settings'
 require 'event'
 require 'control_constants'
-
+require 'java_color_wrapper'
 require 'java'
-java_import 'java.awt.Color'
 java_import 'javax.swing.JPanel'
 java_import 'javax.swing.JFrame'
 
@@ -13,8 +12,6 @@ class Canvas < JPanel
 
   # @param g [Java::Graphics] graphic component used by java awt
   def paintComponent(g)
-    super.paintComponent(g)
-    g.setColor(Color.BLACK)
     drawing_methods(g)
   end
 
@@ -25,19 +22,21 @@ class Canvas < JPanel
   end
 
 end
-
+class Wrapper
+end
 class MyCanvas < Canvas
     def drawing_methods(g)
-        drawColorRectangles g
+        draw_color_rectangles(g)
     end
 
-    def drawColorRectangles g
+    def draw_color_rectangles(g)
         5.times do |i|
           5.times do |j|
-            r_vaue = rand(255)
-            g_vaue = rand(255)
-            b_vaue = rand(255)
-            color = Java::JavaAwt::Color.new(r_value, g_vaue, b_vaue)
+            r_value = rand(255)
+            g_value = rand(255)
+            b_value = rand(255)
+            color = Java::JavaAwt::Color.new(r_value, g_value, b_value)
+
             g.setColor(color)
             g.fillRect(10+120*i, 15+90*j, 90, 60)
           end
@@ -64,7 +63,7 @@ class MainFrame < JFrame
 
   def update_canvas
     @canvas.repaint
-    @game.perform_loop_step(W_KEY)
+    # @game.perform_loop_step(Event.new(W_KEY))
   end
 
 end
