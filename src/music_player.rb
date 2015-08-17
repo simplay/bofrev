@@ -28,6 +28,7 @@ class MusicPlayer
         break unless @keep_running
       end
     end
+    @thread.join
     nil
   end
 

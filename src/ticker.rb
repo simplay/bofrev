@@ -18,6 +18,7 @@ class Ticker
         break if finished?
       end
     end
+    @thread.join
     nil
   end
 

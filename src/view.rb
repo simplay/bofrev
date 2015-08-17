@@ -32,9 +32,9 @@ class MyCanvas < Canvas
     def draw_color_rectangles(g)
         5.times do |i|
           5.times do |j|
-            r_value = rand(255)
-            g_value = rand(255)
-            b_value = rand(255)
+            r_value = rand(255).to_java(:int)
+            g_value = rand(255).to_java(:int)
+            b_value = rand(255).to_java(:int)
             color = Java::JavaAwt::Color.new(r_value, g_value, b_value)
             g.setColor(color)
             g.fillRect(10+120*i, 15+90*j, 90, 60)
