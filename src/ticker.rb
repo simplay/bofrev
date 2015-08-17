@@ -18,7 +18,7 @@ class Ticker
         break if finished?
       end
     end
-    @thread.join
+    @thread.join if (RUBY_PLATFORM == "java")
     nil
   end
 
