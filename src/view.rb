@@ -3,11 +3,11 @@ require 'observer'
 require 'game_settings'
 require 'event'
 require 'control_constants'
-require 'render_helpers'
 
 require 'java'
 java_import 'java.awt.Color'
 java_import 'javax.swing.JPanel'
+java_import 'javax.swing.JFrame'
 
 class Canvas < JPanel
 
@@ -26,11 +26,7 @@ class Canvas < JPanel
 
 end
 
-java_import 'java.awt.Color'
-java_import 'javax.swing.JFrame'
-
 class MyCanvas < Canvas
-    DX = 20
     def drawing_methods(g)
         drawColorRectangles g
     end
@@ -38,7 +34,11 @@ class MyCanvas < Canvas
     def drawColorRectangles g
         5.times do |i|
           5.times do |j|
-            g.setColor Color.new rand(255), rand(255), rand(255)
+            r_vaue = rand(255)
+            g_vaue = rand(255)
+            b_vaue = rand(255)
+            color = Java::JavaAwt::Color.new(r_value, g_vaue, b_vaue)
+            g.setColor(color)
             g.fillRect(10+120*i, 15+90*j, 90, 60)
           end
         end
