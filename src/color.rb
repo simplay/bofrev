@@ -14,15 +14,15 @@ class Color
   end
 
   def red_component
-    components[1..2]
+    components[1..2].join.to_i(16)
   end
 
   def green_component
-    components[3..4]
+    components[3..4].join.to_i(16)
   end
 
   def blue_component
-    components[5..6]
+    components[5..6].join.to_i(16)
   end
 
   def valid_encoding?
