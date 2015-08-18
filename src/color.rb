@@ -1,5 +1,6 @@
 require 'color_constants'
-require 'java'
+require 'java' if (RUBY_PLATFORM == "java")
+
 class Color
   extend ColorConstants
 
