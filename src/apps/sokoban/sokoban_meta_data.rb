@@ -30,8 +30,8 @@ class SokobanMetaData
         :cell_size => 25,
         :width_pixels => 20,
         :height_pixels => 13,
-        :max_width => 494,
-        :max_height => 370,
+        :max_width => 500,
+        :max_height => 345,
         :tics_per_second => 1
     }
   end

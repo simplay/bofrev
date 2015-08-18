@@ -26,7 +26,7 @@ class MyCanvas < Canvas
   # @param step_size [Integer] pixel distance between two lines.
   def draw_horizontal_lines_with(g, step_size)
     # rounded down numbers of lines.
-    (y_pixels).times do |idx|
+    (y_pixels-1).times do |idx|
       draw_line(g, Point2f.new(0, (idx)*step_size), Point2f.new(width_pixels*step_size, (idx)*step_size))
     end
   end
@@ -38,7 +38,7 @@ class MyCanvas < Canvas
   def draw_vertical_lines_with(g, step_size)
     # rounded down numbers of lines.
     (x_pixels-1).times do |idx|
-      draw_line(g, Point2f.new((idx)*step_size, 0), Point2f.new((idx)*step_size, (height_pixels+1)*step_size))
+      draw_line(g, Point2f.new((idx)*step_size, 0), Point2f.new((idx)*step_size, (height_pixels)*step_size))
     end
   end
 
@@ -61,10 +61,10 @@ class MyCanvas < Canvas
       y_iter.each do |row_idx|
         field = @game.map.field_at(column_id, row_idx)
         if field.drawable?
-          x0 = (column_id - 1)*cell_size
-          y0 = (row_idx - 1)*cell_size
-          x1 = column_id*cell_size
-          y1 = row_idx*cell_size
+          x0 = (column_id-1)*cell_size
+          y0 = (row_idx-2)*cell_size
+          x1 = (column_id-0)*cell_size
+          y1 = (row_idx-1)*cell_size
           draw_rectangle_at(g, x0, y0, x1, y1, field.color)
         end
       end

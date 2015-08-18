@@ -34,8 +34,8 @@ class TetrisMetaData
         :cell_size => 20,
         :width_pixels => 10,
         :height_pixels => 20,
-        :max_width => 194,
-        :max_height => 440,
+        :max_width => 200,
+        :max_height => 420,
         :tics_per_second => 1
     }
   end

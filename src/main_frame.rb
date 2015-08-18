@@ -4,6 +4,7 @@ require 'game_settings'
 require 'java'
 java_import 'javax.swing.JFrame'
 java_import 'java.awt.BorderLayout'
+java_import 'java.awt.Dimension'
 
 class MainFrame < JFrame
 
@@ -21,11 +22,14 @@ class MainFrame < JFrame
     @canvas.game = @game
     getContentPane.add(@canvas, BorderLayout::CENTER)
     setDefaultCloseOperation(JFrame::EXIT_ON_CLOSE)
-    offset = 7
-    setSize(GameSettings.max_width+offset, GameSettings.max_height+3)
+    #setSize(GameSettings.max_width, GameSettings.max_height)
+    offset_x = 1
+    offset_y = 3
+    setMinimumSize(Dimension.new(GameSettings.max_width+offset_x, GameSettings.max_height+offset_y))
     setLocationRelativeTo(nil)
     setVisible(true)
-    requestFocusInWindow()
+    setResizable(false)
+    requestFocusInWindow
   end
 
   def update_canvas
