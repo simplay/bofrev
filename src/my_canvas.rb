@@ -2,13 +2,23 @@ require 'canvas'
 require 'point2f'
 
 require 'java'
+java_import 'java.awt.Graphics2D'
+java_import 'java.awt.Image'
+# java_import 'java.io.File'
+java_import 'javax.imageio.ImageIO'
 class MyCanvas < Canvas
 
   attr_writer :game
 
   def drawing_methods(g)
-      draw_grid_cells(g)
-      draw_empty_grid(g, cell_size)
+   # draw_grid_cells(g)
+   # draw_empty_grid(g, cell_size)
+    draw_sprite(g)
+  end
+
+  def draw_sprite(g)
+    img = ImageIO.read(java.io.File.new("sprites/dummy/ani1.gif"))
+    g.drawImage(img, 0, 0, nil)
   end
 
   protected
