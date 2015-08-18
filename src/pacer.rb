@@ -22,6 +22,11 @@ class Pacer
     @current_speed
   end
 
+  # sleep time in [s]
+  def idle_time
+    1.0 / ticks_per_second
+  end
+
   def inc_speed
     @current_speed += 1
   end

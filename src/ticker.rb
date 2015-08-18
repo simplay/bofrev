@@ -1,22 +1,21 @@
+require 'event'
+
 class Ticker
-  def initialize(game, map, pacer, target)
+
+  def initialize(game, pacer)
     @game = game
-    @map = map
     @pacer = pacer
     @total_ticks = 0
     @finished = false
-    @target = target
   end
 
   def start
     @thread = Thread.new do
       loop do
-        @total_ticks += 1
-        @map.process_ticker
-        @game.notify_all_targets_of_type(@target)
-        puts "AAAAAAAAAAA fooooo"
-        sleep(1.0 / @pacer.ticks_per_second) # sleep time in [s]
         break if @game.finished?
+        @total_ticks += 1
+        @game.perform_loop_step(Event.new(:ticker, "tc: #{@total_ticks}"))
+        sleep(@pacer.idle_time)
       end
     end
     @thread.join if (RUBY_PLATFORM == "java")

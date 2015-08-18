@@ -14,7 +14,6 @@ class Game
 
   def initialize
     @turns_allowed = 10_000_000 # TODO: define a more meaningful ending/condition.
-    @turns_allowed = 10 # TODO: define a more meaningful ending/condition.
     @score = Score.new
     initialize_map
     create_threads
@@ -35,18 +34,16 @@ class Game
 
   # @param message [Event]
   def perform_loop_step(message)
-    puts "message: #{message}"
+    puts "message received: #{message}"
+    @turns_allowed = @turns_allowed -1
     if finished?
       shut_down_threads
       unsubscribe(GameSettings.selected_gui)
       notify_all_targets_of_type(:application)
       puts "You scored #{@score.final_points} point!"
     else
-      puts "message received: #{message}"
-      @map.process_event(message)
-      notify_all_targets_of_type(GameSettings.selected_gui)
+      perform_loop_update_from(message)
     end
-    @turns_allowed = @turns_allowed -1
   end
 
   def finished?
@@ -65,6 +62,16 @@ class Game
 
   private
 
+  def perform_loop_update_from(message)
+      case message.type
+      when :ticker
+        @map.process_ticker
+      else
+        @map.process_event(message)
+      end
+      notify_all_targets_of_type(GameSettings.selected_gui)
+  end
+
   def shut_down_threads
     @music_thread.shut_down if GameSettings.run_music?
     @ticker_thread.shut_down if GameSettings.run_game_thread?
@@ -77,7 +84,7 @@ class Game
 
   def create_threads
     @music_thread = MusicPlayer.new(GameSettings.theme_list)
-    @ticker_thread = Ticker.new(self, @map, Pacer.new(@score), GameSettings.selected_gui)
+    @ticker_thread = Ticker.new(self, Pacer.new(@score))
   end
 
   def initialize_map

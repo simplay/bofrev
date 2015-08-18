@@ -130,7 +130,7 @@ class Gui < Observer
   def handle_pressed_key(type)
     puts "#{type} was pressed."
     @may_draw = true
-    @game.perform_loop_step(Event.new(type, nil))
+    @game.perform_loop_step(Event.new(type))
   end
 
   def attach_gui_listeners

@@ -8,6 +8,6 @@ class Event
   end
 
   def to_s
-    "t:#{type} c:#{content}"
+    "type: #{type} content: #{content}"
   end
 end
