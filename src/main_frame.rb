@@ -5,7 +5,11 @@ require 'java'
 java_import 'javax.swing.JFrame'
 java_import 'java.awt.BorderLayout'
 java_import 'java.awt.Dimension'
-
+java_import 'javax.swing.JPanel'
+java_import 'java.awt.FlowLayout'
+java_import 'javax.swing.JButton'
+java_import 'javax.swing.Box'
+java_import 'java.awt.Container'
 class MainFrame < JFrame
 
   include ControlConstants
@@ -13,20 +17,33 @@ class MainFrame < JFrame
   def initialize(game)
     super("GAME")
     @game = game
+    @canvas = MyCanvas.new
+    @canvas.game = @game
     init_gui
   end
 
   def init_gui
-    setLayout BorderLayout.new
+    container = getContentPane
+    container.setLayout(BorderLayout.new)
     @canvas = MyCanvas.new
     @canvas.game = @game
-    getContentPane.add(@canvas, BorderLayout::CENTER)
+    container.add(@canvas, BorderLayout::CENTER)
     setDefaultCloseOperation(JFrame::EXIT_ON_CLOSE)
-    #setSize(GameSettings.max_width, GameSettings.max_height)
     offset_x = 1
-    offset_y = 3
+    offset_y = 45
     setMinimumSize(Dimension.new(GameSettings.max_width+offset_x, GameSettings.max_height+offset_y))
+    controls = JPanel.new
+    controls.setLayout(FlowLayout.new(FlowLayout::CENTER))
+    container.add(controls, BorderLayout::PAGE_END)
+
+    start = JButton.new("start");
+    pause = JButton.new("pause");
+    controls.add(start)
+    controls.add(pause)
+    controls.add(Box.createRigidArea(Dimension.new(25, 0)));
+
     setLocationRelativeTo(nil)
+    pack
     setVisible(true)
     setResizable(false)
     requestFocusInWindow
