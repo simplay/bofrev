@@ -1,6 +1,7 @@
-require 'my_canvas'
+require 'grid_canvas'
 require 'control_constants'
 require 'game_settings'
+
 require 'java'
 java_import 'javax.swing.JFrame'
 java_import 'java.awt.BorderLayout'
@@ -10,6 +11,7 @@ java_import 'java.awt.FlowLayout'
 java_import 'javax.swing.JButton'
 java_import 'javax.swing.Box'
 java_import 'java.awt.Container'
+
 class MainFrame < JFrame
 
   include ControlConstants
@@ -17,15 +19,13 @@ class MainFrame < JFrame
   def initialize(game)
     super("GAME")
     @game = game
-    @canvas = MyCanvas.new
-    @canvas.game = @game
     init_gui
   end
 
   def init_gui
     container = getContentPane
     container.setLayout(BorderLayout.new)
-    @canvas = MyCanvas.new
+    @canvas = GameSettings.canvas.new
     @canvas.game = @game
     container.add(@canvas, BorderLayout::CENTER)
     setDefaultCloseOperation(JFrame::EXIT_ON_CLOSE)

@@ -3,6 +3,7 @@ if (RUBY_PLATFORM != "java")
   require_relative 'views/freeform_gui'
 else
   require_relative 'view'
+  require 'grid_canvas'
 end
 require 'control_constants'
 
@@ -32,6 +33,10 @@ module GameMetaData
 
   def self.included(klass)
     klass.send(:extend, ClassMethods)
+  end
+
+  def self.canvas
+    raise "not implemented yet"
   end
 
   # @return [Array] list of theme sound files located at 'audio/' that should be available

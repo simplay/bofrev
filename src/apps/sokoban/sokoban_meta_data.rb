@@ -25,6 +25,10 @@ class SokobanMetaData
     SokobanMap
   end
 
+  def self.canvas
+    GridCanvas
+  end
+
   def self.render_attributes
     {
         :cell_size => 25,

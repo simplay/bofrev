@@ -4,9 +4,9 @@ require 'point2f'
 require 'java'
 java_import 'java.awt.Graphics2D'
 java_import 'java.awt.Image'
-# java_import 'java.io.File'
 java_import 'javax.imageio.ImageIO'
-class MyCanvas < Canvas
+
+class GridCanvas < Canvas
 
   attr_writer :game
 

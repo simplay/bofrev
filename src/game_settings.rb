@@ -63,6 +63,10 @@ class GameSettings
     end
   end
 
+  def self.canvas
+    game_meta_data.canvas
+  end
+
   def self.game_meta_data
     build_from.game_meta_data
   end
