@@ -96,4 +96,12 @@ module GameMetaData
     raise "not impleymented yet"
   end
 
+  def self.default_gui_or(other)
+    if (RUBY_PLATFORM != "java")
+      other
+    else
+      View
+    end
+  end
+
 end
