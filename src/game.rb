@@ -14,9 +14,9 @@ class Game
 
   def initialize
     @turns_allowed = 10_000_000 # TODO: define a more meaningful ending/condition.
+    @turns_allowed = 10 # TODO: define a more meaningful ending/condition.
     @score = Score.new
     initialize_map
-
     create_threads
     set_up_exit_handle
   end
@@ -46,10 +46,10 @@ class Game
       @map.process_event(message)
       notify_all_targets_of_type(GameSettings.selected_gui)
     end
+    @turns_allowed = @turns_allowed -1
   end
 
   def finished?
-    @turns_allowed = @turns_allowed -1
     @turns_allowed < 0 || @brute_fore_kill
   end
 
@@ -61,7 +61,6 @@ class Game
     @brute_fore_kill = true
     @turns_allowed = -1
     perform_loop_step('killed')
-
   end
 
   private

@@ -13,6 +13,7 @@ class MusicPlayer
   # end its loop, free its resources, wipe out process
   def shut_down
     @keep_running = false
+    return if (RUBY_PLATFORM == "java")
     @thread.exit
     wipe_out
   end

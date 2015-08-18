@@ -14,8 +14,9 @@ class Ticker
         @total_ticks += 1
         @map.process_ticker
         @game.notify_all_targets_of_type(@target)
+        puts "AAAAAAAAAAA fooooo"
         sleep(1.0 / @pacer.ticks_per_second) # sleep time in [s]
-        break if finished?
+        break if @game.finished?
       end
     end
     @thread.join if (RUBY_PLATFORM == "java")
@@ -40,6 +41,7 @@ class Ticker
 
   def shut_down
     @finished = true
+    return if (RUBY_PLATFORM == "java")
     @thread.exit unless @thread.nil?
   end
 
