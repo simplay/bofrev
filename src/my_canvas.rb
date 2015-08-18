@@ -11,13 +11,18 @@ class MyCanvas < Canvas
   attr_writer :game
 
   def drawing_methods(g)
-   # draw_grid_cells(g)
-   # draw_empty_grid(g, cell_size)
-    draw_sprite(g)
+    draw_grid_cells(g)
+    draw_empty_grid(g, cell_size)
+    draw_sprite_animation(g)
   end
 
-  def draw_sprite(g)
-    img = ImageIO.read(java.io.File.new("sprites/dummy/ani1.gif"))
+  def draw_sprite_animation(g)
+    if !!@flag
+      img = ImageIO.read(java.io.File.new("sprites/dummy/ani1.gif"))
+    else
+      img = ImageIO.read(java.io.File.new("sprites/dummy/ani2.gif"))
+    end
+    @flag = !@flag
     g.drawImage(img, 0, 0, nil)
   end
 
