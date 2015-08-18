@@ -1,4 +1,5 @@
 require 'color_constants'
+require 'java'
 class Color
   extend ColorConstants
 
@@ -27,6 +28,14 @@ class Color
 
   def valid_encoding?
     (@rgb =~ /#(.){6}/) == 0
+  end
+
+  # @return [Java::JavaAwt::Color] jruby Awt compatible color.
+  def to_awt_color
+    r_value = red_component.to_java(:int)
+    g_value = green_component.to_java(:int)
+    b_value = blue_component.to_java(:int)
+    Java::JavaAwt::Color.new(r_value, g_value, b_value)
   end
 
   def self.next_random

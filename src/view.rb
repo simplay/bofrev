@@ -4,6 +4,7 @@ require 'game_settings'
 require 'render_helpers'
 require 'event'
 require 'control_constants'
+require 'color'
 require 'java'
 java_import 'javax.swing.JPanel'
 java_import 'javax.swing.JFrame'
@@ -13,6 +14,10 @@ class Canvas < JPanel
 
   include RenderHelpers
   # @param g [Java::Graphics] graphic component used by java awt
+  def initialize
+    super
+    setBackground(Color.white.to_awt_color)
+  end
   def paintComponent(g)
     drawing_methods(g)
   end
@@ -30,7 +35,6 @@ class MyCanvas < Canvas
   attr_writer :game
 
   def drawing_methods(g)
-      # draw_color_rectangles(g)
       draw_grid_cells(g)
       draw_empty_grid(g, cell_size)
   end
@@ -71,10 +75,8 @@ class MyCanvas < Canvas
   # @param options [Hash] containing options of TkcLine#new
   #        line color, filled, width, etc.
   def draw_line(g, p_s, p_e, options = {})
-    color = Java::JavaAwt::Color.new(255, 0, 0)
-    g.setColor(color)
+    g.setColor(Color.black.to_awt_color)
     g.drawLine(p_s.x, p_s.y, p_e.x, p_e.y)
-    #TkcLine.new(canvas, p_s.x, p_s.y, p_e.x, p_e.y, options)
   end
 
   # note that x-coord corresponds to the column idx
@@ -108,12 +110,8 @@ class MyCanvas < Canvas
   # @param color [String] color identifier.
   # @param border_width [Integer] border pixel thickness.
   def draw_rectangle_at(g, x0, y0, x1, y1, color)
-            r_value = color.red_component.to_java(:int)
-            g_value = color.green_component.to_java(:int)
-            b_value = color.blue_component.to_java(:int)
-            color = Java::JavaAwt::Color.new(r_value, g_value, b_value)
-            g.setColor(color)
-            g.fillRect(x0, y1, x1-x0, y1-y0)
+    g.setColor(color.to_awt_color)
+    g.fillRect(x0, y1, x1-x0, y1-y0)
   end
 
 end
@@ -154,7 +152,6 @@ class View < Observer
 
   def attach_key_listener
     @main_frame.add_key_listener KeyListener.impl { |name, event|
-      #puts "name: #{name} event:#{event}"
       case name
       when :keyPressed
         value_pressed_key = event.getKeyChar.chr
@@ -163,11 +160,6 @@ class View < Observer
       end
     }
   end
-  # @hint: key meanings
-  #   a - move left
-  #   d - move right
-  #   s - faster down
-  #   w - rotate shape clock-wise
   # @param type [String] key identifier that was pressed.
   def handle_pressed_key(type)
     puts "#{type} was pressed."
