@@ -8,6 +8,8 @@ class Canvas < JPanel
 
   include RenderHelpers
 
+  attr_writer :game
+
   # @param g [Java::Graphics] graphic component used by java awt
   def initialize
     super

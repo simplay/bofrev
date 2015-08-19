@@ -2,24 +2,12 @@ require 'canvas'
 require 'point2f'
 
 require 'java'
-java_import 'java.awt.Graphics2D'
-java_import 'java.awt.Image'
-java_import 'javax.imageio.ImageIO'
 
 class GridCanvas < Canvas
 
-  attr_writer :game
-
   def drawing_methods(g)
-    draw_shapes(g)
     draw_grid_cells(g)
     draw_empty_grid(g, cell_size)
-  end
-
-  def draw_shapes(g)
-    @game.map.shapes.each do |shape|
-      shape.draw_onto(g) if shape.drawable?
-    end
   end
 
   protected
@@ -73,9 +61,9 @@ class GridCanvas < Canvas
         field = @game.map.field_at(column_id, row_idx)
         if field.drawable?
           x0 = (column_id-1)*cell_size
-          y0 = (row_idx-2)*cell_size
-          x1 = (column_id-0)*cell_size
-          y1 = (row_idx-1)*cell_size
+          y0 = (row_idx-1)*cell_size
+          x1 = column_id*cell_size
+          y1 = row_idx*cell_size
           draw_rectangle_at(g, x0, y0, x1, y1, field.color)
         end
       end

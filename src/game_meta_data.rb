@@ -4,6 +4,7 @@ if (RUBY_PLATFORM != "java")
 else
   require_relative 'view'
   require 'grid_canvas'
+  require 'freeform_canvas'
 end
 require 'control_constants'
 
