@@ -47,7 +47,7 @@ class Shape < Drawable
     if (RUBY_PLATFORM != "java")
       TkcImage.new(canvas, x, y, 'image' => image)
     else
-      canvas.drawImage(image, x, y, nil)
+      canvas.drawImage(image, position.x, position.y, nil)
     end
   end
 

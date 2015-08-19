@@ -21,6 +21,7 @@ class DemoSpritesMap < Map
 
   # defines how user input should be handled to update the game state.
   def process_event(message)
+    puts "m:#{message.type} g:#{W_KEY}"
     case message.type
     when W_KEY
       @player.jump unless @player.jumping?

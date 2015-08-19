@@ -1,3 +1,4 @@
+require 'game_settings'
 require 'observer'
 require 'event'
 require 'main_frame'
@@ -17,13 +18,21 @@ class View < Observer
 
   def attach_key_listener
     @main_frame.add_key_listener KeyListener.impl { |name, event|
-      case name
-      when :keyPressed
-        value_pressed_key = event.getKeyChar.chr
-        handle_pressed_key(value_pressed_key)
-      when :keyReleased
-      end
+      # key_debugger(name, event)
+      value_pressed_key = event.getKeyChar.chr
+      event_identifier = "#{name}_#{value_pressed_key}"
+      handle_pressed_key(event_identifier) if allowed_event?(event_identifier)
     }
+  end
+
+  def allowed_event?(identifier)
+      GameSettings.allowed_controls.include?(identifier)
+  end
+
+  def key_debugger(name, event)
+    puts "KEY DEBUGGER DETECTED:"
+    puts "n: #{name}"
+    puts "e: #{event}"
   end
 
   # @param type [String] key identifier that was pressed.
