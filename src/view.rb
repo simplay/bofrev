@@ -37,12 +37,16 @@ class View < Observer
 
   # @param type [String] key identifier that was pressed.
   def handle_pressed_key(type)
-    puts "#{type} was pressed."
+    puts "handling event: #{type}"
     @game.perform_loop_step(Event.new(type)) unless @game.finished?
   end
 
   def handle_event
     @main_frame.update_canvas unless @game.finished?
+  end
+
+  def handle_event_with(message)
+    java.lang.System.exit(0) if message.type == :killed
   end
 
   def clicked_onto_start

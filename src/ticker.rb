@@ -12,7 +12,7 @@ class Ticker
   def start
     @thread = Thread.new do
       loop do
-        break if @game.finished?
+        break if finished?
         @total_ticks += 1
         @game.perform_loop_step(Event.new(:ticker, "tc: #{@total_ticks}"))
         sleep(@pacer.idle_time)

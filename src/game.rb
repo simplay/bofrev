@@ -24,7 +24,7 @@ class Game
   # handle map state here- care about race-condition with provided user input
   def run
     start_threads
-    perform_loop_step(Event.new('game started', nil))
+    perform_loop_step(Event.new('game started'))
   end
 
   # TODO: subscribe score to game and let it update itself
@@ -37,17 +37,16 @@ class Game
     puts "message received: #{message}"
     @turns_allowed = @turns_allowed -1
     if finished?
-      shut_down_threads
+      puts "You scored #{@score.final_points} point(s)!"
+      perform_loop_update_from(Event.new(:killed, 'game over'))
       unsubscribe(GameSettings.selected_gui)
-      notify_all_targets_of_type(:application)
-      puts "You scored #{@score.final_points} point!"
     else
       perform_loop_update_from(message)
     end
   end
 
   def finished?
-    @turns_allowed < 0 || @brute_fore_kill
+    @turns_allowed < 0 || @brute_force_kill
   end
 
   def current_player_score
@@ -55,15 +54,19 @@ class Game
   end
 
   def initiate_game_over
-    @brute_fore_kill = true
+    @brute_force_kill = true
     @turns_allowed = -1
-    perform_loop_step('killed')
   end
 
   private
 
   def perform_loop_update_from(message)
       case message.type
+      when :killed
+        notify_all_targets_of_type(:application)
+        notify_all_targets_of_type_with_message(GameSettings.selected_gui, Event.new(:killed))
+        shut_down_threads
+        return
       when :ticker
         @map.process_ticker
       else
@@ -92,8 +95,9 @@ class Game
   end
 
   def set_up_exit_handle
-    @brute_fore_kill = false
+    @brute_force_kill = false
     at_exit do
+      @brute_force_kill = true
       shut_down_threads
     end
   end
