@@ -76,18 +76,18 @@ class Game
   end
 
   def shut_down_threads
-    @music_thread.shut_down if GameSettings.run_music?
     @ticker_thread.shut_down if GameSettings.run_game_thread?
+    @music_thread.shut_down if GameSettings.run_music?
   end
 
   def start_threads
-    @music_thread.play if GameSettings.run_music?
     @ticker_thread.start if GameSettings.run_game_thread?
+    @music_thread.play if GameSettings.run_music?
   end
 
   def create_threads
-    @music_thread = MusicPlayer.new(GameSettings.theme_list)
     @ticker_thread = Ticker.new(self, Pacer.new(@score))
+    @music_thread = MusicPlayer.new(GameSettings.theme_list)
   end
 
   def initialize_map

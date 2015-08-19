@@ -13,9 +13,9 @@ class MusicPlayer
   # end its loop, free its resources, wipe out process
   def shut_down
     @keep_running = false
+    wipe_out
     return if (RUBY_PLATFORM == "java")
     @thread.exit
-    wipe_out
   end
 
   # Run game music player relying on *mplayer*.
@@ -23,10 +23,10 @@ class MusicPlayer
   def play
     @thread = Thread.new do
       loop do
+        break unless @keep_running
         idx = rand(@song_list.length)
         run = "mplayer #{@song_list[idx]} -vo x11 -framedrop -cache 16384 -cache-min 20/100"
         system(run)
-        break unless @keep_running
       end
     end
     @thread.join if (RUBY_PLATFORM == "java")
