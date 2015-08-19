@@ -79,14 +79,19 @@ class Gui < Observer
     @score_tile.text = "Score: #{@game.current_player_score} last unlock #{GameSettings.achievement_system.last_unlock}"
   end
 
+  def handle_event_with(message)
+    if message.type == :killed
+      perform_gui_close_steps
+    end
+  end
+
+  protected
+
   def perform_gui_close_steps
     detach_all_listeners
     @canvas.destroy
     show_final_score
-    # TODO ask user for playing another game.
   end
-
-  protected
 
   def show_final_score
     content = Tk::Tile::Frame.new(@root) {padding "3 3 12 12"}.grid( :sticky => 'swes')
@@ -98,9 +103,9 @@ class Gui < Observer
   def build_gui_components
     @root = TkRoot.new do
       title "GAME"
-      offset = 10
+      offset = 40
       minsize(GameSettings.max_width+offset, GameSettings.max_height+offset)
-      maxsize(GameSettings.max_width+offset, GameSettings.max_height+offset)
+      maxsize(GameSettings.max_width+offset-36, GameSettings.max_height+offset)
     end
 
     @canvas = TkCanvas.new(@root)
