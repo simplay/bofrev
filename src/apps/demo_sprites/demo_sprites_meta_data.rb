@@ -24,6 +24,10 @@ class DemoSpritesMetaData
     DemoSpritesMap
   end
 
+  def self.canvas
+    GridCanvas
+  end
+
   def self.render_attributes
     {
         :cell_size => 15,
@@ -36,7 +40,7 @@ class DemoSpritesMetaData
   end
 
   def self.gui_type
-    FreeformGui
+    GameMetaData.default_gui_or(FreeformGui)
   end
 
   def self.allowed_controls

@@ -11,19 +11,15 @@ class GridCanvas < Canvas
   attr_writer :game
 
   def drawing_methods(g)
+    draw_shapes(g)
     draw_grid_cells(g)
     draw_empty_grid(g, cell_size)
-    draw_sprite_animation(g)
   end
 
-  def draw_sprite_animation(g)
-    if !!@flag
-      img = ImageIO.read(java.io.File.new("sprites/dummy/ani1.gif"))
-    else
-      img = ImageIO.read(java.io.File.new("sprites/dummy/ani2.gif"))
+  def draw_shapes(g)
+    @game.map.shapes.each do |shape|
+      shape.draw_onto(g) if shape.drawable?
     end
-    @flag = !@flag
-    g.drawImage(img, 0, 0, nil)
   end
 
   protected
@@ -99,7 +95,7 @@ class GridCanvas < Canvas
   # @param border_width [Integer] border pixel thickness.
   def draw_rectangle_at(g, x0, y0, x1, y1, color)
     g.setColor(color.to_awt_color)
-    g.fillRect(x0, y1, x1-x0, y1-y0)
+    g.fillRect(x0, y0, x1-x0, y1-y0)
   end
 
 end
