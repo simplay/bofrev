@@ -1,3 +1,10 @@
+if (RUBY_PLATFORM == 'java')
+  require 'java'
+  java_import 'javafx.scene.media.Media'
+  java_import 'javafx.scene.media.MediaPlayer'
+end
+
+
 # MusicPlayer runs given list of music files as a background process that can be synchronized during runtime.
 class MusicPlayer
 
@@ -18,12 +25,18 @@ class MusicPlayer
     @thread.exit
   end
 
-  # Run game music player relying on *mplayer*.
-  # @hint: In case mplayer is not installed, this thread runs silently.
-  def play
+  def java_play
+    idx = rand(@song_list.length)
+    song = @song_list[idx]
+    hit = Media.new(song);
+    media_player = MediaPlayer.new(hit)
+    media_player.play
+  end
+
+  def ruby_play
     @thread = Thread.new do
       loop do
-        break unless @keep_running
+       break unless @keep_running
         idx = rand(@song_list.length)
         run = "mplayer #{@song_list[idx]} -vo x11 -framedrop -cache 16384 -cache-min 20/100"
         system(run)
@@ -31,6 +44,16 @@ class MusicPlayer
     end
     @thread.join if (RUBY_PLATFORM == "java")
     nil
+  end
+
+  # Run game music player relying on *mplayer*.
+  # @hint: In case mplayer is not installed, this thread runs silently.
+  def play
+    if (RUBY_PLATFORM == "java")
+      java_play
+    else
+      ruby_play
+    end
   end
 
   protected
