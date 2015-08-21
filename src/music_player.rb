@@ -1,9 +1,7 @@
 if (RUBY_PLATFORM == 'java')
   require 'java'
-  java_import 'javafx.scene.media.Media'
-  java_import 'javafx.scene.media.MediaPlayer'
+  require 'java_music_player'
 end
-
 
 # MusicPlayer runs given list of music files as a background process that can be synchronized during runtime.
 class MusicPlayer
@@ -20,17 +18,20 @@ class MusicPlayer
   # end its loop, free its resources, wipe out process
   def shut_down
     @keep_running = false
-    wipe_out
-    return if (RUBY_PLATFORM == "java")
-    @thread.exit
+    if (RUBY_PLATFORM == "java")
+      @mp.stop
+    else
+      wipe_out
+      @thread.exit
+    end
   end
 
   def java_play
     idx = rand(@song_list.length)
     song = @song_list[idx]
-    hit = Media.new(song);
-    media_player = MediaPlayer.new(hit)
-    media_player.play
+    puts "AAA #{song}"
+    @mp = JavaMusicPlayer.new(song)
+    @mp.play_loop
   end
 
   def ruby_play

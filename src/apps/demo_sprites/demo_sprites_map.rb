@@ -1,6 +1,6 @@
 require 'map'
 require 'game_settings'
-require 'player'
+require 'game_player'
 require 'point2f'
 
 class DemoSpritesMap < Map
@@ -11,7 +11,7 @@ class DemoSpritesMap < Map
     @prev_iter_grid = Grid.new(GameSettings.width_pixels, GameSettings.height_pixels)
     @allow_updates = true
     @mutex = Mutex.new
-    @player = Player.new
+    @player = GamePlayer.new
     @other = Shape.new(Point2f.new(260,0))
     self.append_shape(@player.gestalt)
     self.append_shape(@player.hull_gestalt)
