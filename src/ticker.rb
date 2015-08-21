@@ -10,6 +10,7 @@ class Ticker
   end
 
   def start
+    return nil unless @pacer.running?
     @thread = Thread.new do
       loop do
         break if finished?

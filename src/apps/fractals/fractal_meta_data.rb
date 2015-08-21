@@ -24,6 +24,10 @@ class FractalMetaData
     FractalMap
   end
 
+  def self.canvas
+    FractalCanvas
+  end
+
   def self.render_attributes
     {
       :cell_size => 1,
@@ -31,12 +35,19 @@ class FractalMetaData
       :height_pixels => 400,
       :max_width => 400,
       :max_height => 400,
-      :tics_per_second => 15
+      :tics_per_second => 0
     }
   end
 
   def self.gui_type
     GameMetaData.default_gui_or(FractalView)
+  end
+
+  def self.allowed_controls
+    {
+      :keyboard => [],
+      :mouse => []
+    }
   end
 
 end
