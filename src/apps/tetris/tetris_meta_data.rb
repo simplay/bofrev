@@ -12,8 +12,8 @@ class TetrisMetaData
   def self.sound_effect_list
     {
         :jump => "audio/jump.mp3",
-        :explosion => "audio/explosion.aiff",
-        :kick => "audio/kick.wav"
+        :explosion => "audio/explosion.mp3",
+        :kick => "audio/kick.mp3"
     }
   end
 
