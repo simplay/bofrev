@@ -13,15 +13,14 @@ class GameOfLifeMap < Map
 
   # defines how user input should be handled to update the game state.
   def process_event(message)
-
     case message.type
-    when :left_click
+    when LEFT_MOUSE_BUTTON_PRESSED
       p = to_grid_coord(message.content)
       field = field_at(p.x,p.y)
       color = (field.color == Color.white)? Color.green : Color.white
       set_field_color_at(p.x, p.y, color)
       set_field_value_at(p.x, p.y, 1.0 - field.value)
-    when :left_drag
+    when LEFT_MOUSE_BUTTON_DRAGGED
       p = transform_coordinates(message.content)
       set_field_color_at(p.x, p.y, Color.green)
       set_field_value_at(p.x, p.y, 1.0)

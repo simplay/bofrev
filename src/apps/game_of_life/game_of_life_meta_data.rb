@@ -24,6 +24,10 @@ class GameOfLifeMetaData
     GameOfLifeMap
   end
 
+  def self.canvas
+    GridCanvas
+  end
+
   def self.render_attributes
     {
         :cell_size => 5,
@@ -36,11 +40,14 @@ class GameOfLifeMetaData
   end
 
   def self.gui_type
-    GridGui
+    GameMetaData.default_gui_or(GridGui)
   end
 
   def self.allowed_controls
-    [A_KEY, S_KEY, W_KEY]
+    {
+      :keyboard => [A_KEY, S_KEY, W_KEY],
+      :mouse => [LEFT_MOUSE_BUTTON_PRESSED, LEFT_MOUSE_BUTTON_DRAGGED]
+    }
   end
 
 end

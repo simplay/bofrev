@@ -24,6 +24,10 @@ class SnakeMetaData
     SnakeMap
   end
 
+  def self.canvas
+    GridCanvas
+  end
+
   def self.render_attributes
     {
         :cell_size => 25,
@@ -40,7 +44,10 @@ class SnakeMetaData
   end
 
   def self.allowed_controls
-    [D_KEY, A_KEY, S_KEY, W_KEY]
+    {
+      :keyboard => [D_KEY, A_KEY, S_KEY, W_KEY],
+      :mouse => []
+    }
   end
 
 end

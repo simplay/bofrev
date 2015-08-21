@@ -49,7 +49,10 @@ class TetrisMetaData
   end
 
   def self.allowed_controls
-    [A_KEY, W_KEY, D_KEY, S_KEY]
+    {
+      :keyboard => [A_KEY, W_KEY, D_KEY, S_KEY],
+      :mouse => []
+    }
   end
 
 end

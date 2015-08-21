@@ -24,6 +24,10 @@ class PingPongMetaData
     PingPongMap
   end
 
+  def self.canvas
+    GridCanvas
+  end
+
   def self.render_attributes
     {
         :cell_size => 15,
@@ -36,11 +40,14 @@ class PingPongMetaData
   end
 
   def self.gui_type
-    GridGui
+    GameMetaData.default_gui_or(GridGui)
   end
 
   def self.allowed_controls
-    [D_KEY, A_KEY]
+    {
+      :keyboard => [D_KEY, A_KEY],
+      :mouse => []
+    }
   end
 
 end

@@ -44,7 +44,10 @@ class DemoSpritesMetaData
   end
 
   def self.allowed_controls
-   [W_KEY, D_RELEASED, A_RELEASED, A_PRESSED, D_PRESSED]
+    {
+      :keyboard => [W_KEY, D_RELEASED, A_RELEASED, A_PRESSED, D_PRESSED],
+      :mouse => []
+    }
   end
 
 end

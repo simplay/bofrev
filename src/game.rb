@@ -46,7 +46,7 @@ class Game
   end
 
   def finished?
-    @turns_allowed < 0 || @brute_force_kill
+    @turns_allowed < 0
   end
 
   def current_player_score
@@ -54,7 +54,6 @@ class Game
   end
 
   def initiate_game_over
-    @brute_force_kill = true
     @turns_allowed = -1
   end
 
@@ -81,10 +80,8 @@ class Game
   end
 
   def start_threads
-    puts "starting threadsPEW"
     @music_thread.play if GameSettings.run_music?
     @ticker_thread.start if GameSettings.run_game_thread?
-    puts "AAA #{@music_thread.inspect}"
   end
 
   def create_threads
@@ -97,9 +94,7 @@ class Game
   end
 
   def set_up_exit_handle
-    @brute_force_kill = false
     at_exit do
-      @brute_force_kill = true
       shut_down_threads
     end
   end

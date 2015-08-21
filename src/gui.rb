@@ -125,12 +125,6 @@ class Gui < Observer
     @game.perform_loop_step(message)
   end
 
-  #
-  # @hint: key meanings
-  #   a - move left
-  #   d - move right
-  #   s - faster down
-  #   w - rotate shape clock-wise
   # @param type [String] key identifier that was pressed.
   def handle_pressed_key(type)
     puts "#{type} was pressed."
@@ -139,21 +133,25 @@ class Gui < Observer
   end
 
   def attach_gui_listeners
-    GameSettings.allowed_controls.each do |control|
+    GameSettings.allowed_controls[:keyboard].each do |control|
       @root.bind(control, proc { handle_pressed_key(control) })
     end
-    @canvas.bind(LEFT_MOUSE_BUTTON_PRESSED, proc{|x, y| handle_mouse_events(x, y, :left_click)}, "%x %y")
-    @canvas.bind(LEFT_MOUSE_BUTTON_DRAGGED, proc{|x, y| handle_mouse_events(x, y, :left_drag)}, "%x %y")
+
+    GameSettings.allowed_controls[:mouse].each do |control|
+      @canvas.bind(control, proc{|x, y| handle_mouse_events(x, y, control)}, "%x %y")
+    end
   end
 
   # Unbind all root event listeners
   def detach_all_listeners
-    @root.bind(A_KEY, proc {})
-    @root.bind(W_KEY, proc {})
-    @root.bind(D_KEY, proc {})
-    @root.bind(S_KEY, proc {})
-  end
+    GameSettings.allowed_controls[:keyboard].each do |control|
+      @root.bind(control, proc {})
+    end
 
+    GameSettings.allowed_controls[:mouse].each do |control|
+      @canvas.bind(control, proc{})
+    end
+  end
 
   # Draw a colored pixel with having a certain border width onto @canvas.
   #

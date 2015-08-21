@@ -4,8 +4,8 @@ module ControlConstants
     W_KEY = 'keyTyped_w'
     D_KEY = 'keyTyped_d'
     S_KEY = 'keyTyped_s'
-    LEFT_MOUSE_BUTTON_PRESSED =  'ButtonPress-1'
-    LEFT_MOUSE_BUTTON_DRAGGED =  'B1-Motion'
+    LEFT_MOUSE_BUTTON_PRESSED =  'mouseClicked_1'
+    LEFT_MOUSE_BUTTON_DRAGGED =  'mouseDragged_1'
     W_D_KEYS = 'w,d'
     W_A_KEYS = 'w,a'
 

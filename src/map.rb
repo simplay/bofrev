@@ -84,6 +84,7 @@ class Map
   # @param point [Point2f] canvas coordinates
   # @return [Point2f] (inner) grid coordinates
   def transform_coordinates(point)
+    puts "initial: #{point}"
 
     x_frac = (GameSettings.cell_size.to_f/GameSettings.width_pixels)
     y_frac = (GameSettings.cell_size.to_f/GameSettings.height_pixels)
@@ -99,7 +100,7 @@ class Map
     # since there is a border around the grid we have to shift the zero
     grid_p = Point2f.new(x_grid, y_grid).add(Point2f.new(1,1))
 
-    puts "(#{grid_p})"
+    puts "transformed: #{grid_p}"
     grid_p
   end
 

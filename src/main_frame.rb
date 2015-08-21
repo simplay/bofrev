@@ -18,8 +18,14 @@ class MainFrame < JFrame
 
   def initialize(game)
     super("GAME")
+    @offset_x = 1
+    @offset_y = 45
     @game = game
     init_gui
+  end
+
+  def offsets
+    [@offset_x, @offset_y]
   end
 
   def init_gui
@@ -29,9 +35,7 @@ class MainFrame < JFrame
     @canvas.game = @game
     container.add(@canvas, BorderLayout::CENTER)
     setDefaultCloseOperation(JFrame::EXIT_ON_CLOSE)
-    offset_x = 1
-    offset_y = 45
-    setMinimumSize(Dimension.new(GameSettings.max_width+offset_x, GameSettings.max_height+offset_y))
+    setMinimumSize(Dimension.new(GameSettings.max_width+@offset_x, GameSettings.max_height+@offset_y))
     controls = JPanel.new
     controls.setLayout(FlowLayout.new(FlowLayout::CENTER))
     container.add(controls, BorderLayout::PAGE_END)
