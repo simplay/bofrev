@@ -44,7 +44,6 @@ class SoundEffect
 
   def java_play(effect_sound)
     sound_file = @sound_effects[effect_sound]
-    puts "FILE: #{sound_file}"
     @mp = JavaMusicPlayer.new(sound_file)
     @mp.play
   end
