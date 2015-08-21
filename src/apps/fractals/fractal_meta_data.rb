@@ -32,10 +32,10 @@ class FractalMetaData
   def self.render_attributes
     {
       :cell_size => 1,
-      :width_pixels => 400,
-      :height_pixels => 400,
-      :max_width => 400,
-      :max_height => 400,
+      :width_pixels => 600,
+      :height_pixels => 600,
+      :max_width => 600,
+      :max_height => 600,
       :tics_per_second => 0
     }
   end
