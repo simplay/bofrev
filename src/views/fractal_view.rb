@@ -7,12 +7,13 @@ end
 # allows to remove additional logic in application.rb
 class FractalView
   MUTE = true
-  LAST_X_PIXEL = 800.0
-  LAST_Y_PIXEL = 800.0
+  LAST_X_PIXEL = 400.0
+  LAST_Y_PIXEL = 400.0
   BITS_PER_COLOR_CHANNEL = 8
   MAX_ITER = 255
 
-  def initialize
+  def initialize(model)
+    @model = model
     build_gui_components
     draw_initial_background
     x_pixels = LAST_X_PIXEL.to_i+1

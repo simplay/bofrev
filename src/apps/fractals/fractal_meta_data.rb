@@ -1,5 +1,5 @@
 require 'game_meta_data'
-require_relative 'game_of_life_map'
+require_relative 'fractal_map'
 
 class FractalMetaData
   include GameMetaData
@@ -36,7 +36,7 @@ class FractalMetaData
   end
 
   def self.gui_type
-    GridGui
+    GameMetaData.default_gui_or(FractalView)
   end
 
 end

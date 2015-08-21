@@ -1,6 +1,7 @@
 if (RUBY_PLATFORM != "java")
   require_relative 'views/grid_gui'
   require_relative 'views/freeform_gui'
+  require_relative 'views/fractal_view'
 else
   require_relative 'view'
   require 'grid_canvas'
