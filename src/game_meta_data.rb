@@ -6,6 +6,7 @@ else
   require_relative 'view'
   require 'grid_canvas'
   require 'freeform_canvas'
+  require 'fractal_canvas'
 end
 require 'control_constants'
 

@@ -1,5 +1,6 @@
 require 'game_meta_data'
 require_relative 'fractal_map'
+require 'views/fractal_view'
 
 class FractalMetaData
   include GameMetaData
