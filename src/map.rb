@@ -55,14 +55,14 @@ class Map
     @grid.inner_row_at(idx).each &:wipe_out
   end
 
-  # defines how user input should be handled to update the game state.
-  def process_event(message)
-    raise "not implemented yet"
+  def handle_ticker_notification
+    process_ticker
   end
 
-  # defines how thicker should update this map.
-  def process_ticker
-    raise "not implemented yet"
+  def handle_user_input_notification_for(message)
+    # preconditions
+    process_event(message)
+    # postconditions
   end
 
   def initiate_game_over
@@ -77,7 +77,6 @@ class Map
   def to_grid_coord(canvas_coord)
     transform_coordinates(canvas_coord)
   end
-
 
   # from canvas coordinates (clicked at position) to grid coordinates
   # (determine which grid cell has been clicked)
@@ -102,6 +101,21 @@ class Map
 
     puts "transformed: #{grid_p}"
     grid_p
+  end
+
+
+  protected
+
+  # defines how user input should be handled to update the game state.
+  # TODO make scope private
+  def process_event(message)
+    raise "not implemented yet"
+  end
+
+  # defines how thicker should update this map.
+  # TODO make scope private
+  def process_ticker
+    raise "not implemented yet"
   end
 
 end

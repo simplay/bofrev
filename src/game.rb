@@ -67,9 +67,9 @@ class Game
         shut_down_threads
         return
       when :ticker
-        @map.process_ticker
+        @map.handle_ticker_notification
       else
-        @map.process_event(message)
+        @map.handle_user_input_notification_for(message)
       end
       notify_all_targets_of_type(GameSettings.selected_gui)
   end
