@@ -35,4 +35,8 @@ class QuadraticHullShape < Drawable
     end
   end
 
+  def update_animation_state
+
+  end
+
 end

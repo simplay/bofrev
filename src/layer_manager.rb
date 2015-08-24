@@ -1,10 +1,17 @@
 require 'layer'
 
+# foreground: moving player shape
+# updated by player keyboard interactions.
+# center: bot shapes /obstacles (such as plotforms) a player can interact with.
+# updates by timer or by global.
+# background: background animations no interactions possible.
+# updated global ticker.
 class LayerManager
 
   def initialize
     @layers = {
       :foreground => Layer.new,
+      :center => Layer.new,
       :background => Layer.new
     }
   end

@@ -62,6 +62,7 @@ class Map
   end
 
   def handle_ticker_notification
+    layer_manager.update_layer(:center)
     process_ticker
   end
 

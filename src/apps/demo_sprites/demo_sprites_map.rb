@@ -13,13 +13,22 @@ class DemoSpritesMap < Map
     @mutex = Mutex.new
     @player = GamePlayer.new
     @other = Shape.new(Point2f.new(260,0))
-    self.append_shape(@player.gestalt)
-    self.append_shape(@player.hull_gestalt)
-    self.append_shape(@other)
-    self.append_shape(@other.hull.gestalt)
 
+    foreground_shapes = [
+      @player.gestalt,
+      @player.hull_gestalt
+    ]
 
-    @layer_manager.append_to([@player.gestalt, @player.hull_gestalt, @other, @other.hull.gestalt], :foreground)
+    center_shapes = [
+      @other,
+      @other.hull.gestalt
+    ]
+
+    background_shapes = []
+
+    @layer_manager.append_to(foreground_shapes, :foreground)
+    @layer_manager.append_to(center_shapes, :center)
+    @layer_manager.append_to(background_shapes, :background)
 
   end
 

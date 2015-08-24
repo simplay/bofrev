@@ -68,7 +68,7 @@ class Shape < Drawable
   # returns image that is used for texturing this shape.
   # @return [TkPhotoImage] image used to create a TkcImage.
   def image
-    default_animation
+    @current_img
   end
 
   def collide_with(other_drawable, at_position)
@@ -93,13 +93,10 @@ class Shape < Drawable
     intersection_happened
   end
 
-  protected
-
   # Returns idle animation image.
-  def default_animation
+  def update_animation_state
     @switch_counter = (@switch_counter + 1) % @swith_rate
     @current_img = @sprites.next_image if (@switch_counter == @swith_rate / 2)
-    @current_img
   end
 
   # Returns current animation image.
