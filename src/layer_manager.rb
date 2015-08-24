@@ -38,6 +38,11 @@ class LayerManager
     end
   end
 
+
+  def draw_drawables_onto_for(graphics, layer_type)
+    layer_with(layer_type).draw_drawables_onto(graphics)
+  end
+
   protected
 
   def layer_with(layer_type)
