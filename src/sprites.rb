@@ -9,8 +9,12 @@ class Sprites
 
   # @param sprites_path [String] sprite path name stored in 'sprites/'
   # @param file_type [String] file type of files in :sprite_sample 'sprites/'
-  def initialize(sprites_path, file_type="gif")
-    names = Dir["sprites/#{sprites_path}/*.#{file_type}"]
+  def initialize(sprites_path, full_path=false, file_type='gif')
+    if full_path
+      names = Dir["#{sprites_path}/*.#{file_type}"]
+    else
+      names = Dir["sprites/#{sprites_path}/*.#{file_type}"]
+    end
     @images = names.map do |filename|
       generate_image_for(filename)
     end

@@ -63,10 +63,12 @@ class Map
 
   def handle_ticker_notification
     layer_manager.update_layer(:center)
+    layer_manager.update_layer(:background)
     process_ticker
   end
 
   def handle_user_input_notification_for(message)
+    layer_manager.update_layer(:foreground)
     # preconditions
     process_event(message)
     # postconditions

@@ -27,7 +27,6 @@ class QuadraticHullShape < Drawable
   end
 
   def draw_rectangle_for(canvas, x0, y0, x1, y1)
-
     if (RUBY_PLATFORM != "java")
       TkcRectangle.new(canvas, x0, y0, x1, y1, 'width' => 2)
     else
@@ -36,7 +35,6 @@ class QuadraticHullShape < Drawable
   end
 
   def update_animation_state
-
   end
 
 end

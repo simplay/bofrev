@@ -2,6 +2,7 @@ require 'map'
 require 'game_settings'
 require 'game_player'
 require 'point2f'
+require 'drawables/background'
 
 class DemoSpritesMap < Map
 
@@ -13,6 +14,7 @@ class DemoSpritesMap < Map
     @mutex = Mutex.new
     @player = GamePlayer.new
     @other = Shape.new(Point2f.new(260,0))
+    @background = Background.new
 
     foreground_shapes = [
       @player.gestalt,
@@ -24,12 +26,13 @@ class DemoSpritesMap < Map
       @other.hull.gestalt
     ]
 
-    background_shapes = []
+    background_shapes = [
+      @background
+    ]
 
     @layer_manager.append_to(foreground_shapes, :foreground)
     @layer_manager.append_to(center_shapes, :center)
     @layer_manager.append_to(background_shapes, :background)
-
   end
 
   # defines how user input should be handled to update the game state.

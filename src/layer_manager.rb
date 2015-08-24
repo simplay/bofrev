@@ -9,10 +9,12 @@ require 'layer'
 class LayerManager
 
   def initialize
+    # hash key order determines the order of drawing:
+    # first, the background layer will be drawn, then on top of that, the center layer. lastly, the foreground layer will be drawn.
     @layers = {
-      :foreground => Layer.new,
+      :background => Layer.new,
       :center => Layer.new,
-      :background => Layer.new
+      :foreground => Layer.new
     }
   end
 
