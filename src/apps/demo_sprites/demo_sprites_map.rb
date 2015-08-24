@@ -16,6 +16,10 @@ class DemoSpritesMap < Map
     @other = Shape.new(Point2f.new(260,0))
     @background = Background.new
 
+    # for detecting collisions
+    self.append_shape(@player.gestalt)
+    self.append_shape(@other)
+
     foreground_shapes = [
       @player.gestalt,
       @player.hull_gestalt
@@ -30,6 +34,7 @@ class DemoSpritesMap < Map
       @background
     ]
 
+    # for layered rendering
     @layer_manager.append_to(foreground_shapes, :foreground)
     @layer_manager.append_to(center_shapes, :center)
     @layer_manager.append_to(background_shapes, :background)
