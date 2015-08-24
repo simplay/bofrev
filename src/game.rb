@@ -20,8 +20,9 @@ class Game
     set_up_exit_handle
   end
 
-  # spawn game thread.
-  # handle map state here- care about race-condition with provided user input
+  # Starts the game.
+  #
+  # @hint: Starts all relevant game threads and the game loop.
   def run
     start_threads
     perform_loop_step(Event.new('game started'))
@@ -32,19 +33,23 @@ class Game
     @score.increment_by(value)
   end
 
-  # @param message [Event]
+  # Runs current game iteration and updates game state accordingly.
+  #
+  # @hint: This loop runs as long as the game has not finished.
+  # @param message [Event] subscriber notification message for current loop iteration.
   def perform_loop_step(message)
     puts "message received: #{message}"
     @turns_allowed = @turns_allowed -1
     if finished?
-      puts "You scored #{@score.final_points} point(s)!"
-      perform_loop_update_from(Event.new(:killed, 'game over'))
-      unsubscribe(GameSettings.selected_gui)
+      perform_loop_update_for(Event.new(:killed, 'game over'))
     else
-      perform_loop_update_from(message)
+      perform_loop_update_for(message)
     end
   end
 
+  # Indicates whether the game loop iteration process should stop.
+  # This is currently determined by an integer that should be larger than 0,
+  # the total number of allowed turns (number of game iterations).
   def finished?
     @turns_allowed < 0
   end
@@ -59,11 +64,21 @@ class Game
 
   private
 
-  def perform_loop_update_from(message)
+  # Updates current game state according to current game loop conditions.
+  #
+  # Invokes all relevant handles to update the game state using the
+  # received subscription event message within the current game loop.
+  #
+  # @hint: event messages result from user input, the ticker thread or
+  #        other interrupts such as game over events.
+  # @param message [Event] subscriber notification message for current loop iteration.
+  def perform_loop_update_for(message)
       case message.type
       when :killed
+        puts "You scored #{@score.final_points} point(s)!"
         notify_all_targets_of_type(:application)
-        notify_all_targets_of_type_with_message(GameSettings.selected_gui, Event.new(:killed))
+        notify_all_targets_of_type_with_message(GameSettings.selected_gui, message)
+        unsubscribe(GameSettings.selected_gui)
         shut_down_threads
         return
       when :ticker
