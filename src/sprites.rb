@@ -1,13 +1,22 @@
-require 'tk'
+if (RUBY_PLATFORM != "java")
+  require 'tk'
+else
+  require 'java'
+  java_import 'javax.imageio.ImageIO'
+end
 
 class Sprites
 
   # @param sprites_path [String] sprite path name stored in 'sprites/'
   # @param file_type [String] file type of files in :sprite_sample 'sprites/'
-  def initialize(sprites_path, file_type="gif")
-    names = Dir["sprites/#{sprites_path}/*.#{file_type}"]
+  def initialize(sprites_path, full_path=false, file_type='gif')
+    if full_path
+      names = Dir["#{sprites_path}/*.#{file_type}"]
+    else
+      names = Dir["sprites/#{sprites_path}/*.#{file_type}"]
+    end
     @images = names.map do |filename|
-      TkPhotoImage.new(:file => filename)
+      generate_image_for(filename)
     end
     @current_idx = 0
   end
@@ -30,6 +39,17 @@ class Sprites
     img = @images[@current_idx]
     @current_idx = (@current_idx + 1) % count
     img
+  end
+
+  protected
+
+  # @param filename [String] image file name
+  def generate_image_for(filename)
+    if (RUBY_PLATFORM != "java")
+      TkPhotoImage.new(:file => filename)
+    else
+      ImageIO.read(java.io.File.new(filename))
+    end
   end
 
 end

@@ -61,7 +61,6 @@ module Observable
   # @hint: These observers will not get notified anymore.
   def unsubscribe(type_name)
     observers_of_type(type_name).each do |observer|
-      observer.perform_gui_close_steps
       unsubscribe_one(observer)
     end
   end

@@ -53,7 +53,7 @@ class Point2f
   #
   # @return [String]
   def to_s
-    "p=(#{@x} #{@y})"
+    "p=(#{@x}, #{@y})"
   end
 
   # Get a 2d vector pointing from other to this

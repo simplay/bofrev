@@ -4,8 +4,10 @@ require 'game_settings'
 require 'event'
 require 'control_constants'
 require 'render_helpers'
-require 'tk'
-require 'tkextlib/tile'
+if (RUBY_PLATFORM != "java")
+  require 'tk'
+  require 'tkextlib/tile'
+end
 
 # Abstract definition of a general bofrev gui.
 # A gui has a canvas, offers some trival drawing methods and
@@ -77,14 +79,19 @@ class Gui < Observer
     @score_tile.text = "Score: #{@game.current_player_score} last unlock #{GameSettings.achievement_system.last_unlock}"
   end
 
+  def handle_event_with(message)
+    if message.type == :killed
+      perform_gui_close_steps
+    end
+  end
+
+  protected
+
   def perform_gui_close_steps
     detach_all_listeners
     @canvas.destroy
     show_final_score
-    # TODO ask user for playing another game.
   end
-
-  protected
 
   def show_final_score
     content = Tk::Tile::Frame.new(@root) {padding "3 3 12 12"}.grid( :sticky => 'swes')
@@ -96,9 +103,9 @@ class Gui < Observer
   def build_gui_components
     @root = TkRoot.new do
       title "GAME"
-      offset = 10
+      offset = 40
       minsize(GameSettings.max_width+offset, GameSettings.max_height+offset)
-      maxsize(GameSettings.max_width+offset, GameSettings.max_height+offset)
+      maxsize(GameSettings.max_width+offset-36, GameSettings.max_height+offset)
     end
 
     @canvas = TkCanvas.new(@root)
@@ -118,48 +125,33 @@ class Gui < Observer
     @game.perform_loop_step(message)
   end
 
-  #
-  # @hint: key meanings
-  #   a - move left
-  #   d - move right
-  #   s - faster down
-  #   w - rotate shape clock-wise
   # @param type [String] key identifier that was pressed.
   def handle_pressed_key(type)
     puts "#{type} was pressed."
     @may_draw = true
-    @game.perform_loop_step(Event.new(type, nil))
+    @game.perform_loop_step(Event.new(type))
   end
 
   def attach_gui_listeners
-    GameSettings.allowed_controls.each do |control|
+    GameSettings.allowed_controls[:keyboard].each do |control|
       @root.bind(control, proc { handle_pressed_key(control) })
     end
-    # TODO set focus on root
-    # @root.bind(W_D_KEYS, proc { handle_pressed_key(W_D_KEYS) })
-    # @root.bind(W_A_KEYS, proc { handle_pressed_key(W_A_KEYS) })
-    #@root.bind(A_KEY, proc { handle_pressed_key(A_KEY) })
-    #@root.bind(W_KEY, proc { handle_pressed_key(W_KEY) })
-    #@root.bind(D_KEY, proc { handle_pressed_key(D_KEY) })
-   # @root.bind(S_KEY, proc {handle_pressed_key(S_KEY) })
-   # @root.bind(A_PRESSED, proc { handle_pressed_key(A_PRESSED) })
-   # @root.bind(D_PRESSED, proc { handle_pressed_key(D_PRESSED) })
-   # @root.bind(D_RELEASED, proc { handle_pressed_key(D_RELEASED) })
-   # @root.bind(S_RELEASED, proc { attach_gui_listeners; handle_pressed_key(S_RELEASED) })
-   # @root.bind(A_RELEASED, proc { attach_gui_listeners; handle_pressed_key(A_RELEASED) })
 
-    @canvas.bind(LEFT_MOUSE_BUTTON_PRESSED, proc{|x, y| handle_mouse_events(x, y, :left_click)}, "%x %y")
-    @canvas.bind(LEFT_MOUSE_BUTTON_DRAGGED, proc{|x, y| handle_mouse_events(x, y, :left_drag)}, "%x %y")
+    GameSettings.allowed_controls[:mouse].each do |control|
+      @canvas.bind(control, proc{|x, y| handle_mouse_events(x, y, control)}, "%x %y")
+    end
   end
 
   # Unbind all root event listeners
   def detach_all_listeners
-    @root.bind(A_KEY, proc {})
-    @root.bind(W_KEY, proc {})
-    @root.bind(D_KEY, proc {})
-    @root.bind(S_KEY, proc {})
-  end
+    GameSettings.allowed_controls[:keyboard].each do |control|
+      @root.bind(control, proc {})
+    end
 
+    GameSettings.allowed_controls[:mouse].each do |control|
+      @canvas.bind(control, proc{})
+    end
+  end
 
   # Draw a colored pixel with having a certain border width onto @canvas.
   #

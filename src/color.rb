@@ -1,4 +1,6 @@
 require 'color_constants'
+require 'java' if (RUBY_PLATFORM == "java")
+
 class Color
   extend ColorConstants
 
@@ -14,19 +16,27 @@ class Color
   end
 
   def red_component
-    components[1..2]
+    components[1..2].join.to_i(16)
   end
 
   def green_component
-    components[3..4]
+    components[3..4].join.to_i(16)
   end
 
   def blue_component
-    components[5..6]
+    components[5..6].join.to_i(16)
   end
 
   def valid_encoding?
     (@rgb =~ /#(.){6}/) == 0
+  end
+
+  # @return [Java::JavaAwt::Color] jruby Awt compatible color.
+  def to_awt_color
+    r_value = red_component.to_java(:int)
+    g_value = green_component.to_java(:int)
+    b_value = blue_component.to_java(:int)
+    Java::JavaAwt::Color.new(r_value, g_value, b_value)
   end
 
   def self.next_random

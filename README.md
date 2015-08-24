@@ -58,6 +58,8 @@ with the following key-steps:
 
 ## Usage
 
++ rjuby `jruby -J-Xss1024m bofrev -d 1 -g 1` to run game 1 in debug mode 1 using jruby.
+
 `./bofrev -d <D> -g <G> -m <M>` to run the game `<G>` in running mode `<D>`.
 
 + Game Mode `<D>` is an _optional_ parameter:

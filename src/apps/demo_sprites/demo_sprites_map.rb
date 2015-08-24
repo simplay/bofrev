@@ -1,7 +1,8 @@
 require 'map'
 require 'game_settings'
-require 'player'
+require 'game_player'
 require 'point2f'
+require 'drawables/background'
 
 class DemoSpritesMap < Map
 
@@ -11,16 +12,37 @@ class DemoSpritesMap < Map
     @prev_iter_grid = Grid.new(GameSettings.width_pixels, GameSettings.height_pixels)
     @allow_updates = true
     @mutex = Mutex.new
-    @player = Player.new
+    @player = GamePlayer.new
     @other = Shape.new(Point2f.new(260,0))
+    @background = Background.new
+
+    # for detecting collisions
     self.append_shape(@player.gestalt)
-    self.append_shape(@player.hull_gestalt)
     self.append_shape(@other)
-    self.append_shape(@other.hull.gestalt)
+
+    foreground_shapes = [
+      @player.gestalt,
+      @player.hull_gestalt
+    ]
+
+    center_shapes = [
+      @other,
+      @other.hull.gestalt
+    ]
+
+    background_shapes = [
+      @background
+    ]
+
+    # for layered rendering
+    @layer_manager.append_to(foreground_shapes, :foreground)
+    @layer_manager.append_to(center_shapes, :center)
+    @layer_manager.append_to(background_shapes, :background)
   end
 
   # defines how user input should be handled to update the game state.
   def process_event(message)
+    puts "m:#{message.type} g:#{W_KEY}"
     case message.type
     when W_KEY
       @player.jump unless @player.jumping?

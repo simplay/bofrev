@@ -1,47 +1,44 @@
-if (RUBY_PLATFORM != "java")
-  require 'tk'
-  require 'tkextlib/tile'
-end
+require 'canvas'
+require 'point2f'
+require 'color'
+require 'java'
+require 'game_settings'
+class FractalCanvas < Canvas
 
-# TODO refactor to conform Gui (inherit from gui)
-# allows to remove additional logic in application.rb
-class FractalView
   MUTE = true
-  LAST_X_PIXEL = 400.0
-  LAST_Y_PIXEL = 400.0
   BITS_PER_COLOR_CHANNEL = 8
   MAX_ITER = 255
 
-  def initialize(model)
-    @model = model
-    build_gui_components
-    draw_initial_background
-    x_pixels = LAST_X_PIXEL.to_i+1
-    y_pixels = LAST_Y_PIXEL.to_i+1
-    x_pixels.times do |x|
-      y_pixels.times do |y|
-        draw_fractal_pixel_at(x, y, 4.3)
+  def drawing_methods(g)
+    draw_shapes(g)
+  end
+
+  def draw_shapes(g)
+    @x_pixels = GameSettings.width_pixels
+    @y_pixels = GameSettings.height_pixels
+    (@x_pixels+1).times do |x|
+      (@y_pixels+1).times do |y|
+        draw_fractal_pixel_at(g, x, y, 4.3)
       end
     end
-    Tk.mainloop
-  end
-  def draw_initial_background
-    TkcRectangle.new(@canvas, 0, 0, LAST_X_PIXEL.to_i, LAST_X_PIXEL.to_i,
-                     'width' => 0, 'fill'  => 'black')
   end
 
-  def build_gui_components
-    @root = TkRoot.new do
-      title "Fractal Renderer"
-      delta = 4
-      minsize(LAST_X_PIXEL.to_i + delta, LAST_Y_PIXEL.to_i + delta)
-      maxsize(LAST_X_PIXEL.to_i + delta, LAST_Y_PIXEL.to_i + delta)
-    end
+  private
 
-    @canvas = TkCanvas.new(@root)
-    @canvas.grid :sticky => 'nwes', :column => 0, :row => 0
-    TkGrid.columnconfigure( @root, 0, :weight => 1 )
-    TkGrid.rowconfigure( @root, 0, :weight => 1 )
+  # Draw a colored rectangle with having a certain border width onto @canvas.
+  #
+  # @hint Its top left position is given by a point (x0,y0) and
+  # its size by the span between the first and a 2nd point (x1, y1).
+  #
+  # @param x0 [Integer] or [Float] upper left corner x-component
+  # @param y0 [Integer] or [Float] upper left corner y-component
+  # @param x1 [Integer] or [Float] lower right corner x-component
+  # @param y1 [Integer] or [Float] lower right corner y-component
+  # @param color [String] color identifier.
+  # @param border_width [Integer] border pixel thickness.
+  def draw_rectangle_at(g, x0, y0, x1, y1, color)
+    g.setColor(color.to_awt_color)
+    g.fillRect(x0, y0, x1-x0, y1-y0)
   end
 
   def transform_pixel_to_range(min_a, max_a, min_e, max_e, x)
@@ -55,7 +52,7 @@ class FractalView
   # @param p_x [Float] location x pixel
   # @param p_y [Float] location y pixeli
   # @param zoom_lvl [Float] scaled view of fractal domain
-  def draw_fractal_pixel_at(p_x, p_y, zoom_lvl)
+  def draw_fractal_pixel_at(graphics, p_x, p_y, zoom_lvl)
     # transform pixel coordinates to normalized coordinates
     sq_zoom_lvl = Math.sqrt(zoom_lvl)
     zoomed_x_min = -2.5 / sq_zoom_lvl
@@ -63,8 +60,8 @@ class FractalView
     zoomed_y_min = -1.0 / sq_zoom_lvl
     zoomed_y_max = 1.0 / sq_zoom_lvl
 
-    x0 = transform_pixel_to_range(0.0, LAST_X_PIXEL, zoomed_x_min, zoomed_x_max, p_x)
-    y0 = transform_pixel_to_range(0.0, LAST_Y_PIXEL, zoomed_y_min, zoomed_y_max, p_y)
+    x0 = transform_pixel_to_range(0.0, @x_pixels, zoomed_x_min, zoomed_x_max, p_x)
+    y0 = transform_pixel_to_range(0.0, @y_pixels, zoomed_y_min, zoomed_y_max, p_y)
 
     x = 0.0; y = 0.0;
     max_iter = MAX_ITER
@@ -91,9 +88,7 @@ class FractalView
       g = (g+depth)%dig
       b = (b+depth)%dig
       color = compute_color_string(r,g,b, bits)
-
-      TkcRectangle.new(@canvas, p_x, p_y, p_x, p_y,
-                       'width' => 0, :fill  => color)
+      draw_rectangle_at(graphics, p_x, p_y, p_x+1, p_y+1, Color.new(color))
     end
 
   end

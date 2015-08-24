@@ -1,7 +1,7 @@
 require 'drawables/shape'
 require 'point2f'
 
-class Player
+class GamePlayer
 
   JUMP_STEP_HEIGHT = 8
 

@@ -1,7 +1,12 @@
 require_relative 'drawable'
-require 'color'
 require 'point2f'
-require 'tk'
+
+if (RUBY_PLATFORM != "java")
+  require 'tk'
+  require 'color'
+else
+  require 'java'
+end
 
 class QuadraticHullShape < Drawable
 
@@ -18,8 +23,18 @@ class QuadraticHullShape < Drawable
     y0 = upper_left_pos.y
     x1 = lower_right_pos.x
     y1 = lower_right_pos.y
-    TkcRectangle.new(canvas, x0, y0, x1, y1,
-                     'width' => 2)
+    draw_rectangle_for(canvas, x0, y0, x1, y1)
+  end
+
+  def draw_rectangle_for(canvas, x0, y0, x1, y1)
+    if (RUBY_PLATFORM != "java")
+      TkcRectangle.new(canvas, x0, y0, x1, y1, 'width' => 2)
+    else
+      canvas.drawRect(x0, y0, x1-x0, y1-y0)
+    end
+  end
+
+  def update_animation_state
   end
 
 end

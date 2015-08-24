@@ -11,6 +11,10 @@ class Pacer
     @previous_points = 0
   end
 
+  def running?
+    @current_speed > 0
+  end
+
   # Return current ticks per second rate.s
   # Every 60 additional points update update ticks per second rate
   # @return [Integer] ticks per second.
@@ -20,6 +24,11 @@ class Pacer
       @previous_points = @score.final_points
     end
     @current_speed
+  end
+
+  # sleep time in [s]
+  def idle_time
+    1.0 / ticks_per_second
   end
 
   def inc_speed

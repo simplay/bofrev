@@ -1,5 +1,5 @@
 require 'gui'
-require 'tk'
+require 'tk' if (RUBY_PLATFORM != "java")
 
 # TODO: Move to src/views/
 #
@@ -36,10 +36,8 @@ class FreeformGui < Gui
   end
 
   def draw_grid_cells
-    @game.map.shapes.each do |shape|
-      shape.draw_onto(@canvas) if shape.drawable?
-    end
-
+    @game.map.layer_manager.draw_drawables_onto_for(@canvas, :foreground)
+    @game.map.layer_manager.draw_drawables_onto_for(@canvas, :center)
   end
 
 end

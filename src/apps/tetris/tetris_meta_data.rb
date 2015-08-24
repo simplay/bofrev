@@ -12,8 +12,8 @@ class TetrisMetaData
   def self.sound_effect_list
     {
         :jump => "audio/jump.mp3",
-        :explosion => "audio/explosion.aiff",
-        :kick => "audio/kick.wav"
+        :explosion => "audio/explosion.mp3",
+        :kick => "audio/kick.mp3"
     }
   end
 
@@ -29,23 +29,30 @@ class TetrisMetaData
     TetrisMap
   end
 
+  def self.canvas
+    GridCanvas
+  end
+
   def self.render_attributes
     {
         :cell_size => 20,
         :width_pixels => 10,
         :height_pixels => 20,
-        :max_width => 194,
-        :max_height => 440,
+        :max_width => 200,
+        :max_height => 420,
         :tics_per_second => 1
     }
   end
 
   def self.gui_type
-    GridGui
+    GameMetaData.default_gui_or(GridGui)
   end
 
   def self.allowed_controls
-    [A_KEY, W_KEY, D_KEY, S_KEY]
+    {
+      :keyboard => [A_KEY, W_KEY, D_KEY, S_KEY],
+      :mouse => []
+    }
   end
 
 end

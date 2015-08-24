@@ -1,5 +1,13 @@
-require_relative 'views/grid_gui'
-require_relative 'views/freeform_gui'
+if (RUBY_PLATFORM != "java")
+  require_relative 'views/grid_gui'
+  require_relative 'views/freeform_gui'
+  require_relative 'views/fractal_view'
+else
+  require_relative 'view'
+  require 'grid_canvas'
+  require 'freeform_canvas'
+  require 'fractal_canvas'
+end
 require 'control_constants'
 
 # GameMetaData models (game) application specific properties that either determine
@@ -28,6 +36,10 @@ module GameMetaData
 
   def self.included(klass)
     klass.send(:extend, ClassMethods)
+  end
+
+  def self.canvas
+    raise "not implemented yet"
   end
 
   # @return [Array] list of theme sound files located at 'audio/' that should be available
@@ -90,6 +102,14 @@ module GameMetaData
   # @return [Array] of Strings defining known key constants.
   def self.allowed_controls
     raise "not impleymented yet"
+  end
+
+  def self.default_gui_or(other)
+    if (RUBY_PLATFORM != "java")
+      other
+    else
+      View
+    end
   end
 
 end

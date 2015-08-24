@@ -2,9 +2,12 @@ require 'point2f'
 require 'sprites'
 require_relative 'drawable'
 require 'hull'
-require 'tk'
-
-require 'pry'
+if (RUBY_PLATFORM != "java")
+  require 'tk'
+  require 'pry'
+else
+  require 'java'
+end
 
 # Shape represents a drawable objects used by a freefrom_gui renderer.
 # TODO: Make use of instancing
@@ -36,7 +39,15 @@ class Shape < Drawable
     if image?
       x = position.x + image.height/2.0
       y = position.y + image.width/2.0
+      create_image_for(canvas, x, y)
+    end
+  end
+
+  def create_image_for(canvas, x, y)
+    if (RUBY_PLATFORM != "java")
       TkcImage.new(canvas, x, y, 'image' => image)
+    else
+      canvas.drawImage(image, position.x, position.y, nil)
     end
   end
 
@@ -57,7 +68,7 @@ class Shape < Drawable
   # returns image that is used for texturing this shape.
   # @return [TkPhotoImage] image used to create a TkcImage.
   def image
-    default_animation
+    @current_img
   end
 
   def collide_with(other_drawable, at_position)
@@ -82,13 +93,10 @@ class Shape < Drawable
     intersection_happened
   end
 
-  protected
-
   # Returns idle animation image.
-  def default_animation
+  def update_animation_state
     @switch_counter = (@switch_counter + 1) % @swith_rate
     @current_img = @sprites.next_image if (@switch_counter == @swith_rate / 2)
-    @current_img
   end
 
   # Returns current animation image.

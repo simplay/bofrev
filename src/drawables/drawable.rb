@@ -1,4 +1,4 @@
-require 'tk'
+require 'tk' if (RUBY_PLATFORM != "java")
 require 'observable'
 require 'event'
 require 'point2f'
@@ -35,6 +35,15 @@ class Drawable
     raise "not implemented yet"
   end
 
+  def update_animation_state
+    raise "not implemented yet"
+  end
+
+  # @param other_drawable [Drawable] other drawable we test for a collision.
+  def collide_with(other_drawable, at_position)
+    raise "not implemented yet"
+  end
+
   # Is this Drawable instance drawable.
   #
   # @return [Boolean] true if it should be drawn onto a Gui's canvas.
@@ -64,11 +73,6 @@ class Drawable
 
   def undo_last_step
     @position.sub(@prev_value)
-  end
-
-  # @param other_drawable [Drawable] other drawable we test for a collision.
-  def collide_with(other_drawable, at_position)
-    raise "not implemented yet"
   end
 
 end

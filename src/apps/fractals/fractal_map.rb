@@ -5,7 +5,6 @@ class FractalMap < Map
 
   def initialize(game)
     super(game)
-    @prev_iter_grid = Grid.new(GameSettings.width_pixels, GameSettings.height_pixels)
     @allow_updates = false
     @mutex = Mutex.new
   end
@@ -17,12 +16,5 @@ class FractalMap < Map
   # defines how thicker should update this map.
   def process_ticker
   end
-
-  private
-
-  def update_grid
-  end
-
-
 
 end

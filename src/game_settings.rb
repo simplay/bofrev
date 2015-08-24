@@ -5,6 +5,7 @@ require_relative 'apps/sokoban/sokoban_meta_data'
 require_relative 'apps/snake/snake_meta_data'
 require_relative 'apps/pingpong/ping_pong_meta_data'
 require_relative 'apps/demo_sprites/demo_sprites_meta_data'
+require_relative 'apps/fractals/fractal_meta_data'
 require_relative 'views/grid_gui'
 require_relative 'views/freeform_gui'
 
@@ -58,9 +59,15 @@ class GameSettings
       SnakeMetaData
     when 5
       PingPongMetaData
+    when 6
+      FractalMetaData
     when 7
       DemoSpritesMetaData
     end
+  end
+
+  def self.canvas
+    game_meta_data.canvas
   end
 
   def self.game_meta_data
