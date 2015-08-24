@@ -35,6 +35,10 @@ class Drawable
     raise "not implemented yet"
   end
 
+  def update_animation_state
+    raise "not implemented yet"
+  end
+
   # Is this Drawable instance drawable.
   #
   # @return [Boolean] true if it should be drawn onto a Gui's canvas.

@@ -5,6 +5,7 @@ require 'sound_effect'
 require 'game_settings'
 require 'control_constants'
 require_relative 'drawables/shape_manager'
+require 'layer_manager'
 
 class Map
 
@@ -15,10 +16,15 @@ class Map
     @game = game
     @grid = Grid.new(GameSettings.width_pixels, GameSettings.height_pixels)
     @shape_manager = ShapeManager.new
+    @layer_manager = LayerManager.new
   end
 
   def shapes
     @shape_manager.shapes
+  end
+
+  def layer_manager
+    @layer_manager
   end
 
   # Appends a a Shape instance to @shape_manager.

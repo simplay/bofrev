@@ -17,6 +17,10 @@ class DemoSpritesMap < Map
     self.append_shape(@player.hull_gestalt)
     self.append_shape(@other)
     self.append_shape(@other.hull.gestalt)
+
+
+    @layer_manager.append_to([@player.gestalt, @player.hull_gestalt, @other, @other.hull.gestalt], :foreground)
+
   end
 
   # defines how user input should be handled to update the game state.

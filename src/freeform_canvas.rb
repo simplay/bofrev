@@ -13,9 +13,7 @@ class FreeformCanvas < Canvas
   end
 
   def draw_shapes(g)
-    @game.map.shapes.each do |shape|
-      shape.draw_onto(g) if shape.drawable?
-    end
+    @game.map.layer_manager.draw_drawables_onto(g)
   end
 
 end

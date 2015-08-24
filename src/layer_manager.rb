@@ -1,24 +1,38 @@
 require 'layer'
-require 'game_settings'
 
-# Layer Manager merges a set of layers to one grid that can be rendered.
 class LayerManager
-  def initialize(layer_count)
-    @layers = []
-    init_layers(layer_count)
+
+  def initialize
+    @layers = {
+      :foreground => Layer.new,
+      :background => Layer.new
+    }
   end
 
-  def merged
-    @layers.inject(Layer.new(GameSettings.width_pixels, GameSettings.height_pixels)) do |layer_merge, layer|
-      layer_merge.overlayer_with(layer)
+  # Append a set of drawable instances to a target layer,
+  #
+  # @param drawables [Array] of type Drawable.
+  # @param layer_type [Symbol] identifier of target layer.
+  def append_to(drawables, layer_type)
+    drawables.each do |drawable|
+      layer_with(layer_type).append(drawable)
     end
   end
 
-  private
+  def update_layer(layer_type)
+    layer_with(layer_type).update_drawables
+  end
 
-  def init_layers(count)
-    count.times do
-      @layers << Layer.new(GameSettings.width_pixels, GameSettings.height_pixels)
+  def draw_drawables_onto(graphics)
+    @layers.values.each do |layer|
+      layer.draw_drawables_onto(graphics)
     end
   end
+
+  protected
+
+  def layer_with(layer_type)
+    @layers[layer_type]
+  end
+
 end
