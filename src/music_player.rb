@@ -29,7 +29,6 @@ class MusicPlayer
   def java_play
     idx = rand(@song_list.length)
     song = @song_list[idx]
-    puts "AAA #{song}"
     @mp = JavaMusicPlayer.new(song)
     @mp.play_loop
   end
