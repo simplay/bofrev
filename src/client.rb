@@ -2,7 +2,15 @@ class Client
   HOSTNAME = 'localhost'
   PORT = 1337
 
-  def initialize(hostname = HOSTNAME, port = PORT)
+  # @param args [Hash] user provided arguments.
+  # The following hash keys can be set:
+  #   :debug => selected debug mode.
+  #   :game => selected game id.
+  #   :multiplayer => selected multiplayer mode.
+  #
+  # @param hostname [String] ip address of target server.
+  # @param port [Integer] port of target server.
+  def initialize(args, hostname = HOSTNAME, port = PORT)
     @hostname = hostname
     @port = port
     start

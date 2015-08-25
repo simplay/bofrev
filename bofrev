@@ -4,9 +4,11 @@ $LOAD_PATH.unshift File.expand_path("src")
 
 require 'rubygems'
 require 'optparse'
-require "application"
+require 'application'
+require 'server'
+require 'client'
 
-Version = "0.0.1"
+Version = "0.0.2"
 
 user_args = {}
 opt_parser = OptionParser.new do |opt|
@@ -43,6 +45,13 @@ rescue OptionParser::MissingArgument
   exit
 end
 
-Application.new(user_args)
+case user_args[:multiplayer].to_i
+when 1
+  Client.new(user_args)
+when 2
+  Server.new(user_args)
+else
+  Application.new(user_args)
+end
 
 
