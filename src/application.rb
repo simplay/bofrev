@@ -1,8 +1,7 @@
 require 'game'
 require 'observer'
 require 'game_settings'
-require 'server'
-require 'client'
+require 'pry'
 
 # init gui with game
 # Follows the
@@ -14,15 +13,9 @@ class Application < Observer
   # will be exectued (since the Tk mainloop is being executed)
   def initialize(args)
     GameSettings.build_from(args)
-    if args[:multiplayer].to_i == 1
-      Client.new
-    elsif args[:multiplayer].to_i == 2
-      Server.new
-    else
-      game = Game.new
-      game.subscribe(self)
-      GameSettings.gui_to_build.new(game)
-    end
+    game = Game.new
+    game.subscribe(self)
+    GameSettings.gui_to_build.new(game)
   end
 
   def handle_event

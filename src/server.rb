@@ -1,11 +1,16 @@
 require 'socket'
+require 'adapter'
+require 'observable'
 
 class Server
+
+  include Observable
   PORT = 1337
 
-  def initialize(port=PORT)
+  def initialize(args, port=PORT)
     @port = port
     puts "starting server listening on port #{@port}."
+    @adapter = Adapter.new(self)
     start
   end
 
