@@ -2,7 +2,7 @@ require 'color'
 require 'point2f'
 require 'drawables/drawable'
 require 'render_helpers'
-require 'java' if (RUBY_PLATFORM == "java")
+require 'java'
 
 # TODO: Refactor concept of type:
 #   must be a symbol and drawable is determined by the state empty.

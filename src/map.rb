@@ -6,7 +6,7 @@ require 'game_settings'
 require 'control_constants'
 require_relative 'drawables/shape_manager'
 require 'layer_manager'
-require 'pry'
+
 class Map
 
   include ControlConstants
@@ -18,7 +18,6 @@ class Map
     @shape_manager = ShapeManager.new
     @layer_manager = LayerManager.new
     @layer_manager.append_to([@grid], :foreground)
-    #@layer_manager.append_to(center_shapes, :center)
   end
 
   def grid

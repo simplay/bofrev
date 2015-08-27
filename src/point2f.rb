@@ -1,5 +1,6 @@
 # a two dimensional Point. By default has value (0,0).
 class Point2f
+
   attr_accessor :x, :y
 
   # Create a new Point2f instance.

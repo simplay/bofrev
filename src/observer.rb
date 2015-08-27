@@ -9,4 +9,5 @@ class Observer
   def handle_event_with(message)
     raise "not implemented yet"
   end
+
 end

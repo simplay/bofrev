@@ -2,9 +2,10 @@ require_relative 'drawable'
 require 'point2f'
 require 'sprites'
 
-require 'java' if (RUBY_PLATFORM == "java")
+require 'java'
 
 class Background < Drawable
+
   def initialize(is_animated=true)
     super(Point2f.new(-10,-10), true)
     @is_animated = is_animated

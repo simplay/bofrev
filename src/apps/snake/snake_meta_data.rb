@@ -40,7 +40,7 @@ class SnakeMetaData
   end
 
   def self.gui_type
-    GameMetaData.default_gui_or(GridGui)
+    View
   end
 
   def self.allowed_controls

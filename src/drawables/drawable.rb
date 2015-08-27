@@ -1,4 +1,3 @@
-require 'tk' if (RUBY_PLATFORM != "java")
 require 'observable'
 require 'event'
 require 'point2f'

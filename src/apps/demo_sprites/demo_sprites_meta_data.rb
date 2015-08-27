@@ -41,7 +41,7 @@ class DemoSpritesMetaData
   end
 
   def self.gui_type
-    GameMetaData.default_gui_or(FreeformGui)
+    View
   end
 
   def self.allowed_controls

@@ -2,12 +2,7 @@ require 'point2f'
 require 'sprites'
 require_relative 'drawable'
 require 'hull'
-if (RUBY_PLATFORM != "java")
-  require 'tk'
-  require 'pry'
-else
-  require 'java'
-end
+require 'java'
 
 # Shape represents a drawable objects used by a freefrom_gui renderer.
 # TODO: Make use of instancing
@@ -33,22 +28,8 @@ class Shape < Drawable
   end
 
   # Draw this shape onto a given canvas.
-  #
-  # @param canvas [TkCanvas]
   def draw_onto(canvas)
-    if image?
-      x = position.x + image.height/2.0
-      y = position.y + image.width/2.0
-      create_image_for(canvas, x, y)
-    end
-  end
-
-  def create_image_for(canvas, x, y)
-    if (RUBY_PLATFORM != "java")
-      TkcImage.new(canvas, x, y, 'image' => image)
-    else
-      canvas.drawImage(image, position.x, position.y, nil)
-    end
+    canvas.drawImage(image, position.x, position.y, nil) if image?
   end
 
   # @return [Point2f] barycenter of this shape's image.

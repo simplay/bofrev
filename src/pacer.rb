@@ -11,6 +11,9 @@ class Pacer
     @previous_points = 0
   end
 
+  # Is this pacer activated?
+  #
+  # @return [Boolean] true if speed is greater than zero and otherwise false.
   def running?
     @current_speed > 0
   end
