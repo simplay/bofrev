@@ -1,12 +1,6 @@
-if (RUBY_PLATFORM != "java")
-  require_relative 'views/grid_gui'
-  require_relative 'views/freeform_gui'
-  require_relative 'views/fractal_view'
-else
-  require_relative 'view'
-  require 'freeform_canvas'
-  require 'fractal_canvas'
-end
+require_relative 'view'
+require 'freeform_canvas'
+require 'fractal_canvas'
 require 'control_constants'
 
 # GameMetaData models (game) application specific properties that either determine
@@ -101,14 +95,6 @@ module GameMetaData
   # @return [Array] of Strings defining known key constants.
   def self.allowed_controls
     raise "not impleymented yet"
-  end
-
-  def self.default_gui_or(other)
-    if (RUBY_PLATFORM != "java")
-      other
-    else
-      View
-    end
   end
 
 end

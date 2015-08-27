@@ -19,7 +19,7 @@ class Ticker
         sleep(@pacer.idle_time)
       end
     end
-    @thread.join if (RUBY_PLATFORM == "java")
+    @thread.join
     nil
   end
 
@@ -41,8 +41,6 @@ class Ticker
 
   def shut_down
     @finished = true
-    return if (RUBY_PLATFORM == "java")
-    @thread.exit unless @thread.nil?
   end
 
 end

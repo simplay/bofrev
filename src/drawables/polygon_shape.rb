@@ -1,7 +1,6 @@
 require 'color'
 require 'drawable'
 require 'shape_factory'
-require 'tk'
 
 class PolygonShape < Drawable
 
@@ -15,8 +14,6 @@ class PolygonShape < Drawable
   #
   # @param canvas [TkCanvas]
   def draw_onto(canvas)
-
-    # points.each_slice(2) do |p1, p2| #foo_drawing; end
   end
 
   def color

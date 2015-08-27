@@ -36,12 +36,12 @@ class SokobanMetaData
         :height_pixels => 13,
         :max_width => 500,
         :max_height => 345,
-        :tics_per_second => 1
+        :tics_per_second => 0
     }
   end
 
   def self.gui_type
-    GameMetaData.default_gui_or(GridGui)
+    View
   end
 
   def self.allowed_controls

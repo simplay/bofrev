@@ -1,7 +1,8 @@
 require 'color_constants'
-require 'java' if (RUBY_PLATFORM == "java")
+require 'java'
 
 class Color
+
   extend ColorConstants
 
   # @param rgb [String] 32bit RGB encoded as #rrggbb.

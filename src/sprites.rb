@@ -1,9 +1,5 @@
-if (RUBY_PLATFORM != "java")
-  require 'tk'
-else
-  require 'java'
-  java_import 'javax.imageio.ImageIO'
-end
+require 'java'
+java_import 'javax.imageio.ImageIO'
 
 class Sprites
 
@@ -45,11 +41,7 @@ class Sprites
 
   # @param filename [String] image file name
   def generate_image_for(filename)
-    if (RUBY_PLATFORM != "java")
-      TkPhotoImage.new(:file => filename)
-    else
-      ImageIO.read(java.io.File.new(filename))
-    end
+    ImageIO.read(java.io.File.new(filename))
   end
 
 end

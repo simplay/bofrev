@@ -2,8 +2,7 @@ require 'game_field'
 require 'point2f'
 require 'drawables/drawable'
 require 'drawables/grid_box'
-
-require 'color' if (RUBY_PLATFORM != "java")
+require 'color'
 
 # Grid is the Data Structure for an arbitrary 2d-(M x N) pixel game.
 # A grid has actually (M+2)x(N+2) pixels. There is an border around the grid.

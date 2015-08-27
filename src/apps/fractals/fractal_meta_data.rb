@@ -1,6 +1,5 @@
 require 'game_meta_data'
 require_relative 'fractal_map'
-require 'views/fractal_view'
 
 class FractalMetaData
   include GameMetaData
@@ -41,7 +40,7 @@ class FractalMetaData
   end
 
   def self.gui_type
-    GameMetaData.default_gui_or(FractalView)
+    View
   end
 
   def self.allowed_controls
