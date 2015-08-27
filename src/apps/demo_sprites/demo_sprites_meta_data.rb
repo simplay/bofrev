@@ -35,7 +35,8 @@ class DemoSpritesMetaData
         :height_pixels => 20,
         :max_width => 600,
         :max_height => 340,
-        :tics_per_second => 15
+        :tics_per_second => 15,
+        :show_grid => false
     }
   end
 

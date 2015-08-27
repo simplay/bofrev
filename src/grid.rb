@@ -42,7 +42,7 @@ class Grid < Drawable
   #
   # @param width [Integer] width of grid
   # @param height [Integer] height of grid
-  def initialize(width, height)
+  def initialize(width, height, show_grid=false)
     super(Point2f.new, true)
     # assign dimensions
     @inner_width = width
@@ -55,6 +55,7 @@ class Grid < Drawable
     encode_grid_neighborhood
 
     @grid_box = GridBox.new
+    @grid_is_shown = show_grid
   end
 
   # Overwrites our game fields with those from other grid.
@@ -88,7 +89,7 @@ class Grid < Drawable
     each do |field|
       field.draw_onto(canvas)
     end
-    @grid_box.draw_onto(canvas)
+    @grid_box.draw_onto(canvas) if @grid_is_shown
   end
 
   # Get total width of grid that is the 2 Border pixels
