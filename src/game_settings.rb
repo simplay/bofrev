@@ -116,40 +116,20 @@ class GameSettings
     game_meta_data.allowed_controls
   end
 
-  def cell_size
-    GameSettings.render_attributes[:cell_size]
-  end
-
   def self.cell_size
     GameSettings.render_attributes[:cell_size]
-  end
-
-  def width_pixels
-    GameSettings.render_attributes[:width_pixels]
   end
 
   def self.width_pixels
     GameSettings.render_attributes[:width_pixels]
   end
 
-  def height_pixels
-    GameSettings.render_attributes[:height_pixels]
-  end
-
   def self.height_pixels
     GameSettings.render_attributes[:height_pixels]
   end
 
-  def max_height
-    GameSettings.render_attributes[:max_height]
-  end
-
   def self.max_height
     GameSettings.render_attributes[:max_height]
-  end
-
-  def max_width
-    GameSettings.render_attributes[:max_width]
   end
 
   def self.max_width
@@ -158,14 +138,6 @@ class GameSettings
 
   def self.tics_per_second
     GameSettings.render_attributes[:tics_per_second]
-  end
-
-  def tics_per_second
-    GameSettings.render_attributes[:tics_per_second]
-  end
-
-  def show_grid?
-    GameSettings.render_attributes[:show_grid]
   end
 
   def self.show_grid?

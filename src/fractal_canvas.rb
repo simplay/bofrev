@@ -3,6 +3,7 @@ require 'point2f'
 require 'color'
 require 'java'
 require 'game_settings'
+
 class FractalCanvas < Canvas
 
   MUTE = true
