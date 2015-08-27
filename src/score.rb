@@ -3,6 +3,7 @@ require 'event'
 require 'game_settings'
 
 class Score
+
  include Observable
 
   def initialize
@@ -19,4 +20,5 @@ class Score
     notify_all_targets_of_type_with_message(GameSettings.achievement_system_sym, Event.new(:score, @score))
     @score
   end
+
 end

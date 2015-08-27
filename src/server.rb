@@ -1,6 +1,7 @@
 require 'socket'
 
 class Server
+
   PORT = 1337
 
   def initialize(port=PORT)

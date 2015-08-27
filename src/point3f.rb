@@ -1,6 +1,7 @@
 # a three dimensional Point. By default has value (0,0,0).
 # For instance, this can be used to represent RGB color values.
 class Point3f
+
   attr_accessor :x, :y, :z
 
   # Create a new Point3f instance.
