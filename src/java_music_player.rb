@@ -1,5 +1,5 @@
 require 'java'
-require 'libs/jl1.0.1.jar'
+require_relative '../lib/jl1.0.1.jar'
 
 java_import "java.io.FileInputStream"
 java_import "javazoom.jl.player.Player"

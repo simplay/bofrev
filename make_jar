@@ -1,0 +1,7 @@
+#!/usr/bin/env ruby
+
+system("mkdir bin")
+system("cp bofrev bin/bofrev")
+system("warble executable jar")
+system("rm -rf bin/")
+puts "Executable jar created."

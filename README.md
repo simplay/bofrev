@@ -21,14 +21,17 @@ All sound files are from [freesound.org](www.freesound.org).
 
 ## Plans
 
-+ Support advanced numerical grid computation to solve graph problems, PDEs.
 + Support advanced networking modes.
 
 ## Prerequisites
 
-Ruby **2.2.0** and bundle
+Ruby **2.2.0** or JRuby 9000, and bundle
 
 ## Installation:
+
+Either run `java -jar bofrev.jar`
+
+or perform the following steps
 
 ### Windows 
 Go to `http://rubyinstaller.org/downloads/`
