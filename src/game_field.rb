@@ -1,8 +1,13 @@
 require 'color'
+require 'point2f'
+require 'drawables/drawable'
+require 'render_helpers'
+require 'java'
 
-class GameField
+class GameField < Drawable
 
   include Enumerable
+  include RenderHelpers
 
   attr_accessor :color, :type, :value,
                 :top, :bottom, :left, :right,
@@ -16,10 +21,50 @@ class GameField
   #   :ground_border - the floor border pixel. to check whether we can fall any deeper.
   #     checking for border types would result in index checks
   #     in order to determine whether we are considering a ground border cell
-  def initialize(color = Color.white, type = :field, value = 0)
+  def initialize(color = Color.white, type = :field, coordinates=Point2f.new(-1,-1), value=0)
     @color = color
     @type = type
+    @coordinates = coordinates
     @value = value
+  end
+
+  def draw_onto(canvas)
+
+  end
+
+  def column_idx
+    @coordinates.y
+  end
+
+  def row_idx
+    @coordinates.x
+  end
+  # note that x-coord corresponds to the column idx
+  # note that y-coord corresponds to the row idx
+  def draw_onto(g)
+    if drawable?
+      x0 = (column_idx-1)*cell_size
+      y0 = (row_idx-1)*cell_size
+      x1 = column_idx*cell_size
+      y1 = row_idx*cell_size
+      draw_rectangle_at(g, x0, y0, x1, y1, color)
+    end
+  end
+
+  # Draw a colored rectangle with having a certain border width onto @canvas.
+  #
+  # @hint Its top left position is given by a point (x0,y0) and
+  # its size by the span between the first and a 2nd point (x1, y1).
+  #
+  # @param x0 [Integer] or [Float] upper left corner x-component
+  # @param y0 [Integer] or [Float] upper left corner y-component
+  # @param x1 [Integer] or [Float] lower right corner x-component
+  # @param y1 [Integer] or [Float] lower right corner y-component
+  # @param color [String] color identifier.
+  # @param border_width [Integer] border pixel thickness.
+  def draw_rectangle_at(g, x0, y0, x1, y1, color)
+    g.setColor(color.to_awt_color)
+    g.fillRect(x0, y0, x1-x0, y1-y0)
   end
 
   def color
@@ -31,7 +76,7 @@ class GameField
   end
 
   def clone
-    GameField.new(@color, @type, @value)
+    GameField.new(@color, @type, @coordinates, @value)
   end
 
   def each(dataset=:neighbors_8, &block)

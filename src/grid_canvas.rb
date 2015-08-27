@@ -6,7 +6,8 @@ require 'java'
 class GridCanvas < Canvas
 
   def drawing_methods(g)
-    draw_grid_cells(g)
+    #draw_grid_cells(g)
+    field = @game.map.grid.draw_onto(g)
     draw_empty_grid(g, cell_size)
   end
 

@@ -19,6 +19,10 @@ class Map
     @layer_manager = LayerManager.new
   end
 
+  def grid
+    @grid
+  end
+
   def shapes
     @shape_manager.shapes
   end

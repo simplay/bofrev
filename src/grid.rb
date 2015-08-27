@@ -1,4 +1,6 @@
 require 'game_field'
+require 'drawables/drawable'
+
 require 'color' if (RUBY_PLATFORM != "java")
 
 # Grid is the Data Structure for an arbitrary 2d-(M x N) pixel game.
@@ -20,7 +22,7 @@ require 'color' if (RUBY_PLATFORM != "java")
 #   B B .. B B
 #
 # where B depicts a border cell,
-class Grid
+class Grid < Drawable
 
   include Enumerable
 
@@ -74,6 +76,13 @@ class Grid
           yield field
         end
       end
+    end
+  end
+
+  # Draw this shape onto a given canvas.
+  def draw_onto(canvas)
+    each do |field|
+      field.draw_onto(canvas)
     end
   end
 
@@ -213,7 +222,11 @@ class Grid
   #
   # @return [Array[Array]] an array of arrays encoding the game grid.
   def build_empty_grid
-    @data = (1..total_height).map do (1..total_width).map {GameField.new} end
+    @data = (1..total_height).map do |idx|
+      (1..total_width).map do |idy|
+        GameField.new(Color.white, :field, Point2f.new(idx-1, idy-1))
+      end
+    end
   end
 
   # Mark Grid Borders as special pixels
