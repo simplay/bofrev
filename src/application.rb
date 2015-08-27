@@ -1,6 +1,7 @@
 require 'game'
 require 'observer'
 require 'game_settings'
+require 'pry'
 
 # init gui with game
 # Follows the

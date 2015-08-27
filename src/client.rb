@@ -1,4 +1,10 @@
+require 'adapter'
+require 'observable'
+
 class Client
+
+  include Observable
+
   HOSTNAME = 'localhost'
   PORT = 1337
 
@@ -13,6 +19,7 @@ class Client
   def initialize(args, hostname = HOSTNAME, port = PORT)
     @hostname = hostname
     @port = port
+    @adapter = Adapter.new(self)
     start
   end
 
