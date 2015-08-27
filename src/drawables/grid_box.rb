@@ -1,7 +1,7 @@
 require_relative 'drawable'
 require 'point2f'
 require 'render_helpers'
-require 'java'
+require 'java' if (RUBY_PLATFORM == "java")
 
 class GridBox < Drawable
 
