@@ -30,7 +30,7 @@ class TetrisMetaData
   end
 
   def self.canvas
-    GridCanvas
+    FreeformCanvas
   end
 
   def self.render_attributes

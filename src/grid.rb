@@ -1,4 +1,8 @@
 require 'game_field'
+require 'point2f'
+require 'drawables/drawable'
+require 'drawables/grid_box'
+
 require 'color' if (RUBY_PLATFORM != "java")
 
 # Grid is the Data Structure for an arbitrary 2d-(M x N) pixel game.
@@ -20,7 +24,7 @@ require 'color' if (RUBY_PLATFORM != "java")
 #   B B .. B B
 #
 # where B depicts a border cell,
-class Grid
+class Grid < Drawable
 
   include Enumerable
 
@@ -38,8 +42,8 @@ class Grid
   #
   # @param width [Integer] width of grid
   # @param height [Integer] height of grid
-  def initialize(width, height)
-
+  def initialize(width, height, show_grid=false)
+    super(Point2f.new, true)
     # assign dimensions
     @inner_width = width
     @inner_height = height
@@ -49,6 +53,9 @@ class Grid
 
     specify_borders
     encode_grid_neighborhood
+
+    @grid_box = GridBox.new
+    @grid_is_shown = show_grid
   end
 
   # Overwrites our game fields with those from other grid.
@@ -75,6 +82,14 @@ class Grid
         end
       end
     end
+  end
+
+  # Draw this shape onto a given canvas.
+  def draw_onto(canvas)
+    each do |field|
+      field.draw_onto(canvas)
+    end
+    @grid_box.draw_onto(canvas) if @grid_is_shown
   end
 
   # Get total width of grid that is the 2 Border pixels
@@ -213,7 +228,11 @@ class Grid
   #
   # @return [Array[Array]] an array of arrays encoding the game grid.
   def build_empty_grid
-    @data = (1..total_height).map do (1..total_width).map {GameField.new} end
+    @data = (1..total_height).map do |idx|
+      (1..total_width).map do |idy|
+        GameField.new(Color.white, :field, Point2f.new(idx-1, idy-1))
+      end
+    end
   end
 
   # Mark Grid Borders as special pixels

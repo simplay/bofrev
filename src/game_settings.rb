@@ -166,4 +166,12 @@ class GameSettings
     GameSettings.render_attributes[:tics_per_second]
   end
 
+  def show_grid?
+    GameSettings.render_attributes[:show_grid]
+  end
+
+  def self.show_grid?
+    grid_is_shown = GameSettings.render_attributes[:show_grid]
+    grid_is_shown.nil? ? true : grid_is_shown
+  end
 end

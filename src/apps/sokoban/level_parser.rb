@@ -47,7 +47,7 @@ class LevelParser
 
   def process_row_element(label, row_idx, column_idx)
     if label == '#'
-      @grid.set_field_at(row_idx, column_idx, GameField.new(Color.yellow, :border, nil))
+      @grid.set_field_at(row_idx, column_idx, GameField.new(Color.yellow, :border, Point2f.new(column_idx, row_idx), nil))
 
     elsif label == 'p'
       @player = @grid.field_at(row_idx, column_idx)

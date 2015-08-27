@@ -1,6 +1,7 @@
 require 'map'
 require 'game_settings'
 require 'color'
+require 'point2f'
 
 class PingPongMap < Map
 
@@ -50,12 +51,12 @@ class PingPongMap < Map
 
   def init_pos
     @current_position.each do |pos|
-      @grid.set_field_at(pos,20,GameField.new(Color.blue))
+      @grid.set_field_at(pos,20,GameField.new(Color.blue, :border, Point2f.new(20, pos)))
     end
   end
 
   def wipe_out_at(idx)
-    @grid.set_field_at(idx,20,GameField.new(Color.white))
+    @grid.set_field_at(idx,20,GameField.new(Color.white, :border, Point2f.new(20, idx)))
   end
 
 end
