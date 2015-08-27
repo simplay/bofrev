@@ -1,5 +1,7 @@
 require 'game_field'
+require 'point2f'
 require 'drawables/drawable'
+require 'drawables/grid_box'
 
 require 'color' if (RUBY_PLATFORM != "java")
 
@@ -41,7 +43,7 @@ class Grid < Drawable
   # @param width [Integer] width of grid
   # @param height [Integer] height of grid
   def initialize(width, height)
-
+    super(Point2f.new, true)
     # assign dimensions
     @inner_width = width
     @inner_height = height
@@ -51,6 +53,8 @@ class Grid < Drawable
 
     specify_borders
     encode_grid_neighborhood
+
+    @grid_box = GridBox.new
   end
 
   # Overwrites our game fields with those from other grid.
@@ -84,6 +88,7 @@ class Grid < Drawable
     each do |field|
       field.draw_onto(canvas)
     end
+    @grid_box.draw_onto(canvas)
   end
 
   # Get total width of grid that is the 2 Border pixels

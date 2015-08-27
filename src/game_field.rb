@@ -26,6 +26,7 @@ class GameField < Drawable
   #     checking for border types would result in index checks
   #     in order to determine whether we are considering a ground border cell
   def initialize(color = Color.white, type = :field, coordinates=Point2f.new(-1,-1), value=0)
+    super(coordinates, true)
     @color = color
     @type = type
     @coordinates = coordinates
