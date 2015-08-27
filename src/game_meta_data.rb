@@ -6,7 +6,9 @@ require 'control_constants'
 # GameMetaData models (game) application specific properties that either determine
 # its behaviour or/and its outlook.
 module GameMetaData
+
   include ControlConstants
+
   module ClassMethods
 
     def gui_type_as_sym
@@ -24,7 +26,6 @@ module GameMetaData
       word.downcase!
       word
     end
-
   end
 
   def self.included(klass)
