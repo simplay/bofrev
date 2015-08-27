@@ -6,7 +6,7 @@ require 'game_settings'
 require 'control_constants'
 require_relative 'drawables/shape_manager'
 require 'layer_manager'
-
+require 'pry'
 class Map
 
   include ControlConstants
