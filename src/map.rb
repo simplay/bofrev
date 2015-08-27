@@ -17,6 +17,8 @@ class Map
     @grid = Grid.new(GameSettings.width_pixels, GameSettings.height_pixels)
     @shape_manager = ShapeManager.new
     @layer_manager = LayerManager.new
+    @layer_manager.append_to([@grid], :foreground)
+    #@layer_manager.append_to(center_shapes, :center)
   end
 
   def grid

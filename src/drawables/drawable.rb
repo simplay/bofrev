@@ -36,7 +36,6 @@ class Drawable
   end
 
   def update_animation_state
-    raise "not implemented yet"
   end
 
   # @param other_drawable [Drawable] other drawable we test for a collision.

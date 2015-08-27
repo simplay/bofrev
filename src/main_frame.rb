@@ -1,4 +1,3 @@
-require 'grid_canvas'
 require 'control_constants'
 require 'game_settings'
 
