@@ -3,23 +3,17 @@ require 'point2f'
 require 'drawables/drawable'
 require 'render_helpers'
 require 'java'
+require 'game_field_type_constants'
 
 class GameField < Drawable
 
   include Enumerable
   include RenderHelpers
+  include GameFieldTypeConstants
 
   attr_accessor :color, :type, :coordinates, :value,
                 :top, :bottom, :left, :right,
                 :top_left, :top_right, :bottom_left, :bottom_right
-
-  TYPES = [
-    :free,
-    :moving,
-    :placed,
-    :border,
-    :ground_border
-  ]
 
   # @param color [Color] 32bit rgb colour.
   # @param type [Symbol] incoding state of field
@@ -29,7 +23,7 @@ class GameField < Drawable
   #   :ground_border - the floor border pixel. to check whether we can fall any deeper.
   #     checking for border types would result in index checks
   #     in order to determine whether we are considering a ground border cell
-  def initialize(color = Color.white, type = :free, coordinates=Point2f.new(-1,-1), value=0)
+  def initialize(color = Color.white, type = FREE, coordinates=Point2f.new(-1,-1), value=0)
     super(coordinates, true)
     @color = color
     @type = type
@@ -146,28 +140,28 @@ class GameField < Drawable
   end
 
   def moving?
-    @type == :moving
+    @type == MOVING
   end
 
   # is this field a free field,
   # i.e. not placed, no border, no ground?
   def free?
-    @type == :free
+    @type == FREE
   end
 
   # this this field placed by a block?
   def placed?
-    @type == :placed
+    @type == PLACED
   end
 
   # is this field a side-border?
   def border?
-    @type == :border
+    @type == BORDER
   end
 
   # is this field a ground border?
   def floor?
-    @type == :ground_border
+    @type == GROUND_BORDER
   end
 
   def to_s
@@ -177,7 +171,7 @@ class GameField < Drawable
   # flush current state of this field to default state
   # that is :free and white
   def wipe_out
-    @type = :free
+    @type = FREE
     @color = Color.white
   end
 
@@ -187,16 +181,19 @@ class GameField < Drawable
   end
 
   def to_i
-    if @type == :border
+    case self
+    when border?
       2
-    elsif @type == :ground_border
+    when floor?
       3
-    elsif @type == :placed
+    when placed?
       4
-    elsif drawable?
+    when drawable?
       1
-    else
+    when free?
       0
+    else
+      -1
     end
   end
 
@@ -217,7 +214,5 @@ class GameField < Drawable
     g.setColor(color.to_awt_color)
     g.fillRect(x0, y0, x1-x0, y1-y0)
   end
-
-
 
 end
