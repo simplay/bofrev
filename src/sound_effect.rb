@@ -1,30 +1,16 @@
-require 'game_settings'
-require 'java'
-require 'java_music_player'
+require 'music_player'
 
-class SoundEffect
+class SoundEffect < MusicPlayer
 
-  # Sounds
-  SOUND_EFFECTS = {
-      :jump => "audio/jump.mp3",
-      :explosion => "audio/explosion.mp3",
-      :kick => "audio/kick.mp3"
-  }
-
-  def initialize(sound_effects = SOUND_EFFECTS)
-    @sound_effects = sound_effects
+  def initialize(sound_effects)
+    super(sound_effects)
   end
 
-  # terminate music thread:
-  # end its loop, free its resources, wipe out process
-  def shut_down
-    @mp.stop
-  end
-
+  # Plays a target sound file ounce.
+  # @param effect_sound [Symbol] key of target sound file that should be played.
   def play(effect_sound)
-    sound_file = @sound_effects[effect_sound]
-    @mp = JavaMusicPlayer.new(sound_file)
-    @mp.play
+    sound_file = audio_file_from_list(effect_sound)
+    run_player_for(sound_file)
   end
 
 end

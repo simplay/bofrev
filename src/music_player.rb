@@ -8,7 +8,7 @@ class MusicPlayer
   # @hint: (with extension) to desired audio file.
   # @return [Thread] reference to sound thread
   def initialize(path_file_name_list)
-    @song_list = path_file_name_list
+    @audio_file_list = path_file_name_list
     @keep_running = true
   end
 
@@ -19,12 +19,40 @@ class MusicPlayer
     @mp.stop
   end
 
+  # Number of audio files in internal audio list.
+  #
+  # @return [Integer] number of audio files.
+  def audio_file_count
+    @audio_file_list.length
+  end
+
+  # Retrieve an audio file from the audio file list for a given index.
+  #
+  # @param idx [Integer] or [Symbol] conforms to a valid key
+  # for @audio_file_list
+  def audio_file_from_list(idx)
+    @audio_file_list[idx]
+  end
+
   # Run game music player.
   def play
-    idx = rand(@song_list.length)
-    song = @song_list[idx]
-    @mp = JavaMusicPlayer.new(song)
+    idx = rand(audio_file_count)
+    audio_file = audio_file_from_list(idx)
+    run_player_loop_for(audio_file)
+  end
+
+  protected
+
+  # plays a given audio file an infinitly often using the JavaMusicPlayer
+  def run_player_loop_for(audio_file)
+    @mp = JavaMusicPlayer.new(audio_file)
     @mp.play_loop
+  end
+
+  # plays a given audio file once using the JavaMusicPlayer
+  def run_player_for(audio_file)
+    @mp = JavaMusicPlayer.new(audio_file)
+    @mp.play
   end
 
 end
