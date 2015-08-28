@@ -162,7 +162,7 @@ class Grid < Drawable
     @data[y][x]
   end
 
-  # Assign a new game field :field at a given location (x,y) in the grid.
+  # Assign a GameField field at a given location (x,y) in the grid.
   #
   # @param x [Integer] row index
   # @param y [Integer] column index
@@ -229,7 +229,7 @@ class Grid < Drawable
   def build_empty_grid
     @data = (1..total_height).map do |idx|
       (1..total_width).map do |idy|
-        GameField.new(Color.white, :field, Point2f.new(idx-1, idy-1))
+        GameField.new(Color.white, :free, Point2f.new(idx-1, idy-1))
       end
     end
   end

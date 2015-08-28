@@ -29,7 +29,7 @@ class Drawable
 
   # Draw this shape onto a given canvas.
   #
-  # @param canvas [TkCanvas]
+  # @param canvas [Java::JavaAwt::Graphics]
   def draw_onto(canvas)
     raise "not implemented yet"
   end
