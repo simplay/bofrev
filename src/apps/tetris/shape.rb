@@ -1,6 +1,7 @@
 require 'point2f'
 require_relative 'collision_checker'
 require_relative 'tetris'
+require 'game_field_type_constants'
 
 # Shape encodes a collection of dependent cells that have to be placed in the game grid,
 # using provided user inputs and game state updates.
@@ -42,6 +43,8 @@ require_relative 'tetris'
 #
 # Each shape has a color assigned.
 class Tetris::Shape
+
+  include GameFieldTypeConstants
 
   # Position in game grid (coordinates) that defines the zero (origin) of this shape's locale coordinate system.
   # NB: update when performing a move operation (translation).
@@ -124,7 +127,7 @@ class Tetris::Shape
 
         map_positions.each do |p|
           @grid_map.clear_field_at(p.x, p.y)
-          @grid_map.set_field_type_at(p.x, p.y, :free)
+          @grid_map.set_field_type_at(p.x, p.y, FREE)
         end
 
         @rotation_modus = (@rotation_modus + 1) % 4
@@ -132,7 +135,7 @@ class Tetris::Shape
 
         map_positions.each do |p|
           @grid_map.set_field_color_at(p.x, p.y, @color)
-          @grid_map.set_field_type_at(p.x, p.y, :moving)
+          @grid_map.set_field_type_at(p.x, p.y, MOVING)
         end
       end
     end
@@ -156,14 +159,14 @@ class Tetris::Shape
 
         map_positions.each do |p|
           @grid_map.clear_field_at(p.x, p.y)
-          @grid_map.set_field_type_at(p.x, p.y, :free)
+          @grid_map.set_field_type_at(p.x, p.y, FREE)
         end
 
         update_position_by(move_by)
 
         map_positions.each do |p|
           @grid_map.set_field_color_at(p.x, p.y, @color)
-          @grid_map.set_field_type_at(p.x, p.y, :moving)
+          @grid_map.set_field_type_at(p.x, p.y, MOVING)
         end
       end
     elsif collision_state.state == :grounded
@@ -191,7 +194,7 @@ class Tetris::Shape
   def mark_fields_placed
     points_in_grid_coords.each do |p|
       target_cell = @grid_map.field_at(p.x, p.y)
-      target_cell.type = :placed
+      target_cell.type = PLACED
     end
 
     return @grid_map.initiate_game_over if was_game_over_movement?
@@ -231,7 +234,7 @@ class Tetris::Shape
   def was_game_over_movement?
     points_in_grid_coords.each do |p|
       target_cell = @grid_map.field_at(p.x, p.y)
-      if p.y == 1 && target_cell.type == :placed
+      if p.y == 1 && target_cell.type == PLACED
         return true
       end
     end
