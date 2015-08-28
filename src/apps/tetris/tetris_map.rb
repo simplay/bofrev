@@ -44,6 +44,7 @@ class TetrisMap < Map
     when S_KEY
       @shape.move_shape(Point2f.new(0, 1))
     when W_KEY
+      return unless @shape.rotatable?
       was_rotated = @shape.rotate
       @sound_effect.play(:jump) if was_rotated
     end

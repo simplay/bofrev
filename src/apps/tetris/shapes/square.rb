@@ -16,5 +16,8 @@ class Tetris::Square < Tetris::Shape
     ]
   end
 
+  def rotatable?
+    false
+  end
 
 end

@@ -78,6 +78,14 @@ class Tetris::Shape
 
   end
 
+  # Is it possible to rotate this shape?
+  #
+  # @hint: Every shape, except the Square Shape can be rotated.
+  # @return [Boolean] true if shape can be rotated otherwise false.
+  def rotatable?
+    true
+  end
+
   # A collection of orientations of a given shape.
   # Each sub.array represents an shape orientation state
   # Each shape has 4 states, i.e. 4 sub-arrays.
