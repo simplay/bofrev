@@ -48,6 +48,10 @@ class Map
     @grid.set_field_color_at(x, y, color)
   end
 
+  def set_field_type_at(x, y, type)
+    @grid.set_field_type_at(x, y, type)
+  end
+
   def set_field_value_at(x, y, value)
     @grid.set_field_value_at(x, y, value)
   end

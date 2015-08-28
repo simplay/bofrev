@@ -193,6 +193,15 @@ class Grid < Drawable
     @data[y][x].color = color
   end
 
+  # Assign a new game type at a given field location (x,y) in the grid.
+  #
+  # @param x [Integer] row index
+  # @param y [Integer] column index
+  # @param type [Symbol] now game field state.
+  def set_field_type_at(x, y, type)
+    @data[y][x].type = type
+  end
+
   # Assign a new game color at a given field location (x,y) in the grid.
   #
   # @param x [Integer] row index

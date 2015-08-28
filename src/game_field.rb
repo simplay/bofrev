@@ -15,6 +15,7 @@ class GameField < Drawable
 
   TYPES = [
     :free,
+    :moving,
     :placed,
     :border,
     :ground_border
@@ -141,7 +142,11 @@ class GameField < Drawable
 
   # can data of this cell be used when redrawing the canvas?
   def drawable?
-    @color != Color.white && @color != Color.black
+    placed? || moving?
+  end
+
+  def moving?
+    @type == :moving
   end
 
   # is this field a free field,

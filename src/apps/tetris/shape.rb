@@ -124,6 +124,7 @@ class Tetris::Shape
 
         map_positions.each do |p|
           @grid_map.clear_field_at(p.x, p.y)
+          @grid_map.set_field_type_at(p.x, p.y, :free)
         end
 
         @rotation_modus = (@rotation_modus + 1) % 4
@@ -131,6 +132,7 @@ class Tetris::Shape
 
         map_positions.each do |p|
           @grid_map.set_field_color_at(p.x, p.y, @color)
+          @grid_map.set_field_type_at(p.x, p.y, :moving)
         end
       end
     end
@@ -154,12 +156,14 @@ class Tetris::Shape
 
         map_positions.each do |p|
           @grid_map.clear_field_at(p.x, p.y)
+          @grid_map.set_field_type_at(p.x, p.y, :free)
         end
 
         update_position_by(move_by)
 
         map_positions.each do |p|
           @grid_map.set_field_color_at(p.x, p.y, @color)
+          @grid_map.set_field_type_at(p.x, p.y, :moving)
         end
       end
     elsif collision_state.state == :grounded
