@@ -17,6 +17,7 @@ class Canvas < JPanel
   end
 
   def paintComponent(g)
+    super(g)
     drawing_methods(g)
   end
 
