@@ -10,6 +10,7 @@ java_import 'java.awt.event.MouseMotionListener'
 
 class View < Observer
 
+  # @param game [Game] business model containing data to draw.
   def initialize(game)
     game.subscribe(self)
     @game = game
@@ -17,6 +18,18 @@ class View < Observer
     attach_listeners
     clicked_onto_start
   end
+
+  # @overridden from [Observer]
+  def handle_event
+    @main_frame.update_canvas unless @game.finished?
+  end
+
+  # @overridden from [Observer]
+  def handle_event_with(message)
+    java.lang.System.exit(0) if message.type == :killed
+  end
+
+  protected
 
   def attach_listeners
     @main_frame.add_key_listener KeyListener.impl { |name, event|
@@ -46,7 +59,6 @@ class View < Observer
 
   end
 
-
   # Derive what key has been pressed by parsing the received key coding.
   #
   # @param key_value [Integer] integer key value.
@@ -75,14 +87,6 @@ class View < Observer
     puts "handling event: #{type} at (#{x}, #{y})"
     message = Event.new(type, Point2f.new(x,y))
     @game.perform_loop_step(message)
-  end
-
-  def handle_event
-    @main_frame.update_canvas unless @game.finished?
-  end
-
-  def handle_event_with(message)
-    java.lang.System.exit(0) if message.type == :killed
   end
 
   def clicked_onto_start
