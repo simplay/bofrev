@@ -21,7 +21,7 @@ class View < Observer
   def attach_listeners
     @main_frame.add_key_listener KeyListener.impl { |name, event|
       # key_debugger("KeyListener", name, event)
-      value_pressed_key = event.getKeyChar.chr
+      value_pressed_key = key_pressed_for(event.getKeyChar)
       event_identifier = "#{name}_#{value_pressed_key}"
       handle_pressed_key(event_identifier) if allowed_event?(event_identifier)
     }
@@ -44,6 +44,15 @@ class View < Observer
       handle_mouse_events(x, y, event_identifier) if allowed_event?(event_identifier, :mouse)
     }
 
+  end
+
+
+  # Derive what key has been pressed by parsing the received key coding.
+  #
+  # @param key_value [Integer] integer key value.
+  # @return [String] key string identifier.
+  def key_pressed_for(key_value)
+    (key_value > 255)? key_value.to_s : key_value.chr
   end
 
   def allowed_event?(identifier, type=:keyboard)
