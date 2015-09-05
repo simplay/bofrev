@@ -63,6 +63,7 @@ class View < Observer
       puts "start button clicked"
       @main_frame.start_button.setEnabled(false)
       @main_frame.pause_button.setEnabled(true)
+      @game.resume
       @main_frame.requestFocusInWindow
     }
 
