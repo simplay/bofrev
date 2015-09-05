@@ -148,11 +148,6 @@ class Game
     @ticker_thread = Ticker.new(self, Pacer.new(@score))
   end
 
-  def suspend_threads
-    @music_thread.suspend if GameSettings.run_music?
-    @ticker_thread.suspend if GameSettings.run_game_thread?
-  end
-
   def initialize_map
     @map = GameSettings.game_map.new(self)
   end
