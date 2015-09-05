@@ -11,6 +11,8 @@ java_import 'javax.swing.JButton'
 java_import 'javax.swing.Box'
 java_import 'java.awt.Container'
 
+java_import 'java.awt.event.ActionListener'
+
 class MainFrame < JFrame
 
   include ControlConstants
@@ -31,6 +33,14 @@ class MainFrame < JFrame
     @canvas.repaint
   end
 
+  def pause_button
+    @pause
+  end
+
+  def start_button
+    @start
+  end
+
   protected
 
   def init_gui
@@ -45,12 +55,12 @@ class MainFrame < JFrame
     controls.setLayout(FlowLayout.new(FlowLayout::CENTER))
     container.add(controls, BorderLayout::PAGE_END)
 
-    start = JButton.new("start");
-    pause = JButton.new("pause");
-    start.setEnabled(false)
-    pause.setEnabled(false)
-    controls.add(start)
-    controls.add(pause)
+    @start = JButton.new("start");
+    @pause = JButton.new("pause");
+    @start.setEnabled(false)
+
+    controls.add(@start)
+    controls.add(@pause)
     controls.add(Box.createRigidArea(Dimension.new(25, 0)));
 
     setLocationRelativeTo(nil)

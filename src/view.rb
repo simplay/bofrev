@@ -57,6 +57,20 @@ class View < Observer
       handle_mouse_events(x, y, event_identifier) if allowed_event?(event_identifier, :mouse)
     }
 
+    @main_frame.start_button.addActionListener ActionListener.impl { |name, event|
+      puts "start button clicked"
+      @main_frame.start_button.setEnabled(false)
+      @main_frame.pause_button.setEnabled(true)
+      @main_frame.requestFocusInWindow
+    }
+
+    @main_frame.pause_button.addActionListener ActionListener.impl { |name, event|
+      puts "pause button clicked"
+      @main_frame.start_button.setEnabled(true)
+      @main_frame.pause_button.setEnabled(false)
+      @main_frame.requestFocusInWindow
+    }
+
   end
 
   # Derive what key has been pressed by parsing the received key coding.
