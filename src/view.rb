@@ -15,6 +15,7 @@ class View < Observer
   def initialize(game)
     game.subscribe(self)
     @game = game
+    @is_suspended = false
     @main_frame = MainFrame.new(game)
     attach_listeners
     clicked_onto_start
@@ -69,9 +70,18 @@ class View < Observer
       puts "pause button clicked"
       @main_frame.start_button.setEnabled(true)
       @main_frame.pause_button.setEnabled(false)
+      @is_suspended = !@is_suspended
+      @game.pause
       @main_frame.requestFocusInWindow
     }
 
+  end
+
+  # is this view not suspended?
+  #
+  # @return [Boolean] true if game is running and otherwise false.
+  def running?
+    !@is_suspended
   end
 
   # Derive what key has been pressed by parsing the received key coding.
@@ -83,7 +93,7 @@ class View < Observer
   end
 
   def allowed_event?(identifier, type=:keyboard)
-    GameSettings.allowed_controls[type].include?(identifier)
+    GameSettings.allowed_controls[type].include?(identifier) && running?
   end
 
   def key_debugger(listener_type, name, event)

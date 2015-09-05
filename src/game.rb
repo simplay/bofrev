@@ -5,6 +5,7 @@ require 'music_player'
 require 'pacer'
 require 'game_settings'
 require 'event'
+require 'thread'
 
 class Game
   include Observable
@@ -15,9 +16,20 @@ class Game
   def initialize
     @turns_allowed = 10_000_000 # TODO: define a more meaningful ending/condition.
     @score = Score.new
+    @is_suspended = false
+    @mutex = Mutex.new
+    @resource = ConditionVariable.new
     initialize_map
     create_threads
     set_up_exit_handle
+  end
+
+  def mutex
+    @mutex
+  end
+
+  def cond_var
+    @resource
   end
 
   # Starts the game.
@@ -26,6 +38,25 @@ class Game
   def run
     start_threads
     perform_loop_step(Event.new('game started'))
+  end
+
+  def paused?
+    @mutex.synchronize do
+      @is_suspended
+    end
+  end
+
+  def pause
+    @mutex.synchronize do
+      @is_suspended = true
+    end
+  end
+
+  def resume
+    @mutex.synchronize do
+      @is_suspended = false
+      @resource.signal
+    end
   end
 
   # TODO: subscribe score to game and let it update itself
@@ -102,6 +133,11 @@ class Game
   def create_threads
     @music_thread = MusicPlayer.new(GameSettings.theme_list)
     @ticker_thread = Ticker.new(self, Pacer.new(@score))
+  end
+
+  def suspend_threads
+    #@music_thread.suspend if GameSettings.run_music?
+    @ticker_thread.suspend if GameSettings.run_game_thread?
   end
 
   def initialize_map

@@ -13,14 +13,23 @@ class Ticker
     return nil unless @pacer.running?
     @thread = Thread.new do
       loop do
-        break if finished?
-        @total_ticks += 1
-        @game.perform_loop_step(Event.new(:ticker, "tc: #{@total_ticks}"))
-        sleep(@pacer.idle_time)
+   #     @game.mutex.synchronize do
+          suspend if @game.paused?
+          break if finished?
+          @total_ticks += 1
+          @game.perform_loop_step(Event.new(:ticker, "tc: #{@total_ticks}"))
+          sleep(@pacer.idle_time)
+    #    end
       end
     end
     @thread.join
     nil
+  end
+
+  def suspend
+    @game.mutex.synchronize do
+      @game.cond_var.wait(@game.mutex)
+    end
   end
 
   def inc_speed
