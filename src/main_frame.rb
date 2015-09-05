@@ -46,10 +46,10 @@ class MainFrame < JFrame
     controls.add(Box.createRigidArea(Dimension.new(25, 0)));
 
     setLocationRelativeTo(nil)
-    pack
     setVisible(true)
     setResizable(false)
     requestFocusInWindow
+    pack
   end
 
   def update_canvas
