@@ -1,10 +1,11 @@
 # bofrev
 
-**bofrev** - Boring Friday Evening - is a typical Friday late-night ego-coding-session outcome.
+**bofrev** - Boring Friday Evening - originates from a Friday late-night coding session.
 
-The idea behind this project was and still _is_ to implement some kind of basic _Framework_ in order to
-implement 2D grid-based applications.
-Examples for such applications are old nintendo-like games, numerical simulations, and graphical editors.
+The idea behind this project _is_ to implement a _Framework_ to
+implement 2D applications similar to old nintendo games and numerical simulations. 
+
+The framework should allow to easily implement a game without having to understand how the framework is implemented. Ultimatively, a simple game should be implementable by only defining how user input affects the game state and how the game state should be periodically updated (according to a given world clock).
 
 This project is licensed under the [MIT License](https://github.com/simplay/bofrev/blob/master/LICENSE).
 
@@ -12,58 +13,40 @@ All sound files are from [freesound.org](www.freesound.org).
 
 ## Features
 
-+ 2D Grid Games with Collision Detection.
++ 2D Grid Games 
++ Freefrom games without a grid
++ Collision Detection.
++ Music Player, Sound Effect Player
 + Tetris Music with fancy effect sounds.
-+ Pseudo Framework to create custom 2d grid based games.
-+ Tetris, Game of Life, and many upcoming events
++ Tetris, Game of Life
 + Fractal Image Renderer
-+ Freeform image renderer with animations.
 
 ## Plans
 
 + Support advanced networking modes.
 
 ## Prerequisites
-
-Ruby **2.2.0** or JRuby 9000, and bundle
+JRuby 9.0.0.0.pre1, and bundle
 
 ## Installation:
 
++ install `rvm`. See [here](https://rvm.io/)
+ + run `\curl -sSL https://get.rvm.io | bash -s stable` 
++ install JRuby 9.0.0.0.pre1
+ + run `rvm install jruby-9.0.0.0.pre1`  
++ install `bundler`
++ clone this repository
++ code into `bofrev`
++ run `bundle`
++ start coding
+
+## Start application
 Either run `java -jar bofrev.jar`
-
-or perform the following steps
-
-### Windows 
-Go to `http://rubyinstaller.org/downloads/`
-Download ruby Ruby 2.2.1 and install it
-Download Development Kit _for use with Ruby 2.0 and 2.1_ and install
-Install the [Development Kit](https://forwardhq.com/help/installing-ruby-windows)
-with the following key-steps: 
-
-+ First extract files to `C:\DevKit`:
-
- 1. Open **cmd**
- 2. Enter `cd c:`
- 3. Enter `mkdir DevKit`
- 4. Copy downloaded DevKit Archieve File into that folder.
- 5. Run the downloaded DevKit executable within that directory.
-
-+ Then perfrom the following steps:
-
- 1. `chdir C:\DevKit`
- 2. `ruby dk.rb init`
- 3. `ruby dk.rb install`
-
-### Mac
-+ Have sounds when running the game: `brew install mplayer`.
-+ `chmod +x bofrev` to run `./bofrev`.
-+ Run `bundle`
+or `ruby bofrev`
 
 ## Usage
 
-+ rjuby `jruby -J-Xss1024m bofrev -d 1 -g 1` to run game 1 in debug mode 1 using jruby.
-
-`./bofrev -d <D> -g <G> -m <M>` to run the game `<G>` in running mode `<D>`.
+Enter `./bofrev -d <D> -g <G> -m <M>` into your terminal to run the game `<G>` in running mode `<D>`.
 
 + Game Mode `<D>` is an _optional_ parameter:
 
