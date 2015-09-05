@@ -59,6 +59,7 @@ class Game
   def pause
     @mutex.synchronize do
       @is_suspended = true
+      @music_thread.suspend
     end
   end
 
@@ -66,6 +67,7 @@ class Game
   def resume
     @mutex.synchronize do
       @is_suspended = false
+      @music_thread.resume
       @resource.signal
     end
   end
@@ -147,7 +149,7 @@ class Game
   end
 
   def suspend_threads
-    #@music_thread.suspend if GameSettings.run_music?
+    @music_thread.suspend if GameSettings.run_music?
     @ticker_thread.suspend if GameSettings.run_game_thread?
   end
 

@@ -41,6 +41,14 @@ class MusicPlayer
     run_player_loop_for(audio_file)
   end
 
+  def suspend
+    @mp.pause
+  end
+
+  def resume
+    @mp.resume
+  end
+
   protected
 
   # plays a given audio file an infinitly often using the JavaMusicPlayer

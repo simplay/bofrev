@@ -1,18 +1,29 @@
 require 'java'
 require_relative '../lib/jl1.0.1.jar'
 java_import "java.io.FileInputStream"
-java_import "javazoom.jl.player.Player"
+java_import "javazoom.jl.player.advanced.AdvancedPlayer"
 
 class JavaMusicPlayer
 
   def initialize(file)
     @file = file
+    @is_runnable = true
+  end
+
+  def pause
+    @is_runnable = false
+    @jmp.close
+  end
+
+  # TODO: start playing from correct frame (from paused frame)
+  def resume
+    @is_runnable = true
   end
 
   def play_loop
     @thread = Thread.new do
       loop do
-        run_sample
+        run_sample if @is_runnable
       end
     end
   end
@@ -29,11 +40,10 @@ class JavaMusicPlayer
 
   protected
 
-  def run_sample
+  def run_sample(start_frame=0, end_frame=1000000000)
     input_stream = FileInputStream.new(@file)
-    Java::JavazoomJlPlayer::Player
-    @jmp = Java::JavazoomJlPlayer::Player.new(input_stream)
-    @jmp.play
+    @jmp = Java::JavazoomJlPlayerAdvanced::AdvancedPlayer.new(input_stream)
+    @jmp.play(start_frame, end_frame)
     sleep 0.5
   end
 
