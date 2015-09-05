@@ -11,8 +11,6 @@ java_import 'javax.swing.JButton'
 java_import 'javax.swing.Box'
 java_import 'java.awt.Container'
 
-java_import 'java.awt.event.ActionListener'
-
 class MainFrame < JFrame
 
   include ControlConstants

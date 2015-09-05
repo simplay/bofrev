@@ -7,6 +7,7 @@ require 'java'
 java_import 'java.awt.event.KeyListener'
 java_import 'java.awt.event.MouseListener'
 java_import 'java.awt.event.MouseMotionListener'
+java_import 'java.awt.event.ActionListener'
 
 class View < Observer
 
