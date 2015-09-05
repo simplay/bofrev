@@ -36,13 +36,11 @@ JRuby 9.0.0.0.pre1, and bundle
  + run `rvm install jruby-9.0.0.0.pre1`  
 + install `bundler`
 + clone this repository
-+ code into `bofrev`
++ `cd` into `bofrev/`
 + run `bundle`
-+ start coding
 
 ## Start application
-Either run `java -jar bofrev.jar`
-or `ruby bofrev`
+Either run `ruby bofrev` or run `java -jar bofrev.jar`. For further information, please have a look at the **Usage** section below.
 
 ## Usage
 
