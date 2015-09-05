@@ -27,6 +27,12 @@ class MainFrame < JFrame
     [@offset_x, @offset_y]
   end
 
+  def update_canvas
+    @canvas.repaint
+  end
+
+  protected
+
   def init_gui
     container = getContentPane
     container.setLayout(BorderLayout.new)
@@ -41,6 +47,8 @@ class MainFrame < JFrame
 
     start = JButton.new("start");
     pause = JButton.new("pause");
+    start.setEnabled(false)
+    pause.setEnabled(false)
     controls.add(start)
     controls.add(pause)
     controls.add(Box.createRigidArea(Dimension.new(25, 0)));
@@ -50,10 +58,6 @@ class MainFrame < JFrame
     setResizable(false)
     requestFocusInWindow
     pack
-  end
-
-  def update_canvas
-    @canvas.repaint
   end
 
 end
