@@ -1,6 +1,6 @@
 # bofrev
 
-[![Build Status](https://travis-ci.org/panmari/bofrev.svg?branch=master)](https://travis-ci.org/panmari/bofrev)
+[![Build Status](https://travis-ci.org/simplay/bofrev.svg?branch=master)](https://travis-ci.org/simplay/bofrev)
 
 **bofrev** - Boring Friday Evening - originates from a Friday late-night coding session.
 
