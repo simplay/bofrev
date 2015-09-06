@@ -1,6 +1,4 @@
-require_relative '../src/grid'
-require_relative '../src/color'
-require 'pry'
+require_relative 'spec_helpers'
 
 describe Grid do
 
@@ -10,7 +8,7 @@ describe Grid do
   end
 
   it 'should have total width of M+2 and total height of N+2' do
-    m = 13; n = 22;
+    m = 13; n = 22
     grid = Grid.new(m, n)
     expect(grid.inner_width).to eq(m)
     expect(grid.inner_height).to eq(n)

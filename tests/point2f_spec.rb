@@ -1,4 +1,4 @@
-require_relative '../src/point2f'
+require_relative 'spec_helpers'
 
 describe Point2f do
   it 'shoud instantiate a (0,0) value when passing no args' do
