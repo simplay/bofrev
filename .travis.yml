@@ -1,3 +1,12 @@
 language: ruby
 cache: bundler
 script: bundle exec rspec tests/
+deploy:
+  provider: releases
+  api_key:
+    secure: dprQqh0dR6IX7dpT4+VZn9JiDgKSb+TwXomQXSchR2biEjjAFlqWF5sJBxjJW+DQlUIgAA5AwBhQ6ZHA03ez7CcEgFCRq0KiIZqLWrdCZXConyxG1o74H2VHrFB5BPML3OVlCCZSO21pNwi4DsZNI+IplV81bMYS3li1+9ULCN0az9i49r2DEavE4scCJIAu5CDuTO1y62fXT7q5z0EMAPxBeknHOiwF1ME9fNlF1wpzb0sSyTtfoA4bPHQFbR9W6RLgKXatUC25Cqb1l1ooXCUMFj9wVa3y1rRMsX3Tq0MsRPy3Qxfa6kZw5Lm6MDZiRfvNG3tVDihC4YANC9Vz8vHqXSaGiQ1Bt6P2NXWzFiekRevcVnn5FIYhw5k5mSGnt0dze/a5UB2vyhwY/n1CasFGr9FGLrZgxLedHzK5kiFLFIB6KGVXez5zNs2AjT54g6Ryf3+rvS1UY2HW9y1AO/98kqobUcqcm1DsCTE2/PAq4W1GADrPNWH26kQ9gEMABs4UIv1r5KJz86DRC/1BB8BVBFWKsGg1vbSX/5xloClhHyrExwsT4s3yW5ta/F25Q8+d08kQ69eiW8kAkX+EL0JaKfIYGtqoqMi56p6/h9yaHcKW9ZYl5UlIrmG2j4xhjVNErBm8Jbrwkvszkch3Bep3BKkAriF2ivDqUWbHsoA=
+  file: bofrev.jar
+  skip_cleanup: true
+  before_deploy: "make_jar"
+  on:
+    tags: true
