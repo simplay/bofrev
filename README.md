@@ -1,5 +1,7 @@
 # bofrev
 
+[![Build Status](https://travis-ci.org/panmari/bofrev.svg?branch=master)](https://travis-ci.org/panmari/bofrev)
+
 **bofrev** - Boring Friday Evening - originates from a Friday late-night coding session.
 
 The idea behind this project _is_ to implement a _Framework_ to
