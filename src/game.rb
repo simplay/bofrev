@@ -5,10 +5,11 @@ require 'music_player'
 require 'pacer'
 require 'game_settings'
 require 'event'
-require 'thread'
+require 'waitable'
 
 class Game
   include Observable
+  include Waitable
 
   attr_accessor :map
   attr_reader :ticker_thread
@@ -24,52 +25,12 @@ class Game
     set_up_exit_handle
   end
 
-  # Game lock to support synchronized invocations locking on this game object.
-  #
-  # @return [Mutex] lock of this game instance.
-  def mutex
-    @mutex
-  end
-
-  # Contitional variable to monitor a game.
-  # @return [ConditionVariable] monitor on game's mutex.
-  # offers signaling on game lock.
-  def cond_var
-    @resource
-  end
-
   # Starts the game.
   #
   # @hint: Starts all relevant game threads and the game loop.
   def run
     start_threads
     perform_loop_step(Event.new('game started'))
-  end
-
-  # Is this game suspended?
-  # When a game is paused, all of the game related threads are supposed to be suspended as well.
-  # @return [Boolean] true if game is suspended otherwise false.
-  def paused?
-    @mutex.synchronize do
-      @is_suspended
-    end
-  end
-
-  # Suspend this game. Suspends all game threads.
-  def pause
-    @mutex.synchronize do
-      @is_suspended = true
-      @music_thread.suspend
-    end
-  end
-
-  # Resume this game. Resumes all game threads.
-  def resume
-    @mutex.synchronize do
-      @is_suspended = false
-      @music_thread.resume
-      @resource.signal
-    end
   end
 
   # TODO: subscribe score to game and let it update itself
@@ -146,6 +107,7 @@ class Game
   def create_threads
     @music_thread = MusicPlayer.new(GameSettings.theme_list)
     @ticker_thread = Ticker.new(self, Pacer.new(@score))
+    append_waitable(@music_thread)
   end
 
   def initialize_map
