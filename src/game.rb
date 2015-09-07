@@ -102,9 +102,11 @@ class Game
   end
 
   def create_threads
-    @music_thread = MusicPlayer.new(GameSettings.theme_list)
-    @ticker_thread = Ticker.new(self, Pacer.new(@score))
-    append_waitable(@music_thread)
+    if GameSettings.run_music?
+      @music_thread = MusicPlayer.new(GameSettings.theme_list)
+      append_waitable(@music_thread)
+    end
+    @ticker_thread = Ticker.new(self, Pacer.new(@score)) if GameSettings.run_game_thread?
   end
 
   def initialize_map
