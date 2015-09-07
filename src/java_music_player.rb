@@ -7,29 +7,38 @@ java_import "javazoom.jl.player.advanced.PlaybackListener"
 class JavaMusicPlayer
 
   # Java::JavazoomJlPlayerAdvanced::PlaybackListener
-  class MyPlaybackListener < Java::JavazoomJlPlayerAdvanced::PlaybackListener
+  class SoundPlayerPlaybackListener < Java::JavazoomJlPlayerAdvanced::PlaybackListener
+
+    def initialize
+      super
+      @frame_counter = 0
+    end
+
+    def frame_counter
+      @frame_counter
+    end
 
     def playbackFinished(event)
-      puts "finished"
+      @frame_counter = event.get_frame
     end
 
     def playbackStarted(event)
-      puts "started"
+       @frame_counter = 0
     end
+
   end
 
   def initialize(file)
     @file = file
     @is_runnable = true
-    @pbl = MyPlaybackListener.new
+    @pbl = SoundPlayerPlaybackListener.new
   end
 
   def pause
     @is_runnable = false
-    @jmp.close
+    @jmp.stop
   end
 
-  # TODO: start playing from correct frame (from paused frame)
   def resume
     @is_runnable = true
   end
@@ -58,6 +67,7 @@ class JavaMusicPlayer
     input_stream = FileInputStream.new(@file)
     @jmp = Java::JavazoomJlPlayerAdvanced::AdvancedPlayer.new(input_stream)
     @jmp.setPlayBackListener(@pbl)
+    start_frame = @pbl.frame_counter
     @jmp.play(start_frame, end_frame)
     sleep 0.5
   end
