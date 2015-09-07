@@ -27,7 +27,7 @@ class Ticker
   # let this ticker thread wait on the game conditional lock.
   def suspend
     @game.mutex.synchronize do
-      @game.cond_var.wait(@game.mutex)
+      @game.barrier.wait(@game.mutex)
     end
   end
 

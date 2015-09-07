@@ -28,21 +28,60 @@ module Waitable
   # Append a client waiting for this mutex' resource.
   #
   # @hint: Each client is supposed to implement the following methods:
-  #   :pause
-  #   :resume
+  #   :pause: halt this client (thread).
+  #   :resume: resume this client (thread).
+  # Clients are usually Thread objects.
   def append_waitable(client)
     @clients << client
   end
 
+  # Returns the mutex for this Waitable instance.
+  #
+  # @hint: Can be used to have synchronized/offer mutal exclusive accesses
+  # locking on this Waitable.
+  #
+  # @example:
+  # class Counter
+  #   include Waitable
+  #   ...
+  #   def increment
+  #     self.mutex.synchronize do
+  #       value = value++
+  #     end
+  #   end
+  #   ...
+  # end
+  #
+  # @return [Mutex] mutex of this Waitable.
+  # Models a lock used for mutual exclusive operations.
   def mutex
     @mutex
   end
 
-  def cond_var
+  # Returns the conditional conditional variable for this Waitable instance.
+  #
+  # @hint: can be used to wait/signal on this waitable.
+  # Do not forget locking via the mutex.
+  #
+  # @example:
+  #
+  # class Ticker
+  # ...
+  # def suspend
+  #   @game.mutex.synchronize do
+  #     @game.barrier.wait(@game.mutex)
+  #   end
+  # end
+  # ...
+  # end
+  #
+  # @return [ConditionVariable] conditional variable of this waitable.
+  def barrier
     @resource
+
   end
 
-  # Suspend this game. Suspends all game threads.
+  # Suspend this Waitable. Suspends all clients threads.
   def pause
     @mutex.synchronize do
       @is_suspended = true
@@ -50,16 +89,17 @@ module Waitable
     end
   end
 
-  # Is this game suspended?
-  # When a game is paused, all of the game related threads are supposed to be suspended as well.
-  # @return [Boolean] true if game is suspended otherwise false.
+  # Is this Waitbale suspended?
+  # When a Waitable is paused, all of the game related threads are supposed
+  # to be suspended as well.
+  # @return [Boolean] true if Waitable is suspended otherwise false.
   def paused?
     @mutex.synchronize do
       @is_suspended
     end
   end
 
-  # Resume this game. Resumes all game threads.
+  # Resume this Waitable. Resumes all Waitable client threads.
   def resume
     @mutex.synchronize do
       @is_suspended = false
