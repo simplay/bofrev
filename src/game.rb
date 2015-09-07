@@ -17,9 +17,6 @@ class Game
   def initialize
     @turns_allowed = 10_000_000 # TODO: define a more meaningful ending/condition.
     @score = Score.new
-    @is_suspended = false
-    @mutex = Mutex.new
-    @resource = ConditionVariable.new
     initialize_map
     create_threads
     set_up_exit_handle
