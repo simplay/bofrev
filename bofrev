@@ -43,6 +43,14 @@ rescue OptionParser::MissingArgument
   exit
 end
 
+# is bofrev runned by jar or by console
+caller_name = "#{$PROGRAM_NAME}"
+if caller_name.include?("<script>")
+  $audio_files_base_path = "bofrev/"
+else
+  $audio_files_base_path = ""
+end
+puts "runned by #{$audio_files_base_path}"
 Application.new(user_args)
 
 
