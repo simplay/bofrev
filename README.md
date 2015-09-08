@@ -31,9 +31,10 @@ This project is licensed under the [MIT License](https://github.com/simplay/bofr
 + Support advanced networking modes.
 
 ## Prerequisites
-JRuby 9.0.0.0.pre1, and bundle
++ JRuby 9.0.0.0.pre1
++ bundle
 
-## Installation:
+## Installation
 
 + install `rvm`. See [here](https://rvm.io/)
  + run `\curl -sSL https://get.rvm.io | bash -s stable` 
