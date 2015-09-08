@@ -1,74 +1,68 @@
 require 'java'
-require_relative '../lib/jl1.0.1.jar'
 java_import "java.io.FileInputStream"
-java_import "javazoom.jl.player.advanced.AdvancedPlayer"
-java_import "javazoom.jl.player.advanced.PlaybackListener"
+
+require_relative '../lib/tinysound-1.1.1/tinysound-1.1.1.jar'
+java_import 'kuusisto.tinysound.Music'
+java_import 'kuusisto.tinysound.Sound'
+java_import 'kuusisto.tinysound.TinySound'
+
+require 'pry'
 
 class JavaMusicPlayer
 
-  # Java::JavazoomJlPlayerAdvanced::PlaybackListener
-  class SoundPlayerPlaybackListener < Java::JavazoomJlPlayerAdvanced::PlaybackListener
-
-    def initialize
-      super
-      @frame_counter = 0
-    end
-
-    def frame_counter
-      @frame_counter
-    end
-
-    def playbackFinished(event)
-      @frame_counter = event.get_frame
-    end
-
-    def playbackStarted(event)
-       @frame_counter = 0
-    end
-
-  end
 
   def initialize(file)
     @file = file
     @is_runnable = true
-    @pbl = SoundPlayerPlaybackListener.new
+
+    TinySound.init
+
+
+
+
   end
 
   def pause
     @is_runnable = false
-    @jmp.stop
+    @audio_file.pause
   end
 
   def resume
+    @audio_file.resume
     @is_runnable = true
   end
 
   def play_loop
     @thread = Thread.new do
-      loop do
-        run_sample if @is_runnable
-      end
+      run_sample(:loop)
     end
   end
 
   def play
     @thread = Thread.new do
-      run_sample
+      run_sample(:once)
     end
   end
 
   def stop
-    @jmp.close unless @jmp.nil?
+    @audio_file.stop
+  end
+
+  def shut_down
+    TinySound.shutdown
   end
 
   protected
 
-  def run_sample(start_frame=0, end_frame=1000000000)
+  def run_sample(type)
     input_stream = FileInputStream.new(@file)
-    @jmp = Java::JavazoomJlPlayerAdvanced::AdvancedPlayer.new(input_stream)
-    @jmp.setPlayBackListener(@pbl)
-    start_frame = @pbl.frame_counter
-    @jmp.play(start_frame, end_frame)
+    if type == :loop
+      @audio_file = TinySound.loadMusic(@file)
+      @audio_file.play(true)
+    else
+      @audio_file = TinySound.loadSound(@file)
+      @audio_file.play
+    end
     sleep 0.5
   end
 

@@ -17,6 +17,7 @@ class MusicPlayer
   def shut_down
     @keep_running = false
     @mp.stop
+    @mp.shut_down
   end
 
   # Number of audio files in internal audio list.
