@@ -8,7 +8,7 @@ Warbler::Config.new do |config|
   # - gemjar: package the gem repository in a jar file in WEB-INF/lib
   # - executable: embed a web server and make the war executable
   # - compiled: compile .rb files to .class files
-  # config.features = %w(gemjar)
+  config.features = %w(executable)
 
   # Application directories to be included in the webapp.
   #config.dirs = %w(audio/jump.wav, bofrev)
@@ -23,8 +23,8 @@ Warbler::Config.new do |config|
   # in lib (and not otherwise excluded) then they need not be mentioned here.
   # JRuby and JRuby-Rack are pre-loaded in this list.  Be sure to include your
   # own versions if you directly set the value
-  config.java_libs += FileList["lib/tinysound-1.1.1/tinysound-1.1.1.jar"]
-  config.java_libs += FileList["lib/tinysound-1.1.1/lib/jorbis-0.0.17.jar",
+  config.java_libs += FileList["lib/tinysound-1.1.1/tinysound-1.1.1.jar",
+                               "lib/tinysound-1.1.1/lib/jorbis-0.0.17.jar",
                                "lib/tinysound-1.1.1/lib/tritonus_share.jar",
                                "lib/tinysound-1.1.1/lib/vorbisspi1.0.3.jar"]
 #, lib/tinysound-1.1.1/lib/orbis-0.0.17.jar, lib/tinysound-1.1.1/lib/ritonus_share.jar, lib/tinysound-1.1.1/lib/orbisspi1.0.3.jar
