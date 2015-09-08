@@ -6,14 +6,14 @@ class TetrisMetaData
   include GameMetaData
 
   def self.theme_list
-    ['audio/tetris_tone_loop.mp3']
+    ['audio/tetris_tone_loop.wav']
   end
 
   def self.sound_effect_list
     {
-        :jump => "audio/jump.mp3",
-        :explosion => "audio/explosion.mp3",
-        :kick => "audio/kick.mp3"
+        :jump => "audio/jump.wav",
+        :explosion => "audio/explosion.wav",
+        :kick => "audio/kick.wav"
     }
   end
 

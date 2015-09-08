@@ -11,10 +11,10 @@ Warbler::Config.new do |config|
   # config.features = %w(gemjar)
 
   # Application directories to be included in the webapp.
-  # config.dirs = %w(app config db lib log script vendor tmp)
+  #config.dirs = %w(audio/jump.wav, bofrev)
 
   # Additional files/directories to include, above those in config.dirs
-  # config.includes = FileList["db"]
+  #config.includes = FileList["bin/audio/jump.wav"]
 
   # Additional files/directories to exclude
   # config.excludes = FileList["lib/tasks/*"]
@@ -23,8 +23,11 @@ Warbler::Config.new do |config|
   # in lib (and not otherwise excluded) then they need not be mentioned here.
   # JRuby and JRuby-Rack are pre-loaded in this list.  Be sure to include your
   # own versions if you directly set the value
-  #config.java_libs += FileList["lib/jl1.0.1.jar"]
-
+  config.java_libs += FileList["lib/tinysound-1.1.1/tinysound-1.1.1.jar"]
+  config.java_libs += FileList["lib/tinysound-1.1.1/lib/jorbis-0.0.17.jar",
+                               "lib/tinysound-1.1.1/lib/tritonus_share.jar",
+                               "lib/tinysound-1.1.1/lib/vorbisspi1.0.3.jar"]
+#, lib/tinysound-1.1.1/lib/orbis-0.0.17.jar, lib/tinysound-1.1.1/lib/ritonus_share.jar, lib/tinysound-1.1.1/lib/orbisspi1.0.3.jar
   # Loose Java classes and miscellaneous files to be included.
   # config.java_classes = FileList["target/classes/**.*"]
 
