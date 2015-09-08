@@ -6,20 +6,13 @@ java_import 'kuusisto.tinysound.Music'
 java_import 'kuusisto.tinysound.Sound'
 java_import 'kuusisto.tinysound.TinySound'
 
-require 'pry'
-
 class JavaMusicPlayer
 
 
   def initialize(file)
     @file = file
     @is_runnable = true
-
     TinySound.init
-
-
-
-
   end
 
   def pause
@@ -55,7 +48,6 @@ class JavaMusicPlayer
   protected
 
   def run_sample(type)
-    input_stream = FileInputStream.new(@file)
     if type == :loop
       @audio_file = TinySound.loadMusic(@file)
       @audio_file.play(true)
