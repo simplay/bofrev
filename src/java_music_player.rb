@@ -10,7 +10,7 @@ class JavaMusicPlayer
 
 
   def initialize(file)
-    @file = file
+    @file = $audio_files_base_path+file
     @is_runnable = true
     TinySound.init
   end
