@@ -11,7 +11,10 @@ The framework should allow to easily implement a game without having to understa
 
 This project is licensed under the [MIT License](https://github.com/simplay/bofrev/blob/master/LICENSE).
 
-All sound files are from [freesound.org](www.freesound.org).
+## Acknowledgement
+
++ All sound files are from [freesound.org](www.freesound.org).
++ For playing sound files, bofrev uses the java library [TinySound](https://github.com/finnkuusisto/TinySound).
 
 ## Features
 
