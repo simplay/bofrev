@@ -18,7 +18,6 @@ class View < Observer
     @is_suspended = game.paused?
     @main_frame = MainFrame.new(game)
     attach_listeners
-    #clicked_onto_start
   end
 
   # @overridden from [Observer]
@@ -60,7 +59,7 @@ class View < Observer
     }
 
     @main_frame.start_button.addActionListener ActionListener.impl { |name, event|
-      clicked_onto_start
+      @game.run
       @main_frame.start_button.setEnabled(false)
       @main_frame.pause_button.setEnabled(true)
       @main_frame.requestFocusInWindow
@@ -115,10 +114,6 @@ class View < Observer
     puts "handling event: #{type} at (#{x}, #{y})"
     message = Event.new(type, Point2f.new(x,y))
     @game.perform_loop_step(message)
-  end
-
-  def clicked_onto_start
-    @game.run
   end
 
 end
