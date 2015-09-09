@@ -6,9 +6,7 @@ require_relative 'snake'
 class SnakeMap < Map
 
   def initialize(game)
-    super(game)
-    @prev_iter_grid = Grid.new(GameSettings.width_pixels, GameSettings.height_pixels)
-    @mutex = Mutex.new
+    super(game, :placed)
 
     @movement_direction = Point2f.new(1.0, 0.0)
     @snake_pos = Point2f.new(1.0, 1.0)

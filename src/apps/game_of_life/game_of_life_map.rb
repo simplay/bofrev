@@ -5,10 +5,7 @@ require 'color'
 class GameOfLifeMap < Map
 
   def initialize(game)
-    super(game)
-    @prev_iter_grid = Grid.new(GameSettings.width_pixels, GameSettings.height_pixels, GameSettings.show_grid?)
-    @grid.set_field_types_to(:placed)
-    @prev_iter_grid.set_field_types_to(:placed)
+    super(game, :placed)
     @allow_updates = false
     @mutex = Mutex.new
   end

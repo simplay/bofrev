@@ -11,10 +11,14 @@ class Map
 
   include ControlConstants
 
-  def initialize(game)
+  def initialize(game, default_grid_field_type = :free)
     @sound_effect = SoundEffect.new(GameSettings.sound_effect_list)
     @game = game
+    @mutex = Mutex.new
     @grid = Grid.new(GameSettings.width_pixels, GameSettings.height_pixels, GameSettings.show_grid?)
+    @prev_iter_grid = Grid.new(GameSettings.width_pixels, GameSettings.height_pixels, GameSettings.show_grid?)
+    @grid.set_field_types_to(default_grid_field_type)
+    @prev_iter_grid.set_field_types_to(default_grid_field_type)
     @shape_manager = ShapeManager.new
     @layer_manager = LayerManager.new
     @layer_manager.append_to([@grid], :foreground)

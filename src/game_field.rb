@@ -136,7 +136,7 @@ class GameField < Drawable
 
   # can data of this cell be used when redrawing the canvas?
   def drawable?
-    placed? || moving?
+    placed? || moving? || border?
   end
 
   def moving?
