@@ -82,7 +82,7 @@ class GameSettings
   end
 
   def self.run_music?
-    build_from.selected_mode < 1
+    build_from.selected_mode < 1 && !(theme_list).empty?
   end
 
   def self.run_game_thread?
