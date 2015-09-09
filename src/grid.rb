@@ -41,20 +41,29 @@ class Grid < Drawable
   #
   # @param width [Integer] width of grid
   # @param height [Integer] height of grid
-  def initialize(width, height, show_grid=false)
+  def initialize(width, height, show_grid=false, cell_default_type=:free)
     super(Point2f.new, true)
     # assign dimensions
     @inner_width = width
     @inner_height = height
 
     # Internal data-structure of a the grid.
-    @data = build_empty_grid
+    @data = build_empty_grid(cell_default_type)
 
     specify_borders
     encode_grid_neighborhood
 
     @grid_box = GridBox.new
     @grid_is_shown = show_grid
+  end
+
+  # Set the type of all inner game fields equal to a given type.
+  #
+  # @param given_type [Symbol] a known symbol from GameFieldTypeConstants
+  def set_field_types_to(given_type)
+    each do |field|
+      field.type = given_type
+    end
   end
 
   # Overwrites our game fields with those from other grid.
@@ -65,6 +74,7 @@ class Grid < Drawable
       other_grid.inner_row_at(row_idx).each_with_index do |other_field, idx|
         set_field_value_at(idx+1, row_idx, other_field.value)
         set_field_color_at(idx+1, row_idx, other_field.color)
+        set_field_type_at(idx+1, row_idx, other_field.type)
       end
     end
     nil
@@ -235,10 +245,10 @@ class Grid < Drawable
   #   #=> [[1, 1], [1, 1], [1, 1], [1, 1]]
   #
   # @return [Array[Array]] an array of arrays encoding the game grid.
-  def build_empty_grid
+  def build_empty_grid(type = :free)
     @data = (1..total_height).map do |idx|
       (1..total_width).map do |idy|
-        GameField.new(Color.white, :free, Point2f.new(idx-1, idy-1))
+        GameField.new(Color.white, type, Point2f.new(idx-1, idy-1))
       end
     end
   end
