@@ -1,4 +1,5 @@
 require 'game_meta_data'
+require 'system_information'
 require_relative 'apps/tetris/tetris_meta_data'
 require_relative 'apps/game_of_life/game_of_life_meta_data'
 require_relative 'apps/sokoban/sokoban_meta_data'
@@ -144,4 +145,17 @@ class GameSettings
     grid_is_shown = GameSettings.render_attributes[:show_grid]
     grid_is_shown.nil? ? true : grid_is_shown
   end
+
+  # Get top level folder name where the audio folder lies in.
+  #
+  # @hint: In case bofrev is called by its executable jar, there is an additional
+  # namespace folder called 'bofrev'. Every folder of the bofrev folder is put into
+  # this parent folder by the jar. When running bofrev from the code, there is no such parent
+  # folder. This is why we return for this case the prefix ''.
+  #
+  # @return [String] 'bofrev/' if bofrev.jar is called and '' otherwise.
+  def self.audio_filefolder_prefix
+    SystemInformation.called_by_jar? ? 'bofrev/' : ''
+  end
+
 end

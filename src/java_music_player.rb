@@ -1,3 +1,4 @@
+require 'game_settings'
 require 'java'
 java_import "java.io.FileInputStream"
 
@@ -11,7 +12,7 @@ class JavaMusicPlayer
 
   def initialize(file)
     return if file.nil?
-    @file = $audio_files_base_path+file
+    @file = GameSettings.audio_filefolder_prefix+file
     @is_runnable = true
     TinySound.init
   end
