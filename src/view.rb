@@ -43,7 +43,7 @@ class View < Observer
 
     @main_frame.add_mouse_motion_listener MouseMotionListener.impl { |name, event|
       # key_debugger("MouseMotionListener", name, event)
-      offsets = @main_frame.offsets
+      offsets = GameSettings.canvas_offsets
       x = event.getX-offsets[0]/2
       y = event.getY-offsets[1]/2
       event_identifier = "#{name}_#{event.get_button}"
@@ -52,7 +52,7 @@ class View < Observer
 
     @main_frame.add_mouse_listener MouseListener.impl { |name, event|
       # key_debugger("MouseListener", name, event)
-      offsets = @main_frame.offsets
+      offsets = GameSettings.canvas_offsets
       x = event.getX-offsets[0]/2
       y = event.getY-offsets[1]/2
       event_identifier = "#{name}_#{event.get_button}"
