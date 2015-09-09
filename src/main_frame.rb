@@ -49,7 +49,7 @@ class MainFrame < JFrame
 
     @start = JButton.new("start");
     @pause = JButton.new("pause");
-    @start.setEnabled(false)
+    @pause.setEnabled(false)
 
     controls.add(@start)
     controls.add(@pause)

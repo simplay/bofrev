@@ -18,7 +18,7 @@ class View < Observer
     @is_suspended = game.paused?
     @main_frame = MainFrame.new(game)
     attach_listeners
-    clicked_onto_start
+    #clicked_onto_start
   end
 
   # @overridden from [Observer]
@@ -60,7 +60,7 @@ class View < Observer
     }
 
     @main_frame.start_button.addActionListener ActionListener.impl { |name, event|
-      puts "start button clicked"
+      clicked_onto_start
       @main_frame.start_button.setEnabled(false)
       @main_frame.pause_button.setEnabled(true)
       @main_frame.requestFocusInWindow

@@ -20,8 +20,6 @@ class Ticker
         sleep(@pacer.idle_time)
       end
     end
-    @thread.join
-    nil
   end
 
   # let this ticker thread wait on the game conditional lock.

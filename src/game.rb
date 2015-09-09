@@ -19,7 +19,6 @@ class Game
     @score = Score.new
     initialize_map
     create_threads
-    set_up_exit_handle
   end
 
   # Starts the game.
@@ -111,12 +110,6 @@ class Game
 
   def initialize_map
     @map = GameSettings.game_map.new(self)
-  end
-
-  def set_up_exit_handle
-    at_exit do
-      shut_down_threads
-    end
   end
 
 end
