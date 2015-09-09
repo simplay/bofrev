@@ -25,6 +25,10 @@ class SystemInformation
     build.os.include?('windows')
   end
 
+  def self.running_on_linux?
+    build.os.include?('linux')
+  end
+
   def self.called_by_jar?
     build.caller == CALLER_JAR
   end

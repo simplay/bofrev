@@ -158,4 +158,22 @@ class GameSettings
     SystemInformation.called_by_jar? ? 'bofrev/' : ''
   end
 
+  # return [Array] including canvas offsets for packing into main_frame.
+  def self.canvas_offsets
+    offset_x = 1
+    offset_y = 45
+    if SystemInformation.running_on_windows?
+      offset_x = 6
+    end
+    [offset_x, offset_y]
+  end
+
+  def self.canvas_width
+    canvas_offsets[0] + max_width
+  end
+
+  def self.canvas_height
+    canvas_offsets[1] + max_height
+  end
+
 end
