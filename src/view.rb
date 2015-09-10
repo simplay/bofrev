@@ -83,7 +83,7 @@ class View < Observer
   #
   # @return [Boolean] true if game is running and otherwise false.
   def running?
-    !@is_suspended
+    !@is_suspended && @game.started?
   end
 
   # Derive what key has been pressed by parsing the received key coding.

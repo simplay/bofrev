@@ -16,15 +16,26 @@ class Game
 
   def initialize
     @turns_allowed = 10_000_000 # TODO: define a more meaningful ending/condition.
+    @has_started = false
     @score = Score.new
     initialize_map
     create_threads
+  end
+
+  # Has this Game been started?
+  #
+  # @hint: Used in View to block user input. The View blocks all user inputs as long as i
+  # the game state has not been set to 'started equls true'.
+  # @return [Boolean] true if game has been started, otherwise false.
+  def started?
+    @has_started
   end
 
   # Starts the game.
   #
   # @hint: Starts all relevant game threads and the game loop.
   def run
+    @has_started = true
     start_threads
     perform_loop_step(Event.new('game started'))
   end
