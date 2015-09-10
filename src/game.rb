@@ -8,6 +8,7 @@ require 'event'
 require 'waitable'
 
 class Game
+
   include Observable
   include Waitable
 

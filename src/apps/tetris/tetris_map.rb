@@ -38,11 +38,11 @@ class TetrisMap < Map
   def process_event(message)
     case message.type
     when D_KEY
-      @shape.move_shape(Point2f.new(1,0), :move_sidewards)
+      @shape.move_by(Point2f.new(1,0), :move_sidewards)
     when A_KEY
-      @shape.move_shape(Point2f.new(-1,0), :move_sidewards)
+      @shape.move_by(Point2f.new(-1,0), :move_sidewards)
     when S_KEY
-      @shape.move_shape(Point2f.new(0, 1))
+      @shape.move_by(Point2f.new(0, 1))
     when W_KEY
       return unless @shape.rotatable?
       was_rotated = @shape.rotate

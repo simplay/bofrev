@@ -78,7 +78,6 @@ module Waitable
   # @return [ConditionVariable] conditional variable of this waitable.
   def barrier
     @resource
-
   end
 
   # Suspend this Waitable. Suspends all clients threads.

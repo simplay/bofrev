@@ -145,14 +145,14 @@ class Tetris::Shape
   # Move this shape either to the left, right, or downwards by a given step.
   # In case the current movement attempt causes a collision, then do nothing.
   #
-  # @param move_by [Point2f] (optional) relative movement given as a Point2f.
+  # @param shift [Point2f] (optional) relative movement given as a Point2f.
   #        encodes how many step in x-and y direction we have to move from this
   #        shape's origin.
   # @param movement_type [Symbol] type of movement.
   #        is either (default) :move - move shape downwards movement
   #        or :move_sidewards - move shape to the left or right
-  def move_shape(move_by=Point2f.new(0,0), movement_type = :move)
-    collision_state = Tetris::CollisionChecker.new(self, movement_type, move_by)
+  def move_by(shift=Point2f.new(0,0), movement_type = :move)
+    collision_state = Tetris::CollisionChecker.new(self, movement_type, shift)
 
     if !collision_state.blocked?
       @mutex.synchronize do
@@ -162,7 +162,7 @@ class Tetris::Shape
           @grid_map.set_field_type_at(p.x, p.y, FREE)
         end
 
-        update_position_by(move_by)
+        update_position_by(shift)
 
         map_positions.each do |p|
           @grid_map.set_field_color_at(p.x, p.y, @color)
