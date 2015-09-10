@@ -12,11 +12,15 @@ class TetrisMap < Map
   def initialize(game)
     super(game)
     @go_one_down = Event.new(S_KEY)
+    @shape_spawn_count = 0
+    @line_deletion_count = 0
     spawn_new_shape
   end
 
+  # spawns the next tetris shape and increases the shapes spawn count by one.
   def spawn_new_shape
     @shape = Tetris::ShapeSpawner.new(self).next
+    @shape_spawn_count = @shape_spawn_count + 1
   end
 
   # iterate row-wise though grid and look for '4'-rows (w/e border).
@@ -58,6 +62,7 @@ class TetrisMap < Map
 
   # sink all inner cells from row 1 (not zero) till :till_row_idx
   def down_by_one(from_row_idx)
+    @line_deletion_count = @line_deletion_count + 1
     (1..from_row_idx).to_a.reverse.each do |row_idx|
       @grid.inner_width_iter.each do |idx|
         @grid.field_at(idx, row_idx+1).copy_state_from(@grid.field_at(idx, row_idx))
