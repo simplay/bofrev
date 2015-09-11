@@ -4,6 +4,7 @@ require 'color'
 class TestColor < Minitest::Test
 
   def setup
+    # ensure that each channel has to digits (17 is first hex number having 2 digits)
     @red_channel_i = rand(17..256)
     @green_channel_i = rand(17..256)
     @blue_channel_i = rand(17..256)
