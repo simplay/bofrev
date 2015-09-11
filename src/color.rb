@@ -28,10 +28,6 @@ class Color
     components[5..6].join.to_i(16)
   end
 
-  def valid_encoding?
-    (@rgb =~ /#(.){6}/) == 0
-  end
-
   # @return [Java::JavaAwt::Color] jruby Awt compatible color.
   def to_awt_color
     r_value = red_component.to_java(:int)
@@ -54,8 +50,22 @@ class Color
 
   private
 
+  # Splits the rgb string into its components
+  #
+  # @return [Array] containing the color string components.
   def components
     @rgb.split(//)
+  end
+
+  # Only accept 24 bit colors having the following encoding #rrggbb, where
+  # 'r' is a 4bit number corresponding to the red color channel
+  # 'g' is a 4bit number corresponding to the green color channel
+  # 'b' is a 4bit number corresponding to the blue color channel
+  # and '#' is an identifying color string prefix.
+  #
+  # @return [Boolean] true if encoding is correct and otherwise false.
+  def valid_encoding?
+    (@rgb =~ /#(.){6}/) == 0
   end
 
 end
