@@ -1,6 +1,6 @@
 language: ruby
 cache: bundler
-script: bundle exec rspec specs/
+script: rake test
 deploy:
   provider: releases
   api_key:
