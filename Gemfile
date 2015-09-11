@@ -9,3 +9,4 @@ end
 
 # tests
 gem 'rspec'
+gem 'minitest'
