@@ -16,7 +16,7 @@ This project is licensed under the [MIT License](https://github.com/simplay/bofr
 + All sound files are from [freesound.org](www.freesound.org).
 + For playing sound files, bofrev uses the java library [TinySound](https://github.com/finnkuusisto/TinySound).
 + For generating an exectuable bofrev jar file we make use of [Warble](https://github.com/jruby/warbler).
-
++ For testing we rely on [Minitest](https://github.com/seattlerb/minitest)
 
 ## Features
 
@@ -50,8 +50,15 @@ This project is licensed under the [MIT License](https://github.com/simplay/bofr
 ## Start application
 Either run `ruby bofrev` or run `java -jar bofrev.jar`. For further information, please have a look at the **Usage** section below.
 
-## Usage
+## Usages
 
+### Running tests
+Enter `rake test` or simply `rake` in your console.
+
+### Generating an executable jar
+Enter `chmod +x make_jar` and then `./make_jar` into your console.
+
+### Running bofrev
 Enter `./bofrev -d <D> -g <G> -m <M>` into your terminal to run the game `<G>` in running mode `<D>`.
 
 + Game Mode `<D>` is an _optional_ parameter:
