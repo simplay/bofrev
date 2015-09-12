@@ -1,7 +1,6 @@
 require "minitest/autorun"
 require 'color'
 require 'java'
-require 'pry'
 
 class TestColor < Minitest::Test
 

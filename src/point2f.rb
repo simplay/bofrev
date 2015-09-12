@@ -13,6 +13,7 @@ class Point2f
   end
 
   # Get a exact value copy of this Point2f
+  #
   # @return [Point2f] copy of this instance.
   def copy
     Point2f.new(@x, @y)
