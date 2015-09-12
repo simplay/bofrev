@@ -4,9 +4,9 @@ class TestColor < Minitest::Test
 
   def setup
     # ensure that each channel has to digits (17 is first hex number having 2 digits)
-    @red_channel_i = rand(17..256)
-    @green_channel_i = rand(17..256)
-    @blue_channel_i = rand(17..256)
+    @red_channel_i = rand(17..255)
+    @green_channel_i = rand(17..255)
+    @blue_channel_i = rand(17..255)
     rgb_as_i = [@red_channel_i, @green_channel_i, @blue_channel_i]
     @random_24_bit_rgb_value = "#"+(rgb_as_i.map {|chan| chan.to_s(16)}).join
     @random_color = Color.new(@random_24_bit_rgb_value)
