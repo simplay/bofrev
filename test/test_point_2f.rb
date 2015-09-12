@@ -1,6 +1,4 @@
 require "minitest/autorun"
-require 'Point2f'
-require 'java'
 
 class TestPoint2f < Minitest::Test
 
