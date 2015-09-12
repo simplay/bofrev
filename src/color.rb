@@ -1,6 +1,11 @@
 require 'color_constants'
 require 'java'
 
+# Color is a representation of 24 bit rgb colors.
+# The value of every color is encoded in the format "#rrggbb"
+# (i.e. a string prefixed by a '#' followed by its color channels).
+# Every color channel is a hexdecimal number tupel represented as a string.
+# Colors are used to draw colored pixels onto a canvas (See class Canvas).
 class Color
 
   extend ColorConstants
@@ -11,23 +16,38 @@ class Color
     raise "invalide color encoding #{rgb}. Use '#rrggbb'" unless valid_encoding?
   end
 
+  # Get rgb color value encoded as a color 24 string.
+  #
+  # @hint: A rgb color is formatted as '#rrggbb'.
   # @return [String] rgb string value.
   def to_rgb
     @rgb
   end
 
+  # Get hexdecimal representation of the red color channel.
+  #
+  # @return [Integer] hex decimal Integer representation of red color channel
   def red_component
     components[1..2].join.to_i(16)
   end
 
+  # Get hexdecimal representation of the green color channel.
+  #
+  # @return [Integer] hex decimal Integer representation of green color channel
   def green_component
     components[3..4].join.to_i(16)
   end
 
+  # Get hexdecimal representation of the blue color channel.
+  #
+  # @return [Integer] hex decimal Integer representation of blue color channel
   def blue_component
     components[5..6].join.to_i(16)
   end
 
+  # Translates this Color instance to a java awt color.
+  #
+  # @hint: Used for drawing onto a java canvas (i.e. a JFrame)
   # @return [Java::JavaAwt::Color] jruby Awt compatible color.
   def to_awt_color
     r_value = red_component.to_java(:int)
@@ -36,13 +56,18 @@ class Color
     Java::JavaAwt::Color.new(r_value, g_value, b_value)
   end
 
+  # Retrieve a random color from one of the known colors in ColorConstants
+  #
+  # @return [Color] a random color object.
   def self.next_random
     color_count = color_constants.count
     random_idx = rand(color_count)
     send(color_constants[random_idx])
   end
 
-  # @param other [Color] another color value we want to compare with this.
+  # Compares the rgb color value between this and another color.
+  #
+  # @param other [Color] color to compare with this color's rgb value.
   # @return [Boolean] true if both #to_rgb methods yield the same value.
   def ==(other)
     other.to_rgb == to_rgb
