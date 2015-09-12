@@ -53,7 +53,8 @@ class Color
     r_value = red_component.to_java(:int)
     g_value = green_component.to_java(:int)
     b_value = blue_component.to_java(:int)
-    Java::JavaAwt::Color.new(r_value, g_value, b_value)
+    constructor = Java::JavaAwt::Color.java_class.constructor(Java::int, Java::int, Java::int)
+    constructor.new_instance(r_value, g_value, b_value)
   end
 
   # Retrieve a random color from one of the known colors in ColorConstants

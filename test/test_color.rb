@@ -32,7 +32,8 @@ class TestColor < Minitest::Test
     r_value = @red_channel_i.to_i.to_java(:int)
     g_value = @green_channel_i.to_i.to_java(:int)
     b_value = @blue_channel_i.to_i.to_java(:int)
-    awt_color = Java::JavaAwt::Color.new(r_value, g_value, b_value)
+    constructor = Java::JavaAwt::Color.java_class.constructor(Java::int, Java::int, Java::int)
+    awt_color = constructor.new_instance(r_value, g_value, b_value)
     assert_equal(@random_color.to_awt_color, awt_color)
   end
 
