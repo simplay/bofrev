@@ -16,7 +16,7 @@ This project is licensed under the [MIT License](https://github.com/simplay/bofr
 + All sound files are from [freesound.org](www.freesound.org).
 + For playing sound files, bofrev uses the java library [TinySound](https://github.com/finnkuusisto/TinySound).
 + For generating an exectuable bofrev jar file we make use of [Warble](https://github.com/jruby/warbler).
-
++ For testing we rely on [Minitest](https://github.com/seattlerb/minitest)
 
 ## Features
 
