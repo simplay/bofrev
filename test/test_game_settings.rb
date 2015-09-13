@@ -1,5 +1,5 @@
 require "minitest/autorun"
-require 'pry'
+
 class TestGameSettings < Minitest::Test
 
   # Runs bofore every test, before teardown.
