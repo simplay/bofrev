@@ -27,6 +27,19 @@ class GameSettings
     @game_meta_data = derive_game_model
   end
 
+  # Fetch GameSettings singleton
+  #
+  # @hint: builds a GameSettings instance if not already exists
+  # otherwise return existing instance.
+  # @param arguments [Hash] user passed bofrev runtime arguments
+  # default value is {}. The following arguments are currently fetched:
+  #   :game [Integer] what game should be run default is 1 (Tetris)
+  #     see repository README
+  #   :debug [Integer] in which debug mode is bofrev running.
+  #     default is 0 (run music and ticker thread)
+  #       1 only run ticker thread but no music
+  #       2 only accept user input but do not run any ticker nor any music thread.
+  # @return [GameSettings] singleton.
   def self.build_from(arguments={})
     if @game_settings.nil?
       @game_settings = GameSettings.new(arguments)
@@ -34,18 +47,39 @@ class GameSettings
     @game_settings
   end
 
+  # Obtain game_meta_data according to selected game.
+  #
+  # @hint: See GameSettings#derive_game_model,
+  #   value is bofrev runtime argument -g
+  # @return [GameMetaData] instance that belongs to selected game.
+  #   default value is TetrisMetaData
   def game_meta_data
     @game_meta_data
   end
 
+  # Obtain the number of the selected_game.
+  #
+  # @hint: its value is given by bofrev's runtime argument -g
+  #   See the README.md for further information.
+  # @return [Integer] number value of selected game.
+  #   default value is 1.
   def selected_game
     @selected_game
   end
 
+  # Obtain the number of the selected game debugging mode.
+  #
+  # @hint: its value is given by bofrev's runtime argument -d
+  #   See the README.md for further information.
+  # @return [Integer] number value of selected debug mode.
+  #   default value is 0.
   def selected_mode
     @selected_mode
   end
 
+  # Retrieve the selected game meta data file that belongs to the selected game.
+  #
+  # @return [GameMetaData] according to the selected game number.
   def derive_game_model
     case @selected_game
     when 1
