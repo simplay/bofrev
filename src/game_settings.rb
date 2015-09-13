@@ -47,6 +47,13 @@ class GameSettings
     @game_settings
   end
 
+  # Flushes all current game settings.
+  # @hint: Sets internal GameSettings instance to nil.
+  #   used to load another game during runtime.
+  def self.flush
+    @game_settings = nil
+  end
+
   # Obtain game_meta_data according to selected game.
   #
   # @hint: See GameSettings#derive_game_model,
