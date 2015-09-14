@@ -248,8 +248,10 @@ class TestGameSettings < Minitest::Test
 
   def test_canvas_offsets
     on_windows = SystemInformation.running_on_windows?
-    x = on_windows ? 6 : 1
-    assert_equal(GameSettings.canvas_offsets, [x, 45])
+    x = on_windows ? GameSettings::CANVAS_OFFSET_X_WINDOWS
+                   : GameSettings::CANVAS_OFFSET_X_DEFAULT
+    y = GameSettings::CANVAS_OFFSET_Y_DEFAULT
+    assert_equal(GameSettings.canvas_offsets, [x, y])
   end
 
   def test_canvas_width

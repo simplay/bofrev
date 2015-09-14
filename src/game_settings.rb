@@ -12,6 +12,10 @@ require_relative 'apps/fractals/fractal_meta_data'
 class GameSettings
   include GameMetaData
 
+  CANVAS_OFFSET_X_WINDOWS = 6
+  CANVAS_OFFSET_X_DEFAULT = 1
+  CANVAS_OFFSET_Y_DEFAULT = 45
+
   # @param arguments [Hash] of relevant data to derive game settings
   # @hing The following keys are currently handled:
   #   :selected_game #=> [Integer] current game
@@ -201,10 +205,10 @@ class GameSettings
 
   # return [Array] including canvas offsets for packing into main_frame.
   def self.canvas_offsets
-    offset_x = 1
-    offset_y = 45
+    offset_x = CANVAS_OFFSET_X_DEFAULT
+    offset_y = CANVAS_OFFSET_Y_DEFAULT
     if SystemInformation.running_on_windows?
-      offset_x = 6
+      offset_x = CANVAS_OFFSET_X_WINDOWS
     end
     [offset_x, offset_y]
   end
