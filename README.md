@@ -153,6 +153,10 @@ _WIP state game_
 + Controls:
  + **a key** left
  + **d key** right
+ 
+## Known Issues
+
++ when running the test suit locally entering entering `rake`, it may report _Coverage may be inaccurate_ which will result in reporting `Coverage = 0.0%`. By entering `export JRUBY_OPTS="-Xcli.debug=true --debug"` into your console this will be fixed.
 
 ## Contributing
 
