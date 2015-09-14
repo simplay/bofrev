@@ -2,8 +2,8 @@ require "minitest/autorun"
 
 class TestSystemInformation < Minitest::Test
 
-  # Runs bofore every test, before teardown.
-  # Flush SystemInformation singleton before running a GameSettings test.
+  # Runs before every test, before teardown.
+  # Flush SystemInformation singleton before running a SystemInformation test.
   def before_teardown
     SystemInformation.build
   end

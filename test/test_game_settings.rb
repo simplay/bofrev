@@ -2,7 +2,7 @@ require "minitest/autorun"
 
 class TestGameSettings < Minitest::Test
 
-  # Runs bofore every test, before teardown.
+  # Runs before every test, before teardown.
   # Flush GameSettings singleton before running a GameSettings test.
   def before_teardown
     GameSettings.flush
