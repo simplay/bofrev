@@ -205,11 +205,10 @@ class GameSettings
 
   # return [Array] including canvas offsets for packing into main_frame.
   def self.canvas_offsets
-    offset_x = CANVAS_OFFSET_X_DEFAULT
+    on_windows = SystemInformation.running_on_windows?
+    offset_x = on_windows ? CANVAS_OFFSET_X_WINDOWS
+                          : CANVAS_OFFSET_X_DEFAULT
     offset_y = CANVAS_OFFSET_Y_DEFAULT
-    if SystemInformation.running_on_windows?
-      offset_x = CANVAS_OFFSET_X_WINDOWS
-    end
     [offset_x, offset_y]
   end
 
