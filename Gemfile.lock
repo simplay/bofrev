@@ -13,6 +13,8 @@ GEM
   remote: http://rubygems.org/
   specs:
     awesome_print (1.6.1)
+    codeclimate-test-reporter (0.4.8)
+      simplecov (>= 0.7.1, < 1.0.0)
     coderay (1.1.0)
     docile (1.1.5)
     ffi (1.9.10-java)
@@ -23,6 +25,7 @@ GEM
       yard (~> 0.8.7.5)
     jruby-jars (9.0.0.0)
     jruby-rack (1.1.19)
+    json (1.8.0)
     json (1.8.0-java)
     method_source (0.8.2)
     minitest (5.8.0)
@@ -57,6 +60,7 @@ PLATFORMS
 
 DEPENDENCIES
   awesome_print
+  codeclimate-test-reporter
   inch
   minitest
   pry
