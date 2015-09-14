@@ -234,4 +234,25 @@ class TestGameSettings < Minitest::Test
     assert_equal(GameSettings.show_grid?, false)
   end
 
+  def test_audio_filefolder_prefix
+    assert_equal(SystemInformation.called_by_jar? ? 'bofrev/' : '',
+                 GameSettings.audio_filefolder_prefix)
+  end
+
+  def test_canvas_offsets
+    on_windows = SystemInformation.running_on_windows?
+    x = on_windows ? 6 : 1
+    assert_equal(GameSettings.canvas_offsets, [x, 45])
+  end
+
+  def test_canvas_width
+    assert_equal(GameSettings.canvas_width,
+                 GameSettings.canvas_offsets[0]+GameSettings.max_width)
+  end
+
+  def test_canvas_height
+    assert_equal(GameSettings.canvas_height,
+                 GameSettings.canvas_offsets[1]+GameSettings.max_height)
+  end
+
 end
