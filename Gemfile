@@ -15,4 +15,4 @@ gem 'minitest'
 gem 'inch', require: false
 
 # for keeping track of test coverage
-gem 'simplecov', :require => false, :group => :test
+gem 'simplecov', :require => false
