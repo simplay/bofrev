@@ -1,4 +1,5 @@
 language: ruby
+before_install: gem install bundler
 install: gem install simplecov; gem install codeclimate-test-reporter
 cache: bundler
 script: rake test
