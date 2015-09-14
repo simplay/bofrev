@@ -1,4 +1,4 @@
-# bofrev [![Build Status](https://travis-ci.org/simplay/bofrev.svg?branch=master)](https://travis-ci.org/simplay/bofrev) [![Inline docs](http://inch-ci.org/github/simplay/bofrev.svg?branch=master)](http://inch-ci.org/github/simplay/bofrev)
+# bofrev [![Build Status](https://travis-ci.org/simplay/bofrev.svg?branch=master)](https://travis-ci.org/simplay/bofrev) [![Inline docs](http://inch-ci.org/github/simplay/bofrev.svg?branch=master)](http://inch-ci.org/github/simplay/bofrev) <a href="https://codeclimate.com/github/simplay/bofrev"><img src="https://codeclimate.com/github/simplay/bofrev/badges/gpa.svg" /></a>
 
 **bofrev** - Boring Friday Evening - originates from a Friday late-night coding session.
 
