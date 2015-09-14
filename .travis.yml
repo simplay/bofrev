@@ -1,12 +1,13 @@
 language: ruby
 jdk: oraclejdk8
 before_install: gem install bundler
-install: gem install codeclimate-test-reporter
+install: gem install codeclimate-test-reporter; gem install gem coveralls
 cache: bundler
 addons:
   code_climate:
     repo_token: 138d988c6c17e0b334291d26c852330a9212bdd3eaf0fd6cb5e524585e655a71
 script: rake test
+after_success: coveralls
 deploy:
   provider: releases
   api_key:

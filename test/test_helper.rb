@@ -6,9 +6,12 @@
  # end
 #end
 require "codeclimate-test-reporter"
-CodeClimate::TestReporter.configure do |config|
-  config.path_prefix = "src/"
-end 
+require 'coveralls'
+Coveralls.wear!
+#CodeClimate::TestReporter.configure do |config|
+#  config.path_prefix = "../src/"
+#end 
 CodeClimate::TestReporter.start
 
+require 'simplecov'
 require 'minitest/autorun'
