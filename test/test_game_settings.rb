@@ -99,6 +99,11 @@ class TestGameSettings < Minitest::Test
     assert_equal(GameSettings.run_game_thread?, false)
   end
 
+  def test_music_thread_not_running_when_no_themes
+    GameSettings.build_from({:game => 5})
+    assert_equal(GameSettings.run_music?, false)
+  end
+
   def test_game_meta_data_is_correctly_build_for_selected_game
     rand_game_idx = rand(1..7) # any available game
     rand_game_settings = GameSettings.build_from({:game => rand_game_idx})
@@ -215,7 +220,9 @@ class TestGameSettings < Minitest::Test
   def test_show_grid_is_from_render_attributes
     rand_game_idx = rand(1..7) # any available game
     rand_game_settings = GameSettings.build_from({:game => rand_game_idx})
-    assert_equal(rand_game_settings.game_meta_data.render_attributes[:show_grid] || true,
+    is_showing_grid = rand_game_settings.game_meta_data.render_attributes[:show_grid]
+    is_showing_grid = true if is_showing_grid.nil?
+    assert_equal(is_showing_grid,
                  GameSettings.show_grid?)
   end
 
