@@ -11,5 +11,8 @@ gem 'warbler', :git => 'https://github.com/jruby/warbler.git', :branch => '2.x-d
 # testing environment
 gem 'minitest'
 
-# evaluating quality of documentation
+# for evaluating quality of documentation
 gem 'inch', require: false
+
+# for evaluating the code coverage
+gem 'coveralls', require: false
