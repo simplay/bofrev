@@ -15,6 +15,11 @@ GEM
     awesome_print (1.6.1)
     coderay (1.1.0)
     ffi (1.9.10-java)
+    inch (0.6.4)
+      pry
+      sparkr (>= 0.2.0)
+      term-ansicolor
+      yard (~> 0.8.7.5)
     jruby-jars (9.0.0.0)
     jruby-rack (1.1.19)
     method_source (0.8.2)
@@ -31,8 +36,13 @@ GEM
     rake (10.4.2)
     rubyzip (1.1.7)
     slop (3.6.0)
+    sparkr (0.4.1)
     spoon (0.0.4)
       ffi
+    term-ansicolor (1.3.2)
+      tins (~> 1.0)
+    tins (1.6.0)
+    yard (0.8.7.6)
 
 PLATFORMS
   java
@@ -40,6 +50,7 @@ PLATFORMS
 
 DEPENDENCIES
   awesome_print
+  inch
   minitest
   pry
   warbler!

@@ -10,3 +10,6 @@ gem 'warbler', :git => 'https://github.com/jruby/warbler.git', :branch => '2.x-d
 
 # testing environment
 gem 'minitest'
+
+# evaluating quality of documentation
+gem 'inch', require: false
