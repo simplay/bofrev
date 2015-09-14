@@ -1,6 +1,6 @@
 # bofrev
 
-[![Build Status](https://travis-ci.org/simplay/bofrev.svg?branch=master)](https://travis-ci.org/simplay/bofrev)
+[![Build Status](https://travis-ci.org/simplay/bofrev.svg?branch=master)](https://travis-ci.org/simplay/bofrev) [![Inline docs](http://inch-ci.org/github/simplay/bofrev.svg?branch=master)](http://inch-ci.org/github/simplay/bofrev)
 
 **bofrev** - Boring Friday Evening - originates from a Friday late-night coding session.
 
@@ -17,6 +17,7 @@ This project is licensed under the [MIT License](https://github.com/simplay/bofr
 + For playing sound files, bofrev uses the java library [TinySound](https://github.com/finnkuusisto/TinySound).
 + For generating an exectuable bofrev jar file we make use of [Warble](https://github.com/jruby/warbler).
 + For testing we rely on [Minitest](https://github.com/seattlerb/minitest)
++ For evaluating the quality of the code documentation, we rely on [inch](https://github.com/rrrene/inch)
 
 ## Features
 
