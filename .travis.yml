@@ -1,4 +1,5 @@
 language: ruby
+install: gem install simplecov
 cache: bundler
 script: rake test
 deploy:
@@ -10,5 +11,3 @@ deploy:
   before_deploy: "make_jar"
   on:
     tags: true
-after_success:
-  - coveralls

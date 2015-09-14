@@ -1,4 +1,4 @@
-# bofrev [![Build Status](https://travis-ci.org/simplay/bofrev.svg?branch=master)](https://travis-ci.org/simplay/bofrev) [![Inline docs](http://inch-ci.org/github/simplay/bofrev.svg?branch=master)](http://inch-ci.org/github/simplay/bofrev) [![Coverage Status](https://coveralls.io/repos/simplay/bofrev/badge.svg?branch=master&service=github)](https://coveralls.io/github/simplay/bofrev?branch=master)
+# bofrev [![Build Status](https://travis-ci.org/simplay/bofrev.svg?branch=master)](https://travis-ci.org/simplay/bofrev) [![Inline docs](http://inch-ci.org/github/simplay/bofrev.svg?branch=master)](http://inch-ci.org/github/simplay/bofrev)
 
 **bofrev** - Boring Friday Evening - originates from a Friday late-night coding session.
 
@@ -32,15 +32,15 @@ This project is licensed under the [MIT License](https://github.com/simplay/bofr
 + Support advanced networking modes.
 
 ## Prerequisites
-+ JRuby 9.0.0.0.pre1
++ JRuby 9.0.1.0
 + bundle
 
 ## Installation
 
 + install `rvm`. See [here](https://rvm.io/)
  + run `\curl -sSL https://get.rvm.io | bash -s stable` 
-+ install JRuby 9.0.0.0.pre1
- + run `rvm install jruby-9.0.0.0.pre1`  
++ install JRuby 9.0.1.0
+ + run `rvm install jruby-9.0.1.0` 
 + install `bundler`
 + clone this repository
 + `cd` into `bofrev/`
