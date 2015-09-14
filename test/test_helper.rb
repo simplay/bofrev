@@ -6,6 +6,5 @@
  # end
 #end
 
-ENV["RAILS_ENV"] = "test"
-
+require 'simplecov'
 require 'minitest/autorun'
