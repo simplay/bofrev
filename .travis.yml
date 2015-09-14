@@ -1,4 +1,5 @@
 language: ruby
+install: gem install simplecov
 cache: bundler
 script: rake test
 deploy:
