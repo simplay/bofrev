@@ -64,7 +64,6 @@ DEPENDENCIES
   inch
   minitest
   pry
-  simplecov
   warbler!
 
 BUNDLED WITH

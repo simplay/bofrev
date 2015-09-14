@@ -14,8 +14,8 @@ end
 
 namespace :test do
   task :coverage do
-    require 'simplecov'
-    SimpleCov.start
+    #require 'simplecov'
+    #SimpleCov.start
     Rake::Task["test"].execute
   end
 end
