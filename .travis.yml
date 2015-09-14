@@ -10,3 +10,5 @@ deploy:
   before_deploy: "make_jar"
   on:
     tags: true
+after_success:
+  - coveralls
