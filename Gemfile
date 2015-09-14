@@ -14,5 +14,5 @@ gem 'minitest'
 # for evaluating quality of documentation
 gem 'inch', require: false
 
-# for evaluating the code coverage
-gem 'coveralls', require: false
+# for keeping track of test coverage
+gem 'simplecov', :require => false, :group => :test
