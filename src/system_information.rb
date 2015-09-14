@@ -17,33 +17,52 @@ class SystemInformation
   CALLER_JAR = 'jar'
   CALLER_CONSOLE = 'console'
 
+  # Does bofrev run on a mac?
+  #
+  # @return [Boolean] true if bofrev is run on a mac os and false otherwise.
   def self.running_on_mac?
     build.os.include?('mac')
   end
 
+  # Does bofrev run on a windows os?
+  #
+  # @return [Boolean] true if bofrev is run on a windows os and false otherwise.
   def self.running_on_windows?
     build.os.include?('windows')
   end
 
+  # Does bofrev run on a linux os?
+  #
+  # @return [Boolean] true if bofrev is run on a linux os and false otherwise.
   def self.running_on_linux?
     build.os.include?('linux')
   end
 
+  # Is bofrev called by an exectuable jar?
+  #
+  # @return [Boolean] true if bofrev is called by its exectuable jar and false otherwise.
   def self.called_by_jar?
     build.caller == CALLER_JAR
   end
 
+  # Is bofrev called from a console?
+  #
+  # @return [Boolean] true if bofrev is called within the console and false otherwise.
   def self.called_by_console?
     build.caller == CALLER_CONSOLE
   end
 
   private
 
+  # Fetch the singleton of this class.
+  #
+  # @return [SystemInformation] singleton
   def self.build
     return @system_information unless @system_information.nil?
     @system_information = SystemInformation.new
   end
 
+  # Set @caller and @os
   def initialize
     caller_name = "#{$PROGRAM_NAME}"
     @caller = caller_name.include?("<script>") ? CALLER_JAR : CALLER_CONSOLE
