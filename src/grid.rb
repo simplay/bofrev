@@ -80,6 +80,7 @@ class Grid < Drawable
     nil
   end
 
+  # Iterate over all GameField instances of this Grid and apply a given block.
   def each(&block)
     inner_height_iter.each do |row_idx|
       inner_row_at(row_idx).each_with_index do |other_field, idx|
@@ -93,7 +94,11 @@ class Grid < Drawable
     end
   end
 
-  # Draw this shape onto a given canvas.
+  # Draw this Grid onto a given canvas.
+  #
+  # @hint: The GameField instances of this Grid are drawn sequentiually.
+  #   The grid box is only drawn, if the flag @frid_is_shown is true.
+  # @param canvas [Canvas] draw onto this canvas.
   def draw_onto(canvas)
     each do |field|
       field.draw_onto(canvas)
@@ -187,7 +192,7 @@ class Grid < Drawable
   #
   # @param row_idx inner row index
   # @param fields [Array] of GameField instances we use
-  # for updating the target row.
+  #   for updating the target row.
   def set_inner_row_at(row_idx, fields)
     fields.each_with_index do |field, col_idx|
       set_field_at(col_idx+1, row_idx, field)
@@ -198,16 +203,17 @@ class Grid < Drawable
   #
   # @param x [Integer] row index
   # @param y [Integer] column index
-  # @param color [String] game field color
+  # @param color [Color] game field color
   def set_field_color_at(x, y, color)
     @data[y][x].color = color
   end
 
   # Assign a new game type at a given field location (x,y) in the grid.
   #
+  # @hint: See GameFieldTypeConstants for a list of all types.
   # @param x [Integer] row index
   # @param y [Integer] column index
-  # @param type [Symbol] now game field state.
+  # @param type [Symbol] now game field state
   def set_field_type_at(x, y, type)
     @data[y][x].type = type
   end
@@ -221,10 +227,20 @@ class Grid < Drawable
     @data[y][x].value = value
   end
 
+  # Wipe out the GameField at location (x,y).
+  #
+  # @hint: Wipe out means, set the type and color
+  #   of the target GameField to its default values.
+  # @param x [Integer] row index
+  # @param y [Integer] column index
   def flush_field_at(x, y)
     field_at(x,y).wipe_out
   end
 
+  # Pretty String representation of this Grid.
+  #
+  # @hint: Encode its GameField instances as numbers.
+  #   See GameField#to_i
   # @return [String] Matrix form of grid encoded as string.
   def to_s
     grid_as_string = ''
