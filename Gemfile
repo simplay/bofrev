@@ -15,6 +15,10 @@ gem 'minitest'
 gem 'inch', require: false
 
 # for keeping track of test coverage
-gem 'simplecov', :require => false
-gem 'coveralls', :require => false
-gem "codeclimate-test-reporter", group: :test, require: nil
+gem 'simplecov', require: false
+
+# for generating coverage report
+gem 'coveralls', require: false
+
+# for reporting coverage report to code climate
+gem "codeclimate-test-reporter", require: false
