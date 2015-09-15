@@ -37,6 +37,7 @@ class GameField < Drawable
   #     checking for border types would result in index checks
   #     in order to determine whether we are considering a ground border cell
   # @param coordinates [Point2f] index in parent Grid where this GameField is placed.
+  #   x corresponds to the row index, y corresponds to the column index in the parent grid.
   # @param value [Integer, Float] value used to perform cellwise grid computations.
   # When drawing onto a canvas, each gamefield defines by itself how it should be drawn onto
   # a given canvas. Drawing is only possible if and only if a gamefield is marked as drawable.
@@ -49,8 +50,12 @@ class GameField < Drawable
     @value = value
   end
 
-  # note that x-coord corresponds to the column idx
-  # note that y-coord corresponds to the row idx
+  # Draws this GameField onto a given canvas at its coordinates with its assigned color.
+  #
+  # @hint: GameField is only drawn onto canvas if it is #drawbale?
+  #   note that x-coord corresponds to the column idx
+  #   note that y-coord corresponds to the row idx
+  #
   # @param canvas [Java::JavaAwt::Graphics]
   def draw_onto(canvas)
     if drawable?
@@ -62,23 +67,27 @@ class GameField < Drawable
     end
   end
 
+  # Get the column index of this GameField in its parent grid.
+  #
+  # @hint: note that we start counting by 0, thus the -1.
+  # @return [Integer] column index value.
   def column_idx
     @coordinates.y-1
   end
 
+  # Get the row index of this GameField in its parent grid.
+  #
+  # @hint: note that we start counting by 0, thus the -1.
+  # @return [Integer] row index value.
   def row_idx
     @coordinates.x-1
   end
 
-  # remove when drawing logic has been exported to this class
-  def color_value
-    @color.to_rgb
-  end
-
-  def clone
-    GameField.new(@color, @type, @coordinates, @value)
-  end
-
+  # Visit each neighbor of this GameField instance.
+  #
+  # @param dataset [Symbol] symbolic name of neighborhood
+  #   getter that should be used for the each block to iterate over.
+  #   by default it is :neighbors_8
   def each(dataset=:neighbors_8, &block)
     send(dataset).each do |neighbor|
       if block_given?
@@ -116,24 +125,29 @@ class GameField < Drawable
     top_right.bottom_left = self
     bottom_left.top_right = self
     bottom_right.top_left = self
-
   end
 
-  # get whole 4-neighborhood ring of this pixel
+  # Get whole 4-neighborhood ring of this GameField.
+  #
   # @hint: clockwise fetched neighbors, starting at right neighbor.
   # @return [Array] of [GameField] neighbor instances.
   def neighbors
     [@right, @bottom, @left, @top].compact
   end
 
-  # get whole 8-neighborhood ring of this pixel
+  # Get whole 8-neighborhood ring of this GameField.
+  #
+  # @hint: travers neighbors row-wise.
   # @return [Array] of [GameField] neighbor instances.
   def neighbors_8
     [@top_left, @top, @top_right, @left, @right, @bottom_left, @bottom, @bottom_right].compact
   end
 
+  # Sum all values of neighbors.
+  #
+  # @return [Float] sum of 8-neighborhood ring values.
   def sum_8_neighbor_values
-    neighbors_8.inject(0.0) do |sum, field| sum + field.value end
+    neighbors_8.inject(0.0) {|sum, field| sum + field.value}
   end
 
   # does this field have neighbors
@@ -143,47 +157,71 @@ class GameField < Drawable
 
   # Apply *or-wise* a series of checks to this GameField.
   #
+  # @hint: The checks refer to ? methods.
+  #   in case GameField does not correspond to such a type,
+  #   the corresponding check is skipped.
+  #
   # @param check_list [Array] of Symbols that are referring to a method name
   #        of GameField that returns a Boolean.
   # @return [Boolean] :true if any of the given checks yields true otherwise :false.
   def fulfills_any?(check_list)
     check_list.any? do |type|
-      send(type)
+      type = (type.to_s + "?").to_sym unless type.to_s.include?("?")
+      send(type) if respond_to?(type)
     end
   end
 
-  # can data of this cell be used when redrawing the canvas?
+  # Check if this GameField can be drawn onto a canvas.
+  #
+  # @hint: a GameField can be drawn onto a canvas if and only if
+  #   it is either marked as PLACED, MOVING or is of type BORDER.
+  #   GameField instances with a FREE type are not supposed to be drawn.
+  # @return [Boolean] true if can be drawn otherwise false.
   def drawable?
     placed? || moving? || border?
   end
 
+  # Is this GameField still moveable?
+  #
+  # @return [Boolean] true if type is MOVING
   def moving?
     @type == MOVING
   end
 
   # is this field a free field,
   # i.e. not placed, no border, no ground?
+  #
+  # @return [Boolean] true if type is FREE
   def free?
     @type == FREE
   end
 
-  # this this field placed by a block?
+  # Is this GameField fixed placed in its Grid?
+  #
+  # @return [Boolean] true if type is PLACED
   def placed?
     @type == PLACED
   end
 
   # is this field a side-border?
+  #
+  # @return [Boolean] true if type is BORDER
   def border?
     @type == BORDER
   end
 
   # is this field a ground border?
+  #
+  # @return [Boolean] true if type is GROUND_BORDER
   def floor?
     @type == GROUND_BORDER
   end
 
+  # Pretty string representation of a GameField encoding a gamefield's state.
+  #
+  # @return [String] pretty string representation.
   def to_s
-    "#{color.to_rgb}"
+    "t:#{type} c:#{color.to_rgb}"
   end
 
   # flush current state of this field to default state
@@ -193,11 +231,21 @@ class GameField < Drawable
     @color = Color.white
   end
 
+  # TODO: refactor me
+  # DO not simply extend type and coordinates
+  # will result in a error
+  #
+  # Copy color and type of another gamefield
+  #
+  # @param [other] GameField other GameField to be copied.
   def copy_state_from(other)
     @type = other.type
     @color = other.color
   end
 
+  # Some kind of pretty string method for drawing Grid elements (i.e. GameField).
+  #
+  # @return [Integer] type state integer encoding
   def to_i
     case self
     when border?
