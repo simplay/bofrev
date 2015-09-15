@@ -1,17 +1,11 @@
-#if ENV['COVERAGE']
- # require 'simplecov'
- # SimpleCov.start do
- #   add_filter 'test'
- #   command_name 'test'
- # end
-#end
+# necessary requirements for code coverage and reporting its rate.
 require "codeclimate-test-reporter"
 require 'coveralls'
+
+# report coverage (Coveralls.wear! helps us to transmit correct coverage to CodeClimate)
 Coveralls.wear!
-#CodeClimate::TestReporter.configure do |config|
-#  config.path_prefix = "../src/"
-#end 
 CodeClimate::TestReporter.start
 
+# necessary requirements for for minitest
 require 'simplecov'
 require 'minitest/autorun'

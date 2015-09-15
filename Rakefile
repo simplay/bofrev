@@ -1,4 +1,7 @@
+# Default task is running rake test (without coverage)
 task :default => :test
+
+# Run all tests and require all necessary files
 task :test do
   require 'java'
   $LOAD_PATH.unshift File.expand_path("src")
@@ -12,6 +15,7 @@ task :test do
   end
 end
 
+# run all test in test/ and also run SimpleCov to obtain coverage rate.
 namespace :test do
   task :coverage do
     require 'simplecov'
