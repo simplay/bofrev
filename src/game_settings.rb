@@ -134,6 +134,12 @@ class GameSettings
     build_from.selected_mode < 2
   end
 
+  # Get the Map that should be build for the target application.
+  #
+  # @hint: The name of this target Map class is stored in the GameMetaData
+  #   that belongs to the target application.
+  #   Can be obtained by GameSettings#derive_game_model
+  # @return [Map] a class that inherits from Map implementing its methods.
   def self.game_map
     game_meta_data.game_map
   end
