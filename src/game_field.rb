@@ -5,6 +5,14 @@ require 'render_helpers'
 require 'java'
 require 'game_field_type_constants'
 
+# A GameField is an element of a Grid data structure.
+# Each GameField is associated with an index (colum, row) in a parent Grid.
+# Every GameField is in a certain state stored in the attribute :type.
+# This states defines whether or not a field is fixed on its parent grid or freely movable.
+#   see the module GameFieldTypeConstants for further information.
+# Lastely, each gamefield has a color assigned. By default it is the color white.
+# A gamefield can query its neighbor grid fields (either its  4-or 8-one-neighborhood).
+# Each gamefield is therefore an Enumerable over its neighborhood.
 class GameField < Drawable
 
   include Enumerable
@@ -15,15 +23,25 @@ class GameField < Drawable
                 :top, :bottom, :left, :right,
                 :top_left, :top_right, :bottom_left, :bottom_right
 
-  # @param color [Color] 32bit rgb colour.
-  # @param type [Symbol] incoding state of field
+  DEFAULT_COLOR = Color.white
+  DEFAULT_TYPE = FREE
+  DEFAULT_COORDS = Point2f.new(-1,-1)
+  DEFAULT_VALUE = 0
+
+  # @param color [Color] 24bit rgb color.
+  # @param type [Symbol] encoding state of field
   #   :free - any non-fixed Field: empty or moving block.
   #   :placed - non-border field that are placed (hit the floor).
   #   :border - special cells that depict the game border. used for collision checks.
   #   :ground_border - the floor border pixel. to check whether we can fall any deeper.
   #     checking for border types would result in index checks
   #     in order to determine whether we are considering a ground border cell
-  def initialize(color = Color.white, type = FREE, coordinates=Point2f.new(-1,-1), value=0)
+  # @param coordinates [Point2f] index in parent Grid where this GameField is placed.
+  # @param value [Integer, Float] value used to perform cellwise grid computations.
+  # When drawing onto a canvas, each gamefield defines by itself how it should be drawn onto
+  # a given canvas. Drawing is only possible if and only if a gamefield is marked as drawable.
+  def initialize(color = DEFAULT_COLOR, type = DEFAULT_TYPE,
+                 coordinates=DEFAULT_COORDS, value=DEFAULT_VALUE)
     super(coordinates, true)
     @color = color
     @type = type
