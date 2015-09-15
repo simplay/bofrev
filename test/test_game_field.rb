@@ -1,7 +1,7 @@
 require "test_helper"
 require 'game_field_type_constants'
 
-class TestColor < Minitest::Test
+class TestGameField < Minitest::Test
 
   def test_initialize_default_values_empty_case
     assert_equal(GameField.new.color, GameField::DEFAULT_COLOR)
@@ -184,6 +184,7 @@ class TestColor < Minitest::Test
 
     assert_in_delta(total, gf.sum_8_neighbor_values, 0.0001)
     assert_equal(total_alias, total)
+    assert_equal(gf.each.first, gf.neighbors_8.first)
   end
 
   def test_each_4_neighborhood
@@ -240,6 +241,14 @@ class TestColor < Minitest::Test
     check_list = [GameFieldTypeConstants::BORDER, GameFieldTypeConstants::FREE, :pew]
     assert(fulfilling_gf.fulfills_any?(check_list))
     assert_equal(not_fullfilling_gf.fulfills_any?(check_list), false)
+  end
+
+  def test_to_i
+    assert_equal(GameField.new(Color.red, GameFieldTypeConstants::BORDER).to_i, 2)
+    assert_equal(GameField.new(Color.red, GameFieldTypeConstants::GROUND_BORDER).to_i, 3)
+    assert_equal(GameField.new(Color.red, GameFieldTypeConstants::PLACED).to_i, 4)
+    assert_equal(GameField.new(Color.red, GameFieldTypeConstants::MOVING).to_i, 1)
+    assert_equal(GameField.new(Color.red, GameFieldTypeConstants::FREE).to_i, 0)
   end
 
 end

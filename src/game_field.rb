@@ -89,12 +89,12 @@ class GameField < Drawable
   #   getter that should be used for the each block to iterate over.
   #   by default it is :neighbors_8
   def each(dataset=:neighbors_8, &block)
-    send(dataset).each do |neighbor|
-      if block_given?
+    if block_given?
+      send(dataset).each do |neighbor|
         block.call neighbor
-      else
-        yield neighbor
       end
+    else
+      send(dataset)
     end
   end
   alias_method :each_neighbor, :each
@@ -247,16 +247,15 @@ class GameField < Drawable
   #
   # @return [Integer] type state integer encoding
   def to_i
-    case self
-    when border?
+    if border?
       2
-    when floor?
+    elsif floor?
       3
-    when placed?
+    elsif placed?
       4
-    when drawable?
+    elsif drawable?
       1
-    when free?
+    elsif free?
       0
     else
       -1
