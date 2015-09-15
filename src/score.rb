@@ -16,9 +16,14 @@ class Score
     notify_all_targets_of_type_with_message(GameSettings.achievement_system_sym, Event.new(:score, @score))
   end
 
-  def final_points
-    notify_all_targets_of_type_with_message(GameSettings.achievement_system_sym, Event.new(:score, @score))
+  def value
     @score
+  end
+
+  def final_points
+    notify_all_targets_of_type_with_message(GameSettings.achievement_system_sym,
+                                            Event.new(:score, value))
+    value
   end
 
 end
