@@ -1,7 +1,8 @@
 require "test_helper"
 require 'stringio'
+require 'observer'
 
-class TestColor < Minitest::Test
+class TestApplication < Minitest::Test
 
   # allow to fetch puts outputs
   def fetch_stdout(&block)
@@ -21,10 +22,37 @@ class TestColor < Minitest::Test
     end
   end
 
+  Server.class_eval do
+    def initialize
+      puts "server is running"
+    end
+  end
+
+  Client.class_eval do
+    def initialize
+      puts "client is running"
+    end
+  end
+
   def test_handle_event
     app = Application.new({})
     out = fetch_stdout {app.handle_event}
     assert_equal(out.strip, "GAME OVER")
+  end
+
+  def test_iniialize
+    app = Application.new({})
+    assert(app.kind_of?(Observer))
+  end
+
+  def test_initialize_run_client_case
+    out = fetch_stdout {Application.new({:multiplayer => 1})}
+    assert_equal(out.strip, "client is running")
+  end
+
+  def test_initialize_run_server_case
+    out = fetch_stdout {Application.new({:multiplayer => 2})}
+    assert_equal(out.strip, "server is running")
   end
 
 end
