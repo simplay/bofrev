@@ -251,4 +251,81 @@ class TestGameField < Minitest::Test
     assert_equal(GameField.new(Color.red, GameFieldTypeConstants::FREE).to_i, 0)
   end
 
+  def test_drawable?
+    assert(GameField.new(Color.red, GameFieldTypeConstants::BORDER).drawable?)
+    assert(GameField.new(Color.red, GameFieldTypeConstants::PLACED).drawable?)
+    assert(GameField.new(Color.red, GameFieldTypeConstants::MOVING).drawable?)
+    assert_equal(GameField.new(Color.red, GameFieldTypeConstants::FREE).drawable?, false)
+    assert_equal(GameField.new(Color.red, GameFieldTypeConstants::GROUND_BORDER).drawable?, false)
+  end
+
+  def test_moving?
+    assert_equal(GameField.new(Color.red, GameFieldTypeConstants::BORDER).moving?, false)
+    assert_equal(GameField.new(Color.red, GameFieldTypeConstants::PLACED).moving?, false)
+    assert_equal(GameField.new(Color.red, GameFieldTypeConstants::MOVING).moving?, true)
+    assert_equal(GameField.new(Color.red, GameFieldTypeConstants::FREE).moving?, false)
+    assert_equal(GameField.new(Color.red, GameFieldTypeConstants::GROUND_BORDER).moving?, false)
+  end
+
+  def test_free?
+    assert_equal(GameField.new(Color.red, GameFieldTypeConstants::BORDER).free?, false)
+    assert_equal(GameField.new(Color.red, GameFieldTypeConstants::PLACED).free?, false)
+    assert_equal(GameField.new(Color.red, GameFieldTypeConstants::MOVING).free?, false)
+    assert_equal(GameField.new(Color.red, GameFieldTypeConstants::FREE).free?, true)
+    assert_equal(GameField.new(Color.red, GameFieldTypeConstants::GROUND_BORDER).free?, false)
+  end
+
+  def test_placed?
+    assert_equal(GameField.new(Color.red, GameFieldTypeConstants::BORDER).placed?, false)
+    assert_equal(GameField.new(Color.red, GameFieldTypeConstants::PLACED).placed?, true)
+    assert_equal(GameField.new(Color.red, GameFieldTypeConstants::MOVING).placed?, false)
+    assert_equal(GameField.new(Color.red, GameFieldTypeConstants::FREE).placed?, false)
+    assert_equal(GameField.new(Color.red, GameFieldTypeConstants::GROUND_BORDER).placed?, false)
+  end
+
+  def test_border?
+    assert_equal(GameField.new(Color.red, GameFieldTypeConstants::BORDER).border?, true)
+    assert_equal(GameField.new(Color.red, GameFieldTypeConstants::PLACED).border?, false)
+    assert_equal(GameField.new(Color.red, GameFieldTypeConstants::MOVING).border?, false)
+    assert_equal(GameField.new(Color.red, GameFieldTypeConstants::FREE).border?, false)
+    assert_equal(GameField.new(Color.red, GameFieldTypeConstants::GROUND_BORDER).border?, false)
+  end
+
+  def test_floor?
+    assert_equal(GameField.new(Color.red, GameFieldTypeConstants::BORDER).floor?, false)
+    assert_equal(GameField.new(Color.red, GameFieldTypeConstants::PLACED).floor?, false)
+    assert_equal(GameField.new(Color.red, GameFieldTypeConstants::MOVING).floor?, false)
+    assert_equal(GameField.new(Color.red, GameFieldTypeConstants::FREE).floor?, false)
+    assert_equal(GameField.new(Color.red, GameFieldTypeConstants::GROUND_BORDER).floor?, true)
+  end
+
+  def test_to_s
+    type = :foobar; color = Color.green
+    gf = GameField.new(color, type)
+    assert_equal("t:#{type} c:#{color.to_rgb}", gf.to_s)
+  end
+
+  def test_wipe_out
+    type = :foobar; color = Color.green
+    gf = GameField.new(color, type)
+    assert_equal(gf.color, color)
+    assert_equal(gf.type, type)
+    gf.wipe_out
+    assert_equal(gf.color, GameField::DEFAULT_COLOR)
+    assert_equal(gf.type, GameField::DEFAULT_TYPE)
+  end
+
+  def test_copy_state_from
+    type = :foobar; color = Color.green
+    other = GameField.new(color, type)
+    gf = GameField.new
+    assert_equal(other.color, color)
+    assert_equal(other.type, type)
+    assert_equal(gf.color, GameField::DEFAULT_COLOR)
+    assert_equal(gf.type, GameField::DEFAULT_TYPE)
+    gf.copy_state_from(other)
+    assert_equal(gf.color, color)
+    assert_equal(gf.type, type)
+  end
+
 end

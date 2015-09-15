@@ -227,8 +227,8 @@ class GameField < Drawable
   # flush current state of this field to default state
   # that is :free and white
   def wipe_out
-    @type = FREE
-    @color = Color.white
+    @type = DEFAULT_TYPE
+    @color = DEFAULT_COLOR
   end
 
   # TODO: refactor me
