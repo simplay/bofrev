@@ -7,7 +7,8 @@ implement 2D applications similar to old nintendo games and numerical simulation
 
 The framework should allow to easily implement a game without having to understand how the framework is implemented. Ultimatively, a simple game should be implementable by only defining how user input affects the game state and how the game state should be periodically updated (according to a given world clock).
 
-A list of all implemented applications can be found [here](https://github.com/simplay/bofrev/wiki/Applications).
+A list of all implemented applications and their controls can be found [here](https://github.com/simplay/bofrev/wiki/Applications).
+For further information, please have a look at bofrev's [wiki](https://github.com/simplay/bofrev/wiki).
 
 This project is licensed under the [MIT License](https://github.com/simplay/bofrev/blob/master/LICENSE).
 
@@ -94,12 +95,6 @@ Example `ruby bofrev -g 3 -d 1` To run the game number 3 in the mode 2.
   + `<M>` is **2**: run in multiplayer server mode.
 
 `./bofrev -h` To list the show the help man.
-
-`rspec tests/some_tests.rb` to run grid tests
-
-On windows, please run the application the following way:
-`ruby bofrev -g <G> -d 1`
-without the parameter `-d 1`, the application will start to lag eventually (pretty soon).
 
 ## Known Issues
 
