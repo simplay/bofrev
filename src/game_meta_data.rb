@@ -218,7 +218,7 @@ module GameMetaData
   # @param model [Class] that should be normalized in representated as a symbol.
   # @return [Symbol] normalized symbolic representation.
   def model_type_as_sym(model)
-    underscore(gui_type.to_s).to_sym
+    underscore(model.to_s).to_sym
   end
 
   # Normalizes a given String.
