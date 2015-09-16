@@ -3,7 +3,7 @@ require_relative 'tetris_achievement_system'
 require_relative 'tetris_map'
 
 class TetrisMetaData
-  include GameMetaData
+  extend GameMetaData
 
   def self.theme_list
     ['audio/tetris_tone_loop.wav']
@@ -19,10 +19,6 @@ class TetrisMetaData
 
   def self.achievement_system
     TetrisAchievementSystem.instance
-  end
-
-  def self.achievement_system_sym
-    :tetris_achievement_system
   end
 
   def self.game_map

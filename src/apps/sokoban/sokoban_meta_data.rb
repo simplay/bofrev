@@ -3,7 +3,7 @@ require_relative 'sokoban_map'
 require_relative '../tetris/tetris_achievement_system'
 
 class SokobanMetaData
-  include GameMetaData
+  extend GameMetaData
 
   def self.theme_list
     []

@@ -2,7 +2,7 @@ require 'game_meta_data'
 require_relative 'snake_map'
 require_relative '../tetris/tetris_achievement_system'
 class SnakeMetaData
-  include GameMetaData
+  extend GameMetaData
 
   def self.theme_list
     []

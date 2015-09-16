@@ -2,7 +2,7 @@ require 'game_meta_data'
 require_relative 'game_of_life_map'
 
 class GameOfLifeMetaData
-  include GameMetaData
+  extend GameMetaData
 
   def self.theme_list
     []

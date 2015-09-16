@@ -2,7 +2,7 @@ require 'game_meta_data'
 require_relative 'ping_pong_map'
 
 class PingPongMetaData
-  include GameMetaData
+  extend GameMetaData
 
   def self.theme_list
     []

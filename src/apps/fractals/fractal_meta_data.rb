@@ -2,7 +2,7 @@ require 'game_meta_data'
 require_relative 'fractal_map'
 
 class FractalMetaData
-  include GameMetaData
+  extend GameMetaData
 
   def self.theme_list
     []

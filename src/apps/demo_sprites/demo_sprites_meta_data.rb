@@ -2,7 +2,7 @@ require_relative '../../game_meta_data'
 require_relative 'demo_sprites_map'
 
 class DemoSpritesMetaData
-  include GameMetaData
+  extend GameMetaData
 
   def self.theme_list
     []
