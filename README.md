@@ -53,8 +53,9 @@ This project is licensed under the [MIT License](https://github.com/simplay/bofr
 + Install dependencies:
  + Enter `bundle`
 
-## Start application
-Either run `ruby bofrev` or run `java -jar bofrev.jar`. For further information, please have a look at the **Usage** section below.
+## Run a application
+
+Either enter `ruby bofrev` into your console or run the latest bofrev.jar via `java -jar bofrev.jar`. For further information, please have a look at the **Usage** section below.
 
 ## Usages
 
@@ -66,6 +67,7 @@ Enter `chmod +x make_jar` and then `./make_jar` into your console.
 
 ### Running bofrev
 Enter `./bofrev -d <D> -g <G> -m <M>` into your terminal to run the game `<G>` in running mode `<D>`.
+Example `ruby bofrev -g 3 -d 1` To run the game number 3 in the mode 2.
 
 + Game Mode `<D>` is an _optional_ parameter:
 
