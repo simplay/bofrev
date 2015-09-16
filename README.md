@@ -35,18 +35,23 @@ This project is licensed under the [MIT License](https://github.com/simplay/bofr
 
 ## Prerequisites
 + JRuby 9.0.1.0
-+ bundle
++ bundler
++ git (optional)
 
 ## Installation
 
-+ install `rvm`. See [here](https://rvm.io/)
- + run `\curl -sSL https://get.rvm.io | bash -s stable` 
-+ install JRuby 9.0.1.0
- + run `rvm install jruby-9.0.1.0` 
-+ install `bundler`
-+ clone this repository
-+ `cd` into `bofrev/`
-+ run `bundle`
++ Install `rvm`. See [here](https://rvm.io/)
+ + Run `\curl -sSL https://get.rvm.io | bash -s stable` 
++ Install JRuby 9.0.1.0
+ + Run `rvm install jruby-9.0.1.0` 
++ Install `bundler`
+ + Enter `gem install bundler`
++ Clone this repository
+ + Enter `git clone https://github.com/simplay/bofrev.git`
++ Go to cloned repository: 
+ + Enter `cd path_where_i_put_this_repo_to/bofrev/`
++ Install dependencies:
+ + Enter `bundle`
 
 ## Start application
 Either run `ruby bofrev` or run `java -jar bofrev.jar`. For further information, please have a look at the **Usage** section below.
