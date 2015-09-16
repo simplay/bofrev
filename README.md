@@ -7,6 +7,8 @@ implement 2D applications similar to old nintendo games and numerical simulation
 
 The framework should allow to easily implement a game without having to understand how the framework is implemented. Ultimatively, a simple game should be implementable by only defining how user input affects the game state and how the game state should be periodically updated (according to a given world clock).
 
+A list of all implemented applications can be found [here](https://github.com/simplay/bofrev/wiki/Applications).
+
 This project is licensed under the [MIT License](https://github.com/simplay/bofrev/blob/master/LICENSE).
 
 ## Acknowledgement
@@ -92,68 +94,6 @@ On windows, please run the application the following way:
 `ruby bofrev -g <G> -d 1`
 without the parameter `-d 1`, the application will start to lag eventually (pretty soon).
 
-## Applications
-### Tetris
-
-A standard Tetris game implementation with known rules.
-Try to fill whole rows by placing blocks to increase your score.
-The higher your score gets the faster the game becomes.
-There are also some achievements to unlock. :sheep:
-You lose the game when your grid gets over-crowded (i.e. the latest block reached top row).
-
-+ Controls:
- + **a key** left
- + **d key** right
- + **s key** down
- + **w key** rotate shape clock-wise
-
-### Game of Life
-
-Click (left click) and drag you mouse over the game grid to mark the grid's state.
-Depending on the marking, the grid will be updated according to the rules of [Game of Life](http://en.wikipedia.org/wiki/Conway%27s_Game_of_Life).
-
-+ Controls:
- + **a key** start update
- + **s key** decrease update rate
- + **w key** increase update rate
-
-### Sokoban
-
-The player (red block) has to push the chest (blue block) onto a target (green block).
-
-+ Controls:
- + **a key** left
- + **d key** right
- + **s key** down
- + **w key** up
-
-### Snake
-
-_WIP state game_
-
-+ Controls:
- + **a key** left
- + **d key** right
- + **s key** down
- + **w key** up
-
-### Ping Pong
-
-_WIP state game_
-
-+ Controls:
- + **a key** left
- + **d key** right
- 
-
-### Sprites demo
-
-_WIP state game_
-
-+ Controls:
- + **a key** left
- + **d key** right
- 
 ## Known Issues
 
 + when running the test suit locally entering entering `rake`, it may report _Coverage may be inaccurate_ which will result in reporting `Coverage = 0.0%`. By entering `export JRUBY_OPTS="-Xcli.debug=true --debug"` into your console this will be fixed.
