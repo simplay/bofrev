@@ -73,15 +73,29 @@ module GameMetaData
 
   # Hash of required render/drawing specif attributes used by any Gui instance.
   #
-  # @return [Hash] of canvas/drawing specific attributes.
+  # @example: render_attributes =
+  #             {
+  #                 :cell_size => 20,
+  #                 :width_pixels => 10,
+  #                 :height_pixels => 20,
+  #                 :max_width => 200,
+  #                 :max_height => 420,
+  #                 :tics_per_second => 1
+  #             }
+  #
   # @hint the following keys have to be specified:
   #   :cell_size [Integer] pixel size of a rendered grid cell.
-  #   :width_pixels [Integer] width in canvas pixels of a pixel.
-  #   :height_pixels [Integer] height in canvas pixels of a pixel.
-  #   :max_width [Integer] canvas pixel width.
-  #   :max_height [Integer] canvas pixel height.
+  #     How many pixels does a pixel correspond to.
+  #     A 1x1 grid cell correspond to a cell_size x cell_size super pixel.
+  #   :width_pixels [Integer] number of pixels in width.
+  #     How many pixels are there per row.
+  #   :height_pixels [Integer] number of pixels in height.
+  #     How many pixels are there per column.
+  #   :max_width [Integer] canvas window width resolution.
+  #   :max_height [Integer] canvas window pixel height resoultion.
   #   :tics_per_second [Integer] how many tics should be performed per second.
   #
+  # @return [Hash] of canvas/drawing specific attributes.
   def self.render_attributes
     raise "not implemented yet"
   end
