@@ -25,12 +25,4 @@ class TestLayer < Minitest::Test
     assert_equal(layer.drawables, [d1,d2,d3])
   end
 
-  def test_update_drawables
-    skip
-  end
-
-  def test_draw_drawables_onto
-    skip
-  end
-
 end

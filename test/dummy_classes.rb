@@ -14,6 +14,12 @@
 module DummyClasses
 
   # @info is used by:
+  #   TestRenderHelpers
+  class ARenderHelperIncluder
+    include RenderHelpers
+  end
+
+  # @info is used by:
   #   TestCanvas
   class ACanvas < Canvas
     def public_scope_draw(g)

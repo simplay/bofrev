@@ -88,6 +88,7 @@ class TestGameSettings < Minitest::Test
   end
 
   def test_debug_mode_1_runs_no_music_but_ticker
+    GameSettings.flush
     gs = GameSettings.build_from({:debug => 1})
     assert_equal(GameSettings.run_music?, false)
     assert(GameSettings.run_game_thread?)

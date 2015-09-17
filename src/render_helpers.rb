@@ -3,14 +3,26 @@ require 'game_settings'
 # This module offers a gui/view some neat helper methods to simplify the indexing used by all the canvas drawing methods (for grid based rendering approaches).
 module RenderHelpers
 
+  # Get Cell size of a pixel.
+  #
+  # @info: GameSettings#cell_size
+  # @return [Integer] how many unit pixel does a drawn cell correspond to.
   def cell_size
     GameSettings.cell_size
   end
 
+  # Get width pixel count. Used for spanning a canvas.
+  #
+  # @info: GameSettings#cell_size
+  # @return [Integer] number of pixels in width.
   def width_pixels
     GameSettings.width_pixels
   end
 
+  # Get height pixel count. Used for spanning a canvas.
+  #
+  # @info: GameSettings#cell_size
+  # @return [Integer] number of pixels in height.
   def height_pixels
     GameSettings.height_pixels
   end
