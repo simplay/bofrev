@@ -1,12 +1,12 @@
 require 'game_meta_data'
 require 'system_information'
-require_relative 'apps/tetris/tetris_meta_data'
-require_relative 'apps/game_of_life/game_of_life_meta_data'
-require_relative 'apps/sokoban/sokoban_meta_data'
-require_relative 'apps/snake/snake_meta_data'
-require_relative 'apps/pingpong/ping_pong_meta_data'
-require_relative 'apps/demo_sprites/demo_sprites_meta_data'
-require_relative 'apps/fractals/fractal_meta_data'
+require_relative '../demos/tetris/tetris_meta_data'
+require_relative '../demos/game_of_life/game_of_life_meta_data'
+require_relative '../demos/sokoban/sokoban_meta_data'
+require_relative '../demos/snake/snake_meta_data'
+require_relative '../demos/pingpong/ping_pong_meta_data'
+require_relative '../demos/demo_sprites/demo_sprites_meta_data'
+require_relative '../demos/fractals/fractal_meta_data'
 
 # Singleton class
 class GameSettings

@@ -1,8 +1,7 @@
 require 'game_meta_data'
-require_relative 'sokoban_map'
-require_relative '../tetris/tetris_achievement_system'
+require_relative 'demo_sprites_map'
 
-class SokobanMetaData
+class DemoSpritesMetaData
   extend GameMetaData
 
   def self.theme_list
@@ -22,7 +21,7 @@ class SokobanMetaData
   end
 
   def self.game_map
-    SokobanMap
+    DemoSpritesMap
   end
 
   def self.canvas
@@ -31,12 +30,13 @@ class SokobanMetaData
 
   def self.render_attributes
     {
-        :cell_size => 25,
-        :width_pixels => 20,
-        :height_pixels => 13,
-        :max_width => 500,
-        :max_height => 345,
-        :tics_per_second => 0
+        :cell_size => 15,
+        :width_pixels => 40,
+        :height_pixels => 20,
+        :max_width => 600,
+        :max_height => 340,
+        :tics_per_second => 15,
+        :show_grid => false
     }
   end
 
@@ -46,7 +46,7 @@ class SokobanMetaData
 
   def self.allowed_controls
     {
-      :keyboard => [D_KEY, A_KEY, S_KEY, W_KEY],
+      :keyboard => [W_KEY, D_RELEASED, A_RELEASED, A_PRESSED, D_PRESSED],
       :mouse => []
     }
   end
