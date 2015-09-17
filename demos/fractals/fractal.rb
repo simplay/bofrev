@@ -1,20 +1,18 @@
-require 'canvas'
 require 'point2f'
 require 'color'
 require 'java'
 require 'game_settings'
-
-class FractalCanvas < Canvas
+class Fractal
 
   MUTE = true
   BITS_PER_COLOR_CHANNEL = 8
   MAX_ITER = 255
 
-  def drawing_methods(g)
-    draw_shapes(g)
+  def drawable?
+    true
   end
 
-  def draw_shapes(g)
+  def draw_onto(g)
     @x_pixels = GameSettings.width_pixels
     @y_pixels = GameSettings.height_pixels
     (@x_pixels+1).times do |x|
@@ -22,6 +20,9 @@ class FractalCanvas < Canvas
         draw_fractal_pixel_at(g, x, y, 4.3)
       end
     end
+  end
+
+  def update_animation_state
   end
 
   private
@@ -110,5 +111,4 @@ class FractalCanvas < Canvas
     seq = range.to_a[1..range.size-1].map do |a| "0" end
     seq.join
   end
-
 end

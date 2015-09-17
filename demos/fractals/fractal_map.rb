@@ -1,5 +1,6 @@
 require 'map'
 require 'game_settings'
+require_relative 'fractal'
 
 class FractalMap < Map
 
@@ -7,6 +8,7 @@ class FractalMap < Map
     super(game)
     @allow_updates = false
     @mutex = Mutex.new
+    @layer_manager.append_to([Fractal.new], :foreground)
   end
 
   # defines how user input should be handled to update the game state.

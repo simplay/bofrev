@@ -25,7 +25,7 @@ class FractalMetaData
   end
 
   def self.canvas
-    FractalCanvas
+    FreeformCanvas
   end
 
   def self.render_attributes

@@ -1,6 +1,5 @@
 require_relative 'view'
 require 'freeform_canvas'
-require 'fractal_canvas'
 require 'control_constants'
 
 # GameMetaData is a module that models a (game-) application specific properties
