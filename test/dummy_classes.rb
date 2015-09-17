@@ -1,3 +1,16 @@
+# DummyClasses is a set of classes defined only within the testing environment
+# used for testing. E.g used for testing whether extending/including modules
+# in a class worked as expected. Having all these dummy classes at one common
+# place reduces code duplication and the risk of potential side effects when
+# defining in two different test classes a dumming class having the same name,
+# with a method having the same name but a different implementation.
+#
+# @example: How a new dummy class is supposed to look like:
+#
+#   # @info is used by
+#   # MENTION HERE IN WHICH TEST CLASS THIS DUMMY IS USED
+#   class ANewDummy
+#
 module DummyClasses
 
   # @info is used by:

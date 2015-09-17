@@ -1,3 +1,26 @@
+# ClassAdaptions is a set of class adaptions used during
+# the testing process. Some methods of some classes need
+# an adaption of their behavior in order to make them testable.
+#
+# @hint: when testing View, Canvas classes, we don't want
+#   to span a gui. Especially travis hates such a behavior.
+#   Furthermore, threading has to be simulated.
+# @info: This reduced unknown side effects. applying :class_eval
+#   in different tests on the same target class results
+#   in having unknown side effects.
+# @example: Assume bofrev defines a class Socks that has a method
+#   :wash defining an appropriate behaviour
+#   (unuseful for testing). Then, in order to test this method
+#   modify this class' method such that it is testable. In
+#   the following an example how such a modification is supposed
+#   to look like:
+#
+#     Socks.class_eval do
+#       def wash
+#         # do something meaningful and testable
+#         # mocking the previous washing behavior.
+#       end
+#
 module ClassAdaptions
 
   LayerManager.class_eval do

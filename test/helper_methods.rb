@@ -1,4 +1,6 @@
+# HelperMethods is a set of shared helper methods that can be used by all tests.
 module HelperMethods
+
   # allow to fetch puts outputs
   def fetch_stdout(&block)
     begin
