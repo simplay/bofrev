@@ -20,7 +20,10 @@ end
 namespace :test do
   task :coverage do
     require 'simplecov'
-    SimpleCov.start
+    SimpleCov.start do
+      add_filter "test/"
+      add_filter "demos/"
+    end
     Rake::Task["test"].execute
   end
 end
