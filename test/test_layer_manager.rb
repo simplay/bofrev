@@ -2,48 +2,6 @@ require "test_helper"
 require 'layer'
 class TestLayerManager < Minitest::Test
 
-  # allow to fetch puts outputs
-  def fetch_stdout(&block)
-    begin
-      old_stdout = $stdout
-      $stdout = StringIO.new('','w')
-      yield block
-      $stdout.string
-    ensure
-      $stdout = old_stdout
-    end
-  end
-
-  class ADrawable
-  end
-
-  def setup
-    LayerManager.class_eval do
-      def layers
-        @layers
-      end
-    end
-
-    Layer.class_eval do
-      def drawables
-        @drawables
-      end
-
-      def state
-        @state
-      end
-
-      def update_drawables
-        @state = "update #{self.object_id}"
-      end
-
-      def draw_drawables_onto(g)
-        @state = "draw #{self.object_id}"
-      end
-
-    end
-  end
-
   def test_initialize
     lm = LayerManager.new
     assert_equal(lm.layers.count, 3)

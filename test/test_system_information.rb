@@ -8,24 +8,6 @@ class TestSystemInformation < Minitest::Test
     SystemInformation.build
   end
 
-  def setup
-    # locally extend StystemInformation class such that different
-    # caller cases and os environments can be mocked by setting appropriate fields.
-    SystemInformation.class_eval do
-
-      # fake a target os by setting its fetched field.
-      def set_os(os_name)
-        @os = os_name
-      end
-
-      # fake a target caller by setting its fetched field.
-      def set_caller(caller_name)
-        @caller = caller_name
-      end
-
-    end
-  end
-
   def test_running_on_os_methods_windows_case
     SystemInformation.build.set_os("windows")
     assert_equal(SystemInformation.running_on_windows?, true)

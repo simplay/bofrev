@@ -3,12 +3,6 @@ java_import 'javax.swing.JPanel'
 
 class TestCanvas < Minitest::Test
 
-  class ACanvas < Canvas
-    def public_scope_draw(g)
-      drawing_methods(g)
-    end
-  end
-
   def test_initialize
     canvas = Canvas.new
     background_color = canvas.get_background

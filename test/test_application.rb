@@ -4,36 +4,6 @@ require 'observer'
 
 class TestApplication < Minitest::Test
 
-  # allow to fetch puts outputs
-  def fetch_stdout(&block)
-    begin
-      old_stdout = $stdout
-      $stdout = StringIO.new('','w')
-      yield block
-      $stdout.string
-    ensure
-      $stdout = old_stdout
-    end
-  end
-
-  # overwridden View class initializer to not spawn a atw frame.
-  View.class_eval do
-    def initialize(game)
-    end
-  end
-
-  Server.class_eval do
-    def initialize
-      puts "server is running"
-    end
-  end
-
-  Client.class_eval do
-    def initialize
-      puts "client is running"
-    end
-  end
-
   def test_handle_event
     app = Application.new({})
     out = fetch_stdout {app.handle_event}

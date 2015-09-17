@@ -3,58 +3,12 @@ require 'event'
 
 class TestGame < Minitest::Test
 
-  # allow to fetch puts outputs
-  def fetch_stdout(&block)
-    begin
-      old_stdout = $stdout
-      $stdout = StringIO.new('','w')
-      yield block
-      $stdout.string
-    ensure
-      $stdout = old_stdout
-    end
-  end
-
   def setup
     GameSettings.build_from
-    Game.class_eval do
-      def music_thread
-        @music_thread
-      end
+  end
 
-      def score
-        @score
-      end
-
-      def notify_all_targets_of_type(type)
-      end
-
-    end
-
-    MusicPlayer.class_eval do
-      def play
-      end
-
-      def shut_down
-      end
-    end
-
-    Ticker.class_eval do
-      def start
-      end
-
-      def shut_down
-      end
-    end
-
-    Map.class_eval do
-      def handle_ticker_notification
-      end
-
-      def handle_user_input_notification_for(msg)
-      end
-    end
-
+  def before_teardown
+    GameSettings.flush
   end
 
   def test_initialize
