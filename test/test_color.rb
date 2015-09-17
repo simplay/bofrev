@@ -48,7 +48,21 @@ class TestColor < Minitest::Test
   def test_equality
      assert_equal(@random_color == @random_color, true)
      assert_equal(@random_color == Color.new(@random_24_bit_rgb_value), true)
-     rgb_as_i = [@green_channel_i, @red_channel_i, @blue_channel_i]
+     green_i = @green_channel_i
+
+     # make sure that color values differ and are in range [17,255]
+     if @green_channel_i==@red_channel_i
+       if @green_channel_i == 17
+         green_i = 18
+       elsif @green_channel_i == 255
+         green_i = 254
+       else
+          t = @green_channel_i / 2
+          t = 17 if t < 17
+          green_i = t
+       end
+     end
+     rgb_as_i = [green_i, @red_channel_i, @blue_channel_i]
      other_24_bit_rgb_value = "#"+(rgb_as_i.map {|chan| chan.to_s(16)}).join
      assert_equal(@random_color == Color.new(other_24_bit_rgb_value), false)
   end
