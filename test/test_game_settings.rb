@@ -237,6 +237,7 @@ class TestGameSettings < Minitest::Test
   end
 
   def test_show_grid_false_case_dont_show
+    GameSettings.flush
     rand_game_settings = GameSettings.build_from({:game => 7})
     assert_equal(GameSettings.show_grid?, false)
   end

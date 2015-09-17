@@ -9,3 +9,5 @@ CodeClimate::TestReporter.start
 # necessary requirements for for minitest
 require 'simplecov'
 require 'minitest/autorun'
+require 'class_adaptions'
+include ClassAdaptions
