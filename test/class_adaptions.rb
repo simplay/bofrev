@@ -1,17 +1,5 @@
 module ClassAdaptions
 
-  # allow to fetch puts outputs
-  def fetch_stdout(&block)
-    begin
-      old_stdout = $stdout
-      $stdout = StringIO.new('','w')
-      yield block
-      $stdout.string
-    ensure
-      $stdout = old_stdout
-    end
-  end
-
   LayerManager.class_eval do
     def layers
       @layers
@@ -71,6 +59,24 @@ module ClassAdaptions
     end
 
     def handle_user_input_notification_for(msg)
+    end
+  end
+
+  # overwridden View class initializer to not spawn a atw frame.
+  View.class_eval do
+    def initialize(game)
+    end
+  end
+
+  Server.class_eval do
+    def initialize
+      puts "server is running"
+    end
+  end
+
+  Client.class_eval do
+    def initialize
+      puts "client is running"
     end
   end
 

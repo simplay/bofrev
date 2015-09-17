@@ -8,18 +8,6 @@ class TestObserver < Minitest::Test
   class BRandomClass < Observer
   end
 
-  # allow to fetch puts outputs
-  def fetch_stdout(&block)
-    begin
-      old_stdout = $stdout
-      $stdout = StringIO.new('','w')
-      yield block
-      $stdout.string
-    ensure
-      $stdout = old_stdout
-    end
-  end
-
   def test_properly_inherited
     arc = ARandomClass.new
     assert_respond_to(arc, :handle_event)

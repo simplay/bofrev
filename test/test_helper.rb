@@ -10,4 +10,7 @@ CodeClimate::TestReporter.start
 require 'simplecov'
 require 'minitest/autorun'
 require 'class_adaptions'
+require 'helper_methods'
+
 include ClassAdaptions
+include HelperMethods
