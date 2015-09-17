@@ -1,3 +1,4 @@
 files:
   included:
-    - src/
+    - src/**/*.rb
+    - demos/**/*.rb
