@@ -3,16 +3,12 @@ require 'freeform_canvas'
 require 'fractal_canvas'
 require 'control_constants'
 
-# GameMetaData is a module taht models (game-) application specific properties that
-# either determine its behaviour or/and its outlook. Every Game has a own
+# GameMetaData is a module that models a (game-) application specific properties
+# such as its behaviour and/or its appearance. Every Game has an
 # own MyGameMetaData class that is supposed to extend GameMetaData and implement all
 # abstract methods as class methods.
 #
-# This is usually done by extending GameMetaData in your class and implementing
-# all methods that raise an Exception "not implemented yet".
-#
-# @hint: When extending the GameMetaData module in your MyGameMetaData class,
-# please implement the following methods:
+# The abstract methods that need to be overwritten are (for their respective functionality, see below):
 #   self.theme_list
 #   self.sound_effect_list
 #   self.achievement_system
@@ -32,7 +28,7 @@ module GameMetaData
   end
 
   # Returns the type of cavas that should be used for drawing.
-  #
+  # TODO: what kind of canvas are available? Where can I find implementations?
   # @example: Taken from TetrisMetaData
   #
   #   def self.canvas
@@ -46,7 +42,7 @@ module GameMetaData
   end
 
   # Retrive a list of audio filepaths that should be played when running a target Game.
-  #
+  # TODO: What are the audio formats allowed? If specified somewhere else, mention it here.
   # @hint: Audio files are located in 'audio/'.
   # @example: Taken from TetrisMetaData
   #
@@ -61,6 +57,7 @@ module GameMetaData
     raise "not implemented yet"
   end
 
+  # TODO: Explain structure of hash that should be returned.
   # @example: Taken from TetrisMetaData
   #
   #   def self.sound_effect_list
@@ -72,15 +69,14 @@ module GameMetaData
   #   end
   #
   # @raise [RuntimeError] with the message "not implemented yet".
-  # @return [Array] list of sound effect files located at 'audio/' that should be available
-  # within the running target application.
+  # @return [Hash] TODO: Updated comment
   def sound_effect_list
     raise "not implemented yet"
   end
 
   # Determines the AchivementSystem that should be used for the target application.
   #
-  # @hint: An particular AchievementSystem is supposed to be a descendent of
+  # @hint: A particular AchievementSystem is supposed to be a descendent of
   #   AchievementSystem.
   # @example: Taken from TetrisMetaData
   #
@@ -94,10 +90,10 @@ module GameMetaData
     raise "not implemented yet"
   end
 
-  # Determines the sybolic representation of AchivementSystem
+  # Determines the symbolic representation of AchivementSystem
   # that should be used for the target application.
-  #
-  # @hint: An particular AchievementSystem is supposed to be a descendent of
+  # TODO: Move this below the abstract methods
+  # @hint: A particular AchievementSystem is supposed to be a descendent of
   #   AchievementSystem.
   # @return [Symbol] symbolid represenation of GameMetaData#achievement_system.
   def achievement_system_sym
@@ -107,7 +103,7 @@ module GameMetaData
   # Defines which Game Map should be run.
   #
   # @hint: Every running Game has to define AMap class that inherits from Map.
-  #   AMap defines the behaviour of the Game that should be run. This means, it
+  #   AMap defines the behaviour of the Game that should be run. This means it
   #   defines how user input should be handled and how the game state should be updated
   #   at a time step (determined by a Ticker thread).
   # @example: Taken from TetrisMetaData
@@ -122,8 +118,8 @@ module GameMetaData
     raise "not implemented yet"
   end
 
-  # Hash of required render/drawing specif attributes used by any Gui instance.
-  # Return a Hash containing meta infromation about how model data
+  # Hash of required render/drawing properties used by any GUI instance.
+  # Return a Hash containing meta information about how model data
   # is supposed to be drawn onto a View's Canvas. For example this hash indicates
   # a Canvas' resolution, its number of pixels, how many times it
   # is supposed to be redrawn (i.e. how many times it should be
@@ -150,9 +146,9 @@ module GameMetaData
   #     How many pixels are there per row.
   #   :height_pixels [Integer] number of pixels in height.
   #     How many pixels are there per column.
-  #   :max_width [Integer] canvas window width resolution.
-  #   :max_height [Integer] canvas window pixel height resoultion.
-  #   :tics_per_second [Integer] how many tics should be performed per second.
+  #   :max_width [Integer] canvas window pixel width, window will be scaled to this width.
+  #   :max_height [Integer] canvas window pixel height, window will be scaled to this height.
+  #   :tics_per_second [Integer] how many redraws/updates should be performed per second.
   #
   # @raise [RuntimeError] with the message "not implemented yet".
   # @return [Hash] of canvas/drawing specific attributes.
@@ -160,7 +156,8 @@ module GameMetaData
     raise "not implemented yet"
   end
 
-  # Defines which Vie should be used by the target application.
+  # Defines which View should be used by the target application. 
+  # Every custom View class should implement View
   #
   # @hint: A View defines how the gui will look like.
   # @example: Taken from TetrisMetaData
@@ -176,7 +173,7 @@ module GameMetaData
     raise "not implemented yet"
   end
 
-  # Returns a Hash of controls that are supported for by a target game.
+  # Returns a Hash of controls that are supported by a target game.
   # All controls listed in this Hash can be defined in a target Map descendent class
   # to define user input behavior.
   # Even a key is defined in a Map, but not occuring in this list,
