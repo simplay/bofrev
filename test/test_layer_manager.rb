@@ -2,9 +2,6 @@ require "test_helper"
 require 'layer'
 class TestLayerManager < Minitest::Test
 
-  class ADrawable
-  end
-
   def test_initialize
     lm = LayerManager.new
     assert_equal(lm.layers.count, 3)

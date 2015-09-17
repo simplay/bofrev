@@ -1,30 +1,6 @@
 require "test_helper"
 
 class TestGameMetaData < Minitest::Test
-  class FancyView; end
-  class FancyAchievementSystem
-    def initialize; end
-
-    def self.instance
-      FancyAchievementSystem.new
-    end
-  end
-
-  class ANewMetaDataGame
-    extend GameMetaData
-  end
-
-  class BNewMetaDataGame
-    extend GameMetaData
-
-    def self.gui_type
-      FancyView
-    end
-
-    def self.achievement_system
-      FancyAchievementSystem.instance
-    end
-  end
 
   def test_extending_works_as_expected
     assert_raises(RuntimeError, "not implemented yet"){ANewMetaDataGame.theme_list}

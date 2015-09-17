@@ -11,6 +11,9 @@ require 'simplecov'
 require 'minitest/autorun'
 require 'class_adaptions'
 require 'helper_methods'
+require 'dummy_classes'
 
+# Auxiliary testing modules
 include ClassAdaptions
 include HelperMethods
+include DummyClasses

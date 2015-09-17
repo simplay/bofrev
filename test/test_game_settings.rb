@@ -100,6 +100,7 @@ class TestGameSettings < Minitest::Test
   end
 
   def test_music_thread_not_running_when_no_themes
+    GameSettings.flush
     GameSettings.build_from({:game => 5})
     assert_equal(GameSettings.run_music?, false)
   end

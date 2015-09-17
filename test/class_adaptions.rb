@@ -35,7 +35,6 @@ module ClassAdaptions
 
     def notify_all_targets_of_type(type)
     end
-
   end
 
   MusicPlayer.class_eval do
@@ -77,6 +76,22 @@ module ClassAdaptions
   Client.class_eval do
     def initialize
       puts "client is running"
+    end
+  end
+
+  # locally extend StystemInformation class such that different
+  # caller cases and os environments can be mocked
+  # by setting appropriate fields.
+  SystemInformation.class_eval do
+
+    # fake a target os by setting its fetched field.
+    def set_os(os_name)
+      @os = os_name
+    end
+
+    # fake a target caller by setting its fetched field.
+    def set_caller(caller_name)
+      @caller = caller_name
     end
   end
 
