@@ -1,5 +1,5 @@
 require "test_helper"
-
+require 'layer'
 class TestLayerManager < Minitest::Test
 
   # allow to fetch puts outputs
@@ -29,12 +29,16 @@ class TestLayerManager < Minitest::Test
         @drawables
       end
 
+      def state
+        @state
+      end
+
       def update_drawables
-        puts "update #{object_id}"
+        @state = "update #{self.object_id}"
       end
 
       def draw_drawables_onto(g)
-        puts "draw #{object_id}"
+        @state = "draw #{self.object_id}"
       end
 
     end
@@ -68,22 +72,22 @@ class TestLayerManager < Minitest::Test
 
   def test_update_layer
     lm = LayerManager.new
-    out = fetch_stdout{lm.update_layer(:center)}
-    assert(out.include?("update " + lm.layers.values[1].object_id.to_s))
+    lm.update_layer(:center)
+    expected = "update " + lm.layers.values[1].object_id.to_s
+    given = lm.layers.values[1].state
+    assert_equal(expected, given)
   end
 
   def test_draw_drawables_onto
     lm = LayerManager.new
-    out = fetch_stdout {lm.draw_drawables_onto(nil)}
-    assert_equal(out.include?("draw " + lm.layers.values[0].object_id.to_s), true)
-    assert_equal(out.include?("draw " + lm.layers.values[1].object_id.to_s), true)
-    assert_equal(out.include?("draw " + lm.layers.values[2].object_id.to_s), true)
+    lm.draw_drawables_onto(nil)
+    assert_equal(lm.layers.values[0].state, "draw " + lm.layers.values[0].object_id.to_s)
   end
 
   def test_draw_drawables_onto_for
     lm = LayerManager.new
-    out = fetch_stdout {lm.draw_drawables_onto_for(nil, :center)}
-    assert_equal(out.include?("draw " + lm.layers.values[1].object_id.to_s), true)
+    lm.draw_drawables_onto_for(nil, :center)
+    assert_equal(lm.layers.values[1].state, "draw " + lm.layers.values[1].object_id.to_s)
   end
 
 end

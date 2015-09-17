@@ -23,16 +23,20 @@ class TestLayer < Minitest::Test
       true
     end
 
+    def state
+      @state
+    end
+
     def id
       @id
     end
 
     def update_animation_state
-      puts "#{object_id}-#{id}"
+      @state =  "#{object_id}-#{id}"
     end
 
     def draw_onto(g)
-      puts "drawing #{id}"
+      @state =  "drawing #{id}"
     end
 
   end
@@ -60,22 +64,15 @@ class TestLayer < Minitest::Test
   def test_update_drawables
     layer = Layer.new
     layer.append(ANewDrawable.new("obj1"))
-    layer.append(ANewDrawable.new("obj2"))
-    layer.append(ANewDrawable.new("obj3"))
-    out = fetch_stdout {layer.update_drawables}
-    assert(out.include?("#{layer.drawables[0].object_id}-#{layer.drawables[0].id}"))
-    assert(out.include?("#{layer.drawables[1].object_id}-#{layer.drawables[1].id}"))
-    assert(out.include?("#{layer.drawables[2].object_id}-#{layer.drawables[2].id}"))
+    layer.update_drawables
+    expected = "#{layer.drawables[0].object_id}-#{layer.drawables[0].id}"
+    assert_equal(expected, layer.drawables.first.state)
   end
 
   def test_draw_drawables_onto
     layer = Layer.new
     layer.append(ANewDrawable.new("obj1"))
-    layer.append(ANewDrawable.new("obj2"))
-    layer.append(ANewDrawable.new("obj3"))
-    out = fetch_stdout {layer.draw_drawables_onto(nil)}
-    assert(out.include?("drawing obj1"))
-    assert(out.include?("drawing obj2"))
-    assert(out.include?("drawing obj3"))
+    layer.draw_drawables_onto(nil)
+    assert_equal(layer.drawables.first.state, "drawing obj1")
   end
 end
