@@ -9,7 +9,7 @@ require 'color'
 # 'c' chest (blue)
 class LevelParser
 
-  BASE_PATH = "src/apps/sokoban"
+  BASE_PATH = "demos/sokoban"
 
   # @param grid [Grid] game grid a player is playing
   # @param lvl_name [String] indicating a file in 'maps'

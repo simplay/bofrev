@@ -6,6 +6,7 @@ task :test do
   require 'java'
   $LOAD_PATH.unshift File.expand_path("src")
   $LOAD_PATH.unshift File.expand_path("test")
+  $LOAD_PATH.unshift File.expand_path("demos")
   require 'application'
   Dir.glob('test/test_*.rb').each do |file|
     unless file.include?("test_helper.rb")
