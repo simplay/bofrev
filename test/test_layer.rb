@@ -14,9 +14,10 @@ class TestLayer < Minitest::Test
     end
   end
 
-  class ANewDrawable
+  class ANewDrawableL
     def initialize(id="")
       @id = id
+      @state = "init"
     end
 
     def drawable?
@@ -32,21 +33,13 @@ class TestLayer < Minitest::Test
     end
 
     def update_animation_state
-      @state =  "#{object_id}-#{id}"
+      @state = "#{id}"
     end
 
     def draw_onto(g)
-      @state =  "drawing #{id}"
+      @state = "drawing #{id}"
     end
 
-  end
-
-  def setup
-    Layer.class_eval do
-      def drawables
-        @drawables
-      end
-    end
   end
 
   def test_initialize
@@ -55,24 +48,10 @@ class TestLayer < Minitest::Test
 
   def test_append
     layer = Layer.new
-    layer.append(ANewDrawable.new)
+    layer.append(ANewDrawableL.new)
     assert_equal(layer.drawables.count, 1)
-    layer.append(ANewDrawable.new)
+    layer.append(ANewDrawableL.new)
     assert_equal(layer.drawables.count, 2)
   end
 
-  def test_update_drawables
-    layer = Layer.new
-    layer.append(ANewDrawable.new("obj1"))
-    layer.update_drawables
-    expected = "#{layer.drawables[0].object_id}-#{layer.drawables[0].id}"
-    assert_equal(expected, layer.drawables.first.state)
-  end
-
-  def test_draw_drawables_onto
-    layer = Layer.new
-    layer.append(ANewDrawable.new("obj1"))
-    layer.draw_drawables_onto(nil)
-    assert_equal(layer.drawables.first.state, "drawing obj1")
-  end
 end

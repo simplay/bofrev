@@ -19,6 +19,13 @@ class Layer
     @drawables << drawable
   end
 
+  # Obtain all Drawable instances contained in this Layer.
+  #
+  # @return [Array] containing all Drawable instances of this Layer.
+  def drawables
+    @drawables
+  end
+
   # Update the animation state of all Drawable instances contained
   # in the list of all drawables of this Layer.
   def update_drawables
