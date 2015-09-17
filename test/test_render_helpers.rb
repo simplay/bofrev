@@ -27,7 +27,7 @@ class TestRenderHelpers < Minitest::Test
     assert_equal(@arhi.x_pixels, GameSettings.width_pixels + 2)
   end
 
-  def test_x_pixels
+  def test_y_pixels
     assert_equal(@arhi.y_pixels, GameSettings.height_pixels + 2)
   end
 

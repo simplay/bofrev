@@ -7,7 +7,9 @@ require 'control_constants'
 # own MyGameMetaData class that is supposed to extend GameMetaData and implement all
 # abstract methods as class methods.
 #
-# The abstract methods that need to be overwritten are (for their respective functionality, see below):
+# The abstract methods that need to be overwritten are
+# (for their respective functionality, see below):
+#
 #   self.theme_list
 #   self.sound_effect_list
 #   self.achievement_system
@@ -27,7 +29,9 @@ module GameMetaData
   end
 
   # Returns the type of cavas that should be used for drawing.
-  # TODO: what kind of canvas are available? Where can I find implementations?
+  #
+  # @hint: Currently, there is only one kind of Cavas available,
+  #   the FreeformCanvas canvas.
   # @example: Taken from TetrisMetaData
   #
   #   def self.canvas
@@ -41,8 +45,9 @@ module GameMetaData
   end
 
   # Retrive a list of audio filepaths that should be played when running a target Game.
-  # TODO: What are the audio formats allowed? If specified somewhere else, mention it here.
-  # @hint: Audio files are located in 'audio/'.
+  #
+  # @hint: Audio files are located in 'audio/'. Currently, only .wav audio files are supported.
+  # @info: See class MusicPlayer for further information.
   # @example: Taken from TetrisMetaData
   #
   #   def self.theme_list
@@ -56,7 +61,14 @@ module GameMetaData
     raise "not implemented yet"
   end
 
-  # TODO: Explain structure of hash that should be returned.
+  # Retuns a Hash containing the sound_effcts. Each key is an identifier that
+  # can be used to play this sound effect within the engine by
+  # using the SoundEffectPlayer. Each key points to a String whould refers
+  # to the file path of a sound effect.
+  #
+  # @info: Currently, only .wav sound effect audio files are suppored.
+  # @hint: Every class that inherits from Map has can play the sounds defined
+  #   in this Hash.
   # @example: Taken from TetrisMetaData
   #
   #   def self.sound_effect_list
@@ -67,8 +79,12 @@ module GameMetaData
   #     }
   #   end
   #
+  #   Then in TetrisMap it is possible to play a sound effect by
+  #   calling @sound_effect.play(:jump) to play the jump sound and so forth.
+  #
   # @raise [RuntimeError] with the message "not implemented yet".
-  # @return [Hash] TODO: Updated comment
+  # @return [Hash] with known sound effect identifiers as keys and values containing
+  #   the filepaths of the sound effect audio files.
   def sound_effect_list
     raise "not implemented yet"
   end
@@ -87,16 +103,6 @@ module GameMetaData
   # @return [AchievementSystem] used achievement system.
   def achievement_system
     raise "not implemented yet"
-  end
-
-  # Determines the symbolic representation of AchivementSystem
-  # that should be used for the target application.
-  # TODO: Move this below the abstract methods
-  # @hint: A particular AchievementSystem is supposed to be a descendent of
-  #   AchievementSystem.
-  # @return [Symbol] symbolid represenation of GameMetaData#achievement_system.
-  def achievement_system_sym
-    model_type_as_sym(achievement_system.class)
   end
 
   # Defines which Game Map should be run.
@@ -148,6 +154,7 @@ module GameMetaData
   #   :max_width [Integer] canvas window pixel width, window will be scaled to this width.
   #   :max_height [Integer] canvas window pixel height, window will be scaled to this height.
   #   :tics_per_second [Integer] how many redraws/updates should be performed per second.
+  #     When its value is set to something <= 0, then the Thicker thread will not run.
   #
   # @raise [RuntimeError] with the message "not implemented yet".
   # @return [Hash] of canvas/drawing specific attributes.
@@ -155,7 +162,7 @@ module GameMetaData
     raise "not implemented yet"
   end
 
-  # Defines which View should be used by the target application. 
+  # Defines which View should be used by the target application.
   # Every custom View class should implement View
   #
   # @hint: A View defines how the gui will look like.
@@ -207,6 +214,16 @@ module GameMetaData
   # @return [Symbol] symbolic representation of a given View Class.
   def gui_type_as_sym
     model_type_as_sym(gui_type)
+  end
+
+  # Determines the symbolic representation of AchivementSystem
+  # that should be used for the target application.
+  #
+  # @hint: A particular AchievementSystem is supposed to be a descendent of
+  #   AchievementSystem.
+  # @return [Symbol] symbolid represenation of GameMetaData#achievement_system.
+  def achievement_system_sym
+    model_type_as_sym(achievement_system.class)
   end
 
   # Obtain a normalized symbol representation of a given Class.
