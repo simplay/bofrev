@@ -7,7 +7,7 @@ class TestApplication < Minitest::Test
   def test_handle_event
     app = Application.new({})
     out = fetch_stdout {app.handle_event}
-    assert_equal(out.strip, "GAME OVER")
+    assert_equal(out.strip.include?("GAME OVER"), true)
   end
 
   def test_iniialize

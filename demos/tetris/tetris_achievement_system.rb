@@ -1,4 +1,5 @@
 require 'achievement_system'
+require 'achievement'
 
 class TetrisAchievementSystem < AchievementSystem
 
@@ -9,8 +10,11 @@ class TetrisAchievementSystem < AchievementSystem
 
   def initialize
     super
-    TETRIS_ACHIEVEMENT_LIST.each do |achievement|
-      register_achievement(achievement)
+    @achievements = []
+    @achievements << Achievement.new(:more_than_100p, lambda{|value| value > 100})
+    @achievements << Achievement.new(:more_than_200p, lambda{|value| value > 200})
+    @achievements.each do |achievement|
+      register_achievement(achievement.identifier)
     end
   end
 
@@ -23,10 +27,9 @@ class TetrisAchievementSystem < AchievementSystem
   protected
 
   def handle_score_event(value)
-    if value > 200
-      update_list_for(:more_than_200p)
-    elsif value > 100
-      update_list_for(:more_than_100p)
+    @achievements.each do |achievement|
+      achievement.check_rule(value)
+      update_list_for(achievement.identifier) if achievement.achieved?
     end
   end
 

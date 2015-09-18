@@ -20,16 +20,6 @@ class AchievementSystem < Observer
     raise 'not implemented yet'
   end
 
-  protected
-
-  def initialize
-    @achievement_list = {}
-  end
-
-  def achievement_list
-    @achievement_list
-  end
-
   # retrieve all currently unlocked achievements as a list of string of their identifier.
   def all_unlocks
     unlocked_achievements = achievement_list.select do |_, value|
@@ -43,6 +33,17 @@ class AchievementSystem < Observer
   def last_unlock
     @last_unlock.nil? ? '' : @last_unlock.to_s
   end
+
+  protected
+
+  def initialize
+    @achievement_list = {}
+  end
+
+  def achievement_list
+    @achievement_list
+  end
+
 
   def register_achievement(identifier)
     @achievement_list[identifier] = false
