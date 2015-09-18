@@ -5,19 +5,25 @@ class AchievementSystem < Observer
   attr_accessor :achievement_list
 
   def self.instance
-    if @instance.nil?
-      @instance = itself.new
-    end
-    @instance
+    @instance.nil? ? itself : @instance
   end
+
+  def self.all_unlocks
+    instance.all_unlocks
+  end
+
+  def self.last_unlock
+    instance.last_unlock
+  end
+
+  def handle_event_with(message)
+    raise 'not implemented yet'
+  end
+
+  protected
 
   def initialize
     @achievement_list = {}
-  end
-
-  # should return Achievement class
-  def self.itself
-    raise 'not implemented yet'
   end
 
   def achievement_list
@@ -34,10 +40,6 @@ class AchievementSystem < Observer
     end
   end
 
-  def self.last_unlock
-    instance.last_unlock
-  end
-
   def last_unlock
     @last_unlock.nil? ? '' : @last_unlock.to_s
   end
@@ -46,11 +48,11 @@ class AchievementSystem < Observer
     @achievement_list[identifier] = false
   end
 
-  def handle_event_with(message)
-    raise 'not implemented yet'
-  end
 
-  protected
+  # should return Achievement class
+  def self.itself
+    @instance = self.new
+  end
 
   def update_list_for(key)
     @achievement_list[key] = true

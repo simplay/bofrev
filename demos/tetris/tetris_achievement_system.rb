@@ -2,15 +2,14 @@ require 'achievement_system'
 
 class TetrisAchievementSystem < AchievementSystem
 
-  AchievementLIST = [
+  TETRIS_ACHIEVEMENT_LIST = [
       :more_than_100p,
       :more_than_200p
   ]
 
-
   def initialize
     super
-    AchievementLIST.each do |achievement|
+    TETRIS_ACHIEVEMENT_LIST.each do |achievement|
       register_achievement(achievement)
     end
   end
@@ -19,10 +18,6 @@ class TetrisAchievementSystem < AchievementSystem
     if message.type == :score
       handle_score_event(message.content)
     end
-  end
-
-  def self.itself
-    TetrisAchievementSystem
   end
 
   protected
