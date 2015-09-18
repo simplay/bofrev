@@ -33,12 +33,8 @@ module DummyClasses
 
   # @info is used by:
   #   TestGameMetaData
-  class FancyAchievementSystem
-    def initialize; end
-
-    def self.instance
-      FancyAchievementSystem.new
-    end
+  #   TestAchievementSystem
+  class FancyAchievementSystem < AchievementSystem
   end
 
   # @info is used by:
