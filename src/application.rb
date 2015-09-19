@@ -38,6 +38,12 @@ class Application < Observer
   # post steps when game has finished.
   def handle_event
     puts "GAME OVER"
+    unlocks = GameSettings.achievement_system.all_unlocks
+    puts "nothing unlocked! :( " if unlocks.empty?
+    unlocks.each do |unlocked|
+      puts "unlocked #{unlocked}"
+    end
+
   end
 
 end
