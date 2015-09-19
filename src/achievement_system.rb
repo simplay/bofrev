@@ -1,9 +1,17 @@
 require 'observer'
 
+# An AchievementSystem models a container that stores a set of Achievement instances.
+# It is also responsible for keeping track which achievements were achieved, which one was
+# the last unlocked achievement. An achievement observer other Objects (e.g Score instances).
+# And get notified whenever their observed instance notifies them. usually, then the checks,
+# whether a particular achievement got fulfilled or not, are performed then.
 class AchievementSystem < Observer
 
   attr_accessor :achievement_list
 
+  # Obtain the singleton of this class
+  #
+  # @return [AClass < AchievementSystem] singleton that inherits from AchievementSystem.
   def self.instance
     @instance.nil? ? itself : @instance
   end
