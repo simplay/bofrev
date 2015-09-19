@@ -35,6 +35,13 @@ module DummyClasses
   #   TestGameMetaData
   #   TestAchievementSystem
   class FancyAchievementSystem < AchievementSystem
+    def self.register(identifier)
+      instance.register_achievement(identifier)
+    end
+
+    def achiev_list
+      achievement_list
+    end
   end
 
   # @info is used by:
