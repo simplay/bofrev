@@ -1,6 +1,6 @@
 require 'game_field'
 require 'point2f'
-require 'drawables/drawable'
+require 'drawable'
 require 'drawables/grid_box'
 require 'color'
 

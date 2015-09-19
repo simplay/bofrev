@@ -1,6 +1,7 @@
 #!/usr/bin/env ruby
 
 $LOAD_PATH.unshift File.expand_path("src")
+$LOAD_PATH.unshift File.expand_path("src/traits")
 $LOAD_PATH.unshift File.expand_path("demos")
 
 require 'rubygems'
