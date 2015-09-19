@@ -3,11 +3,6 @@ require 'achievement'
 
 class TetrisAchievementSystem < AchievementSystem
 
-  TETRIS_ACHIEVEMENT_LIST = [
-      :more_than_100p,
-      :more_than_200p
-  ]
-
   def initialize
     super
     @achievements = []

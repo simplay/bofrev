@@ -7,14 +7,19 @@ class Achievement
   # Every achievement is defined by a identifier and a rule.
   #
   # @param identifier [Symbol] indicating the name of the achievement
-  # @param rule [Lambda] a block that can be evaluated wheter the achievement is fulfilled.
+  # @param rule [Proc] a procedure or lambda expression
+  #   that can be evaluated wheter the achievement is fulfilled.
+  #   This Proc is supposed to return a boolean expression.
+  # @info: Threas a RuntimeError when rule is not a Proc.
   def initialize(identifier, rule)
+    raise "rule is not of type Proc but is equal #{rule.inspect}" unless rule.is_a? Proc
     @rule = rule
     @identifier = identifier
     @is_achieved = false
   end
 
   # Obtain unique identifier of this achievement.
+  #
   # @info: This is used in a AchievementSystem to query for this particular Achievement.
   # @return [Symbol] unique identifier of this achievement
   def identifier
@@ -31,9 +36,11 @@ class Achievement
   end
 
   # Check whether this Achievement's rule is true for a given evaluation argument.
+  #
   # @hint: Wrties the state of @is_achived.
-  # @todo: make this more abstract (introduce a rule class to check for respinding to arg).
-  # @param [Integer, String] an input the rule responds to.
+  # @todo: make this more abstract (introduce a rule class to check for responding to arg).
+  # @param [Object] an input argugment that we can apply on this Achievement's rule.
+  # @return [Boolean] true if rule evaluation yielded true (or already did once), false otherwise.
   def check_rule(given_value)
     return true if achieved?
     @is_achieved = @rule.call(given_value)
