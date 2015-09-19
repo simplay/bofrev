@@ -27,7 +27,7 @@ This project is licensed under the [MIT License](https://github.com/simplay/bofr
 + Collision Detection.
 + Music Player, Sound Effect Player
 + Tetris Music with fancy effect sounds.
-+ Tetris, Game of Life
++ [Tetris](https://en.wikipedia.org/wiki/Tetris), [Game of Life](https://en.wikipedia.org/wiki/Conway's_Game_of_Life), [Sokoban](https://de.wikipedia.org/wiki/Sokoban)
 + Fractal Image Renderer
 
 ## Plans
