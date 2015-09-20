@@ -1,4 +1,4 @@
-require_relative 'view'
+require 'view'
 require 'freeform_canvas'
 require 'control_constants'
 

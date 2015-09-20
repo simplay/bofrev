@@ -6,6 +6,7 @@ task :test do
   require 'java'
   $LOAD_PATH.unshift File.expand_path("src")
   $LOAD_PATH.unshift File.expand_path("src/traits")
+  $LOAD_PATH.unshift File.expand_path("src/constants")
   $LOAD_PATH.unshift File.expand_path("test")
   $LOAD_PATH.unshift File.expand_path("demos")
   require 'application'
