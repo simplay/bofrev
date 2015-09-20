@@ -11,7 +11,11 @@
 module Singletonable
 
   # Returns a singleton of the extending class
+  # All state handling of a singleton class happens via
+  # invocations on #singleton instead working directling on a direct
+  # instance.
   #
+  # @hint: Allows to have only one unique instance of this object.
   # @return [self] new instance of type of extending class.
   def singleton
     @unique_instance ||= self.new
