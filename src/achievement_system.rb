@@ -1,4 +1,5 @@
 require 'observer'
+require 'singletonable'
 
 # An AchievementSystem models a container that stores a set of Achievement instances.
 # It is also responsible for keeping track which achievements were achieved, which one was
@@ -7,20 +8,15 @@ require 'observer'
 # whether a particular achievement got fulfilled or not, are performed then.
 class AchievementSystem < Observer
 
-  attr_accessor :achievement_list
+  extend Singletonable
 
-  # Obtain the singleton of this class
-  #
-  # @return [AClass < AchievementSystem] singleton that inherits from AchievementSystem.
-  def self.instance
-    @instance.nil? ? itself : @instance
-  end
+  attr_accessor :achievement_list
 
   # Retrieve all currently unlocked achievements as a list of string of their identifier.
   #
   # @return [Array] of String identifiers of all unlocked achievements
   def self.all_unlocks
-    instance.all_unlocks
+    singleton.all_unlocks
   end
 
   # Obtain the last unlocked achievement.
@@ -29,7 +25,7 @@ class AchievementSystem < Observer
   #
   # @return [String] String identifier in unlocked achievements.
   def self.last_unlock
-    instance.last_unlock
+    singleton.last_unlock
   end
 
   # @param message [Event] message received from an observed Observable instance.
@@ -94,14 +90,6 @@ class AchievementSystem < Observer
   # @return [Hash] internal achievement list.
   def achievement_list
     @achievement_list
-  end
-
-  # Make a new instance of AchievementSystem or
-  # an inheriting class of AchievementSystem acting as a singleton.
-  #
-  # @return [AchievementSystem] returns the singleton.
-  def self.itself
-    @instance = self.new
   end
 
 end

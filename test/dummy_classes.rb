@@ -36,7 +36,7 @@ module DummyClasses
   #   TestAchievementSystem
   class FancyAchievementSystem < AchievementSystem
     def self.register(identifier)
-      instance.register_achievement(identifier)
+      singleton.register_achievement(identifier)
     end
 
     def achiev_list
@@ -60,7 +60,7 @@ module DummyClasses
     end
 
     def self.achievement_system
-      FancyAchievementSystem.instance
+      FancyAchievementSystem.singleton
     end
   end
 

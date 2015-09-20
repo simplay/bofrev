@@ -17,4 +17,21 @@ module Singletonable
     @unique_instance ||= self.new
   end
 
+  # Obtain internal singleton instance. That is the object that represents the class singleton
+  # instance when calling AClass#singleton
+  #
+  # @return [self] internal singleton instance.
+  def singleton_instance
+    @unique_instance
+  end
+
+  # Flush internal singleton instance, i.e. set internal singleton instance to nil.
+  # @hint: When calling Singletonable#singleton for the first time, the internal
+  #   singleton instance is nil and a new singleton instance is build. Calling flush
+  #   allows to have a new singleton instance. Useful For GameSettings when starting
+  #   a new game during runtime.
+  def flush
+    @unique_instance = nil
+  end
+
 end
