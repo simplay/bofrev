@@ -113,4 +113,11 @@ module DummyClasses
     end
   end
 
+  # @info is used by:
+  #   TestSingletonable
+  class ASingletonClass
+    require 'singletonable'
+    extend Singletonable
+  end
+
 end
