@@ -1,5 +1,6 @@
 require 'game_meta_data'
 require 'system_information'
+require 'singletonable'
 require_relative '../demos/tetris/tetris_meta_data'
 require_relative '../demos/game_of_life/game_of_life_meta_data'
 require_relative '../demos/sokoban/sokoban_meta_data'
@@ -10,6 +11,8 @@ require_relative '../demos/fractals/fractal_meta_data'
 
 # Singleton class
 class GameSettings
+
+  extend Singletonable
   include GameMetaData
 
   CANVAS_OFFSET_X_WINDOWS = 6
@@ -45,17 +48,7 @@ class GameSettings
   #       2 only accept user input but do not run any ticker nor any music thread.
   # @return [GameSettings] singleton.
   def self.build_from(arguments={})
-    if @game_settings.nil?
-      @game_settings = GameSettings.new(arguments)
-    end
-    @game_settings
-  end
-
-  # Flushes all current game settings.
-  # @hint: Sets internal GameSettings instance to nil.
-  #   used to load another game during runtime.
-  def self.flush
-    @game_settings = nil
+    singleton(arguments)
   end
 
   # Obtain game_meta_data according to selected game.

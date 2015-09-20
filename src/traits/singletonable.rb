@@ -17,8 +17,15 @@ module Singletonable
   #
   # @hint: Allows to have only one unique instance of this object.
   # @return [self] new instance of type of extending class.
-  def singleton
-    @unique_instance ||= self.new
+  def singleton(*args)
+    @unique_instance ||= itself(*args)
+  end
+
+  # Itself returns a new instance of the extending class.
+  #
+  # @return [self] a new instance of the extending class.
+  def itself(*args)
+    self.new(*args)
   end
 
   # Obtain internal singleton instance. That is the object that represents the class singleton
