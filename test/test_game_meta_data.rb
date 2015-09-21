@@ -20,7 +20,7 @@ class TestGameMetaData < Minitest::Test
     filepathed_symbol = BNewMetaDataGame.model_type_as_sym(ANewMetaDataGame)
     normalized_symbol = filepathed_symbol.to_s.split("/").last.to_sym
     assert_equal(normalized_symbol, :a_new_meta_data_game)
-    filepathed_symbol = BNewMetaDataGame.underscore(GameMetaData.to_s)
+    filepathed_symbol = Utility.underscore(GameMetaData.to_s)
     normalized_symbol = filepathed_symbol.to_s.split("/").last.to_sym
     assert_equal(normalized_symbol, :game_meta_data)
   end

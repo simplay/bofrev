@@ -1,6 +1,7 @@
 require 'view'
 require 'freeform_canvas'
 require 'control_constants'
+require 'utility'
 
 # GameMetaData is a module that models a (game-) application specific properties
 # such as its behaviour and/or its appearance. Every Game has an
@@ -255,27 +256,7 @@ module GameMetaData
   # @param model [Class] that should be normalized in representated as a symbol.
   # @return [Symbol] normalized symbolic representation.
   def model_type_as_sym(model)
-    underscore(model.to_s).to_sym
-  end
-
-  # Normalizes a given String.
-  #
-  # @example:
-  #   word = "FooBar"
-  #   underscore(word) #=> "foo_bar"
-  #
-  # @hint: Normalizing means to remove namespaces, downcasing
-  #   and trimming previousely upcased words by a '_'.
-  # @param word [String] word to normalize
-  # @return [String] normalized word
-  def underscore(word)
-    word = word.dup
-    word.gsub!(/::/, '/')
-    word.gsub!(/([A-Z]+)([A-Z][a-z])/,'\1_\2')
-    word.gsub!(/([a-z\d])([A-Z])/,'\1_\2')
-    word.tr!("-", "_")
-    word.downcase!
-    word
+    Utility.underscore(model.to_s).to_sym
   end
 
 end

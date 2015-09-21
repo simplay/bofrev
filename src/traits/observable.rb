@@ -1,3 +1,5 @@
+require 'utility'
+
 # Each Observer is supposed to implement #handle_event
 module Observable
 
@@ -78,22 +80,8 @@ module Observable
   # @param type_name [Symbol] class name as down-cased symbol.
   def observers_of_type(type_name)
     @observers.select do |observer|
-      underscore(observer.class.to_s).downcase == type_name.to_s
+      Utility.underscore(observer.class.to_s).downcase == type_name.to_s
     end
-  end
-
-  protected
-
-  # preserve and handle all potential underscore class name cases.
-  # method has been taken from Rail's String core extension.
-  def underscore(word)
-    word = word.dup
-    word.gsub!(/::/, '/')
-    word.gsub!(/([A-Z]+)([A-Z][a-z])/,'\1_\2')
-    word.gsub!(/([a-z\d])([A-Z])/,'\1_\2')
-    word.tr!("-", "_")
-    word.downcase!
-    word
   end
 
 end
