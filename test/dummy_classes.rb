@@ -1,3 +1,5 @@
+require 'singletonable'
+
 # DummyClasses is a set of classes defined only within the testing environment
 # used for testing. E.g used for testing whether extending/including modules
 # in a class worked as expected. Having all these dummy classes at one common
@@ -36,7 +38,7 @@ module DummyClasses
   #   TestAchievementSystem
   class FancyAchievementSystem < AchievementSystem
     def self.register(identifier)
-      instance.register_achievement(identifier)
+      singleton.register_achievement(identifier)
     end
 
     def achiev_list
@@ -60,7 +62,7 @@ module DummyClasses
     end
 
     def self.achievement_system
-      FancyAchievementSystem.instance
+      FancyAchievementSystem.singleton
     end
   end
 
@@ -111,6 +113,12 @@ module DummyClasses
     def handle_event_with(message)
       puts "implemented 2"
     end
+  end
+
+  # @info is used by:
+  #   TestSingletonable
+  class ASingletonClass
+    extend Singletonable
   end
 
 end

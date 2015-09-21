@@ -18,7 +18,7 @@ class TetrisMetaData
   end
 
   def self.achievement_system
-    TetrisAchievementSystem.instance
+    TetrisAchievementSystem.singleton
   end
 
   def self.game_map

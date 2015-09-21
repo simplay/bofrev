@@ -118,14 +118,5 @@ module ClassAdaptions
     end
   end
 
-  AchievementSystem.class_eval do
-    def self.internal_instance_object
-      @instance
-    end
-
-    def self.flush
-      @instance = nil
-    end
-  end
 
 end

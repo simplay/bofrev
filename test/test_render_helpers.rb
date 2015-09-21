@@ -3,7 +3,7 @@ require "test_helper"
 class TestRenderHelpers < Minitest::Test
 
   def setup
-    GameSettings.build_from
+    GameSettings.singleton
     @arhi = ARenderHelperIncluder.new
   end
 

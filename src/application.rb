@@ -23,7 +23,7 @@ class Application < Observer
   # @hint: As long as the game is running,
   # Nothing after Settings.gui_to_build.new(@game) will be exectued.
   def initialize(args)
-    GameSettings.build_from(args)
+    GameSettings.singleton(args)
     if args[:multiplayer].to_i == 1
       Client.new
     elsif args[:multiplayer].to_i == 2

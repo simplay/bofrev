@@ -4,7 +4,7 @@ require 'event'
 class TestGame < Minitest::Test
 
   def setup
-    GameSettings.build_from
+    GameSettings.singleton
   end
 
   def before_teardown
@@ -34,7 +34,7 @@ class TestGame < Minitest::Test
 
   def test_perform_loop_step
     game = Game.new
-    GameSettings.build_from
+    GameSettings.singleton
     out = fetch_stdout {game.perform_loop_step(Event.new(:killed, "foobar"))}
     assert(out.strip.include? "You scored #{game.score.final_points} point(s)!")
   end

@@ -1,6 +1,6 @@
 require 'color'
 require 'point2f'
-require 'drawables/drawable'
+require 'drawable'
 require 'render_helpers'
 require 'java'
 require 'game_field_type_constants'

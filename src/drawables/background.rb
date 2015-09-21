@@ -1,4 +1,4 @@
-require_relative 'drawable'
+require 'drawable'
 require 'point2f'
 require 'sprites'
 

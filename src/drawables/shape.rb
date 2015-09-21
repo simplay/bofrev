@@ -1,6 +1,6 @@
 require 'point2f'
 require 'sprites'
-require_relative 'drawable'
+require 'drawable'
 require 'hull'
 require 'java'
 

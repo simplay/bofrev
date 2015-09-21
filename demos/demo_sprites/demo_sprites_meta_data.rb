@@ -13,7 +13,7 @@ class DemoSpritesMetaData
   end
 
   def self.achievement_system
-    TetrisAchievementSystem.instance
+    TetrisAchievementSystem.singleton
   end
 
   def self.achievement_system_sym
