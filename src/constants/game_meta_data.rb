@@ -29,9 +29,12 @@ module GameMetaData
   end
 
   # Returns the type of cavas that should be used for drawing.
+  # A Canvas selects the Drawables it wants to drawn,
+  # and also affects the look of the gui (defined in MainFrame).
   #
   # @hint: Currently, there is only one kind of Cavas available,
   #   the FreeformCanvas canvas.
+  #   Every Canvas is a descendent of Canavas.
   # @example: Taken from TetrisMetaData
   #
   #   def self.canvas
@@ -44,10 +47,14 @@ module GameMetaData
     raise "not implemented yet"
   end
 
-  # Retrive a list of audio filepaths that should be played when running a target Game.
+  # Retrive a list of audio files that should be played when running a target Game.
   #
   # @hint: Audio files are located in 'audio/'. Currently, only .wav audio files are supported.
-  # @info: See class MusicPlayer for further information.
+  #   Note that the list actually returns the filepaths of the audio files that should be
+  #   played during program execution. A filepath is the path and the file name, including
+  #   its file type extension.
+  #   E.g. 'audio/foobar.wav' is the the .wav file foobar stores in the folder audio/
+  # @info: Visit the class MusicPlayer for further information.
   # @example: Taken from TetrisMetaData
   #
   #   def self.theme_list
@@ -61,10 +68,12 @@ module GameMetaData
     raise "not implemented yet"
   end
 
-  # Retuns a Hash containing the sound_effcts. Each key is an identifier that
-  # can be used to play this sound effect within the engine by
-  # using the SoundEffectPlayer. Each key points to a String whould refers
-  # to the file path of a sound effect.
+  # Retuns a Hash containing an application's sound effcts.
+  # Each Hash key points to a String that refers
+  # to the audio file path of a particular sound effect.
+  # Therefore, each key is a unique identifier to a certain sound effect.
+  # A sound effect can be played by invoking play on a SoundEffectPlayer
+  # instance with a given identifier.
   #
   # @info: Currently, only .wav sound effect audio files are suppored.
   # @hint: Every class that inherits from Map has can play the sounds defined
@@ -123,9 +132,10 @@ module GameMetaData
     raise "not implemented yet"
   end
 
-  # Hash of required render/drawing properties used by any GUI instance.
   # Return a Hash containing meta information about how model data
-  # is supposed to be drawn onto a View's Canvas. For example this hash indicates
+  # is supposed to be drawn onto a View's Canvas.
+  # in other words, it returns a hash of render/drawing properties used
+  # by any View, MainFrame and Canvas. For example this hash contrains
   # a Canvas' resolution, its number of pixels, how many times it
   # is supposed to be redrawn (i.e. how many times it should be
   # updated/redrawn per second).
@@ -143,7 +153,7 @@ module GameMetaData
   #     }
   #   end
   #
-  # @hint the following keys have to be specified:
+  # @hint the following render_attributes hash keys have to be specified:
   #   :cell_size [Integer] pixel size of a rendered grid cell.
   #     How many pixels does a pixel correspond to.
   #     A 1x1 grid cell correspond to a cell_size x cell_size super pixel.
@@ -151,10 +161,16 @@ module GameMetaData
   #     How many pixels are there per row.
   #   :height_pixels [Integer] number of pixels in height.
   #     How many pixels are there per column.
-  #   :max_width [Integer] canvas window pixel width, window will be scaled to this width.
-  #   :max_height [Integer] canvas window pixel height, window will be scaled to this height.
+  #   :max_width [Integer] canvas window pixel width,
+  #     window will be scaled to this width.
+  #     Idally, max_width is equal to cell_size*width_pixels
+  #     to fit into the canvas optimal in width.
+  #   :max_height [Integer] canvas window pixel height,
+  #     window will be scaled to this height.
+  #     Idally, max_height is equal to cell_size*height_pixels
+  #     to fit into the canvas optimal in height.
   #   :tics_per_second [Integer] how many redraws/updates should be performed per second.
-  #     When its value is set to something <= 0, then the Thicker thread will not run.
+  #     When its value is set to something <= 0, then the Ticker thread will not run.
   #
   # @raise [RuntimeError] with the message "not implemented yet".
   # @return [Hash] of canvas/drawing specific attributes.
@@ -180,10 +196,18 @@ module GameMetaData
   end
 
   # Returns a Hash of controls that are supported by a target game.
-  # All controls listed in this Hash can be defined in a target Map descendent class
-  # to define user input behavior.
-  # Even a key is defined in a Map, but not occuring in this list,
-  # it will not handle the defined behavior.
+  # Acts as the whitelist of Controls a View will listen to.
+  # The behavior of how an application should handle certain control events
+  #  - which it listens to - is defined in the appropriate Map
+  # descendent class of the target application. Thus, despite having
+  # defined some behavior in a Map, the application
+  # will only react to whitelisted controls.
+  #
+  # @info: keys that occur in this list of controls are listening to
+  # keystroke or mouse movement events. Therefore, even a key is defined in
+  # a Map, but it is not included in this list,
+  # it will not handle the defined Map behavior,
+  # when the corresponding key event occurs.
   #
   # @example: Taken from GameOfLifeMetaData
   #
@@ -196,12 +220,12 @@ module GameMetaData
   #
   # @hint: The Hash of allowed controls has two known keys,
   #   :keyboard, that references an Array,
-  #   containing all whitelisted keyboard controls and
+  #     containing all whitelisted keyboard controls and
   #   :mouse, an Array containing all whitelisted mouse events the app should listen to.
-  #   Again, please note that only controlls included in this white-list
-  #   can have a behavior that is actually run.
+  #     Again, please note that only controlls included in this white-list
+  #     can have a behavior that is actually run.
   #   Please have a look into the module ControlConstants to see what control constants are
-  #   currently defined.
+  #     currently defined.
   # @raise [RuntimeError] with the message "not implemented yet".
   # @return [Array] of Strings defining known key constants.
   def allowed_controls
