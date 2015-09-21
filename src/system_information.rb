@@ -1,4 +1,4 @@
-require 'Singletonable'
+require 'singletonable'
 require 'java'
 java_import 'java.lang.System'
 
