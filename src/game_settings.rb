@@ -9,7 +9,8 @@ require_relative '../demos/pingpong/ping_pong_meta_data'
 require_relative '../demos/demo_sprites/demo_sprites_meta_data'
 require_relative '../demos/fractals/fractal_meta_data'
 
-# Singleton class
+# GameSettings is a Singleton that containts all relevant information to start
+# and manage a target game.
 class GameSettings
 
   extend Singletonable
@@ -19,46 +20,37 @@ class GameSettings
   CANVAS_OFFSET_X_DEFAULT = 1
   CANVAS_OFFSET_Y_DEFAULT = 45
 
-  # @param arguments [Hash] of relevant data to derive game settings
-  # @hing The following keys are currently handled:
-  #   :selected_game #=> [Integer] current game
-  #     See REEDME.md
+  # Build a new GameSettings singleton containing all relevant runtime information
+  # to run a target game (selected by a user).
   #
-  #   :selected_mode #=> [Integer] selected debug mode
-  #     0: normal running mode
-  #     1: without running the music thread
-  #     2: without running the ticker thread
+  # @param arguments [Hash] user passed bofrev runtime arguments
+  #   its default value is {}.
+  #
+  #   The arguments Hash has can include values for the following keys:
+  #     :game [Integer] what game should be run
+  #       Each game has a known integer associated.
+  #       default is 1 (Tetris)
+  #       see repository README
+  #
+  #     :debug [Integer] in which debug mode is bofrev running.
+  #         0 run music and ticker thread (default)
+  #         1 only run ticker thread but no music
+  #         2 only accept user input but do not run any ticker nor any music thread.
+  #
+  # @hint: The selected_game is determined by derive_game_model.
+  #   using the default argument value correspond to passing the
+  #   Hash {:game => 1, :debug => 0}
+  #
+  # @example
+  #   GameSettings.new({:game => 7, :debug => 2})
+  #     prepares all relevant settings for running
+  #     the game 7 in debug mode 2.
+  #     However, during runtime a developer is supposed to invoke
+  #     GameSettings.singleton({:game => 7, :debug => 2})
   def initialize(arguments={})
     @selected_game = arguments[:game] || 1
     @selected_mode = arguments[:debug] || 0
     @game_meta_data = derive_game_model
-  end
-
-  # Fetch GameSettings singleton
-  #
-  # @hint: builds a GameSettings instance if not already exists
-  # otherwise return existing instance.
-  # @param arguments [Hash] user passed bofrev runtime arguments
-  # default value is {}. The following arguments are currently fetched:
-  #   :game [Integer] what game should be run default is 1 (Tetris)
-  #     see repository README
-  #   :debug [Integer] in which debug mode is bofrev running.
-  #     default is 0 (run music and ticker thread)
-  #       1 only run ticker thread but no music
-  #       2 only accept user input but do not run any ticker nor any music thread.
-  # @return [GameSettings] singleton.
-  def self.build_from(arguments={})
-    singleton(arguments)
-  end
-
-  # Obtain game_meta_data according to selected game.
-  #
-  # @hint: See GameSettings#derive_game_model,
-  #   value is bofrev runtime argument -g
-  # @return [GameMetaData] instance that belongs to selected game.
-  #   default value is TetrisMetaData
-  def game_meta_data
-    @game_meta_data
   end
 
   # Obtain the number of the selected_game.
@@ -79,6 +71,16 @@ class GameSettings
   #   default value is 0.
   def selected_mode
     @selected_mode
+  end
+
+  # Obtain game_meta_data according to selected game.
+  #
+  # @hint: See GameSettings#derive_game_model,
+  #   value is bofrev runtime argument -g
+  # @return [GameMetaData] instance that belongs to selected game.
+  #   default value is TetrisMetaData
+  def game_meta_data
+    @game_meta_data
   end
 
   # Retrieve the selected game meta data file that belongs to the selected game.
@@ -103,12 +105,12 @@ class GameSettings
     end
   end
 
-  def self.canvas
-    game_meta_data.canvas
+  def self.game_meta_data
+    singleton.game_meta_data
   end
 
-  def self.game_meta_data
-    build_from.game_meta_data
+  def self.canvas
+    game_meta_data.canvas
   end
 
   def self.selected_gui
@@ -120,11 +122,11 @@ class GameSettings
   end
 
   def self.run_music?
-    build_from.selected_mode < 1 && !(theme_list).empty?
+    singleton.selected_mode < 1 && !(theme_list).empty?
   end
 
   def self.run_game_thread?
-    build_from.selected_mode < 2
+    singleton.selected_mode < 2
   end
 
   # Get the Map that should be build for the target application.

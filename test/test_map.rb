@@ -8,7 +8,7 @@ class TestMap < Minitest::Test
   end
 
   def test_initialize
-    gs = GameSettings.build_from
+    gs = GameSettings.singleton
     map = GameSettings.game_map.new(@game)
     grid = Grid.new(GameSettings.width_pixels, GameSettings.height_pixels,
                      GameSettings.show_grid?)

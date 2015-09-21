@@ -1,3 +1,5 @@
+require 'singletonable'
+
 # DummyClasses is a set of classes defined only within the testing environment
 # used for testing. E.g used for testing whether extending/including modules
 # in a class worked as expected. Having all these dummy classes at one common
