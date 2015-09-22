@@ -121,4 +121,69 @@ module DummyClasses
     extend Singletonable
   end
 
+  # @info is used by:
+  #   TestObservable
+  class ANewObservable
+    include Observable
+
+    def observers
+      @observers
+    end
+
+  end
+
+  # @info is used by:
+  #   TestObservable
+  class AaNewObserver < Observer
+    def initialize(name)
+      @name = name
+      @state = ""
+    end
+
+    def flush
+      @state = ""
+    end
+
+    def state
+      @state
+    end
+
+    def handle_event
+      @state = ""
+      @state = "#{@name}: handle event"
+    end
+
+    def handle_event_with(message)
+      @state = ""
+      @state = "#{@name}: handle event with message #{message}"
+    end
+  end
+
+  # @info is used by:
+  #   TestObservable
+  class AbNewObserver < Observer
+    def initialize(name)
+      @name = name
+      @state = ""
+    end
+
+    def flush
+      @state = ""
+    end
+
+    def state
+      @state
+    end
+
+    def handle_event
+      @state = ""
+      @state = "#{@name}: handle event"
+    end
+
+    def handle_event_with(message)
+      @state = ""
+      @state = "#{@name}: handle event with message #{message}"
+    end
+  end
+
 end
