@@ -58,13 +58,31 @@ module ClassAdaptions
 
     def notify_all_targets_of_type(type)
     end
+
+    def music_player
+      @music_thread
+    end
   end
 
   MusicPlayer.class_eval do
-    def play
+    def assign_mp
+      @mp = DummyMusicPlayer.new
     end
 
-    def shut_down
+    def mp
+      @mp
+    end
+
+    def build_player_for(audio_file)
+      assign_mp
+    end
+
+    def audio_file_list
+      @audio_file_list
+    end
+
+    def keep_running
+      @keep_running
     end
   end
 
@@ -74,6 +92,7 @@ module ClassAdaptions
 
     def shut_down
     end
+
   end
 
   Map.class_eval do
@@ -117,6 +136,5 @@ module ClassAdaptions
       @caller = caller_name
     end
   end
-
 
 end

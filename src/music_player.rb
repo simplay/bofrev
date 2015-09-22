@@ -34,8 +34,10 @@ class MusicPlayer
     @keep_running = true
   end
 
-  # terminate music thread:
-  # end its loop, free its resources, wipe out process
+  # Terminate JavaMusicPlayer thread.
+  #
+  # @hint: Ends its loop, frees its resources, wipes out process.
+  #   call #shut_down when shutting down a brofrev application.
   def shut_down
     @keep_running = false
     @mp.stop
@@ -80,20 +82,26 @@ class MusicPlayer
 
   protected
 
+  # Build a new JavaMusicPlayer instance running a given audio file.
+  #
+  # @param audio_file [String] file path to target audio file that should be played.
+  # @return [JavaMusicPlayer] playing a given audio file.
+  def build_player_for(audio_file)
+    @mp = JavaMusicPlayer.new(audio_file)
+  end
+
   # plays a given audio file an infinitly often using the JavaMusicPlayer
   #
   # @param audio_file [String] file path to target audio file that should be played.
   def run_player_loop_for(audio_file)
-    @mp = JavaMusicPlayer.new(audio_file)
-    @mp.play_loop
+    build_player_for(audio_file).play_loop
   end
 
   # plays a given audio file once using the JavaMusicPlayer
   #
   # @param audio_file [String] file path to target audio file that should be played.
   def run_player_for(audio_file)
-    @mp = JavaMusicPlayer.new(audio_file)
-    @mp.play
+    build_player_for(audio_file).play
   end
 
 end

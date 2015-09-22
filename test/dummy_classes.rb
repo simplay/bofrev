@@ -186,4 +186,48 @@ module DummyClasses
     end
   end
 
+  class DummyMusicPlayer
+    def initialize
+      flush
+    end
+
+    def state
+      @state
+    end
+
+    def play
+      flush
+      @state = "play"
+    end
+
+    def play_loop
+      flush
+      @state = "play loop"
+    end
+
+    def shut_down
+      flush
+      @state = "shut down"
+    end
+
+    def stop
+      flush
+      @state = "stop"
+    end
+
+    def resume
+      flush
+      @state = "resume"
+    end
+
+    def pause
+      flush
+      @state = "pause"
+    end
+
+    def flush
+      @state = ""
+    end
+  end
+
 end
