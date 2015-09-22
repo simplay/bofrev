@@ -86,6 +86,17 @@ module ClassAdaptions
     end
   end
 
+  JavaMusicPlayer.class_eval do
+   def file
+     @file
+   end
+
+   def runnable?
+     @is_runnable
+   end
+
+  end
+
   Ticker.class_eval do
     def start
     end

@@ -230,4 +230,38 @@ module DummyClasses
     end
   end
 
+  class Java::KuusistoTinysound::TinySound
+
+    def self.init
+      @state = ""
+      @state = "init"
+    end
+
+    def self.state
+      @state
+    end
+
+    def self.shutdown
+    end
+
+    def self.loadMusic(file)
+    end
+
+    def self.loadSound(file)
+    end
+
+    def pause
+    end
+
+    def resume
+    end
+
+    def stop
+    end
+
+    def play(do_loop=false)
+    end
+
+  end
+
 end
