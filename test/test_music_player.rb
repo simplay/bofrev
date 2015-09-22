@@ -1,5 +1,5 @@
 require "test_helper"
-require 'pry'
+
 class TestMusicPlayer < Minitest::Test
 
   def test_initialize
