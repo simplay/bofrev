@@ -1,12 +1,34 @@
 require 'java'
 require 'java_music_player'
 
-# MusicPlayer runs given list of music files as a background process that can be synchronized during runtime.
+# A MusicPlayer is used to play audio files located at a given filepath.
+# The MusicPlayer makes use the JavaMusicPlayer which is a Thread running in the background.
+# Currently, the MusicPlayer can only play .wav audio files.
+# It is possible to play a audo file in a loop or just once, suspend and resume the player,
+# stop it, or shutting down the player.
+# All this invokations are performed in a synchronized manner.
+# The MusicPlayer is either used to play theme songs or sound effects.
 class MusicPlayer
 
-  # @param path_file_name_list [Array] of Strings of song path- and filenames
-  # @hint: (with extension) to desired audio file.
-  # @return [Thread] reference to sound thread
+  # Create a new MusicPlayer instance that can play a given list of audio files.
+  #
+  # @param path_file_name_list [Array] a list of Strings depicting
+  #   the audio file paths to songs that should be played.
+  # @hint: Currently only .wav can be played by the MusicPlayer.
+  #
+  # @example Initialize a new MusicPlayer instance
+  #   that can play tetris sound effects
+  #
+  #   path_file_name_list = {i
+  #     :jump=>"audio/jump.wav",
+  #     :explosion=>"audio/explosion.wav",
+  #     :kick=>"audio/kick.wav"}
+  #   }
+  #   mp = MusicPlayer.new(path_file_name_list)
+  #   kick_sound = audio_file_from_list(:kick)
+  #   mp.run_player_for(kick_sound) # plays kick sound
+  #   mp.run_player_loop_for(kick_sound) # plays kick sound in a endless loop
+  #
   def initialize(path_file_name_list)
     @audio_file_list = path_file_name_list
     @keep_running = true
@@ -35,17 +57,23 @@ class MusicPlayer
     @audio_file_list[idx]
   end
 
-  # Run game music player.
+  # Play a random song of this MusicPlayer in a endless loop.
   def play
     idx = rand(audio_file_count)
     audio_file = audio_file_from_list(idx)
     run_player_loop_for(audio_file)
   end
 
+  # Pauses this MusicPlayer
+  #
+  # @info: Immediately suspends the running music player.
   def suspend
     @mp.pause
   end
 
+  # Resumes this MusicPlayer.
+  #
+  # @info: Immediately suspends the running music player.
   def resume
     @mp.resume
   end
@@ -53,12 +81,16 @@ class MusicPlayer
   protected
 
   # plays a given audio file an infinitly often using the JavaMusicPlayer
+  #
+  # @param audio_file [String] file path to target audio file that should be played.
   def run_player_loop_for(audio_file)
     @mp = JavaMusicPlayer.new(audio_file)
     @mp.play_loop
   end
 
   # plays a given audio file once using the JavaMusicPlayer
+  #
+  # @param audio_file [String] file path to target audio file that should be played.
   def run_player_for(audio_file)
     @mp = JavaMusicPlayer.new(audio_file)
     @mp.play
