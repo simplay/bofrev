@@ -231,9 +231,11 @@ module DummyClasses
   end
 
   class Java::KuusistoTinysound::TinySound
+    def initialize
+    end
 
     def self.init
-      @state = ""
+      flush
       @state = "init"
     end
 
@@ -241,25 +243,51 @@ module DummyClasses
       @state
     end
 
+    def state
+      @state
+    end
+
     def self.shutdown
+      flush
+      @state = "shutdown"
     end
 
     def self.loadMusic(file)
+      @audio_file = TinySound.new
     end
 
     def self.loadSound(file)
+      @audio_file = TinySound.new
     end
 
     def pause
+      flush
+      @state = "pause"
     end
 
     def resume
+      flush
+      @state = "resume"
     end
 
     def stop
+      flush
+      @state = "stop"
     end
 
     def play(do_loop=false)
+      flush
+      postfix = ""
+      postfix = " loop" if do_loop
+      @state = "play" + postfix
+    end
+
+    def flush
+      @state = ""
+    end
+
+    def self.flush
+      @state = ""
     end
 
   end

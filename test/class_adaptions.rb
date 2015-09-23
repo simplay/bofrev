@@ -95,6 +95,20 @@ module ClassAdaptions
      @is_runnable
    end
 
+   def player
+     @audio_file
+   end
+
+   def init_player
+     @audio_file = TinySound.new
+   end
+
+   protected
+
+   def start_player(running_mode)
+     run_sample(running_mode)
+   end
+
   end
 
   Ticker.class_eval do
