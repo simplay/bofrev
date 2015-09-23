@@ -8,7 +8,7 @@ Warbler::Config.new do |config|
   # - gemjar: package the gem repository in a jar file in WEB-INF/lib
   # - executable: embed a web server and make the war executable
   # - compiled: compile .rb files to .class files
-  config.features = %w(executable)
+  config.features = %w(executable compiled)
 
   # Application directories to be included in the webapp.
   #config.dirs = %w(audio/jump.wav, bofrev)
@@ -17,7 +17,7 @@ Warbler::Config.new do |config|
   #config.includes = FileList["bin/audio/jump.wav"]
 
   # Additional files/directories to exclude
-  # config.excludes = FileList["lib/tasks/*"]
+  config.excludes = FileList["test", "config"]
 
   # Additional Java .jar files to include.  Note that if .jar files are placed
   # in lib (and not otherwise excluded) then they need not be mentioned here.
@@ -41,7 +41,7 @@ Warbler::Config.new do |config|
   # project directory, it will be used to collect the gems to bundle
   # in your application. If you wish to explicitly disable this
   # functionality, uncomment here.
-  # config.bundler = false
+  config.bundler = false
 
   # An array of Bundler groups to avoid including in the war file.
   # Defaults to ["development", "test", "assets"].
@@ -111,7 +111,7 @@ Warbler::Config.new do |config|
   # config.override_gem_home = true
 
   # Allows for specifing custom executables
-  # config.executable = ["rake", "bin/rake"]
+  config.executable = "bofrev"
 
   # Sets default (prefixed) parameters for the executables
   # config.executable_params = "do:something"
