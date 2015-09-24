@@ -96,7 +96,7 @@ Warbler::Config.new do |config|
   # When using the 'compiled' feature and specified, only these Ruby
   # files will be compiled. Default is to compile all \.rb files in
   # the application.
-  config.compiled_ruby_files = FileList['src/**/*.rb', 'bofrev']
+  config.compiled_ruby_files = FileList['src/**/*.rb', 'bofrev', 'demos/**/*.rb']
 
   # Determines if ruby files in supporting gems will be compiled.
   # Ignored unless compile feature is used.

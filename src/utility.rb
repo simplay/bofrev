@@ -1,4 +1,6 @@
 require 'singletonable'
+require 'java'
+java_import 'javax.swing.SwingUtilities'
 
 # Utility is a Singleton that contains common shared functionality and utility methods.
 class Utility
@@ -30,6 +32,24 @@ class Utility
     word.tr!("-", "_")
     word.downcase!
     word
+  end
+
+  # Keep the the application running, until the the AWT's event thread has been terminated.
+  # This is achieved by joining the event thread at this location.
+  # This method is only used when running bofrev via an executable jar.
+  #
+  # @note: without calling this method at the very end of the application,
+  #   the JFrame window shows up and instantly closes.
+  #
+  # @info: Warbler calls System.exit() after your main script exits.
+  #   This causes the Swing EventThread to exit, closing your app.
+  #   See: https://github.com/jruby/warbler/blob/master/ext/JarMain.java#L131
+  def self.keep_running_until_interrupt
+    if SystemInformation.called_by_jar?
+      event_thread = nil
+      SwingUtilities.invokeAndWait { event_thread = java.lang.Thread.currentThread }
+      event_thread.join
+    end
   end
 
 end

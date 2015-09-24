@@ -33,6 +33,7 @@ class Application < Observer
       game.subscribe(self)
       GameSettings.gui_to_build.new(game)
     end
+    Utility.keep_running_until_interrupt
   end
 
   # post steps when game has finished.
