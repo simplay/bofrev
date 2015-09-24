@@ -34,8 +34,9 @@ class Utility
     word
   end
 
-  # Keep the the application running, until the the AWT's event thread has been terminated.
-  # This is achieved by joining the event thread at this location.
+  # Keep the the application running, until AWT's event thread has been terminated.
+  # This is achieved by joining the event thread with the main thread
+  # at the place where #keep_running_until_interrupt was invoked.
   # This method is only used when running bofrev via an executable jar.
   #
   # @note: without calling this method at the very end of the application,
