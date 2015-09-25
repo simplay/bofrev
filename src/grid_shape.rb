@@ -4,12 +4,33 @@ require 'game_field_type_constants'
 
 class GridShape
   include GameFieldTypeConstants
+  include Enumerable
 
   # Initialize a new GridShape. Assign its origin.
   # @param grid [Grid] the grid this GridShape is interacting with.
   def initialize(grid)
     @origin = Point2f.new
     @grid = grid
+  end
+
+  def each(&block)
+    positions.each do |position|
+      if block_given?
+        block.call position
+      else
+        yield position
+      end
+    end
+  end
+
+  def can_be_shifted_by?(shift_value)
+  end
+
+  def try_translate_origin_by(shift_value)
+    if can_be_shifted_by?
+      clear_old_state
+      translate_origin_by(shift_value)
+    end
   end
 
   # Translates the origin of this shape by a given Point2f.
