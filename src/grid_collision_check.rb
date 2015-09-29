@@ -1,10 +1,16 @@
-require 'singleton'
 class GridCollisionCheck
 
-  extend Singletonable
-
-  def initialize(grid)
+  # @param grid [Grid]
+  # @param shape [GridShape]
+  def initialize(grid, shape)
     @grid = grid
+    @shape = shape
+  end
+
+  def shape_can_be_rotated?
+  end
+
+  def shape_can_be_shifted_by?(shift_value)
   end
 
   # Checks whether a given field with a given shift is colliding with another filed?
