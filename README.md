@@ -86,7 +86,7 @@ Example `ruby bofrev -g 3 -d 1` To run the game number 3 in the mode 2.
   + `<G>`is **5**: run Ping Pong.
   + `<G>`is **6**: run 2d Fractal Renderer 
   + `<G>`is **7**: run sprites demo 
-  + default value is 1
+  + default value is <G> equal 1.
 
 + `<M>` indicates whether we want to play in single-or Multiplayer-Mode or want to host a server. This parameter is optional.
 
