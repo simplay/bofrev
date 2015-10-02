@@ -1,7 +1,10 @@
 #!/usr/bin/env ruby
+require 'fileutils'
 
-system("mkdir bin")
-system("cp bofrev bin/bofrev")
-system("warble executable jar")
-system("rm -rf bin/")
+# Remove previously compiled file
+FileUtils.rm_f("bofrev.jar")
+
+# Generate executable
+system("warble jar")
+
 puts "Executable jar created."
